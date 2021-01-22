@@ -26,3 +26,11 @@ function connect() {
 }
 
 connect();
+
+// This massively reduces jitter
+const buf = new ArrayBuffer(0);
+setInterval(() => {
+    if (socket.readyState === WebSocket.OPEN) {
+        socket.send(buf);
+    }
+}, 50);
