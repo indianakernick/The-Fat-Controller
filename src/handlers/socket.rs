@@ -69,7 +69,7 @@ impl SocketContext {
         }
         let message = message.to_str().unwrap();
 
-        let key = Key::Layout('A');
+        let key = Key::Space;
         let command = match message {
             "click" => EnigoCommand::KeyClick(key),
             "down" => EnigoCommand::KeyDown(key),
