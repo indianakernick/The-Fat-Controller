@@ -1,5 +1,7 @@
+use enigo::Key;
 use log::error;
 use std::sync::Arc;
+use crate::EnigoCommand;
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
 use warp::ws::{Ws, WebSocket, Message};
@@ -14,12 +16,14 @@ pub async fn socket_upgrade(ws: Ws, ctx: SocketContext) -> Result<Box<dyn warp::
 #[derive(Clone)]
 pub struct SocketContext {
     ch_tx: Arc<RwLock<Option<Sender>>>,
+    enigo: mpsc::UnboundedSender<EnigoCommand>,
 }
 
 impl SocketContext {
-    pub fn new() -> Self {
+    pub fn new(enigo: mpsc::UnboundedSender<EnigoCommand>) -> Self {
         Self {
             ch_tx: Default::default(),
+            enigo
         }
     }
 
@@ -60,8 +64,22 @@ impl SocketContext {
     }
 
     async fn receive(&self, message: Message) {
-        if message.is_text() {
-            println!("{}", message.to_str().unwrap())
+        if !message.is_text() {
+            return;
         }
+        let message = message.to_str().unwrap();
+
+        let key = Key::Layout('A');
+        let command = match message {
+            "click" => EnigoCommand::KeyClick(key),
+            "down" => EnigoCommand::KeyDown(key),
+            "up" => EnigoCommand::KeyUp(key),
+            _ => {
+                error!("Invalid command: \"{}\"", message);
+                return;
+            }
+        };
+
+        if self.enigo.send(command).is_err() {}
     }
 }
