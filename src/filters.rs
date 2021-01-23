@@ -6,10 +6,10 @@ fn with_state<S: Clone + Send>(state: S) -> impl Filter<Extract = (S,), Error = 
     warp::any().map(move || state.clone())
 }
 
-pub fn root() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
-    warp::path::end()
+pub fn click() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("click" / String)
         .and(warp::get())
-        .and(warp::fs::file("./client/dist/controller.html"))
+        .and_then(handlers::click)
 }
 
 pub fn socket(ctx: handlers::SocketContext) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {

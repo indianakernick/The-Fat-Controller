@@ -1,7 +1,7 @@
-use enigo::Key;
 use log::error;
 use std::sync::Arc;
 use crate::EnigoCommand;
+use enigo::{Key, MouseButton};
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
 use warp::ws::{Ws, WebSocket, Message};
@@ -52,7 +52,7 @@ impl SocketContext {
 
         while let Some(result) = ws_rx.next().await {
             match result {
-                Ok(message) => self.receive(message).await,
+                Ok(message) => self.receive(message),
                 Err(e) => {
                     error!("Error receiving from socket: {}", e);
                     break;
@@ -63,23 +63,23 @@ impl SocketContext {
         *self.ch_tx.write().await = None;
     }
 
-    async fn receive(&self, message: Message) {
+    fn receive(&self, message: Message) {
         if !message.is_text() {
             return;
         }
         let message = message.to_str().unwrap();
 
-        let key = Key::Space;
         let command = match message {
-            "click" => EnigoCommand::KeyClick(key),
-            "down" => EnigoCommand::KeyDown(key),
-            "up" => EnigoCommand::KeyUp(key),
+            "dmouseleft" => EnigoCommand::MouseDown(MouseButton::Left),
+            "umouseleft" => EnigoCommand::MouseUp(MouseButton::Left),
+            "cmouseleft" => EnigoCommand::MouseClick(MouseButton::Left),
             _ => {
                 error!("Invalid command: \"{}\"", message);
                 return;
             }
         };
 
+        //println!("Send command {}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_micros());
         if self.enigo.send(command).is_err() {}
     }
 }

@@ -1,9 +1,9 @@
 fn main() {
-    println!("cargo:rerun-if-changed=client/public/controller.html");
+    println!("cargo:rerun-if-changed=client/public/click.html");
 
-    println!("cargo:rerun-if-changed=client/src/css/controller.css");
+    println!("cargo:rerun-if-changed=client/src/css/click.css");
 
-    println!("cargo:rerun-if-changed=client/src/pages/controller/index.js");
+    println!("cargo:rerun-if-changed=client/src/pages/click/index.js");
 
     println!("cargo:rerun-if-changed=client/webpack.config.js");
 

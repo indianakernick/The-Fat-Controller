@@ -5,7 +5,7 @@ const CssoWebpackPlugin = require("csso-webpack-plugin").default;
 
 module.exports = {
     entry: {
-        controller: "./src/pages/controller/index.js",
+        click: "./src/pages/click/index.js",
     },
     output: {
         filename: "js/[name].js",
@@ -18,9 +18,9 @@ module.exports = {
         }),
         new CssoWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: "controller.html",
-            template: "./public/controller.html",
-            chunks: ["controller"],
+            filename: "click.html",
+            template: "./public/click.html",
+            chunks: ["click"],
         }),
     ],
     module: {
