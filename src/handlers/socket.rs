@@ -1,10 +1,10 @@
 use log::error;
 use std::sync::Arc;
-use crate::EnigoCommand;
-use enigo::{Key, MouseButton};
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
+use crate::enigo_command::EnigoCommand;
 use warp::ws::{Ws, WebSocket, Message};
+use crate::socket_command::parse_socket_command;
 use tokio_stream::wrappers::UnboundedReceiverStream;
 
 type Sender = mpsc::UnboundedSender<Result<Message, warp::Error>>;
@@ -64,22 +64,12 @@ impl SocketContext {
     }
 
     fn receive(&self, message: Message) {
-        if !message.is_text() {
-            return;
-        }
-        let message = message.to_str().unwrap();
-
-        let command = match message {
-            "dmouseleft" => EnigoCommand::MouseDown(MouseButton::Left),
-            "umouseleft" => EnigoCommand::MouseUp(MouseButton::Left),
-            "cmouseleft" => EnigoCommand::MouseClick(MouseButton::Left),
-            _ => {
-                error!("Invalid command: \"{}\"", message);
+        if message.is_binary() {
+            let command = parse_socket_command(message.as_bytes());
+            if let EnigoCommand::Null = command {
                 return;
             }
-        };
-
-        //println!("Send command {}", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_micros());
-        if self.enigo.send(command).is_err() {}
+            if self.enigo.send(command).is_err() {}
+        }
     }
 }

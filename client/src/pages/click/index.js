@@ -6,35 +6,17 @@ let socket;
 const RETRY_DELAY = 1000;
 const JITTER_DELAY = 50;
 
-function downUpStart() {
-    socket.send("d" + TARGET);
-    return false;
-}
-
-function downUpEnd() {
-    socket.send("u" + TARGET);
-    return false;
-}
-
-function clickStart() {
-    socket.send("c" + TARGET);
-    return false;
-}
-
-function clickEnd() {
-    return false;
-}
-
 function connect() {
     socket = new WebSocket(`ws://${location.host}/socket`);
     socket.onopen = () => {
-        if (DOWN_UP) {
-            button.ontouchstart = downUpStart;
-            button.ontouchend = downUpEnd;
-        } else {
-            button.ontouchstart = clickStart;
-            button.ontouchend = clickEnd;
-        }
+        button.ontouchstart = () => {
+            socket.send(DOWN);
+            return false;
+        };
+        button.ontouchend = () => {
+            socket.send(UP);
+            return false;
+        };
     };
 
     socket.onclose = e => {

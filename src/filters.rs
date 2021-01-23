@@ -12,6 +12,12 @@ pub fn click() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejectio
         .and_then(handlers::click)
 }
 
+pub fn downup() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("downup" / String)
+        .and(warp::get())
+        .and_then(handlers::downup)
+}
+
 pub fn socket(ctx: handlers::SocketContext) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("socket")
         .and(warp::ws())
