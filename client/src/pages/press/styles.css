@@ -12,3 +12,7 @@ body {
 #button.down {
     background-color: lightgray;
 }
+
+#button.offline, #button.offline.down {
+    background-color: red;
+}

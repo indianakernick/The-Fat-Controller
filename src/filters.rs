@@ -24,6 +24,12 @@ pub fn press() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejectio
         .and_then(handlers::press)
 }
 
+pub fn trackpad() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("trackpad")
+        .and(warp::get())
+        .and(warp::fs::file("./client/dist/trackpad.html"))
+}
+
 pub fn socket(ctx: handlers::SocketContext) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("socket")
         .and(warp::ws())

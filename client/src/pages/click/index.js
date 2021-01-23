@@ -9,6 +9,7 @@ const JITTER_DELAY = 50;
 function connect() {
     socket = new WebSocket(`ws://${location.host}/socket`);
     socket.onopen = () => {
+        button.className = "";
         button.ontouchstart = () => {
             socket.send(DOWN);
             return false;
@@ -20,6 +21,7 @@ function connect() {
     };
 
     socket.onclose = e => {
+        button.className = "offline";
         button.ontouchstart = undefined;
         button.ontouchend = undefined;
         if (e.code !== 1000) {

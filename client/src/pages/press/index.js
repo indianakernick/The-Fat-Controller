@@ -12,19 +12,20 @@ const FORCE_THRESHOLD = 0.35;
 function connect() {
     socket = new WebSocket(`ws://${location.host}/socket`);
     socket.onopen = () => {
+        button.classList.remove("offline");
         Pressure.set(button, {
             change(force) {
                 if (down) {
                     if (force < FORCE_THRESHOLD) {
                         down = false;
                         socket.send(UP);
-                        button.className = "";
+                        button.classList.remove("down");
                     }
                 } else {
                     if (force >= FORCE_THRESHOLD) {
                         down = true;
                         socket.send(DOWN);
-                        button.className = "down";
+                        button.classList.add("down");
                     }
                 }
             }
@@ -33,12 +34,13 @@ function connect() {
             if (down) {
                 down = false;
                 socket.send(UP);
-                button.className = "";
+                button.classList.remove("down");
             }
         };
     };
 
     socket.onclose = e => {
+        button.classList.add("offline");
         if (e.code !== 1000) {
             setTimeout(connect, RETRY_DELAY);
         }

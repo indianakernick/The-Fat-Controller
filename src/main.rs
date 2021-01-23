@@ -20,6 +20,7 @@ async fn main() {
     let routes = filters::click()
         .or(filters::downup())
         .or(filters::press())
+        .or(filters::trackpad())
         .or(filters::socket(ctx))
         .or(filters::js())
         .or(filters::css());
@@ -31,10 +32,6 @@ async fn main() {
     });
 
     while let Some(command) = ch_rx.recv().await {
-        //let start = std::time::SystemTime::now();
-        //println!("Recv command {}", start.duration_since(std::time::UNIX_EPOCH).unwrap().as_micros());
         parse_enigo_command(&mut enigo, command);
-        //let end = std::time::SystemTime::now();
-        //println!("Exec command {}", end.duration_since(start).unwrap().as_micros());
     }
 }
