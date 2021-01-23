@@ -9,6 +9,10 @@ body {
     background-color: gray;
 }
 
-#pad.offline {
+#pad.down {
+    background-color: lightgray;
+}
+
+#pad.offline, #pad.offline.down {
     background-color: red;
 }

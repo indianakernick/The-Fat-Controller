@@ -22,8 +22,6 @@ function connect() {
 
     socket.onclose = e => {
         button.className = "offline";
-        button.ontouchstart = undefined;
-        button.ontouchend = undefined;
         if (e.code !== 1000) {
             setTimeout(connect, RETRY_DELAY);
         }
