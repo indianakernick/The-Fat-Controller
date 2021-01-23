@@ -6,6 +6,7 @@ const CssoWebpackPlugin = require("csso-webpack-plugin").default;
 module.exports = {
     entry: {
         click: "./src/pages/click/index.js",
+        press: "./src/pages/press/index.js",
     },
     output: {
         filename: "js/[name].js",
@@ -21,6 +22,11 @@ module.exports = {
             filename: "click.html",
             template: "./public/click.html",
             chunks: ["click"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "press.html",
+            template: "./public/press.html",
+            chunks: ["press"],
         }),
     ],
     module: {

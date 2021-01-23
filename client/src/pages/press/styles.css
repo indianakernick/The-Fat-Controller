@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+}
+
+#button {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+}
+
+#button.down {
+    background-color: lightgray;
+}

@@ -19,6 +19,7 @@ async fn main() {
 
     let routes = filters::click()
         .or(filters::downup())
+        .or(filters::press())
         .or(filters::socket(ctx))
         .or(filters::js())
         .or(filters::css());
