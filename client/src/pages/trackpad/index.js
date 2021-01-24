@@ -1,11 +1,19 @@
 import "./styles.css";
 import SocketManager from "../common/SocketManager.js";
+import {
+    MOUSE_MOVE_RELATIVE,
+    MOUSE_SCROLL_X,
+    MOUSE_SCROLL_Y,
+    MOUSE_DOWN,
+    MOUSE_UP
+} from "../common/CommandCode.js";
+import { LEFT } from "../common/MouseButton.js";
 
-const moveBuf = new Uint8Array([1, 0, 0, 0, 0]);
-const scrollXBuf = new Uint8Array([5, 0, 0]);
-const scrollYBuf = new Uint8Array([6, 0, 0]);
-const downBuf = new Uint8Array([2, 0]);
-const upBuf = new Uint8Array([3, 0]);
+const moveBuf = new Uint8Array([MOUSE_MOVE_RELATIVE, 0, 0, 0, 0]);
+const scrollXBuf = new Uint8Array([MOUSE_SCROLL_X, 0, 0]);
+const scrollYBuf = new Uint8Array([MOUSE_SCROLL_Y, 0, 0]);
+const downBuf = new Uint8Array([MOUSE_DOWN, LEFT]);
+const upBuf = new Uint8Array([MOUSE_UP, LEFT]);
 
 const MOVE_SCALE = 1.8;
 const SCROLL_SCALE = 0.5;
