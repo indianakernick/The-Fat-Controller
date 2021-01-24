@@ -36,6 +36,12 @@ pub fn slide() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejectio
         .and(warp::fs::file("./client/dist/slide.html"))
 }
 
+pub fn number() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("number")
+        .and(warp::get())
+        .and(warp::fs::file("./client/dist/number.html"))
+}
+
 pub fn socket(ctx: handlers::SocketContext) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("socket")
         .and(warp::ws())

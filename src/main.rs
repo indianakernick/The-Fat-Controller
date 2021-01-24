@@ -22,6 +22,7 @@ async fn main() {
         .or(filters::press())
         .or(filters::trackpad())
         .or(filters::slide())
+        .or(filters::number())
         .or(filters::socket(ctx))
         .or(filters::js())
         .or(filters::css());

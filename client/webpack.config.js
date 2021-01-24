@@ -11,6 +11,7 @@ module.exports = {
         press: "./src/pages/press/index.js",
         trackpad: "./src/pages/trackpad/index.js",
         slide: "./src/pages/slide/index.js",
+        number: "./src/pages/number/index.js",
     },
 
     output: {
@@ -47,6 +48,11 @@ module.exports = {
             filename: "slide.html",
             template: "./public/slide.html",
             chunks: ["slide"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "number.html",
+            template: "./public/number.html",
+            chunks: ["number"],
         }),
     ],
 
