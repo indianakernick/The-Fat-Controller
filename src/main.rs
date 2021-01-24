@@ -21,6 +21,7 @@ async fn main() {
         .or(filters::downup())
         .or(filters::press())
         .or(filters::trackpad())
+        .or(filters::slide())
         .or(filters::socket(ctx))
         .or(filters::js())
         .or(filters::css());

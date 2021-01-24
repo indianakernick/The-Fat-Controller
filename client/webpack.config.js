@@ -8,6 +8,7 @@ module.exports = {
         click: "./src/pages/click/index.js",
         press: "./src/pages/press/index.js",
         trackpad: "./src/pages/trackpad/index.js",
+        slide: "./src/pages/slide/index.js",
     },
 
     output: {
@@ -35,6 +36,11 @@ module.exports = {
             filename: "trackpad.html",
             template: "./public/trackpad.html",
             chunks: ["trackpad"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "slide.html",
+            template: "./public/slide.html",
+            chunks: ["slide"],
         }),
     ],
 

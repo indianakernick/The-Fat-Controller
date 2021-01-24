@@ -30,6 +30,12 @@ pub fn trackpad() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejec
         .and(warp::fs::file("./client/dist/trackpad.html"))
 }
 
+pub fn slide() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path!("slide")
+        .and(warp::get())
+        .and(warp::fs::file("./client/dist/slide.html"))
+}
+
 pub fn socket(ctx: handlers::SocketContext) -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("socket")
         .and(warp::ws())
