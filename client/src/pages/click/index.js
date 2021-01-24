@@ -1,39 +1,15 @@
 import "./styles.css";
+import SocketManager from "../common/SocketManager.js";
 
 const button = document.getElementById("button");
-let socket;
+const socket = new SocketManager(button);
 
-const RETRY_DELAY = 1000;
-const JITTER_DELAY = 50;
+button.ontouchstart = () => {
+    socket.send(DOWN);
+    return false;
+};
 
-function connect() {
-    socket = new WebSocket(`ws://${location.host}/socket`);
-    socket.onopen = () => {
-        button.className = "";
-        button.ontouchstart = () => {
-            socket.send(DOWN);
-            return false;
-        };
-        button.ontouchend = () => {
-            socket.send(UP);
-            return false;
-        };
-    };
-
-    socket.onclose = e => {
-        button.className = "offline";
-        if (e.code !== 1000) {
-            setTimeout(connect, RETRY_DELAY);
-        }
-    };
-}
-
-connect();
-
-// This massively reduces jitter
-const buf = new ArrayBuffer(0);
-setInterval(() => {
-    if (socket.readyState === WebSocket.OPEN) {
-        socket.send(buf);
-    }
-}, JITTER_DELAY);
+button.ontouchend = () => {
+    socket.send(UP);
+    return false;
+};

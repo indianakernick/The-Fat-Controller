@@ -9,11 +9,13 @@ module.exports = {
         press: "./src/pages/press/index.js",
         trackpad: "./src/pages/trackpad/index.js",
     },
+
     output: {
         filename: "js/[name].js",
         publicPath: "/",
         path: path.resolve(__dirname, "dist"),
     },
+
     plugins: [
         new MiniCssExtractPlugin({
             filename: "css/[name].css"
@@ -35,6 +37,7 @@ module.exports = {
             chunks: ["trackpad"],
         }),
     ],
+
     module: {
         rules: [
             {

@@ -1,8 +1,5 @@
 import "./styles.css";
-
-const pad = document.getElementById("pad");
-let socket = null;
-let touchHandler = null;
+import SocketManager from "../common/SocketManager.js";
 
 const moveBuf = new Uint8Array([1, 0, 0, 0, 0]);
 const scrollXBuf = new Uint8Array([5, 0, 0]);
@@ -10,8 +7,6 @@ const scrollYBuf = new Uint8Array([6, 0, 0]);
 const downBuf = new Uint8Array([2, 0]);
 const upBuf = new Uint8Array([3, 0]);
 
-const RETRY_DELAY = 1000;
-const JITTER_DELAY = 50;
 const MOVE_SCALE = 1.8;
 const SCROLL_SCALE = 0.5;
 const FORCE_THRESHOLD = 0.25;
@@ -51,6 +46,8 @@ function mouseScroll(changeX, changeY) {
         socket.send(scrollYBuf);
     }
 }
+
+// Maybe tap (without force) to click?
 
 class TouchHandler {
     constructor() {
@@ -173,55 +170,31 @@ class TouchHandler {
     }
 }
 
-function initialize() {
-    touchHandler = new TouchHandler();
+const pad = document.getElementById("pad");
+const socket = new SocketManager(pad);
+const touchHandler = new TouchHandler();
 
-    pad.ontouchstart = e => {
-        touchHandler.start(e);
-        return false;
-    };
+pad.ontouchstart = e => {
+    touchHandler.start(e);
+    return false;
+};
 
-    pad.ontouchmove = e => {
-        touchHandler.move(e);
-        return false;
-    };
+pad.ontouchmove = e => {
+    touchHandler.move(e);
+    return false;
+};
 
-    pad.ontouchend = e => {
-        touchHandler.end(e);
-        return false;
-    };
+pad.ontouchend = e => {
+    touchHandler.end(e);
+    return false;
+};
 
-    pad.ontouchcancel = e => {
-        touchHandler.cancel(e);
-        return false;
-    };
+pad.ontouchcancel = e => {
+    touchHandler.cancel(e);
+    return false;
+};
 
-    pad.ontouchforcechange = e => {
-        touchHandler.forceChange(e);
-        return false;
-    };
-}
-
-function connect() {
-    socket = new WebSocket(`ws://${location.host}/socket`);
-    socket.onopen = () => {
-        pad.classList.remove("offline");
-    };
-    socket.onclose = e => {
-        pad.classList.add("offline");
-        if (e.code !== 1000) {
-            setTimeout(connect, RETRY_DELAY);
-        }
-    };
-}
-
-connect();
-initialize();
-
-// This massively reduces jitter
-const buf = new ArrayBuffer(0);
-setInterval(() => {
-    if (socket.readyState === WebSocket.OPEN) {
-        socket.send(buf);
-    }
-}, JITTER_DELAY);
+pad.ontouchforcechange = e => {
+    touchHandler.forceChange(e);
+    return false;
+};
