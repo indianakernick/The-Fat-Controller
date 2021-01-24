@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./styles.scss";
 import Pressure from "pressure";
 import SocketManager from "../common/SocketManager.js";
 

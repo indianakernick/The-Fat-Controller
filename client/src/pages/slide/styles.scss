@@ -1,0 +1,54 @@
+@import "../common/styles";
+
+body {
+    margin: 0;
+    color: $text;
+    font-family: $font-family-sans-serif;
+}
+
+#container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: $background;
+}
+
+#container.offline {
+    background-color: $offline;
+}
+
+#container.offline > * {
+    display: none;
+}
+
+#next, #prev {
+    flex-grow: 4;
+}
+
+#first, #last {
+    flex-grow: 1;
+}
+
+$margin: 16px;
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: $margin $margin 0 $margin;
+    background-color: $button;
+    border-radius: $border-radius;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    font-size: 1.5rem;
+}
+
+.button:last-child {
+    margin-bottom: $margin;
+}
+
+.button:active {
+    background-color: $button-down;
+}

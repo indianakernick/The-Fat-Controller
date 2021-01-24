@@ -1,7 +1,9 @@
 const path = require("path");
+const glob = require("glob");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssoWebpackPlugin = require("csso-webpack-plugin").default;
+const PurgecssPlugin = require("purgecss-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -20,6 +22,10 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: "css/[name].css"
+        }),
+        new PurgecssPlugin({
+            paths: glob.sync(`${path.join(__dirname, "public")}/**/*`, { nodir: true }),
+            safelist: ["flash-animation", "text-danger"]
         }),
         new CssoWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -51,6 +57,14 @@ module.exports = {
                 use: [
                     MiniCssExtractPlugin.loader,
                     "css-loader"
+                ]
+            },
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
                 ]
             }
         ],

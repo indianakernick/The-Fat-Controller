@@ -1,0 +1,20 @@
+@import "../common/styles";
+
+body {
+    margin: 0;
+}
+
+#button {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $button;
+}
+
+#button:active {
+    background-color: $button-down;
+}
+
+#button.offline {
+    background-color: $offline;
+}
