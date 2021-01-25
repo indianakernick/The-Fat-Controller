@@ -3,8 +3,8 @@ export default function(socket, id, buffer) {
     const element = document.getElementById(id);
     element.ontouchstart = () => {
         if (++count === 1) {
-            element.classList.add("down");
             socket.send(buffer);
+            element.classList.add("down");
         }
         return false;
     };

@@ -12,14 +12,14 @@ Pressure.set(button, {
     change(force) {
         if (down) {
             if (force < FORCE_THRESHOLD) {
-                down = false;
                 socket.send(UP);
+                down = false;
                 button.classList.remove("down");
             }
         } else {
             if (force >= FORCE_THRESHOLD) {
-                down = true;
                 socket.send(DOWN);
+                down = true;
                 button.classList.add("down");
             }
         }
@@ -28,8 +28,8 @@ Pressure.set(button, {
 
 button.ontouchend = button.ontouchcancel = () => {
     if (down) {
-        down = false;
         socket.send(UP);
+        down = false;
         button.classList.remove("down");
     }
 };

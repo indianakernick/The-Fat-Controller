@@ -64,8 +64,6 @@ function mouseScroll(changeX, changeY) {
     }
 }
 
-// Maybe tap (without force) to click?
-
 class TouchHandler {
     constructor() {
         this.touches = [];
@@ -91,14 +89,14 @@ class TouchHandler {
     }
 
     mouseUp() {
-        this.down = false;
         socket.send(upBuf);
+        this.down = false;
         pad.classList.remove("down");
     }
 
     mouseDown() {
-        this.down = true;
         socket.send(downBuf);
+        this.down = true;
         pad.classList.add("down");
     }
 
