@@ -178,7 +178,7 @@ class TouchHandler {
     }
 }
 
-const pad = document.getElementById("pad");
+const pad = document.getElementById("button");
 const socket = new SocketManager(pad);
 const touchHandler = new TouchHandler();
 

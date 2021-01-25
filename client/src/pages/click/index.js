@@ -9,7 +9,7 @@ button.ontouchstart = () => {
     return false;
 };
 
-button.ontouchend = () => {
+button.ontouchend = button.ontouchcancel = () => {
     socket.send(UP);
     return false;
 };

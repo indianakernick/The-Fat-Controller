@@ -77,7 +77,7 @@ export const RIGHT_BRACKET = 72;
 export const BACKSLASH     = 73;
 export const SEMICOLON     = 74;
 export const QUOTE         = 75;
-export const COMMON        = 76;
+export const COMMA         = 76;
 export const PERIOD        = 77;
 export const SLASH         = 78;
 

@@ -49,6 +49,6 @@ $margin: 16px;
     margin-bottom: $margin;
 }
 
-.button:active {
+.button.down {
     background-color: $button-down;
 }

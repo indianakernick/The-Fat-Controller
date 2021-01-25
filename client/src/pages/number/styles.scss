@@ -12,7 +12,6 @@ body {
     height: 100%;
     background-color: $background;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     gap: 16px;
     padding: 16px;
@@ -38,16 +37,46 @@ body {
     font-size: 1.5rem;
 }
 
-.button:active {
+.button.down {
     background-color: $button-down;
 }
 
 #zero {
     grid-row: 5;
-    grid-column: 1 / span 2;
 }
 
 #return {
     grid-row: 4 / span 2;
-    grid-column: 4;
+}
+
+@media (orientation: portrait) {
+    .landscape {
+        display: none;
+    }
+
+    #container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    #zero {
+        grid-column: 1 / span 2;
+    }
+
+    #return {
+        grid-column: 4;
+    }
+}
+
+@media (orientation: landscape) {
+    #container {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    #zero {
+        grid-column: 4 / span 2;
+    }
+
+    #return {
+        grid-column: 7;
+    }
 }

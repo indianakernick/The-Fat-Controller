@@ -6,7 +6,7 @@ const button = document.getElementById("button");
 const socket = new SocketManager(button);
 let down = false;
 
-const FORCE_THRESHOLD = 0.35;
+const FORCE_THRESHOLD = 0.25;
 
 Pressure.set(button, {
     change(force) {

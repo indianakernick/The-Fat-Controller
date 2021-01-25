@@ -15,6 +15,6 @@ body {
     background-color: $button-down;
 }
 
-#button.offline {
+#button.offline, #button.offline:active {
     background-color: $offline;
 }

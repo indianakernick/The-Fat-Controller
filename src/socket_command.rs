@@ -189,7 +189,7 @@ fn parse_key(byte: u8) -> enigo::Key {
         b if b == Key::Shift as u8 => enigo::Key::Shift,
         b if b == Key::Space as u8 => enigo::Key::Space,
         b if b == Key::Tab as u8 => enigo::Key::Tab,
-        b if b == Key::UpArrow as u8 => enigo::Key::UpArrow,
+        b if b == Key::UpArrow as u8 => enigo::Key::Raw(0x7E), // TODO: This is fixed on master
 
         b if b == Key::A as u8 => enigo::Key::Layout('a'),
         b if b == Key::B as u8 => enigo::Key::Layout('b'),
