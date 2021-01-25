@@ -12,6 +12,7 @@ import { LEFT } from "../common/MouseButton.js";
 const moveBuf = new Uint8Array([MOUSE_MOVE_RELATIVE, 0, 0, 0, 0]);
 const scrollXBuf = new Uint8Array([MOUSE_SCROLL_X, 0, 0]);
 const scrollYBuf = new Uint8Array([MOUSE_SCROLL_Y, 0, 0]);
+const scrollXYBuf = new Uint8Array([MOUSE_SCROLL_X, 0, 0, MOUSE_SCROLL_Y, 0, 0]);
 const downBuf = new Uint8Array([MOUSE_DOWN, LEFT]);
 const upBuf = new Uint8Array([MOUSE_UP, LEFT]);
 
@@ -43,13 +44,21 @@ function scaleNonZero(num, scale) {
 }
 
 function mouseScroll(changeX, changeY) {
-    if (changeX !== 0) {
+    if (changeX) {
         changeX = scaleNonZero(changeX, SCROLL_SCALE);
+    }
+    if (changeY) {
+        changeY = scaleNonZero(changeY, SCROLL_SCALE);
+    }
+
+    if (changeX && changeY) {
+        copyInt16(scrollXYBuf, 1, changeX);
+        copyInt16(scrollXYBuf, 4, changeY);
+        socket.send(scrollXYBuf);
+    } else if (changeX) {
         copyInt16(scrollXBuf, 1, changeX);
         socket.send(scrollXBuf);
-    }
-    if (changeY !== 0) {
-        changeY = scaleNonZero(changeY, SCROLL_SCALE);
+    } else if (changeY) {
         copyInt16(scrollYBuf, 1, changeY);
         socket.send(scrollYBuf);
     }

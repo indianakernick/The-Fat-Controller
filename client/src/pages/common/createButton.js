@@ -1,10 +1,10 @@
-export default function(socket, id, sequence) {
+export default function(socket, id, buffer) {
     let count = 0;
     const element = document.getElementById(id);
     element.ontouchstart = () => {
         if (++count === 1) {
             element.classList.add("down");
-            socket.sendSeq(sequence);
+            socket.send(buffer);
         }
         return false;
     };

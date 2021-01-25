@@ -378,85 +378,85 @@ pub fn parse_key_name(name: &str) -> Option<Key> {
     }
 }
 
-pub fn parse_socket_command(buf: &[u8]) -> EnigoCommand {
+pub fn parse_socket_command(buf: &[u8]) -> (EnigoCommand, usize) {
     if buf.len() == 0 {
-        return EnigoCommand::Null;
+        return (EnigoCommand::Null, 0);
     }
 
     match buf[0] {
         b if b == CommandCode::MouseMoveTo as u8 => {
-            if buf.len() != 5 {
+            if buf.len() < 5 {
                 panic!("Invalid command: {:?}", buf);
             }
             let x = parse_int_16(buf[1], buf[2]) as i32;
             let y = parse_int_16(buf[3], buf[4]) as i32;
-            EnigoCommand::MouseMoveTo(x, y)
+            (EnigoCommand::MouseMoveTo(x, y), 5)
         },
 
         b if b == CommandCode::MouseMoveRelative as u8 => {
-            if buf.len() != 5 {
+            if buf.len() < 5 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseMoveRelative(
+            (EnigoCommand::MouseMoveRelative(
                 parse_int_16(buf[1], buf[2]) as i32,
                 parse_int_16(buf[3], buf[4]) as i32
-            )
+            ), 5)
         },
 
         b if b == CommandCode::MouseDown as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseDown(parse_mouse_button(buf[1]))
+            (EnigoCommand::MouseDown(parse_mouse_button(buf[1])), 2)
         },
 
         b if b == CommandCode::MouseUp as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseUp(parse_mouse_button(buf[1]))
+            (EnigoCommand::MouseUp(parse_mouse_button(buf[1])), 2)
         },
 
         b if b == CommandCode::MouseClick as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseClick(parse_mouse_button(buf[1]))
+            (EnigoCommand::MouseClick(parse_mouse_button(buf[1])), 2)
         },
 
         b if b == CommandCode::MouseScrollX as u8 => {
-            if buf.len() != 3 {
+            if buf.len() < 3 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseScrollX(parse_int_16(buf[1], buf[2]) as i32)
+            (EnigoCommand::MouseScrollX(parse_int_16(buf[1], buf[2]) as i32), 3)
         },
 
         b if b == CommandCode::MouseScrollY as u8 => {
-            if buf.len() != 3 {
+            if buf.len() < 3 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::MouseScrollY(parse_int_16(buf[1], buf[2]) as i32)
+            (EnigoCommand::MouseScrollY(parse_int_16(buf[1], buf[2]) as i32), 3)
         },
 
         b if b == CommandCode::KeyDown as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::KeyDown(parse_key(buf[1]))
+            (EnigoCommand::KeyDown(parse_key(buf[1])), 2)
         },
 
         b if b == CommandCode::KeyUp as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::KeyUp(parse_key(buf[1]))
+            (EnigoCommand::KeyUp(parse_key(buf[1])), 2)
         },
 
         b if b == CommandCode::KeyClick as u8 => {
-            if buf.len() != 2 {
+            if buf.len() < 2 {
                 panic!("Invalid command: {:?}", buf);
             }
-            EnigoCommand::KeyClick(parse_key(buf[1]))
+            (EnigoCommand::KeyClick(parse_key(buf[1])), 2)
         },
 
         _ => {

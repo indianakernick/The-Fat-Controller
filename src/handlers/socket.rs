@@ -67,11 +67,19 @@ impl SocketContext {
 
     fn receive(&self, message: Message) {
         if message.is_binary() {
-            let command = parse_socket_command(message.as_bytes());
-            if let EnigoCommand::Null = command {
-                return;
+            let mut bytes = message.as_bytes();
+            loop {
+                let (command, len) = parse_socket_command(bytes);
+                if let EnigoCommand::Null = command {
+                    return;
+                }
+                if self.enigo.send(command).is_err() {}
+                if len < bytes.len() {
+                    bytes = &bytes[len..];
+                } else {
+                    break;
+                }
             }
-            if self.enigo.send(command).is_err() {}
         }
     }
 }

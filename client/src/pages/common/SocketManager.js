@@ -30,10 +30,4 @@ export default class SocketManager {
     send(data) {
         this.socket.send(data);
     }
-
-    sendSeq(sequence) {
-        for (const data of sequence) {
-            this.socket.send(data);
-        }
-    }
 }
