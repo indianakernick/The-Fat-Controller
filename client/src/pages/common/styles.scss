@@ -5,3 +5,12 @@ $background: $gray-800;
 $button: $gray-700;
 $button-down: $gray-500;
 $offline: $danger;
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
