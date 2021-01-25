@@ -10,7 +10,12 @@ import {
 } from "../common/Key.js";
 import createButton from "../common/createButton.js";
 
-const s = new SocketManager(document.getElementById("container"));
+const container = document.getElementById("container")
+const s = new SocketManager(container);
+
+container.ontouchstart = () => {
+    return false;
+};
 
 createButton(s, "delete", new Uint8Array([KEY_CLICK, BACKSPACE]));
 createButton(s, "equal", new Uint8Array([KEY_CLICK, EQUAL]));

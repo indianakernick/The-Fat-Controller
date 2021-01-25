@@ -4,7 +4,12 @@ import { KEY_CLICK } from "../common/CommandCode.js";
 import { LEFT_ARROW, RIGHT_ARROW, HOME, END } from "../common/Key.js";
 import createButton from "../common/createButton.js";
 
-const s = new SocketManager(document.getElementById("container"));
+const container = document.getElementById("container");
+const s = new SocketManager(container);
+
+container.ontouchstart = () => {
+    return false;
+};
 
 createButton(s, "last", new Uint8Array([KEY_CLICK, END]));
 createButton(s, "next", new Uint8Array([KEY_CLICK, RIGHT_ARROW]));
