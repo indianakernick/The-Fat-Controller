@@ -8,14 +8,29 @@ pub enum MouseButton {
     Middle = 2,
 }
 
+impl std::convert::TryFrom<u8> for MouseButton {
+    type Error = ();
+
+    fn try_from(b: u8) -> Result<Self, Self::Error> {
+        use MouseButton::*;
+        match b {
+            0 => Ok(Left),
+            1 => Ok(Right),
+            2 => Ok(Middle),
+            _ => Err(()),
+        }
+    }
+}
+
 impl std::str::FromStr for MouseButton {
     type Err = ();
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use MouseButton::*;
         match s {
-            "mouseleft" => Ok(MouseButton::Left),
-            "mouseright" => Ok(MouseButton::Right),
-            "mousemiddle" => Ok(MouseButton::Middle),
+            "mouseleft" => Ok(Left),
+            "mouseright" => Ok(Right),
+            "mousemiddle" => Ok(Middle),
             _ => Err(()),
         }
     }

@@ -9,11 +9,13 @@ impl EventContext {
     }
 
     pub fn key_down(&mut self, key: Key) {
+        std::thread::sleep(std::time::Duration::from_millis(20));
         CGEvent::new_keyboard_event(self.event_source.clone(), key as CGKeyCode, true)
             .unwrap().post(CGEventTapLocation::HID);
     }
 
     pub fn key_up(&mut self, key: Key) {
+        std::thread::sleep(std::time::Duration::from_millis(20));
         CGEvent::new_keyboard_event(self.event_source.clone(), key as CGKeyCode, false)
             .unwrap().post(CGEventTapLocation::HID);
     }

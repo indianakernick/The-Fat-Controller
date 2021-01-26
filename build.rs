@@ -162,23 +162,47 @@ fn generate_js_enum(path: &str, variants: &[Variant]) -> std::io::Result<()> {
 }
 
 fn generate_rust_from_str(
-    mut file: std::fs::File,
+    file: &mut std::fs::File,
     name: &[u8],
     variants: &[Variant],
     to_string_name: impl Fn(&[u8]) -> &[u8],
 ) -> std::io::Result<()> {
     file.write_all(b"\nimpl std::str::FromStr for ")?;
     file.write_all(name)?;
-    file.write_all(b" {\n    type Err = ();\n\n    fn from_str(s: &str) -> Result<Self, Self::Err> {\n        match s {\n")?;
+    file.write_all(b" {\n    type Err = ();\n\n    fn from_str(s: &str) -> Result<Self, Self::Err> {\n        use ")?;
+    file.write_all(name)?;
+    file.write_all(b"::*;\n        match s {\n")?;
 
     for var in variants.iter() {
         file.write_all(b"            \"")?;
         file.write_all(to_string_name(var.0.to_mixed_case().to_ascii_lowercase().as_bytes()))?;
         file.write_all(b"\" => Ok(")?;
-        file.write_all(name)?;
-        file.write_all(b"::")?;
         file.write_all(var.0.as_bytes())?;
         file.write_all(b"),\n")?
+    }
+
+    file.write_all(b"            _ => Err(()),\n        }\n    }\n}\n")?;
+
+    Ok(())
+}
+
+fn generate_rust_from_byte(
+    file: &mut std::fs::File,
+    name: &[u8],
+    variants: &[Variant],
+) -> std::io::Result<()> {
+    file.write_all(b"\nimpl std::convert::TryFrom<u8> for ")?;
+    file.write_all(name)?;
+    file.write_all(b" {\n    type Error = ();\n\n    fn try_from(b: u8) -> Result<Self, Self::Error> {\n        use ")?;
+    file.write_all(name)?;
+    file.write_all(b"::*;\n        match b {\n")?;
+
+    for var in variants.iter() {
+        file.write_all(b"            ")?;
+        file.write_all(var.1.to_string().as_bytes())?;
+        file.write_all(b" => Ok(")?;
+        file.write_all(var.0.as_bytes())?;
+        file.write_all(b"),\n")?;
     }
 
     file.write_all(b"            _ => Err(()),\n        }\n    }\n}\n")?;
@@ -214,8 +238,9 @@ fn main() {
 
     {
         let name = b"Key";
-        let file = generate_rust_enum("src/macos/key_enum.rs", name, &KEYS).unwrap();
-        generate_rust_from_str(file, name, &KEYS, |var_name| {
+        let mut file = generate_rust_enum("src/macos/key_enum.rs", name, &KEYS).unwrap();
+        generate_rust_from_byte(&mut file, name, &KEYS).unwrap();
+        generate_rust_from_str(&mut file, name, &KEYS, |var_name| {
             if var_name.len() == 2 && var_name[0] == b'n' && var_name[1].is_ascii_digit() {
                 &var_name[1..]
             } else {
@@ -226,8 +251,9 @@ fn main() {
 
     {
         let name = b"MouseButton";
-        let file = generate_rust_enum("src/macos/mouse_button_enum.rs", name, &MOUSE_BUTTONS).unwrap();
-        generate_rust_from_str(file, name, &MOUSE_BUTTONS, |var_name| {
+        let mut file = generate_rust_enum("src/macos/mouse_button_enum.rs", name, &MOUSE_BUTTONS).unwrap();
+        generate_rust_from_byte(&mut file, name, &MOUSE_BUTTONS).unwrap();
+        generate_rust_from_str(&mut file, name, &MOUSE_BUTTONS, |var_name| {
             match var_name[0] {
                 b'l' => b"mouseleft",
                 b'r' => b"mouseright",
@@ -237,7 +263,11 @@ fn main() {
         }).unwrap();
     }
 
-    generate_rust_enum("src/macos/command_code_enum.rs", b"CommandCode", &COMMANDS).unwrap();
+    {
+        let name = b"CommandCode";
+        let mut file = generate_rust_enum("src/macos/command_code_enum.rs", name, &COMMANDS).unwrap();
+        generate_rust_from_byte(&mut file, name, &COMMANDS).unwrap();
+    }
 }
 
 /*

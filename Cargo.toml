@@ -12,12 +12,10 @@ warp = "0.3"
 log = "0"
 pretty_env_logger = "0"
 futures = "0.3"
-enigo = "0"
 tokio-stream = "0.1"
 askama = { version = "0.10", features = ["with-warp"] }
 askama_warp = "0.11"
 core-graphics = { version = "0.22", features = ["highsierra"] }
-foreign-types = "0.3"
 
 [profile.release]
 lto = true

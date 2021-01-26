@@ -22,3 +22,4 @@ impl Default for EventContext {
 pub use key_enum::Key;
 pub use mouse_button_enum::MouseButton;
 pub use command_code_enum::CommandCode;
+pub use command::Command;

@@ -17,12 +17,12 @@ const downBuf = new Uint8Array([MOUSE_DOWN, LEFT]);
 const upBuf = new Uint8Array([MOUSE_UP, LEFT]);
 
 const MOVE_SCALE = 1.8;
-const SCROLL_SCALE = 0.5;
+const SCROLL_SCALE = 1.8;
 const FORCE_THRESHOLD = 0.25;
 
 function copyInt16(buffer, index, integer) {
-    buffer[index] = integer & 0xFF;
-    buffer[index + 1] = (integer >> 8) & 0xFF;
+    buffer[index] = (integer >> 8) & 0xFF
+    buffer[index + 1] = integer & 0xFF;
 }
 
 function mouseMove(changeX, changeY) {
@@ -139,7 +139,7 @@ class TouchHandler {
                 TouchHandler.updatePos(this.find(touch.identifier), touch);
             }
             const posAfter = this.getAvgPos();
-            mouseScroll(posBefore.x - posAfter.x, posBefore.y - posAfter.y);
+            mouseScroll(posAfter.x - posBefore.x, posAfter.y - posBefore.y);
         } else {
             for (const touch of e.changedTouches) {
                 TouchHandler.updatePos(this.find(touch.identifier), touch);

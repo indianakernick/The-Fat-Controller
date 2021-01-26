@@ -1,8 +1,8 @@
 use log::error;
 use std::sync::Arc;
+use crate::macos::Command;
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
-use crate::enigo_command::EnigoCommand;
 use warp::ws::{Ws, WebSocket, Message};
 use crate::socket_command::parse_socket_command;
 use tokio_stream::wrappers::UnboundedReceiverStream;
@@ -16,14 +16,14 @@ pub async fn socket_upgrade(ws: Ws, ctx: SocketContext) -> Result<Box<dyn warp::
 #[derive(Clone)]
 pub struct SocketContext {
     ch_tx: Arc<RwLock<Option<Sender>>>,
-    enigo: mpsc::UnboundedSender<EnigoCommand>,
+    event: mpsc::UnboundedSender<Command>,
 }
 
 impl SocketContext {
-    pub fn new(enigo: mpsc::UnboundedSender<EnigoCommand>) -> Self {
+    pub fn new(event: mpsc::UnboundedSender<Command>) -> Self {
         Self {
             ch_tx: Default::default(),
-            enigo
+            event,
         }
     }
 
@@ -70,10 +70,10 @@ impl SocketContext {
             let mut bytes = message.as_bytes();
             loop {
                 let (command, len) = parse_socket_command(bytes);
-                if let EnigoCommand::Null = command {
+                if let Command::Null = command {
                     return;
                 }
-                if self.enigo.send(command).is_err() {}
+                if self.event.send(command).is_err() {}
                 if len < bytes.len() {
                     bytes = &bytes[len..];
                 } else {

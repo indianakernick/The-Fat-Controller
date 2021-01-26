@@ -1,4 +1,3 @@
-use foreign_types::ForeignType;
 use core_graphics::display::CGPoint;
 use super::{EventContext, MouseButton};
 use core_graphics::base::{boolean_t, CGFloat};
@@ -18,12 +17,8 @@ impl EventContext {
         }
     }
 
-    fn mouse_location() -> CGPoint {
-        let source;
-        unsafe {
-            source = CGEventSource::from_ptr(std::ptr::null_mut());
-        }
-        CGEvent::new(source).unwrap().location()
+    fn mouse_location(&mut self) -> CGPoint {
+        CGEvent::new(self.event_source.clone()).unwrap().location()
     }
 
     fn mouse_move_to_point(&mut self, point: CGPoint) {
@@ -50,7 +45,7 @@ impl EventContext {
     }
 
     pub fn mouse_move_relative(&mut self, x: i32, y: i32) {
-        let mut pos = Self::mouse_location();
+        let mut pos = self.mouse_location();
         pos.x += x as CGFloat;
         pos.y += y as CGFloat;
         self.mouse_move_to_point(pos);
@@ -60,7 +55,7 @@ impl EventContext {
         let event = CGEvent::new_mouse_event(
             self.event_source.clone(),
             event_type,
-            Self::mouse_location(),
+            self.mouse_location(),
             button
         ).unwrap();
         event.set_integer_value_field(EventField::MOUSE_EVENT_CLICK_STATE, click_count as i64);

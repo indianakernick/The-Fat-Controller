@@ -15,3 +15,25 @@ pub enum CommandCode {
     KeyUp = 9,
     KeyClick = 10,
 }
+
+impl std::convert::TryFrom<u8> for CommandCode {
+    type Error = ();
+
+    fn try_from(b: u8) -> Result<Self, Self::Error> {
+        use CommandCode::*;
+        match b {
+            0 => Ok(MouseMoveTo),
+            1 => Ok(MouseMoveRelative),
+            2 => Ok(MouseDown),
+            3 => Ok(MouseUp),
+            4 => Ok(MouseClick),
+            5 => Ok(MouseNthClick),
+            6 => Ok(MouseScrollX),
+            7 => Ok(MouseScrollY),
+            8 => Ok(KeyDown),
+            9 => Ok(KeyUp),
+            10 => Ok(KeyClick),
+            _ => Err(()),
+        }
+    }
+}

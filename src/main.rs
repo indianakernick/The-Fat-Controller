@@ -1,19 +1,15 @@
 mod filters;
 mod handlers;
-mod enigo_command;
 mod socket_command;
 mod macos;
 
 use warp::Filter;
-use enigo::Enigo;
 use tokio::sync::mpsc;
-use crate::enigo_command::{EnigoCommand, parse_enigo_command};
 
 #[tokio::main(flavor="current_thread")]
 async fn main() {
-    let mut enigo = Enigo::new();
-    let (ch_tx, mut ch_rx) = mpsc::unbounded_channel::<EnigoCommand>();
-
+    let mut event = macos::EventContext::default();
+    let (ch_tx, mut ch_rx) = mpsc::unbounded_channel::<macos::Command>();
     let ctx = handlers::SocketContext::new(ch_tx);
 
     pretty_env_logger::init();
@@ -35,6 +31,6 @@ async fn main() {
     });
 
     while let Some(command) = ch_rx.recv().await {
-        parse_enigo_command(&mut enigo, command);
+        event.evaluate_command(command);
     }
 }
