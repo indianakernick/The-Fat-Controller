@@ -2,6 +2,7 @@ mod filters;
 mod handlers;
 mod enigo_command;
 mod socket_command;
+mod macos;
 
 use warp::Filter;
 use enigo::Enigo;
