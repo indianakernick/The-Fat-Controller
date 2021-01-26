@@ -22,5 +22,5 @@ foreign-types = "0.3"
 [profile.release]
 lto = true
 
-#[patch.crates-io]
-#enigo = { path = "../enigo" }
+[build-dependencies]
+heck = "0.3"

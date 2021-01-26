@@ -1,17 +1,9 @@
-use super::EventContext;
 use foreign_types::ForeignType;
 use core_graphics::display::CGPoint;
+use super::{EventContext, MouseButton};
 use core_graphics::base::{boolean_t, CGFloat};
 use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 use core_graphics::event::{CGEventType, CGEvent, CGMouseButton, CGEventTapLocation, ScrollEventUnit, EventField};
-
-#[repr(u8)]
-#[derive(Clone, Copy)]
-pub enum MouseButton {
-    Left,
-    Right,
-    Center,
-}
 
 #[link(name = "CoreGraphics", kind = "framework")]
 extern {
@@ -79,7 +71,7 @@ impl EventContext {
         match button {
             MouseButton::Left => CGMouseButton::Left,
             MouseButton::Right => CGMouseButton::Right,
-            MouseButton::Center => CGMouseButton::Center,
+            MouseButton::Middle => CGMouseButton::Center,
         }
     }
 
