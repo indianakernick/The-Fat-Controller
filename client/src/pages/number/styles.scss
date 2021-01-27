@@ -4,10 +4,6 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
 
-#zero {
-    grid-row: 5;
-}
-
 #return {
     grid-row: 4 / span 2;
 }
@@ -22,6 +18,7 @@
     }
 
     #zero {
+        grid-row: 5;
         grid-column: 1 / span 2;
     }
 
@@ -33,10 +30,6 @@
 @media (orientation: landscape) {
     #container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    }
-
-    #zero {
-        grid-column: 4 / span 2;
     }
 
     #return {

@@ -28,6 +28,7 @@ impl SocketContext {
     }
 
     async fn upgrade(self, ws: Ws) -> Result<Box<dyn warp::Reply>, warp::Rejection> {
+        // TODO: Fix this
         // Sometimes we end up in a state where we are disconnected but
         // self.ch_tx is Some. Overriding any existing is a workaround for this.
         // if self.ch_tx.read().await.is_some() {
