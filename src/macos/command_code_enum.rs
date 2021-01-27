@@ -14,6 +14,7 @@ pub enum CommandCode {
     KeyDown = 8,
     KeyUp = 9,
     KeyClick = 10,
+    KeyClickFlags = 11,
 }
 
 impl std::convert::TryFrom<u8> for CommandCode {
@@ -33,6 +34,7 @@ impl std::convert::TryFrom<u8> for CommandCode {
             8 => Ok(KeyDown),
             9 => Ok(KeyUp),
             10 => Ok(KeyClick),
+            11 => Ok(KeyClickFlags),
             _ => Err(()),
         }
     }

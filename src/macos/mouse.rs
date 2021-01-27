@@ -1,7 +1,7 @@
 use core_graphics::display::CGPoint;
 use super::{EventContext, MouseButton};
 use core_graphics::base::{boolean_t, CGFloat};
-use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
+use core_graphics::event_source::CGEventSourceStateID;
 use core_graphics::event::{CGEventType, CGEvent, CGMouseButton, CGEventTapLocation, ScrollEventUnit, EventField};
 
 #[link(name = "CoreGraphics", kind = "framework")]

@@ -1,5 +1,5 @@
 use std::convert::TryFrom;
-use crate::macos::{Command, CommandCode, Key, MouseButton};
+use crate::macos::{Command, CommandCode, Key, Flags, MouseButton};
 
 fn parse_int_16(byte_0: u8, byte_1: u8) -> i16 {
     ((byte_0 as i16) << 8) | (byte_1 as i16)
@@ -16,6 +16,13 @@ fn parse_key(byte: u8) -> Key {
     match Key::try_from(byte) {
         Ok(key) => key,
         Err(_) => panic!("Invalid key: {}", byte),
+    }
+}
+
+fn parse_flags(byte: u8) -> Flags {
+    match Flags::from_bits(byte) {
+        Some(flags) => flags,
+        None => panic!("Invalid flags: {}", byte),
     }
 }
 
@@ -110,6 +117,13 @@ pub fn parse_socket_command(buf: &[u8]) -> (Command, usize) {
                 panic!("Invalid command: {:?}", buf);
             }
             (Command::KeyClick(parse_key(buf[1])), 2)
+        },
+
+        CommandCode::KeyClickFlags => {
+            if buf.len() < 3 {
+                panic!("Invalid command: {:?}", buf);
+            }
+            (Command::KeyClickFlags(parse_key(buf[1]), parse_flags(buf[2])), 3)
         },
     }
 }

@@ -1,5 +1,5 @@
 use log::debug;
-use super::{EventContext, Key, MouseButton};
+use super::{EventContext, Key, Flags, MouseButton};
 
 #[derive(Debug)]
 pub enum Command {
@@ -15,6 +15,7 @@ pub enum Command {
     KeyDown(Key),
     KeyUp(Key),
     KeyClick(Key),
+    KeyClickFlags(Key, Flags),
 }
 
 impl EventContext {
@@ -36,8 +37,7 @@ impl EventContext {
             KeyDown(key) => self.key_down(key),
             KeyUp(key) => self.key_up(key),
             KeyClick(key) => self.key_click(key),
+            KeyClickFlags(key, flags) => self.key_click_flags(key, flags),
         }
     }
-
-    // pub fn parse_command(buf: &[u8]) -> (Command, usize) { }
 }

@@ -4,6 +4,7 @@ mod command;
 mod command_code_enum;
 mod key_enum;
 mod mouse_button_enum;
+mod flags_enum;
 
 use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 
@@ -23,3 +24,4 @@ pub use key_enum::Key;
 pub use mouse_button_enum::MouseButton;
 pub use command_code_enum::CommandCode;
 pub use command::Command;
+pub use flags_enum::Flags;

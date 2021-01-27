@@ -11,3 +11,4 @@ export const MOUSE_SCROLL_Y = 7;
 export const KEY_DOWN = 8;
 export const KEY_UP = 9;
 export const KEY_CLICK = 10;
+export const KEY_CLICK_FLAGS = 11;
