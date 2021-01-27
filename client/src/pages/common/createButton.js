@@ -1,6 +1,5 @@
-export function createDownButton(socket, id, buf) {
+export function createDownButtonElem(socket, element, buf) {
     let count = 0;
-    const element = document.getElementById(id);
     element.ontouchstart = () => {
         if (++count === 1) {
             socket.send(buf);
@@ -16,9 +15,12 @@ export function createDownButton(socket, id, buf) {
     };
 }
 
-export function createDownUpCustomButton(socket, id, down, up) {
+export function createDownButton(socket, id, buf) {
+    createDownButtonElem(socket, document.getElementById(id), buf);
+}
+
+export function createDownUpCustomButtonElem(element, down, up) {
     let count = 0;
-    const element = document.getElementById(id);
     element.ontouchstart = () => {
         if (++count === 1) {
             down();
@@ -33,4 +35,8 @@ export function createDownUpCustomButton(socket, id, down, up) {
         }
         return false;
     };
+}
+
+export function createDownUpCustomButton(id, down, up) {
+    createDownUpCustomButtonElem(document.getElementById(id), down, up);
 }
