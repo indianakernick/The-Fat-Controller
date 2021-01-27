@@ -16,19 +16,19 @@ export function createDownButton(socket, id, buf) {
     };
 }
 
-export function createDownUpButton(socket, id, downBuf, upBuf) {
+export function createDownUpCustomButton(socket, id, down, up) {
     let count = 0;
     const element = document.getElementById(id);
     element.ontouchstart = () => {
         if (++count === 1) {
-            socket.send(downBuf);
+            down();
             element.classList.add("down");
         }
         return false;
     };
     element.ontouchend = element.ontouchcancel = () => {
         if (--count === 0) {
-            socket.send(upBuf);
+            up();
             element.classList.remove("down");
         }
         return false;

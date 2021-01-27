@@ -1,15 +1,14 @@
 import "./styles.scss";
 import SocketManager from "../common/SocketManager.js";
-import { KEY_CLICK, KEY_CLICK_FLAGS, KEY_DOWN, KEY_UP } from "../common/CommandCode.js";
+import { KEY_CLICK, KEY_CLICK_FLAGS } from "../common/CommandCode.js";
 import {
     N0, N1, N2, N3, N4, N5, N6, N7, N8, N9,
     DELETE, EQUAL, SLASH, MINUS, RETURN,
     X, C, V, COMMA, PERIOD,
-    UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW,
-    SHIFT as SHIFT_KEY
+    UP_ARROW, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW
 } from "../common/Key.js";
 import { SHIFT, COMMAND } from "../common/Flags.js";
-import { createDownButton, createDownUpButton } from "../common/createButton.js";
+import { createDownButton, createDownUpCustomButton } from "../common/createButton.js";
 
 const container = document.getElementById("container")
 const s = new SocketManager(container);
@@ -50,6 +49,25 @@ createDownButton(s, "right", new Uint8Array([KEY_CLICK, RIGHT_ARROW]));
 createDownButton(s, "less", new Uint8Array([KEY_CLICK_FLAGS, COMMA, SHIFT]));
 createDownButton(s, "down", new Uint8Array([KEY_CLICK, DOWN_ARROW]));
 createDownButton(s, "greater", new Uint8Array([KEY_CLICK_FLAGS, PERIOD, SHIFT]));
-createDownUpButton(s, "shift", new Uint8Array([KEY_DOWN, SHIFT_KEY]), new Uint8Array([KEY_UP, SHIFT_KEY]));
 createDownButton(s, "caret", new Uint8Array([KEY_CLICK_FLAGS, N6, SHIFT]));
 createDownButton(s, "dollar", new Uint8Array([KEY_CLICK_FLAGS, N4, SHIFT]));
+
+createDownUpCustomButton(s, "shift", () => {
+    document.getElementById("eight").innerHTML = "<span>↑</span>";
+    document.getElementById("six").innerHTML = "<span>→</span>";
+    document.getElementById("two").innerHTML = "<span>↓</span>";
+    document.getElementById("four").innerHTML = "<span>←</span>";
+    createDownButton(s, "eight", new Uint8Array([KEY_CLICK_FLAGS, UP_ARROW, SHIFT]));
+    createDownButton(s, "six", new Uint8Array([KEY_CLICK_FLAGS, RIGHT_ARROW, SHIFT]));
+    createDownButton(s, "two", new Uint8Array([KEY_CLICK_FLAGS, DOWN_ARROW, SHIFT]));
+    createDownButton(s, "four", new Uint8Array([KEY_CLICK_FLAGS, LEFT_ARROW, SHIFT]));
+}, () => {
+    document.getElementById("eight").innerHTML = "<span>8</span>";
+    document.getElementById("six").innerHTML = "<span>6</span>";
+    document.getElementById("two").innerHTML = "<span>2</span>";
+    document.getElementById("four").innerHTML = "<span>4</span>";
+    createDownButton(s, "eight", new Uint8Array([KEY_CLICK, N8]));
+    createDownButton(s, "six", new Uint8Array([KEY_CLICK, N6]));
+    createDownButton(s, "two", new Uint8Array([KEY_CLICK, N2]));
+    createDownButton(s, "four", new Uint8Array([KEY_CLICK, N4]));
+});
