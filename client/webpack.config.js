@@ -12,6 +12,7 @@ module.exports = {
         trackpad: "./src/pages/trackpad/index.js",
         slide: "./src/pages/slide/index.js",
         number: "./src/pages/number/index.js",
+        wasd: "./src/pages/wasd/index.js",
     },
 
     output: {
@@ -53,6 +54,11 @@ module.exports = {
             filename: "number.html",
             template: "./public/number.html",
             chunks: ["number"],
+        }),
+        new HtmlWebpackPlugin({
+            filename: "wasd.html",
+            template: "./public/wasd.html",
+            chunks: ["wasd"],
         }),
     ],
 

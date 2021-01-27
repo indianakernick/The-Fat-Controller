@@ -20,6 +20,7 @@ async fn main() {
         .or(filters::trackpad())
         .or(filters::slide())
         .or(filters::number())
+        .or(filters::wasd())
         .or(filters::socket(ctx))
         .or(filters::js())
         .or(filters::css());

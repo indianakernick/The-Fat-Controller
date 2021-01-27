@@ -1,0 +1,75 @@
+@import "../common/constants";
+
+@function mm_to_px($mm) {
+    // pixels-per-millimeter = pixels-per-inch / 25.4
+    // pixel-density: 326 pixels-per-inch
+    // device-pixel-ratio: 2
+    // px = mm * pixel-density / device-pixel-ratio
+    @return $mm * (326 / 25.4) / 2;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $button;
+    border-radius: 7px;
+    color: $text;
+    font-size: 1.5rem;
+    font-family: $font-family-sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    width: mm_to_px(15.5) * 1px;
+    height: mm_to_px(14.5) * 1px;
+    margin-top: mm_to_px(3) * 1px;
+    margin-left: mm_to_px(3) * 1px;
+    flex: 0 0 auto;
+}
+
+.button.down {
+    background-color: $button-down;
+}
+
+#tab, #capslock, #shift {
+    align-items: flex-end;
+    justify-content: left;
+}
+
+#tab span, #capslock span, #shift span {
+    margin-bottom: mm_to_px(2) * 1px;
+    margin-left: mm_to_px(3) * 1px;
+}
+
+#tab {
+    width: mm_to_px(25) * 1px;
+}
+
+#capslock {
+    width: mm_to_px(29.5) * 1px
+}
+
+#shift {
+    width: mm_to_px(39) * 1px;
+}
