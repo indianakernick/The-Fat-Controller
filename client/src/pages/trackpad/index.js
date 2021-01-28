@@ -16,9 +16,9 @@ const scrollXYBuf = new Uint8Array([MOUSE_SCROLL_X, 0, 0, MOUSE_SCROLL_Y, 0, 0])
 const downBuf = new Uint8Array([MOUSE_DOWN, LEFT]);
 const upBuf = new Uint8Array([MOUSE_UP, LEFT]);
 
-const MOVE_SCALE = 1.8;
+const MOVE_SCALE = 2.0;
 const SCROLL_SCALE = 1.8;
-const FORCE_THRESHOLD = 0.25;
+const FORCE_THRESHOLD = 0.3;
 
 function copyInt16(buffer, index, integer) {
     buffer[index] = (integer >> 8) & 0xFF

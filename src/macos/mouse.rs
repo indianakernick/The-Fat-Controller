@@ -1,6 +1,6 @@
-use core_graphics::display::CGPoint;
 use super::{EventContext, MouseButton};
 use core_graphics::base::{boolean_t, CGFloat};
+use core_graphics::display::{CGPoint, CGDisplay};
 use core_graphics::event_source::CGEventSourceStateID;
 use core_graphics::event::{CGEventType, CGEvent, CGMouseButton, CGEventTapLocation, ScrollEventUnit, EventField};
 
@@ -17,12 +17,8 @@ impl EventContext {
         }
     }
 
-    fn mouse_location(&mut self) -> CGPoint {
-        CGEvent::new(self.event_source.clone()).unwrap().location()
-    }
-
-    fn mouse_move_to_point(&mut self, point: CGPoint) {
-        let (button, event_type) = if Self::button_state(CGMouseButton::Left) {
+    fn mouse_event_type() -> (CGMouseButton, CGEventType) {
+        if Self::button_state(CGMouseButton::Left) {
             (CGMouseButton::Left, CGEventType::LeftMouseDragged)
         } else if Self::button_state(CGMouseButton::Right) {
             (CGMouseButton::Right, CGEventType::RightMouseDragged)
@@ -30,25 +26,42 @@ impl EventContext {
             (CGMouseButton::Center, CGEventType::OtherMouseDragged)
         } else {
             (CGMouseButton::Left, CGEventType::MouseMoved)
-        };
+        }
+    }
 
+    pub fn mouse_move_to(&mut self, x: i32, y: i32) {
+        let (button, event_type) = Self::mouse_event_type();
         CGEvent::new_mouse_event(
             self.event_source.clone(),
             event_type,
-            point,
+            CGPoint::new(x as CGFloat, y as CGFloat),
             button
         ).unwrap().post(CGEventTapLocation::HID);
     }
 
-    pub fn mouse_move_to(&mut self, x: i32, y: i32) {
-        self.mouse_move_to_point(CGPoint::new(x as CGFloat, y as CGFloat));
+    fn mouse_location(&mut self) -> CGPoint {
+        CGEvent::new(self.event_source.clone()).unwrap().location()
     }
 
     pub fn mouse_move_relative(&mut self, x: i32, y: i32) {
         let mut pos = self.mouse_location();
         pos.x += x as CGFloat;
         pos.y += y as CGFloat;
-        self.mouse_move_to_point(pos);
+
+        let display = CGDisplay::main();
+        pos.x = pos.x.max(0.0).min((display.pixels_wide() - 1) as CGFloat);
+        pos.y = pos.y.max(0.0).min((display.pixels_high() - 1) as CGFloat);
+
+        let (button, event_type) = Self::mouse_event_type();
+        let event = CGEvent::new_mouse_event(
+            self.event_source.clone(),
+            event_type,
+            pos,
+            button
+        ).unwrap();
+        event.set_integer_value_field(EventField::MOUSE_EVENT_DELTA_X, x as i64);
+        event.set_integer_value_field(EventField::MOUSE_EVENT_DELTA_Y, y as i64);
+        event.post(CGEventTapLocation::HID);
     }
 
     fn mouse_event(&mut self, button: CGMouseButton, event_type: CGEventType, click_count: u32) {
