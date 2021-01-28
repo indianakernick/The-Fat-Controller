@@ -1,0 +1,15 @@
+//
+//  LookView.swift
+//  Remote
+//
+//  Created by Indiana Kernick on 28/1/21.
+//  Copyright © 2021 Indiana Kernick. All rights reserved.
+//
+
+import UIKit
+
+class LookView: UIView {
+  override func layoutSubviews() {
+    layer.backgroundColor = CGColor.init(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0);
+  }
+}

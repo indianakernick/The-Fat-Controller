@@ -13,6 +13,8 @@
 		45A3608525C22C1200DFE76A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A3608325C22C1200DFE76A /* Main.storyboard */; };
 		45A3608725C22C1A00DFE76A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45A3608625C22C1A00DFE76A /* Assets.xcassets */; };
 		45A3608A25C22C1A00DFE76A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A3608825C22C1A00DFE76A /* LaunchScreen.storyboard */; };
+		45F6860F25C27E7E00E89F33 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6860E25C27E7E00E89F33 /* MoveView.swift */; };
+		45F6861125C27EBB00E89F33 /* LookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6861025C27EBB00E89F33 /* LookView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		45A3608625C22C1A00DFE76A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45A3608925C22C1A00DFE76A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45A3608B25C22C1A00DFE76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45F6860E25C27E7E00E89F33 /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
+		45F6861025C27EBB00E89F33 /* LookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				45A3608625C22C1A00DFE76A /* Assets.xcassets */,
 				45A3608825C22C1A00DFE76A /* LaunchScreen.storyboard */,
 				45A3608B25C22C1A00DFE76A /* Info.plist */,
+				45F6860E25C27E7E00E89F33 /* MoveView.swift */,
+				45F6861025C27EBB00E89F33 /* LookView.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -138,9 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45F6861125C27EBB00E89F33 /* LookView.swift in Sources */,
 				45A3608225C22C1200DFE76A /* ViewController.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
+				45F6860F25C27E7E00E89F33 /* MoveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
