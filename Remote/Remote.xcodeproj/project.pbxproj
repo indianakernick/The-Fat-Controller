@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
+		4522697925C2B8CA00F08645 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4522697A25C2B8F500F08645 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; };
 		45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607D25C22C1200DFE76A /* AppDelegate.swift */; };
 		45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607F25C22C1200DFE76A /* SceneDelegate.swift */; };
 		45A3608225C22C1200DFE76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3608125C22C1200DFE76A /* ViewController.swift */; };
@@ -18,8 +20,22 @@
 		45F6861125C27EBB00E89F33 /* LookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6861025C27EBB00E89F33 /* LookView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4522697B25C2BAFB00F08645 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4522697925C2B8CA00F08645 /* Starscream.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		4522697825C2B8CA00F08645 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Frameworks/Starscream.framework; sourceTree = "<group>"; };
 		45A3607A25C22C1200DFE76A /* Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A3607D25C22C1200DFE76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A3607F25C22C1200DFE76A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,17 +53,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4522697A25C2B8F500F08645 /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4522697725C2B8C900F08645 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4522697825C2B8CA00F08645 /* Starscream.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		45A3607125C22C1200DFE76A = {
 			isa = PBXGroup;
 			children = (
 				45A3607C25C22C1200DFE76A /* Remote */,
 				45A3607B25C22C1200DFE76A /* Products */,
+				4522697725C2B8C900F08645 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +112,7 @@
 				45A3607625C22C1200DFE76A /* Sources */,
 				45A3607725C22C1200DFE76A /* Frameworks */,
 				45A3607825C22C1200DFE76A /* Resources */,
+				4522697B25C2BAFB00F08645 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -298,6 +325,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QY44MADGVC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = Remote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -317,6 +348,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QY44MADGVC;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = Remote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.7;
 				LD_RUNPATH_SEARCH_PATHS = (

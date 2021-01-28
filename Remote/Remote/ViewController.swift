@@ -7,9 +7,24 @@
 //
 
 import UIKit
+import Starscream
 import MediaPlayer
 
-class ViewController: UIViewController {
+// Maybe the client and server should maintain a random number generator.
+// Client sends a random number with every message.
+// Client number must match server number. Otherwise server ignores message.
+// Probably less latency than full encryption. It's not like I'm going to be
+// typing passwords with this.
+
+// Could maybe use TCP instead of websockets. That would require dropping the
+// web client completely and doing everything in the app.
+
+class ViewController: UIViewController, WebSocketDelegate {
+  func websocketDidConnect(socket: WebSocketClient) {}
+  func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {}
+  func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
+  func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
+    
   private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
   private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
   
@@ -33,6 +48,8 @@ class ViewController: UIViewController {
   private static let longDelay = 3.2;
   private static let shortDelay = 0.1;
   private static let delay = shortDelay;
+  
+  private var socket: WebSocket!;
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -44,22 +61,30 @@ class ViewController: UIViewController {
     
     view.subviews[0].addSubview(upLabel);
     view.subviews[0].addSubview(downLabel);
+    
+    socket = WebSocket(url: URL(string: "ws://indi-mac.local:80/socket")!);
+    socket.delegate = self;
+    socket.connect();
   }
 
   private func upPressed() {
     upLabel.text = "Up";
+    socket!.write(data: Data([2, 1])); // down right
   }
   
   private func upReleased() {
     upLabel.text = "";
+    socket!.write(data: Data([3, 1])); // up right
   }
   
   private func downPressed() {
     downLabel.text = "Down";
+    socket!.write(data: Data([2, 0])); // down left
   }
   
   private func downReleased() {
     downLabel.text = "";
+    socket!.write(data: Data([3, 0])); // up left
   }
 
   private func volumeIncreased() {
