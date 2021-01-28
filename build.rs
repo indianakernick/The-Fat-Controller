@@ -262,6 +262,54 @@ fn generate_rust_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std:
     Ok(())
 }
 
+fn generate_swift_enum(path: &str, name: &[u8], variants: &[Variant]) -> std::io::Result<()> {
+    let mut file = std::fs::File::create(path)?;
+    file.write_all(COMMENT)?;
+
+    file.write_all(b"enum ")?;
+    file.write_all(name)?;
+    file.write_all(b": UInt8 {\n")?;
+
+    for var in variants.iter() {
+        file.write_all(b"    case ")?;
+        if var.0 == "Return" {
+            file.write_all(b"`return`")?;
+        } else {
+            file.write_all(var.0.to_mixed_case().as_bytes())?;
+        }
+        file.write_all(b" = ")?;
+        file.write_all(var.1.to_string().as_bytes())?;
+        file.write_all(b";\n")?;
+    }
+
+    file.write_all(b"}\n")?;
+
+    Ok(())
+}
+
+fn generate_swift_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std::io::Result<()> {
+    let mut file = std::fs::File::create(path)?;
+    file.write_all(COMMENT)?;
+
+    file.write_all(b"struct ")?;
+    file.write_all(name)?;
+    file.write_all(b": OptionSet {\n    let rawValue: UInt8;\n\n")?;
+
+    for var in variants.iter() {
+        file.write_all(b"    static let ")?;
+        file.write_all(var.0.to_mixed_case().as_bytes())?;
+        file.write_all(b" = ")?;
+        file.write_all(name)?;
+        file.write_all(b"(rawValue: ")?;
+        file.write_all(var.1.to_string().as_bytes())?;
+        file.write_all(b");\n")?;
+    }
+
+    file.write_all(b"}\n")?;
+
+    Ok(())
+}
+
 fn main() {
     generate_js_enum("client/src/pages/common/Key.js", &KEYS).unwrap();
     generate_js_enum("client/src/pages/common/Flags.js", &FLAGS).unwrap();
@@ -302,6 +350,11 @@ fn main() {
         let mut file = generate_rust_enum("src/macos/command_code_enum.rs", name, &COMMANDS).unwrap();
         generate_rust_from_byte(&mut file, name, &COMMANDS).unwrap();
     }
+
+    generate_swift_enum("Remote/Remote/Constants/Key.swift", b"Key", &KEYS).unwrap();
+    generate_swift_bitflags("Remote/Remote/Constants/Flags.swift", b"Flags", &FLAGS).unwrap();
+    generate_swift_enum("Remote/Remote/Constants/MouseButton.swift", b"MouseButton", &MOUSE_BUTTONS).unwrap();
+    generate_swift_enum("Remote/Remote/Constants/CommandCode.swift", b"CommandCode", &COMMANDS).unwrap();
 
     println!("cargo:rerun-if-changed=client/public/click.html");
     println!("cargo:rerun-if-changed=client/public/number.html");

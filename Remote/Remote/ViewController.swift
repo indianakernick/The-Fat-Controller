@@ -69,22 +69,22 @@ class ViewController: UIViewController, WebSocketDelegate {
 
   private func upPressed() {
     upLabel.text = "Up";
-    socket!.write(data: Data([2, 1])); // down right
+    socket!.write(data: Data([CommandCode.mouseDown.rawValue, MouseButton.right.rawValue]));
   }
   
   private func upReleased() {
     upLabel.text = "";
-    socket!.write(data: Data([3, 1])); // up right
+    socket!.write(data: Data([CommandCode.mouseUp.rawValue, MouseButton.right.rawValue]));
   }
   
   private func downPressed() {
     downLabel.text = "Down";
-    socket!.write(data: Data([2, 0])); // down left
+    socket!.write(data: Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]));
   }
   
   private func downReleased() {
     downLabel.text = "";
-    socket!.write(data: Data([3, 0])); // up left
+    socket!.write(data: Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]));
   }
 
   private func volumeIncreased() {
