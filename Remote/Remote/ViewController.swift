@@ -18,7 +18,10 @@ import Starscream
 // Could maybe use TCP instead of websockets. That would require dropping the
 // web client completely and doing everything in the app.
 
-class ViewController: UIViewController, VolumeInputDelegate, LookDelegate, SocketManagerDelegate {
+// MoveTranslator
+//   translate the input into socket messages
+
+class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
     
@@ -37,6 +40,11 @@ class ViewController: UIViewController, VolumeInputDelegate, LookDelegate, Socke
         volumeInput.delegate = self;
         volumeInput.continuous = false;
         volumeInput.initialize(view: view);
+        
+        let moveInput = view.subviews[0] as! MoveView;
+        moveInput.origin = .relative;
+        moveInput.stationaryThreshold = 20.0;
+        moveInput.delegate = self;
         
         let lookInput = view.subviews[1] as! LookView;
         lookInput.scale = 2.5;
@@ -73,6 +81,22 @@ class ViewController: UIViewController, VolumeInputDelegate, LookDelegate, Socke
         buffer[0] = CommandCode.mouseMoveRelative.rawValue;
         ViewController.setInt16(buf: &buffer, index: 1, value: Int16(dx));
         ViewController.setInt16(buf: &buffer, index: 3, value: Int16(dy));
+        socket.send(buffer);
+    }
+    
+    func moveDirectionChanged(old: MoveDirection, new: MoveDirection) {
+        let keys = [Key.w.rawValue, Key.d.rawValue, Key.s.rawValue, Key.a.rawValue];
+        var buffer = [UInt8]();
+        for d in 0...4 {
+            let bit = UInt8(1 << d);
+            if new.rawValue & bit != 0 && old.rawValue & bit == 0 {
+                buffer.append(CommandCode.keyDown.rawValue);
+                buffer.append(keys[d]);
+            } else if new.rawValue & bit == 0 && old.rawValue & bit != 0 {
+                buffer.append(CommandCode.keyUp.rawValue);
+                buffer.append(keys[d]);
+            }
+        }
         socket.send(buffer);
     }
     

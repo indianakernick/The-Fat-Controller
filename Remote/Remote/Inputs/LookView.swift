@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol LookDelegate: class {
+protocol LookInputDelegate: class {
     func lookDirectionChanged(dx: Int32, dy: Int32);
 }
 
@@ -16,7 +16,7 @@ class LookView: UIView {
     private var firstTouch: UITouch?;
     private var lastLocation = CGPoint();
     
-    weak var delegate: LookDelegate?;
+    weak var delegate: LookInputDelegate?;
     var scale = CGFloat(1.0);
     
     override func layoutSubviews() {
