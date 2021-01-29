@@ -47,7 +47,11 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         moveInput.delegate = self;
         
         let lookInput = view.subviews[1] as! LookView;
-        lookInput.scale = 2.5;
+        lookInput.slowScale = 1.9;
+        lookInput.middleScale = 2.4;
+        lookInput.fastScale = 4.2;
+        lookInput.slowVelocity = 40.0;
+        lookInput.fastVelocity = 200.0;
         lookInput.delegate = self;
     }
 

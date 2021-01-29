@@ -48,7 +48,7 @@ class MoveView: UIView {
             return super.touchesBegan(touches, with: event);
         }
         firstTouch = touch;
-        let location = touch.location(in: self);
+        let location = touch.preciseLocation(in: self);
         switch origin {
         case .absolute:
             startLocation = center;
@@ -97,7 +97,7 @@ class MoveView: UIView {
         guard let touch = touches.first, firstTouch == touch else {
             return super.touchesMoved(touches, with: event);
         }
-        setDirection(new: getDirection(location: touch.location(in: self)));
+        setDirection(new: getDirection(location: touch.preciseLocation(in: self)));
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
