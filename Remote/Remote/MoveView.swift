@@ -9,7 +9,7 @@
 import UIKit
 
 class MoveView: UIView {
-  override func layoutSubviews() {
-    layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0);
-  }
+    override func layoutSubviews() {
+        layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0);
+    }
 }

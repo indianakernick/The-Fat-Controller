@@ -9,7 +9,7 @@
 import UIKit
 
 class LookView: UIView {
-  override func layoutSubviews() {
-    layer.backgroundColor = CGColor(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0);
-  }
+    override func layoutSubviews() {
+        layer.backgroundColor = CGColor(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0);
+    }
 }

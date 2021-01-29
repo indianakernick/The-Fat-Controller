@@ -10,6 +10,7 @@
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
 		4522697925C2B8CA00F08645 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4522697A25C2B8F500F08645 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; };
+		454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2EE25C388DB005D59DD /* VolumeInput.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
 		4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E125C2C42F00E5AE57 /* Flags.swift */; };
 		4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E225C2C42F00E5AE57 /* Key.swift */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		4522697825C2B8CA00F08645 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Frameworks/Starscream.framework; sourceTree = "<group>"; };
+		454FA2EE25C388DB005D59DD /* VolumeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInput.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
 		4572C3E125C2C42F00E5AE57 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		4572C3E225C2C42F00E5AE57 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		454FA2ED25C388C3005D59DD /* Inputs */ = {
+			isa = PBXGroup;
+			children = (
+				454FA2EE25C388DB005D59DD /* VolumeInput.swift */,
+			);
+			path = Inputs;
+			sourceTree = "<group>";
+		};
 		45A3607125C22C1200DFE76A = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		45A3607C25C22C1200DFE76A /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				454FA2ED25C388C3005D59DD /* Inputs */,
 				4522697C25C2BE6300F08645 /* Constants */,
 				45A3607D25C22C1200DFE76A /* AppDelegate.swift */,
 				45A3607F25C22C1200DFE76A /* SceneDelegate.swift */,
@@ -198,6 +209,7 @@
 				45F6861125C27EBB00E89F33 /* LookView.swift in Sources */,
 				4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */,
 				45A3608225C22C1200DFE76A /* ViewController.swift in Sources */,
+				454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
