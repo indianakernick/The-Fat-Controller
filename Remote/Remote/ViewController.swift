@@ -35,7 +35,7 @@ class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelega
         socket.connect();
         
         volumeInput.delegate = self;
-        volumeInput.continuous = true;
+        volumeInput.continuous = false;
         volumeInput.initialize(view: view);
     }
 
