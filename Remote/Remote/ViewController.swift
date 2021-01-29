@@ -21,6 +21,8 @@ import Starscream
 // MoveTranslator
 //   translate the input into socket messages
 
+// Make it possible to configure the controller from within the app
+
 class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
