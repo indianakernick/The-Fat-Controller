@@ -18,7 +18,7 @@ import Starscream
 // Could maybe use TCP instead of websockets. That would require dropping the
 // web client completely and doing everything in the app.
 
-class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelegate {
+class ViewController: UIViewController, VolumeInputDelegate, LookDelegate, SocketManagerDelegate {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
     
@@ -37,6 +37,10 @@ class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelega
         volumeInput.delegate = self;
         volumeInput.continuous = false;
         volumeInput.initialize(view: view);
+        
+        let lookInput = view.subviews[1] as! LookView;
+        lookInput.scale = 2.5;
+        lookInput.delegate = self;
     }
 
     func volumeUpPressed() {
@@ -57,6 +61,19 @@ class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelega
     func volumeDownReleased() {
         downLabel.text = "";
         socket.send([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
+    }
+    
+    private static func setInt16(buf: inout [UInt8], index: Int, value: Int16) {
+        buf[index] = UInt8((value >> 8) & 0xFF);
+        buf[index + 1] = UInt8(value & 0xFF);
+    }
+    
+    func lookDirectionChanged(dx: Int32, dy: Int32) {
+        var buffer = [UInt8](repeating: 0, count: 5);
+        buffer[0] = CommandCode.mouseMoveRelative.rawValue;
+        ViewController.setInt16(buf: &buffer, index: 1, value: Int16(dx));
+        ViewController.setInt16(buf: &buffer, index: 3, value: Int16(dy));
+        socket.send(buffer);
     }
     
     func onlineStatusChanged(online: Bool) {

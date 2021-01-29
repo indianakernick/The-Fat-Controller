@@ -97,6 +97,8 @@
 		454FA2ED25C388C3005D59DD /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
+				45F6860E25C27E7E00E89F33 /* MoveView.swift */,
+				45F6861025C27EBB00E89F33 /* LookView.swift */,
 				454FA2EE25C388DB005D59DD /* VolumeInput.swift */,
 			);
 			path = Inputs;
@@ -141,8 +143,6 @@
 				45A3608625C22C1A00DFE76A /* Assets.xcassets */,
 				45A3608825C22C1A00DFE76A /* LaunchScreen.storyboard */,
 				45A3608B25C22C1A00DFE76A /* Info.plist */,
-				45F6860E25C27E7E00E89F33 /* MoveView.swift */,
-				45F6861025C27EBB00E89F33 /* LookView.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
