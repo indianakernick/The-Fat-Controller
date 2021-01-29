@@ -15,16 +15,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qX-oc-feU" userLabel="MoveView" customClass="MoveView" customModule="Remote" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qX-oc-feU" userLabel="MoveView" customClass="MoveView" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="333.5" height="375"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUN-es-kL8" userLabel="LookView" customClass="LookView" customModule="Remote" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUN-es-kL8" userLabel="LookView" customClass="LookView" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="333.5" y="0.0" width="333.5" height="375"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.86274509803921573" green="0.20784313725490194" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="kUN-es-kL8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3gX-Ky-RV8"/>
                             <constraint firstItem="5qX-oc-feU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="5Kf-Tc-s8Z"/>

@@ -26,7 +26,7 @@ class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelega
     private var volumeInput = VolumeInput();
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
 
         view.subviews[0].addSubview(upLabel);
         view.subviews[0].addSubview(downLabel);
@@ -60,6 +60,8 @@ class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelega
     }
     
     func onlineStatusChanged(online: Bool) {
-        view.isHidden = !online;
+        for view in view.subviews {
+            view.isHidden = !online;
+        }
     }
 }
