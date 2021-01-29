@@ -18,16 +18,11 @@ import Starscream
 // Could maybe use TCP instead of websockets. That would require dropping the
 // web client completely and doing everything in the app.
 
-class ViewController: UIViewController, WebSocketDelegate, VolumeInputDelegate {
-    func websocketDidConnect(socket: WebSocketClient) {}
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {}
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
-
+class ViewController: UIViewController, VolumeInputDelegate, SocketManagerDelegate {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
     
-    private var socket: WebSocket!;
+    private var socket = SocketManager();
     private var volumeInput = VolumeInput();
 
     override func viewDidLoad() {
@@ -36,32 +31,35 @@ class ViewController: UIViewController, WebSocketDelegate, VolumeInputDelegate {
         view.subviews[0].addSubview(upLabel);
         view.subviews[0].addSubview(downLabel);
         
+        socket.delegate = self;
+        socket.connect();
+        
         volumeInput.delegate = self;
         volumeInput.continuous = true;
         volumeInput.initialize(view: view);
-        
-        socket = WebSocket(url: URL(string: "ws://indi-mac.local:80/socket")!);
-        socket.delegate = self;
-        socket.connect();
     }
 
-    internal func volumeUpPressed() {
+    func volumeUpPressed() {
         upLabel.text = "Up";
-        socket.write(data: Data([CommandCode.mouseDown.rawValue, MouseButton.right.rawValue]));
+        socket.send([CommandCode.mouseDown.rawValue, MouseButton.right.rawValue]);
     }
   
-    internal func volumeUpReleased() {
+    func volumeUpReleased() {
         upLabel.text = "";
-        socket.write(data: Data([CommandCode.mouseUp.rawValue, MouseButton.right.rawValue]));
+        socket.send([CommandCode.mouseUp.rawValue, MouseButton.right.rawValue]);
     }
   
-    internal func volumeDownPressed() {
+    func volumeDownPressed() {
         downLabel.text = "Down";
-        socket.write(data: Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]));
+        socket.send([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
     }
   
-    internal func volumeDownReleased() {
+    func volumeDownReleased() {
         downLabel.text = "";
-        socket.write(data: Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]));
+        socket.send([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
+    }
+    
+    func onlineStatusChanged(online: Bool) {
+        view.isHidden = !online;
     }
 }
