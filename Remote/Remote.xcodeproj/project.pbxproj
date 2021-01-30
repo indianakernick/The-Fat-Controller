@@ -8,14 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
-		4522697925C2B8CA00F08645 /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4522697A25C2B8F500F08645 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4522697825C2B8CA00F08645 /* Starscream.framework */; };
 		454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2EE25C388DB005D59DD /* VolumeInput.swift */; };
 		454FA2F225C39D57005D59DD /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2F125C39D57005D59DD /* SocketManager.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
 		4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E125C2C42F00E5AE57 /* Flags.swift */; };
 		4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E225C2C42F00E5AE57 /* Key.swift */; };
 		4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E325C2C42F00E5AE57 /* MouseButton.swift */; };
+		458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490D825C4EA9E0063404D /* VolumeEmitter.swift */; };
+		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
+		458490E625C513680063404D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; };
+		458490E725C5136B0063404D /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607D25C22C1200DFE76A /* AppDelegate.swift */; };
 		45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607F25C22C1200DFE76A /* SceneDelegate.swift */; };
 		45A3608225C22C1200DFE76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3608125C22C1200DFE76A /* ViewController.swift */; };
@@ -34,7 +36,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4522697925C2B8CA00F08645 /* Starscream.framework in CopyFiles */,
+				458490E725C5136B0063404D /* Starscream.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,13 +44,15 @@
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
-		4522697825C2B8CA00F08645 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Frameworks/Starscream.framework; sourceTree = "<group>"; };
 		454FA2EE25C388DB005D59DD /* VolumeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInput.swift; sourceTree = "<group>"; };
 		454FA2F125C39D57005D59DD /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
 		4572C3E125C2C42F00E5AE57 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flags.swift; sourceTree = "<group>"; };
 		4572C3E225C2C42F00E5AE57 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		4572C3E325C2C42F00E5AE57 /* MouseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseButton.swift; sourceTree = "<group>"; };
+		458490D825C4EA9E0063404D /* VolumeEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeEmitter.swift; sourceTree = "<group>"; };
+		458490DA25C4EF2A0063404D /* ButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonInput.swift; sourceTree = "<group>"; };
+		458490E325C508920063404D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Starscream.framework; sourceTree = "<group>"; };
 		45A3607A25C22C1200DFE76A /* Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A3607D25C22C1200DFE76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A3607F25C22C1200DFE76A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4522697A25C2B8F500F08645 /* Starscream.framework in Frameworks */,
+				458490E625C513680063404D /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,9 +81,9 @@
 		4522697725C2B8C900F08645 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4522697825C2B8CA00F08645 /* Starscream.framework */,
+				458490E325C508920063404D /* Starscream.framework */,
 			);
-			name = Frameworks;
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		4522697C25C2BE6300F08645 /* Constants */ = {
@@ -100,6 +104,7 @@
 				45F6860E25C27E7E00E89F33 /* MoveView.swift */,
 				45F6861025C27EBB00E89F33 /* LookView.swift */,
 				454FA2EE25C388DB005D59DD /* VolumeInput.swift */,
+				458490DA25C4EF2A0063404D /* ButtonInput.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -111,6 +116,14 @@
 				454FA2F125C39D57005D59DD /* SocketManager.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		458490D725C4EA580063404D /* Emitters */ = {
+			isa = PBXGroup;
+			children = (
+				458490D825C4EA9E0063404D /* VolumeEmitter.swift */,
+			);
+			path = Emitters;
 			sourceTree = "<group>";
 		};
 		45A3607125C22C1200DFE76A = {
@@ -133,6 +146,7 @@
 		45A3607C25C22C1200DFE76A /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				458490D725C4EA580063404D /* Emitters */,
 				454FA2F025C39D37005D59DD /* Utilities */,
 				454FA2ED25C388C3005D59DD /* Inputs */,
 				4522697C25C2BE6300F08645 /* Constants */,
@@ -223,6 +237,8 @@
 				45F6861125C27EBB00E89F33 /* LookView.swift in Sources */,
 				4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */,
 				45A3608225C22C1200DFE76A /* ViewController.swift in Sources */,
+				458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */,
+				458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */,
 				454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,

@@ -6,7 +6,37 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-import Starscream
+#if true
+
+import Starscream;
+
+#else
+
+import Foundation;
+
+protocol WebSocketDelegate: class {
+    func websocketDidConnect(socket: WebSocketClient);
+}
+
+class WebSocket {
+    weak var delegate: WebSocketDelegate?;
+    
+    func connect() {
+        delegate?.websocketDidConnect(socket: WebSocketClient());
+    }
+    
+    init(url: URL) {}
+    
+    func write(data: Data) {
+        if !data.isEmpty {
+            print(data);
+        }
+    }
+}
+
+class WebSocketClient {}
+
+#endif
 
 protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool);
@@ -49,12 +79,16 @@ class SocketManager: WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
     
-    func send(_ data: [UInt8]) {
-        socket.write(data: Data(data));
+    func send(_ data: Data) {
+        socket.write(data: data);
         tickCount = 0;
         if tickTimer == nil {
             startTicking();
         }
+    }
+    
+    func send(_ data: [UInt8]) {
+        send(Data(data));
     }
     
     private func startTicking() {

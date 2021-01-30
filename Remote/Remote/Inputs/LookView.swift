@@ -29,7 +29,7 @@ class LookView: UIView {
     var fastVelocity = CGFloat(1.0);
     
     override func layoutSubviews() {
-        layer.backgroundColor = CGColor(srgbRed: 0.0, green: 0.0, blue: 1.0, alpha: 1.0);
+        layer.backgroundColor = Colors.gray300;
         addSubview(velXLabel);
         addSubview(velYLabel);
     }

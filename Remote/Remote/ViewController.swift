@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Starscream
 
 // Maybe the client and server should maintain a random number generator.
 // Client sends a random number with every message.
@@ -23,7 +22,10 @@ import Starscream
 
 // Make it possible to configure the controller from within the app
 
-class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate {
+// Don't use the storyboard. Create views from Swift.
+// Make socket messages configurable on an object.
+
+class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate, ButtonInputDelegate {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
     
@@ -55,6 +57,53 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         lookInput.slowVelocity = 40.0;
         lookInput.fastVelocity = 200.0;
         lookInput.delegate = self;
+        
+        let eButton = ViewController.addTopLeftButton(parent: view.subviews[0]);
+        eButton.color = Colors.gray500;
+        eButton.button = .a;
+        eButton.delegate = self;
+        
+        let wButton = ViewController.addTopRightButton(parent: view.subviews[0]);
+        wButton.color = Colors.gray500;
+        wButton.button = .b;
+        wButton.delegate = self;
+    }
+    
+    private static func addButton(parent: UIView) -> ButtonInput {
+        let button = ButtonInput();
+        button.translatesAutoresizingMaskIntoConstraints = false;
+        parent.addSubview(button);
+        parent.addConstraint(button.widthAnchor.constraint(equalToConstant: 50.0));
+        parent.addConstraint(button.heightAnchor.constraint(equalToConstant: 50.0));
+        return button;
+    }
+    
+    private static func addTopLeftButton(parent: UIView) -> ButtonInput {
+        let button = addButton(parent: parent);
+        parent.addConstraint(button.topAnchor.constraint(equalTo: parent.topAnchor));
+        parent.addConstraint(button.leftAnchor.constraint(equalTo: parent.leftAnchor));
+        return button;
+    }
+    
+    private static func addTopRightButton(parent: UIView) -> ButtonInput {
+        let button = addButton(parent: parent);
+        parent.addConstraint(button.topAnchor.constraint(equalTo: parent.topAnchor));
+        parent.addConstraint(button.rightAnchor.constraint(equalTo: parent.rightAnchor));
+        return button;
+    }
+    
+    private static func addBottomRightButton(parent: UIView) -> ButtonInput {
+        let button = addButton(parent: parent);
+        parent.addConstraint(button.bottomAnchor.constraint(equalTo: parent.bottomAnchor));
+        parent.addConstraint(button.rightAnchor.constraint(equalTo: parent.rightAnchor));
+        return button;
+    }
+    
+    private static func addBottomLeftRightButton(parent: UIView) -> ButtonInput {
+        let button = addButton(parent: parent);
+        parent.addConstraint(button.bottomAnchor.constraint(equalTo: parent.bottomAnchor));
+        parent.addConstraint(button.leftAnchor.constraint(equalTo: parent.leftAnchor));
+        return button;
     }
 
     func volumeUpPressed() {
@@ -104,6 +153,22 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
             }
         }
         socket.send(buffer);
+    }
+    
+    func buttonPressed(button: Button) {
+        if button == .a {
+            socket.send([CommandCode.keyDown.rawValue, Key.q.rawValue]);
+        } else if button == .b {
+            socket.send([CommandCode.keyDown.rawValue, Key.e.rawValue]);
+        }
+    }
+    
+    func buttonReleased(button: Button) {
+        if button == .a {
+            socket.send([CommandCode.keyUp.rawValue, Key.q.rawValue]);
+        } else if button == .b {
+            socket.send([CommandCode.keyUp.rawValue, Key.e.rawValue]);
+        }
     }
     
     func onlineStatusChanged(online: Bool) {

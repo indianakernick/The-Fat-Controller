@@ -40,7 +40,7 @@ class MoveView: UIView {
     var stationaryThreshold = CGFloat(1.0);
     
     override func layoutSubviews() {
-        layer.backgroundColor = CGColor(srgbRed: 1.0, green: 0.0, blue: 0.0, alpha: 1.0);
+        layer.backgroundColor = Colors.gray200;
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
