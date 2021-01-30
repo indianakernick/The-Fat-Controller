@@ -58,23 +58,33 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         lookInput.fastVelocity = 200.0;
         lookInput.delegate = self;
         
-        let eButton = ViewController.addTopLeftButton(parent: view.subviews[0]);
-        eButton.color = Colors.gray500;
-        eButton.button = .a;
-        eButton.delegate = self;
+        let buttonA = ViewController.addTopLeftButton(parent: view.subviews[0]);
+        buttonA.color = Colors.gray500;
+        buttonA.button = .a;
+        buttonA.delegate = self;
         
-        let wButton = ViewController.addTopRightButton(parent: view.subviews[0]);
-        wButton.color = Colors.gray500;
-        wButton.button = .b;
-        wButton.delegate = self;
+        let buttonB = ViewController.addBottomLeftButton(parent: view.subviews[0]);
+        buttonB.color = Colors.gray500;
+        buttonB.button = .b;
+        buttonB.delegate = self;
+        
+        let buttonC = ViewController.addBottomRightButton(parent: view.subviews[1]);
+        buttonC.color = Colors.gray500;
+        buttonC.button = .c;
+        buttonC.delegate = self;
+        
+        let buttonD = ViewController.addTopRightButton(parent: view.subviews[1]);
+        buttonD.color = Colors.gray500;
+        buttonD.button = .d;
+        buttonD.delegate = self;
     }
     
     private static func addButton(parent: UIView) -> ButtonInput {
         let button = ButtonInput();
         button.translatesAutoresizingMaskIntoConstraints = false;
         parent.addSubview(button);
-        parent.addConstraint(button.widthAnchor.constraint(equalToConstant: 50.0));
-        parent.addConstraint(button.heightAnchor.constraint(equalToConstant: 50.0));
+        parent.addConstraint(button.widthAnchor.constraint(equalToConstant: 70.0));
+        parent.addConstraint(button.heightAnchor.constraint(equalToConstant: 70.0));
         return button;
     }
     
@@ -99,7 +109,7 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         return button;
     }
     
-    private static func addBottomLeftRightButton(parent: UIView) -> ButtonInput {
+    private static func addBottomLeftButton(parent: UIView) -> ButtonInput {
         let button = addButton(parent: parent);
         parent.addConstraint(button.bottomAnchor.constraint(equalTo: parent.bottomAnchor));
         parent.addConstraint(button.leftAnchor.constraint(equalTo: parent.leftAnchor));
@@ -156,18 +166,32 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
     }
     
     func buttonPressed(button: Button) {
-        if button == .a {
-            socket.send([CommandCode.keyDown.rawValue, Key.q.rawValue]);
-        } else if button == .b {
+        switch button {
+        case .a:
             socket.send([CommandCode.keyDown.rawValue, Key.e.rawValue]);
+        case .b:
+            socket.send([CommandCode.keyDown.rawValue, Key.q.rawValue]);
+        case .c:
+            socket.send([CommandCode.keyDown.rawValue, Key.space.rawValue]);
+        case .d:
+            socket.send([CommandCode.keyDown.rawValue, Key.escape.rawValue]);
+        default:
+            break;
         }
     }
     
     func buttonReleased(button: Button) {
-        if button == .a {
-            socket.send([CommandCode.keyUp.rawValue, Key.q.rawValue]);
-        } else if button == .b {
+        switch button {
+        case .a:
             socket.send([CommandCode.keyUp.rawValue, Key.e.rawValue]);
+        case .b:
+            socket.send([CommandCode.keyUp.rawValue, Key.q.rawValue]);
+        case .c:
+            socket.send([CommandCode.keyUp.rawValue, Key.space.rawValue]);
+        case .d:
+            socket.send([CommandCode.keyUp.rawValue, Key.escape.rawValue]);
+        default:
+            break;
         }
     }
     
