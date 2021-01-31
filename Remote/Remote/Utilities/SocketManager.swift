@@ -50,6 +50,7 @@ class SocketManager: WebSocketDelegate {
     private var socket: WebSocket;
     private var tickTimer: Timer?;
     private var tickCount = 0;
+    private var onlineStatus = false;
     
     weak var delegate: SocketManagerDelegate?;
     
@@ -63,13 +64,13 @@ class SocketManager: WebSocketDelegate {
     }
     
     func websocketDidConnect(socket: WebSocketClient) {
-        delegate?.onlineStatusChanged(online: true);
+        updateOnlineStatus(online: true);
         tickCount = 0;
         startTicking();
     }
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        delegate?.onlineStatusChanged(online: false);
+        updateOnlineStatus(online: false);
         stopTicking();
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
             self.connect();
@@ -111,6 +112,13 @@ class SocketManager: WebSocketDelegate {
         tickCount += 1;
         if tickCount > SocketManager.maxTickCount {
             stopTicking();
+        }
+    }
+    
+    private func updateOnlineStatus(online: Bool) {
+        if online != onlineStatus {
+            onlineStatus = online;
+            delegate?.onlineStatusChanged(online: onlineStatus);
         }
     }
 }

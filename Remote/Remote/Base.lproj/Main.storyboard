@@ -288,6 +288,10 @@
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-g1-k1g" userLabel="OfflineCover">
+                                <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                                <color key="backgroundColor" red="0.86274509803921573" green="0.20784313725490194" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.20392156862745098" green="0.22745098039215686" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -358,6 +362,7 @@
                             <constraint firstItem="wZV-6r-6G9" firstAttribute="leading" secondItem="0Le-WM-OrI" secondAttribute="trailing" constant="12" id="UZd-YI-6Z6"/>
                             <constraint firstItem="J2G-SD-ldO" firstAttribute="width" secondItem="ksO-pE-xBV" secondAttribute="width" id="Ufd-mT-UGn"/>
                             <constraint firstItem="CdU-Gd-bX7" firstAttribute="leading" secondItem="of8-Bw-uVU" secondAttribute="trailing" constant="12" id="VcX-P2-k8P"/>
+                            <constraint firstItem="rEa-gu-D7a" firstAttribute="bottom" secondItem="zHc-g1-k1g" secondAttribute="bottom" id="Vft-85-i0u"/>
                             <constraint firstItem="0pF-lh-LCS" firstAttribute="width" secondItem="EhV-6n-FCx" secondAttribute="width" id="W3v-7b-tpO"/>
                             <constraint firstItem="wZV-6r-6G9" firstAttribute="top" secondItem="alK-CQ-irM" secondAttribute="bottom" constant="12" id="WPB-vm-QDx"/>
                             <constraint firstItem="lHY-me-ov6" firstAttribute="height" secondItem="sCY-oW-Itp" secondAttribute="height" id="WY7-f6-mhf"/>
@@ -370,6 +375,7 @@
                             <constraint firstItem="NmF-Xp-Cb3" firstAttribute="width" secondItem="zFT-ae-LhP" secondAttribute="width" id="YRX-uC-P7I"/>
                             <constraint firstItem="Mye-a1-3sO" firstAttribute="height" secondItem="zFT-ae-LhP" secondAttribute="height" id="Ydu-e4-s9s"/>
                             <constraint firstItem="91Q-wq-PYa" firstAttribute="leading" secondItem="ksO-pE-xBV" secondAttribute="trailing" constant="12" id="ZJO-nL-yyT"/>
+                            <constraint firstItem="zHc-g1-k1g" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" id="Ztp-ue-JTL"/>
                             <constraint firstItem="alK-CQ-irM" firstAttribute="width" secondItem="Aev-Ly-rZG" secondAttribute="width" id="aHD-ct-efo"/>
                             <constraint firstItem="5ZD-tL-lff" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" constant="12" id="air-KG-1AP"/>
                             <constraint firstItem="dHu-7j-XZ3" firstAttribute="height" secondItem="iHf-Dw-KW6" secondAttribute="height" id="bF0-LN-4iQ"/>
@@ -384,6 +390,7 @@
                             <constraint firstItem="rEa-gu-D7a" firstAttribute="bottom" secondItem="wZV-6r-6G9" secondAttribute="bottom" constant="12" id="dj3-hc-TPs"/>
                             <constraint firstItem="5ZD-tL-lff" firstAttribute="width" secondItem="2FL-S5-Lu2" secondAttribute="width" id="duA-9N-RaX"/>
                             <constraint firstItem="WPa-QX-TjF" firstAttribute="width" secondItem="0Le-WM-OrI" secondAttribute="width" id="eNv-Qv-ZLt"/>
+                            <constraint firstItem="rEa-gu-D7a" firstAttribute="trailing" secondItem="zHc-g1-k1g" secondAttribute="trailing" id="eR3-b1-OOy"/>
                             <constraint firstItem="zFT-ae-LhP" firstAttribute="leading" secondItem="NmF-Xp-Cb3" secondAttribute="trailing" constant="12" id="eRl-PV-m8h"/>
                             <constraint firstItem="WPa-QX-TjF" firstAttribute="top" secondItem="zFT-ae-LhP" secondAttribute="bottom" constant="12" id="edh-vr-PDV"/>
                             <constraint firstItem="VZn-v3-6LC" firstAttribute="leading" secondItem="dHu-7j-XZ3" secondAttribute="trailing" constant="12" id="f1x-3W-uga"/>
@@ -392,6 +399,7 @@
                             <constraint firstItem="YB4-5e-tFh" firstAttribute="width" secondItem="Y9n-gR-cgr" secondAttribute="width" id="ftE-zx-ryR"/>
                             <constraint firstItem="dHu-7j-XZ3" firstAttribute="top" secondItem="iHf-Dw-KW6" secondAttribute="bottom" constant="12" id="fxa-e6-G1J"/>
                             <constraint firstItem="91Q-wq-PYa" firstAttribute="width" secondItem="4WH-dw-j7n" secondAttribute="width" id="fzb-h7-J0o"/>
+                            <constraint firstItem="zHc-g1-k1g" firstAttribute="leading" secondItem="rEa-gu-D7a" secondAttribute="leading" id="glr-en-A4d"/>
                             <constraint firstItem="OTV-kj-YK9" firstAttribute="leading" secondItem="tz3-Xy-QDx" secondAttribute="trailing" constant="12" id="gxA-1b-17N"/>
                             <constraint firstItem="iHf-Dw-KW6" firstAttribute="width" secondItem="iUu-LN-uqb" secondAttribute="width" id="h7Y-YN-KlI"/>
                             <constraint firstItem="2FL-S5-Lu2" firstAttribute="width" secondItem="of8-Bw-uVU" secondAttribute="width" id="hdo-F9-hJz"/>
@@ -478,6 +486,7 @@
                         <outlet property="lparen" destination="J2G-SD-ldO" id="ofa-XQ-tFr"/>
                         <outlet property="multiply" destination="sCY-oW-Itp" id="nLi-ym-joe"/>
                         <outlet property="nine" destination="OTV-kj-YK9" id="JGm-2a-xDv"/>
+                        <outlet property="offlineCover" destination="zHc-g1-k1g" id="KUS-lC-9LH"/>
                         <outlet property="one" destination="zFT-ae-LhP" id="Ukj-kn-8iY"/>
                         <outlet property="paste" destination="5ZD-tL-lff" id="Wku-e7-m1z"/>
                         <outlet property="percent" destination="8vm-gl-Pgx" id="m2w-K6-thP"/>
