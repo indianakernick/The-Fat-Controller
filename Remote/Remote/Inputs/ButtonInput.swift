@@ -8,27 +8,14 @@
 
 import UIKit;
 
-// Maybe this should be a plain integer ID instead of an enum?
-// I'm not sure if either is right.
-enum Button {
-    // Hmmm...
-    case volumeUp, volumeDown;
-    case a, b, c, d, e, f;
-}
-
-protocol ButtonInputDelegate: class {
-    func buttonPressed(button: Button);
-    func buttonReleased(button: Button);
-}
-
 class ButtonInput: UILabel {
     static private let downColor = Colors.gray500;
     static private let upColor = Colors.gray700;
     
     private var firstTouch: UITouch?;
     
-    weak var delegate: ButtonInputDelegate?;
-    var button = Button.a;
+    var pressed = {};
+    var released = {};
     
     override func layoutSubviews() {
         isMultipleTouchEnabled = false;
@@ -44,7 +31,7 @@ class ButtonInput: UILabel {
         }
         firstTouch = touch;
         layer.backgroundColor = ButtonInput.downColor;
-        delegate?.buttonPressed(button: button);
+        pressed();
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,7 +40,7 @@ class ButtonInput: UILabel {
         }
         firstTouch = nil;
         layer.backgroundColor = ButtonInput.upColor;
-        delegate?.buttonReleased(button: button);
+        released();
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,6 +49,6 @@ class ButtonInput: UILabel {
         }
         firstTouch = nil;
         layer.backgroundColor = ButtonInput.upColor;
-        delegate?.buttonReleased(button: button);
+        released();
     }
 }

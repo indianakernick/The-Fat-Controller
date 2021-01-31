@@ -16,6 +16,9 @@
 		4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E325C2C42F00E5AE57 /* MouseButton.swift */; };
 		458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490D825C4EA9E0063404D /* VolumeEmitter.swift */; };
 		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
+		458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490E925C677F90063404D /* NumberPadViewController.swift */; };
+		458490EB25C68FB40063404D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; };
+		458490EC25C68FB40063404D /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607D25C22C1200DFE76A /* AppDelegate.swift */; };
 		45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607F25C22C1200DFE76A /* SceneDelegate.swift */; };
 		45A3608225C22C1200DFE76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3608125C22C1200DFE76A /* ViewController.swift */; };
@@ -26,6 +29,20 @@
 		45F6860F25C27E7E00E89F33 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6860E25C27E7E00E89F33 /* MoveView.swift */; };
 		45F6861125C27EBB00E89F33 /* LookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6861025C27EBB00E89F33 /* LookView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		458490ED25C68FB40063404D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				458490EC25C68FB40063404D /* Starscream.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
@@ -38,6 +55,7 @@
 		458490D825C4EA9E0063404D /* VolumeEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeEmitter.swift; sourceTree = "<group>"; };
 		458490DA25C4EF2A0063404D /* ButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonInput.swift; sourceTree = "<group>"; };
 		458490E325C508920063404D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Starscream.framework; sourceTree = "<group>"; };
+		458490E925C677F90063404D /* NumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		45A3607A25C22C1200DFE76A /* Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A3607D25C22C1200DFE76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A3607F25C22C1200DFE76A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458490EB25C68FB40063404D /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +129,14 @@
 			path = Emitters;
 			sourceTree = "<group>";
 		};
+		458490E825C677E20063404D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				458490E925C677F90063404D /* NumberPadViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		45A3607125C22C1200DFE76A = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +157,7 @@
 		45A3607C25C22C1200DFE76A /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				458490E825C677E20063404D /* Controllers */,
 				458490D725C4EA580063404D /* Emitters */,
 				454FA2F025C39D37005D59DD /* Utilities */,
 				454FA2ED25C388C3005D59DD /* Inputs */,
@@ -155,6 +183,7 @@
 				45A3607625C22C1200DFE76A /* Sources */,
 				45A3607725C22C1200DFE76A /* Frameworks */,
 				45A3607825C22C1200DFE76A /* Resources */,
+				458490ED25C68FB40063404D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -221,6 +250,7 @@
 				4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */,
 				45A3608225C22C1200DFE76A /* ViewController.swift in Sources */,
 				458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */,
+				458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */,
 				458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */,
 				454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,

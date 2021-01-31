@@ -25,7 +25,19 @@ import UIKit
 // Don't use the storyboard. Create views from Swift.
 // Make socket messages configurable on an object.
 
-class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate, ButtonInputDelegate {
+// Holding down volume buttons is probably not great for them.
+// Could use volume buttons to change slides in a slideshow.
+// Have a dedicated screen for customizing each controller.
+// Have a screen for switching between the controlelrs.
+// Only show the UI element in portait mode (landscape should be fully emersive).
+// A button for going to customization page and another button for showing navigation page.
+// Maybe a swipe from the edge of the screen in portrait mode instead of buttons?
+// Make use of storyboard scenes.
+// Different UIViewController for each controller.
+// Should store configurations on the device.
+// Maybe make it possible to have multiple configurations for the same controller (is that even useful?)
+
+class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, LookInputDelegate, SocketManagerDelegate/*, ButtonInputDelegate*/ {
     private var upLabel = UILabel(frame: CGRect(x: 10.0, y: 10.0, width: 100, height: 20));
     private var downLabel = UILabel(frame: CGRect(x: 10.0, y: 30.0, width: 100, height: 20));
     
@@ -58,7 +70,7 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         lookInput.fastVelocity = 200.0;
         lookInput.delegate = self;
         
-        let buttonA = ViewController.addTopLeftButton(parent: view.subviews[0]);
+        /*let buttonA = ViewController.addTopLeftButton(parent: view.subviews[0]);
         buttonA.button = .a;
         buttonA.delegate = self;
         
@@ -72,7 +84,7 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         
         let buttonD = ViewController.addTopRightButton(parent: view.subviews[1]);
         buttonD.button = .d;
-        buttonD.delegate = self;
+        buttonD.delegate = self;*/
     }
     
     private static func addButton(parent: UIView) -> ButtonInput {
@@ -161,7 +173,7 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         socket.send(buffer);
     }
     
-    func buttonPressed(button: Button) {
+    /*func buttonPressed(button: Button) {
         switch button {
         case .a:
             socket.send([CommandCode.keyDown.rawValue, Key.e.rawValue]);
@@ -189,7 +201,7 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         default:
             break;
         }
-    }
+    }*/
     
     func onlineStatusChanged(online: Bool) {
         for view in view.subviews {
