@@ -59,22 +59,18 @@ class ViewController: UIViewController, VolumeInputDelegate, MoveInputDelegate, 
         lookInput.delegate = self;
         
         let buttonA = ViewController.addTopLeftButton(parent: view.subviews[0]);
-        buttonA.color = Colors.gray500;
         buttonA.button = .a;
         buttonA.delegate = self;
         
         let buttonB = ViewController.addBottomLeftButton(parent: view.subviews[0]);
-        buttonB.color = Colors.gray500;
         buttonB.button = .b;
         buttonB.delegate = self;
         
         let buttonC = ViewController.addBottomRightButton(parent: view.subviews[1]);
-        buttonC.color = Colors.gray500;
         buttonC.button = .c;
         buttonC.delegate = self;
         
         let buttonD = ViewController.addTopRightButton(parent: view.subviews[1]);
-        buttonD.color = Colors.gray500;
         buttonD.button = .d;
         buttonD.delegate = self;
     }

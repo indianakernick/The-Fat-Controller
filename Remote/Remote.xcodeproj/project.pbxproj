@@ -16,8 +16,6 @@
 		4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E325C2C42F00E5AE57 /* MouseButton.swift */; };
 		458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490D825C4EA9E0063404D /* VolumeEmitter.swift */; };
 		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
-		458490E625C513680063404D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; };
-		458490E725C5136B0063404D /* Starscream.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607D25C22C1200DFE76A /* AppDelegate.swift */; };
 		45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607F25C22C1200DFE76A /* SceneDelegate.swift */; };
 		45A3608225C22C1200DFE76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3608125C22C1200DFE76A /* ViewController.swift */; };
@@ -28,19 +26,6 @@
 		45F6860F25C27E7E00E89F33 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6860E25C27E7E00E89F33 /* MoveView.swift */; };
 		45F6861125C27EBB00E89F33 /* LookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6861025C27EBB00E89F33 /* LookView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		4522697B25C2BAFB00F08645 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				458490E725C5136B0063404D /* Starscream.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
@@ -71,7 +56,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				458490E625C513680063404D /* Starscream.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,7 +155,6 @@
 				45A3607625C22C1200DFE76A /* Sources */,
 				45A3607725C22C1200DFE76A /* Frameworks */,
 				45A3607825C22C1200DFE76A /* Resources */,
-				4522697B25C2BAFB00F08645 /* CopyFiles */,
 			);
 			buildRules = (
 			);

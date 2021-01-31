@@ -21,16 +21,21 @@ protocol ButtonInputDelegate: class {
     func buttonReleased(button: Button);
 }
 
-class ButtonInput: UIView {
+class ButtonInput: UILabel {
+    static private let downColor = Colors.gray500;
+    static private let upColor = Colors.gray700;
+    
     private var firstTouch: UITouch?;
     
     weak var delegate: ButtonInputDelegate?;
-    var color = CGColor(genericGrayGamma2_2Gray: 1.0, alpha: 1.0);
     var button = Button.a;
     
     override func layoutSubviews() {
-        layer.backgroundColor = color;
         isMultipleTouchEnabled = false;
+        isUserInteractionEnabled = true;
+        layer.masksToBounds = true;
+        layer.cornerRadius = 8;
+        layer.backgroundColor = ButtonInput.upColor;
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -38,6 +43,7 @@ class ButtonInput: UIView {
             return super.touchesBegan(touches, with: event);
         }
         firstTouch = touch;
+        layer.backgroundColor = ButtonInput.downColor;
         delegate?.buttonPressed(button: button);
     }
     
@@ -46,6 +52,7 @@ class ButtonInput: UIView {
             return super.touchesEnded(touches, with: event);
         }
         firstTouch = nil;
+        layer.backgroundColor = ButtonInput.upColor;
         delegate?.buttonReleased(button: button);
     }
     
@@ -54,6 +61,7 @@ class ButtonInput: UIView {
             return super.touchesCancelled(touches, with: event);
         }
         firstTouch = nil;
+        layer.backgroundColor = ButtonInput.upColor;
         delegate?.buttonReleased(button: button);
     }
 }

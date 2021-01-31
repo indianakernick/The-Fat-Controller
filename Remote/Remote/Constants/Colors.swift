@@ -12,12 +12,16 @@ fileprivate func hexColor(_ hex: UInt32) -> CGColor {
     let red = (hex >> 16) & 0xff;
     let green = (hex >> 8) & 0xff;
     let blue = hex & 0xFF;
-    return CGColor(
+    let array = [CGFloat(red) / 255.0, CGFloat(green) / 255.0, CGFloat(blue) / 255.0, CGFloat(1.0)];
+    return array.withUnsafeBufferPointer() { pointer in
+        return CGColor(colorSpace: CGColorSpace(name: CGColorSpace.extendedSRGB)!, components: pointer.baseAddress!)!;
+    };
+    /*return CGColor(
         srgbRed: CGFloat(red) / 255.0,
         green: CGFloat(green) / 255.0,
         blue: CGFloat(blue) / 255.0,
         alpha: 1.0
-    );
+    );*/
 }
 
 enum Colors {
