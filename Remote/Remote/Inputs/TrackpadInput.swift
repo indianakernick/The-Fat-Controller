@@ -17,6 +17,8 @@ protocol TrackpadInputDelegate: class {
     func mouseScroll(dx: Int32, dy: Int32);
     func mouseDown();
     func mouseUp();
+    func spaceLeft();
+    func spaceRight();
 }
 
 class TrackpadInput: UIView, UIGestureRecognizerDelegate {
@@ -28,6 +30,8 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     private var panOneRecog: UIPanGestureRecognizer!;
     private var panTwoRecog: UIPanGestureRecognizer!;
     private var panThreeRecog: UIPanGestureRecognizer!;
+    private var swipeFourLeftRecog: UISwipeGestureRecognizer!;
+    private var swipeFourRightRecog: UISwipeGestureRecognizer!;
     
     private var lastPanOnePoint = CGPoint();
     private var lastPanTwoPoint = CGPoint();
@@ -47,41 +51,53 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         }
         initialized = true;
         
-        tapOnceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapOnce(sender:)));
+        tapOnceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapOnce));
         tapOnceRecog.delegate = self;
         addGestureRecognizer(tapOnceRecog);
         
-        tapTwiceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwice(sender:)));
+        tapTwiceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwice));
         tapTwiceRecog.numberOfTapsRequired = 2;
         tapTwiceRecog.delegate = self;
         addGestureRecognizer(tapTwiceRecog);
         
-        tapThriceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapThrice(sender:)));
+        tapThriceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapThrice));
         tapThriceRecog.numberOfTapsRequired = 3;
         tapThriceRecog.delegate = self;
         addGestureRecognizer(tapThriceRecog);
         
-        tapTwoRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwo(sender:)));
+        tapTwoRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwo));
         tapTwoRecog.numberOfTouchesRequired = 2;
         tapTwoRecog.delegate = self;
         addGestureRecognizer(tapTwoRecog);
         
-        panOneRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanOne(sender:)));
+        panOneRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanOne));
         panOneRecog.maximumNumberOfTouches = 1;
         panOneRecog.delegate = self;
         addGestureRecognizer(panOneRecog);
         
-        panTwoRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanTwo(sender:)));
+        panTwoRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanTwo));
         panTwoRecog.minimumNumberOfTouches = 2;
         panTwoRecog.maximumNumberOfTouches = 2;
         panTwoRecog.delegate = self;
         addGestureRecognizer(panTwoRecog);
         
-        panThreeRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanThree(sender:)));
+        panThreeRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanThree));
         panThreeRecog.minimumNumberOfTouches = 3;
         panThreeRecog.maximumNumberOfTouches = 3;
         panThreeRecog.delegate = self;
         addGestureRecognizer(panThreeRecog);
+        
+        swipeFourLeftRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourLeft));
+        swipeFourLeftRecog.numberOfTouchesRequired = 4;
+        swipeFourLeftRecog.direction = .left;
+        swipeFourLeftRecog.delegate = self;
+        addGestureRecognizer(swipeFourLeftRecog);
+        
+        swipeFourRightRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourRight));
+        swipeFourRightRecog.numberOfTouchesRequired = 4;
+        swipeFourRightRecog.direction = .right;
+        swipeFourRightRecog.delegate = self;
+        addGestureRecognizer(swipeFourRightRecog);
     }
     
     @objc private func handleTapOnce(sender: UITapGestureRecognizer) {
@@ -154,6 +170,18 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
             let scale = getMoveScale(velocity: sender.velocity(in: self));
             let (dx, dy) = handlePan(lastPoint: &lastPanThreePoint, point: sender.translation(in: self), scale: scale);
             delegate?.mouseMove(dx: dx, dy: dy);
+        }
+    }
+    
+    @objc private func handleSwipeFourLeft(sender: UISwipeGestureRecognizer) {
+        if sender.state == .recognized {
+            delegate?.spaceRight();
+        }
+    }
+    
+    @objc private func handleSwipeFourRight(sender: UISwipeGestureRecognizer) {
+        if sender.state == .recognized {
+            delegate?.spaceLeft();
         }
     }
     

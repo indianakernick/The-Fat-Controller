@@ -15,7 +15,7 @@ pub struct EventContext {
 impl Default for EventContext {
     fn default() -> Self {
         Self {
-            event_source: CGEventSource::new(CGEventSourceStateID::CombinedSessionState).unwrap(),
+            event_source: CGEventSource::new(CGEventSourceStateID::Private).unwrap(),
         }
     }
 }

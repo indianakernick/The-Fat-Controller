@@ -26,6 +26,8 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     private var scrollXYData = Data([CommandCode.mouseScrollX.rawValue, 0, 0, CommandCode.mouseScrollY.rawValue, 0, 0]);
     private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
     private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
+    private var spaceLeftData = Data([CommandCode.keyClickFlags.rawValue, Key.leftArrow.rawValue, Flags.control.rawValue]);
+    private var spaceRightData = Data([CommandCode.keyClickFlags.rawValue, Key.rightArrow.rawValue, Flags.control.rawValue]);
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -82,5 +84,13 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     
     func mouseUp() {
         send(upData);
+    }
+    
+    func spaceLeft() {
+        send(spaceLeftData);
+    }
+    
+    func spaceRight() {
+        send(spaceRightData);
     }
 }
