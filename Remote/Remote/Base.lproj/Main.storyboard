@@ -519,7 +519,7 @@
         <!--Slide-->
         <scene sceneID="seD-f1-qnY">
             <objects>
-                <viewController id="uZg-7D-ijb" userLabel="Slide" sceneMemberID="viewController">
+                <viewController id="uZg-7D-ijb" userLabel="Slide" customClass="SlideViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS1-3P-GlG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,22 +528,8 @@
                                 <rect key="frame" x="-200" y="-200" width="775" height="1067"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.2274509804" blue="0.25098039220000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5oO-GW-sDn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="339.5" width="351" height="243"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N77-ZB-G8B" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="12" y="12" width="351" height="60.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNx-49-jIy" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="594.5" width="351" height="60.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -556,6 +542,24 @@
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5oO-GW-sDn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="339.5" width="351" height="243"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNx-49-jIy" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="594.5" width="351" height="60.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZt-eJ-LSO" userLabel="OfflineCover">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.86274509799999999" green="0.20784313730000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -565,8 +569,11 @@
                             <constraint firstItem="N77-ZB-G8B" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="DvW-XB-uel"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="5oO-GW-sDn" secondAttribute="trailing" constant="12" id="Qos-60-jhk"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="QuF-3p-4W6"/>
+                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" id="Scd-P8-xej"/>
+                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="bottom" secondItem="MLd-kz-pFo" secondAttribute="bottom" id="SrT-7Y-mlX"/>
                             <constraint firstItem="8h6-of-lrG" firstAttribute="leading" secondItem="iS1-3P-GlG" secondAttribute="leading" constant="-200" id="Srs-Nx-VZV"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="rNx-49-jIy" secondAttribute="trailing" constant="12" id="TYX-Cq-KVM"/>
+                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="trailing" secondItem="MLd-kz-pFo" secondAttribute="trailing" id="WhU-rE-Ime"/>
                             <constraint firstItem="8h6-of-lrG" firstAttribute="top" secondItem="iS1-3P-GlG" secondAttribute="top" constant="-200" id="XQ1-Si-aIL"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="top" secondItem="N77-ZB-G8B" secondAttribute="bottom" constant="12" id="XRM-qf-de9"/>
                             <constraint firstItem="5oO-GW-sDn" firstAttribute="top" secondItem="M3G-Oz-6O6" secondAttribute="bottom" constant="12" id="Xuc-yV-X9u"/>
@@ -577,6 +584,7 @@
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="5oO-GW-sDn" secondAttribute="trailing" constant="12" id="cGx-nt-Sw4"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="5oO-GW-sDn" secondAttribute="bottom" constant="12" id="cpG-OA-Otw"/>
                             <constraint firstAttribute="bottom" secondItem="8h6-of-lrG" secondAttribute="bottom" constant="-200" id="cz5-Mx-CFj"/>
+                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="top" secondItem="iS1-3P-GlG" secondAttribute="top" id="dCH-NW-lwH"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="N77-ZB-G8B" secondAttribute="trailing" constant="12" id="fpe-ks-mJd"/>
                             <constraint firstItem="5oO-GW-sDn" firstAttribute="height" secondItem="rNx-49-jIy" secondAttribute="height" multiplier="4" id="hnF-r5-Ug2"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="height" secondItem="N77-ZB-G8B" secondAttribute="height" multiplier="4" id="isi-1V-GPg"/>
@@ -620,6 +628,13 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="first" destination="rNx-49-jIy" id="uou-vK-ufh"/>
+                        <outlet property="last" destination="N77-ZB-G8B" id="P2l-Bm-5Xq"/>
+                        <outlet property="nextButton" destination="M3G-Oz-6O6" id="pvj-G9-7wF"/>
+                        <outlet property="offlineCover" destination="MZt-eJ-LSO" id="fJ2-K2-hyf"/>
+                        <outlet property="previous" destination="5oO-GW-sDn" id="UL0-qG-jg7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
