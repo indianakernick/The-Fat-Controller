@@ -19,10 +19,14 @@ class BasicViewController: UIViewController, SocketManagerDelegate {
         socket.connect();
     }
     
+    func send(_ data: Data) {
+        socket.send(data);
+    }
+    
     func makeListener(with array: [UInt8]) -> () -> () {
         let data = Data(array);
-        return {
-            self.socket.send(data);
+        return { [weak self] in
+            self!.socket.send(data);
         };
     }
     

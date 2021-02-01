@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uZg-7D-ijb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9YC-yz-z0H">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -645,6 +645,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137" y="1490"/>
+        </scene>
+        <!--Trackpad-->
+        <scene sceneID="eyq-b2-kKS">
+            <objects>
+                <viewController id="9YC-yz-z0H" userLabel="Trackpad" customClass="TrackpadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TiK-68-nKN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7D5-Je-jU9" userLabel="Trackpad" customClass="TrackpadInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.28627450980392155" green="0.31372549019607843" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3DT-hd-qSN" userLabel="OfflineCover">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.86274509799999999" green="0.20784313730000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3DT-hd-qSN" firstAttribute="top" secondItem="TiK-68-nKN" secondAttribute="top" id="8WL-pw-O9q"/>
+                            <constraint firstItem="3DT-hd-qSN" firstAttribute="trailing" secondItem="9Z8-eW-e1Y" secondAttribute="trailing" id="Dte-uF-mhZ"/>
+                            <constraint firstItem="9Z8-eW-e1Y" firstAttribute="bottom" secondItem="7D5-Je-jU9" secondAttribute="bottom" id="EcI-dV-fSz"/>
+                            <constraint firstItem="9Z8-eW-e1Y" firstAttribute="trailing" secondItem="7D5-Je-jU9" secondAttribute="trailing" id="d4l-d2-fmb"/>
+                            <constraint firstItem="3DT-hd-qSN" firstAttribute="bottom" secondItem="9Z8-eW-e1Y" secondAttribute="bottom" id="g86-0J-ncd"/>
+                            <constraint firstItem="7D5-Je-jU9" firstAttribute="leading" secondItem="9Z8-eW-e1Y" secondAttribute="leading" id="mKE-9y-2qZ"/>
+                            <constraint firstItem="7D5-Je-jU9" firstAttribute="top" secondItem="TiK-68-nKN" secondAttribute="top" id="qQb-qJ-Uzq"/>
+                            <constraint firstItem="3DT-hd-qSN" firstAttribute="leading" secondItem="9Z8-eW-e1Y" secondAttribute="leading" id="wH2-ts-Gq1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9Z8-eW-e1Y"/>
+                    </view>
+                    <connections>
+                        <outlet property="offlineCover" destination="3DT-hd-qSN" id="1AQ-kW-y8d"/>
+                        <outlet property="trackpad" destination="7D5-Je-jU9" id="cMh-U4-mKU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YSd-g9-pbp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137" y="2149"/>
         </scene>
     </scenes>
 </document>
