@@ -25,8 +25,15 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     private var tapTwiceRecog: UITapGestureRecognizer!;
     private var tapThriceRecog: UITapGestureRecognizer!;
     private var tapTwoRecog: UITapGestureRecognizer!;
+    private var panOneRecog: UIPanGestureRecognizer!;
+    private var panTwoRecog: UIPanGestureRecognizer!;
+    
+    private var lastPanOnePoint = CGPoint();
+    private var lastPanTwoPoint = CGPoint();
     
     weak var delegate: TrackpadInputDelegate?;
+    var moveScale: CGFloat = 1;
+    var scrollScale: CGFloat = 1;
     
     override func layoutSubviews() {
         if initialized {
@@ -52,6 +59,17 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         tapTwoRecog.numberOfTouchesRequired = 2;
         tapTwoRecog.delegate = self;
         addGestureRecognizer(tapTwoRecog);
+        
+        panOneRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanOne(sender:)));
+        panOneRecog.maximumNumberOfTouches = 1;
+        panOneRecog.delegate = self;
+        addGestureRecognizer(panOneRecog);
+        
+        panTwoRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanTwo(sender:)));
+        panTwoRecog.minimumNumberOfTouches = 2;
+        panTwoRecog.maximumNumberOfTouches = 2;
+        panTwoRecog.delegate = self;
+        addGestureRecognizer(panTwoRecog);
     }
     
     @objc private func handleTapOnce(sender: UITapGestureRecognizer) {
@@ -75,6 +93,34 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     @objc private func handleTapTwo(sender: UITapGestureRecognizer) {
         if sender.state == .recognized {
             delegate?.mouseRightClick();
+        }
+    }
+    
+    @objc private func handlePanOne(sender: UIPanGestureRecognizer) {
+        if sender.state == .began {
+            lastPanOnePoint = sender.translation(in: self);
+        } else if sender.state == .changed {
+            let point = sender.translation(in: self);
+            let dir = CGPoint(x: point.x - lastPanOnePoint.x, y: point.y - lastPanOnePoint.y);
+            lastPanOnePoint = point;
+            delegate?.mouseMove(
+                dx: Int32(round(dir.x * moveScale)),
+                dy: Int32(round(dir.y * moveScale))
+            );
+        }
+    }
+    
+    @objc private func handlePanTwo(sender: UIPanGestureRecognizer) {
+        if sender.state == .began {
+            lastPanTwoPoint = sender.translation(in: self);
+        } else if sender.state == .changed {
+            let point = sender.translation(in: self);
+            let dir = CGPoint(x: point.x - lastPanTwoPoint.x, y: point.y - lastPanTwoPoint.y);
+            lastPanTwoPoint = point;
+            delegate?.mouseScroll(
+                dx: Int32(round(dir.x * scrollScale)),
+                dy: Int32(round(dir.y * scrollScale))
+            );
         }
     }
     

@@ -8,36 +8,66 @@
 
 import Foundation;
 
+fileprivate func setInt16(buf: inout Data, index: Int, value: Int16) {
+    buf[index] = UInt8((value >> 8) & 0xFF);
+    buf[index + 1] = UInt8(value & 0xFF);
+}
+
 class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     @IBOutlet weak var trackpad: TrackpadInput!;
     
+    private var clickData = Data([CommandCode.mouseClick.rawValue, MouseButton.left.rawValue]);
+    private var doubleClickData = Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 2]);
+    private var tripleClickData = Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 3]);
+    private var rightClickData = Data([CommandCode.mouseClick.rawValue, MouseButton.right.rawValue]);
+    private var moveData = Data([CommandCode.mouseMoveRelative.rawValue, 0, 0, 0, 0]);
+    private var scrollXData = Data([CommandCode.mouseScrollX.rawValue, 0, 0]);
+    private var scrollYData = Data([CommandCode.mouseScrollY.rawValue, 0, 0]);
+    private var scrollXYData = Data([CommandCode.mouseScrollX.rawValue, 0, 0, CommandCode.mouseScrollY.rawValue, 0, 0]);
+    
     override func viewDidLoad() {
         super.viewDidLoad();
+        trackpad.moveScale = 2;
+        trackpad.scrollScale = 1.8;
         trackpad.delegate = self;
     }
     
     func mouseClick() {
-        send(Data([CommandCode.mouseClick.rawValue, MouseButton.left.rawValue]));
+        send(clickData);
     }
     
     func mouseDoubleClick() {
-        send(Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 2]));
+        send(doubleClickData);
     }
     
     func mouseTripleClick() {
-        send(Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 3]));
+        send(tripleClickData);
     }
     
     func mouseRightClick() {
-        send(Data([CommandCode.mouseClick.rawValue, MouseButton.right.rawValue]));
+        send(rightClickData);
     }
     
     func mouseMove(dx: Int32, dy: Int32) {
-        
+        if dx != 0 || dy != 0 {
+            setInt16(buf: &moveData, index: 1, value: Int16(dx));
+            setInt16(buf: &moveData, index: 3, value: Int16(dy));
+            send(moveData);
+        }
     }
     
     func mouseScroll(dx: Int32, dy: Int32) {
-        
+        if dx != 0 && dy != 0 {
+            setInt16(buf: &scrollXYData, index: 1, value: Int16(dx));
+            setInt16(buf: &scrollXYData, index: 4, value: Int16(dy));
+            send(scrollXYData);
+        } else if dx != 0 {
+            setInt16(buf: &scrollXData, index: 1, value: Int16(dx));
+            send(scrollXData);
+        } else if dy != 0 {
+            setInt16(buf: &scrollYData, index: 1, value: Int16(dy));
+            send(scrollYData);
+        }
     }
     
     func mouseDown() {
