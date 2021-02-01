@@ -19,11 +19,15 @@ class BasicViewController: UIViewController, SocketManagerDelegate {
         socket.connect();
     }
     
-    func setPressListener(for button: ButtonInput, with array: [UInt8]) {
+    func makeListener(with array: [UInt8]) -> () -> () {
         let data = Data(array);
-        button.pressed = {
+        return {
             self.socket.send(data);
         };
+    }
+    
+    func setPressListener(for button: ButtonInput, with array: [UInt8]) {
+        button.pressed = makeListener(with: array);
     }
     
     func onlineStatusChanged(online: Bool) {

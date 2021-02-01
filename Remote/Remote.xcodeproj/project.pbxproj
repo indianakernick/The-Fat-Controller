@@ -21,6 +21,7 @@
 		458490EC25C68FB40063404D /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597534B25C794AD00BEED00 /* SlideViewController.swift */; };
 		4597534E25C797B700BEED00 /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597534D25C797B700BEED00 /* BasicViewController.swift */; };
+		4597535225C79DA900BEED00 /* SimpleVolumeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597535125C79DA900BEED00 /* SimpleVolumeInput.swift */; };
 		45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607D25C22C1200DFE76A /* AppDelegate.swift */; };
 		45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3607F25C22C1200DFE76A /* SceneDelegate.swift */; };
 		45A3608225C22C1200DFE76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3608125C22C1200DFE76A /* ViewController.swift */; };
@@ -60,6 +61,7 @@
 		458490E925C677F90063404D /* NumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		4597534B25C794AD00BEED00 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		4597534D25C797B700BEED00 /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		4597535125C79DA900BEED00 /* SimpleVolumeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleVolumeInput.swift; sourceTree = "<group>"; };
 		45A3607A25C22C1200DFE76A /* Remote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Remote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45A3607D25C22C1200DFE76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		45A3607F25C22C1200DFE76A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				45F6860E25C27E7E00E89F33 /* MoveView.swift */,
 				45F6861025C27EBB00E89F33 /* LookView.swift */,
 				454FA2EE25C388DB005D59DD /* VolumeInput.swift */,
+				4597535125C79DA900BEED00 /* SimpleVolumeInput.swift */,
 				458490DA25C4EF2A0063404D /* ButtonInput.swift */,
 			);
 			path = Inputs;
@@ -136,9 +139,9 @@
 		458490E825C677E20063404D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4597534D25C797B700BEED00 /* BasicViewController.swift */,
 				458490E925C677F90063404D /* NumberPadViewController.swift */,
 				4597534B25C794AD00BEED00 /* SlideViewController.swift */,
-				4597534D25C797B700BEED00 /* BasicViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
+				4597535225C79DA900BEED00 /* SimpleVolumeInput.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
 				45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */,
 				4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */,

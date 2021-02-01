@@ -560,6 +560,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.86274509799999999" green="0.20784313730000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GpR-b6-0oT" userLabel="Volume" customClass="SimpleVolumeInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="-1000" y="0.0" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -634,6 +639,7 @@
                         <outlet property="nextButton" destination="M3G-Oz-6O6" id="pvj-G9-7wF"/>
                         <outlet property="offlineCover" destination="MZt-eJ-LSO" id="fJ2-K2-hyf"/>
                         <outlet property="previous" destination="5oO-GW-sDn" id="UL0-qG-jg7"/>
+                        <outlet property="volume" destination="GpR-b6-0oT" id="KQ9-lt-de9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
