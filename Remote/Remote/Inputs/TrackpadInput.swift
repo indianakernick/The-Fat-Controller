@@ -34,8 +34,12 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     private var lastPanThreePoint = CGPoint();
     
     weak var delegate: TrackpadInputDelegate?;
-    var moveScale: CGFloat = 1;
-    var scrollScale: CGFloat = 1;
+    var slowMoveScale = CGFloat(1);
+    var middleMoveScale = CGFloat(1);
+    var fastMoveScale = CGFloat(1);
+    var slowSpeed = CGFloat(1);
+    var fastSpeed = CGFloat(1);
+    var scrollScale = CGFloat(1);
     
     override func layoutSubviews() {
         if initialized {
@@ -104,17 +108,30 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    private func handlePan(lastPoint: inout CGPoint, point: CGPoint, scale: CGFloat) -> (Int32, Int32) {
+        let dir = CGPoint(x: point.x - lastPoint.x, y: point.y - lastPoint.y);
+        lastPoint = point;
+        return (Int32(round(dir.x * scale)), Int32(round(dir.y * scale)));
+    }
+    
+    private func getMoveScale(velocity: CGPoint) -> CGFloat {
+        let speed = velocity.x * velocity.x + velocity.y * velocity.y;
+        if speed < slowSpeed * slowSpeed {
+            return slowMoveScale;
+        } else if speed > fastSpeed * fastSpeed {
+            return fastMoveScale;
+        } else {
+            return middleMoveScale;
+        }
+    }
+    
     @objc private func handlePanOne(sender: UIPanGestureRecognizer) {
         if sender.state == .began {
             lastPanOnePoint = sender.translation(in: self);
         } else if sender.state == .changed {
-            let point = sender.translation(in: self);
-            let dir = CGPoint(x: point.x - lastPanOnePoint.x, y: point.y - lastPanOnePoint.y);
-            lastPanOnePoint = point;
-            delegate?.mouseMove(
-                dx: Int32(round(dir.x * moveScale)),
-                dy: Int32(round(dir.y * moveScale))
-            );
+            let scale = getMoveScale(velocity: sender.velocity(in: self));
+            let (dx, dy) = handlePan(lastPoint: &lastPanOnePoint, point: sender.translation(in: self), scale: scale);
+            delegate?.mouseMove(dx: dx, dy: dy);
         }
     }
     
@@ -122,13 +139,8 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         if sender.state == .began {
             lastPanTwoPoint = sender.translation(in: self);
         } else if sender.state == .changed {
-            let point = sender.translation(in: self);
-            let dir = CGPoint(x: point.x - lastPanTwoPoint.x, y: point.y - lastPanTwoPoint.y);
-            lastPanTwoPoint = point;
-            delegate?.mouseScroll(
-                dx: Int32(round(dir.x * scrollScale)),
-                dy: Int32(round(dir.y * scrollScale))
-            );
+            let (dx, dy) = handlePan(lastPoint: &lastPanTwoPoint, point: sender.translation(in: self), scale: scrollScale);
+            delegate?.mouseScroll(dx: dx, dy: dy);
         }
     }
     
@@ -139,13 +151,9 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         } else if sender.state == .ended {
             delegate?.mouseUp();
         } else if sender.state == .changed {
-            let point = sender.translation(in: self);
-            let dir = CGPoint(x: point.x - lastPanThreePoint.x, y: point.y - lastPanThreePoint.y);
-            lastPanThreePoint = point;
-            delegate?.mouseMove(
-                dx: Int32(round(dir.x * moveScale)),
-                dy: Int32(round(dir.y * moveScale))
-            );
+            let scale = getMoveScale(velocity: sender.velocity(in: self));
+            let (dx, dy) = handlePan(lastPoint: &lastPanThreePoint, point: sender.translation(in: self), scale: scale);
+            delegate?.mouseMove(dx: dx, dy: dy);
         }
     }
     
@@ -155,7 +163,7 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
                 return false;
             }
         } else if gestureRecognizer == tapOnceRecog {
-            if otherGestureRecognizer == tapTwoRecog || otherGestureRecognizer == tapTwiceRecog || otherGestureRecognizer == tapThriceRecog {
+            if otherGestureRecognizer == panOneRecog || otherGestureRecognizer == tapTwoRecog || otherGestureRecognizer == tapTwiceRecog || otherGestureRecognizer == tapThriceRecog {
                 return false;
             }
         } else if gestureRecognizer == tapTwiceRecog {
@@ -163,6 +171,10 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
                 return false;
             }
         } else if gestureRecognizer == tapThriceRecog {
+            if otherGestureRecognizer == tapOnceRecog {
+                return false;
+            }
+        } else if gestureRecognizer == panOneRecog {
             if otherGestureRecognizer == tapOnceRecog {
                 return false;
             }

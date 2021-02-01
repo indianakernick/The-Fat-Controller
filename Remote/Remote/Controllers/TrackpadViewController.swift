@@ -29,7 +29,11 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        trackpad.moveScale = 2;
+        trackpad.slowMoveScale = 1.8;
+        trackpad.middleMoveScale = 2.4;
+        trackpad.fastMoveScale = 3.6;
+        trackpad.slowSpeed = 40.0;
+        trackpad.fastSpeed = 300.0;
         trackpad.scrollScale = 1.8;
         trackpad.delegate = self;
     }
