@@ -24,6 +24,8 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     private var scrollXData = Data([CommandCode.mouseScrollX.rawValue, 0, 0]);
     private var scrollYData = Data([CommandCode.mouseScrollY.rawValue, 0, 0]);
     private var scrollXYData = Data([CommandCode.mouseScrollX.rawValue, 0, 0, CommandCode.mouseScrollY.rawValue, 0, 0]);
+    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
+    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -71,10 +73,10 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     }
     
     func mouseDown() {
-        
+        send(downData);
     }
     
     func mouseUp() {
-        
+        send(upData);
     }
 }

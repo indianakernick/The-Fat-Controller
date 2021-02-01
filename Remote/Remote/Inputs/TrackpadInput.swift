@@ -27,9 +27,11 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     private var tapTwoRecog: UITapGestureRecognizer!;
     private var panOneRecog: UIPanGestureRecognizer!;
     private var panTwoRecog: UIPanGestureRecognizer!;
+    private var panThreeRecog: UIPanGestureRecognizer!;
     
     private var lastPanOnePoint = CGPoint();
     private var lastPanTwoPoint = CGPoint();
+    private var lastPanThreePoint = CGPoint();
     
     weak var delegate: TrackpadInputDelegate?;
     var moveScale: CGFloat = 1;
@@ -70,6 +72,12 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
         panTwoRecog.maximumNumberOfTouches = 2;
         panTwoRecog.delegate = self;
         addGestureRecognizer(panTwoRecog);
+        
+        panThreeRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanThree(sender:)));
+        panThreeRecog.minimumNumberOfTouches = 3;
+        panThreeRecog.maximumNumberOfTouches = 3;
+        panThreeRecog.delegate = self;
+        addGestureRecognizer(panThreeRecog);
     }
     
     @objc private func handleTapOnce(sender: UITapGestureRecognizer) {
@@ -120,6 +128,23 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
             delegate?.mouseScroll(
                 dx: Int32(round(dir.x * scrollScale)),
                 dy: Int32(round(dir.y * scrollScale))
+            );
+        }
+    }
+    
+    @objc private func handlePanThree(sender: UIPanGestureRecognizer) {
+        if sender.state == .began {
+            lastPanThreePoint = sender.translation(in: self);
+            delegate?.mouseDown();
+        } else if sender.state == .ended {
+            delegate?.mouseUp();
+        } else if sender.state == .changed {
+            let point = sender.translation(in: self);
+            let dir = CGPoint(x: point.x - lastPanThreePoint.x, y: point.y - lastPanThreePoint.y);
+            lastPanThreePoint = point;
+            delegate?.mouseMove(
+                dx: Int32(round(dir.x * moveScale)),
+                dy: Int32(round(dir.y * moveScale))
             );
         }
     }
