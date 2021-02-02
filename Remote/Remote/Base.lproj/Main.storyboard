@@ -739,7 +739,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j8r-mM-n4a" userLabel="Down Commands">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="174"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="160.5"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -756,7 +756,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5b-tK-OzU" userLabel="Up Commands Label">
-                                <rect key="frame" x="12" y="230.5" width="351" height="20.5"/>
+                                <rect key="frame" x="12" y="217" width="351" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="l54-ZR-Cnr"/>
                                 </constraints>
@@ -765,7 +765,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Stc-FY-csz" userLabel="Up Commands">
-                                <rect key="frame" x="0.0" y="263" width="375" height="174"/>
+                                <rect key="frame" x="0.0" y="249.5" width="375" height="160.5"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -782,7 +782,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to down" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQC-iN-xUV" userLabel="Append Down Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="449" width="169.5" height="32"/>
+                                <rect key="frame" x="12" y="422" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="6Is-6g-nn5"/>
                                 </constraints>
@@ -791,7 +791,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIe-kL-kWh" userLabel="Append Up Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="449" width="169.5" height="32"/>
+                                <rect key="frame" x="193.5" y="422" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="H7n-px-hVt"/>
                                 </constraints>
@@ -800,7 +800,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I56-KI-2m6" userLabel="Command Picker">
-                                <rect key="frame" x="0.0" y="493" width="375" height="174"/>
+                                <rect key="frame" x="0.0" y="466" width="375" height="201"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </pickerView>
                         </subviews>
@@ -819,7 +819,7 @@
                             <constraint firstItem="AQC-iN-xUV" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" constant="12" id="P0I-PQ-XEC"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="PlB-8d-dej"/>
                             <constraint firstItem="FIe-kL-kWh" firstAttribute="leading" secondItem="AQC-iN-xUV" secondAttribute="trailing" constant="12" id="Tgc-hc-fQJ"/>
-                            <constraint firstItem="I56-KI-2m6" firstAttribute="height" secondItem="Stc-FY-csz" secondAttribute="height" id="WZt-av-0KY"/>
+                            <constraint firstItem="I56-KI-2m6" firstAttribute="height" secondItem="Stc-FY-csz" secondAttribute="height" multiplier="1.25" id="WZt-av-0KY"/>
                             <constraint firstItem="3Ai-81-2lD" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" constant="12" id="Y4l-gw-xbm"/>
                             <constraint firstItem="Stc-FY-csz" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="aGb-dc-Tcr"/>
                             <constraint firstItem="3Ai-81-2lD" firstAttribute="top" secondItem="EzH-uK-JdF" secondAttribute="top" constant="12" id="aMl-kC-Mmm"/>

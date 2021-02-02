@@ -183,6 +183,14 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         upCommands.dataSource = self;
         upCommands.isEditing = true;
         upCommands.reloadData();
+        
+        appendDown.pressed = { [weak self] in
+            self!.appendTo(tableView: self!.downCommands);
+        };
+        
+        appendUp.pressed = { [weak self] in
+            self!.appendTo(tableView: self!.upCommands);
+        };
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -266,7 +274,7 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
                 rows.remove(at: indexPath.row);
                 return; // Suppress warning
             };
-            tableView.deleteRows(at: [indexPath], with: .automatic);
+            tableView.deleteRows(at: [indexPath], with: .fade);
         }
     }
     
@@ -276,5 +284,30 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
             rows.remove(at: sourceIndexPath.row);
             rows.insert(item, at: destinationIndexPath.row);
         };
+    }
+    
+    private func appendTo(tableView: UITableView) {
+        let column0 = commandPicker.selectedRow(inComponent: 0);
+        let column1 = commandPicker.selectedRow(inComponent: 1);
+        
+        let commandName = commandCodeRows[column0].name;
+        let commandByte = commandCodeRows[column0].code.rawValue;
+        let argumentName: String;
+        let argumentByte: UInt8;
+        if column0 < 3 {
+            argumentName = mouseButtonRows[column1].name;
+            argumentByte = mouseButtonRows[column1].button.rawValue;
+        } else {
+            argumentName = keyRows[column1].name;
+            argumentByte = keyRows[column1].key.rawValue;
+        }
+        
+        let display = commandName + ", " + argumentName;
+        let data = [commandByte, argumentByte];
+        let count = selectTableRows(tableView: tableView) {rows -> Int in
+            rows.append(CommandRow(display: display, data: data));
+            return rows.count;
+        };
+        tableView.insertRows(at: [IndexPath(row: count - 1, section: 0)], with: .fade);
     }
 }
