@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DVQ-GD-KRS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lx9-cm-gsY">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -729,7 +729,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" name="gray800"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-81-2lD" userLabel="Down Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-81-2lD" userLabel="Down Commands Label">
                                 <rect key="frame" x="12" y="12" width="351" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="Yfx-Vh-7uX"/>
@@ -739,7 +739,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j8r-mM-n4a" userLabel="Down Commands">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="175"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="174"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -755,8 +755,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5b-tK-OzU" userLabel="Up Label">
-                                <rect key="frame" x="12" y="231.5" width="351" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5b-tK-OzU" userLabel="Up Commands Label">
+                                <rect key="frame" x="12" y="230.5" width="351" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="l54-ZR-Cnr"/>
                                 </constraints>
@@ -765,7 +765,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Stc-FY-csz" userLabel="Up Commands">
-                                <rect key="frame" x="0.0" y="264" width="375" height="175"/>
+                                <rect key="frame" x="0.0" y="263" width="375" height="174"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -781,37 +781,66 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to down" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQC-iN-xUV" userLabel="Append Down Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="449" width="169.5" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="6Is-6g-nn5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="gray200"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIe-kL-kWh" userLabel="Append Up Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="193.5" y="449" width="169.5" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="H7n-px-hVt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="gray200"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I56-KI-2m6" userLabel="Command Picker">
-                                <rect key="frame" x="0.0" y="451" width="375" height="216"/>
+                                <rect key="frame" x="0.0" y="493" width="375" height="174"/>
+                                <color key="backgroundColor" name="gray700"/>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="FIe-kL-kWh" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="1Re-OA-gts"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="height" secondItem="Stc-FY-csz" secondAttribute="height" id="5Jr-DE-W9l"/>
                             <constraint firstItem="8ZL-hG-Iwq" firstAttribute="trailing" secondItem="EzH-uK-JdF" secondAttribute="trailing" id="8eE-Cc-82i"/>
+                            <constraint firstItem="I56-KI-2m6" firstAttribute="top" secondItem="AQC-iN-xUV" secondAttribute="bottom" constant="12" id="AdM-i6-DrI"/>
+                            <constraint firstItem="EzH-uK-JdF" firstAttribute="trailing" secondItem="FIe-kL-kWh" secondAttribute="trailing" constant="12" id="B9g-9J-PcV"/>
                             <constraint firstItem="8ZL-hG-Iwq" firstAttribute="top" secondItem="EzH-uK-JdF" secondAttribute="top" id="DnZ-Nt-czg"/>
                             <constraint firstItem="EzH-uK-JdF" firstAttribute="trailing" secondItem="3Ai-81-2lD" secondAttribute="trailing" constant="12" id="FFw-OI-FjZ"/>
                             <constraint firstItem="I56-KI-2m6" firstAttribute="trailing" secondItem="EzH-uK-JdF" secondAttribute="trailing" id="Fah-4P-uB9"/>
                             <constraint firstItem="8ZL-hG-Iwq" firstAttribute="bottom" secondItem="Ujn-Je-2wn" secondAttribute="bottom" id="JOM-Xy-aVa"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="trailing" secondItem="EzH-uK-JdF" secondAttribute="trailing" id="KwC-G7-NvR"/>
+                            <constraint firstItem="AQC-iN-xUV" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" constant="12" id="P0I-PQ-XEC"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="PlB-8d-dej"/>
+                            <constraint firstItem="FIe-kL-kWh" firstAttribute="leading" secondItem="AQC-iN-xUV" secondAttribute="trailing" constant="12" id="Tgc-hc-fQJ"/>
+                            <constraint firstItem="I56-KI-2m6" firstAttribute="height" secondItem="Stc-FY-csz" secondAttribute="height" id="WZt-av-0KY"/>
                             <constraint firstItem="3Ai-81-2lD" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" constant="12" id="Y4l-gw-xbm"/>
                             <constraint firstItem="Stc-FY-csz" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="aGb-dc-Tcr"/>
                             <constraint firstItem="3Ai-81-2lD" firstAttribute="top" secondItem="EzH-uK-JdF" secondAttribute="top" constant="12" id="aMl-kC-Mmm"/>
                             <constraint firstItem="J5b-tK-OzU" firstAttribute="top" secondItem="j8r-mM-n4a" secondAttribute="bottom" constant="12" id="aYX-YJ-ANE"/>
                             <constraint firstItem="I56-KI-2m6" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="afa-j0-qCU"/>
                             <constraint firstItem="Stc-FY-csz" firstAttribute="trailing" secondItem="EzH-uK-JdF" secondAttribute="trailing" id="cSp-Cd-tEz"/>
+                            <constraint firstItem="AQC-iN-xUV" firstAttribute="width" secondItem="FIe-kL-kWh" secondAttribute="width" id="d6F-ZI-4I0"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="top" secondItem="3Ai-81-2lD" secondAttribute="bottom" constant="12" id="dEi-dF-BPX"/>
                             <constraint firstItem="Stc-FY-csz" firstAttribute="top" secondItem="J5b-tK-OzU" secondAttribute="bottom" constant="12" id="etf-Px-HpA"/>
                             <constraint firstItem="J5b-tK-OzU" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" constant="12" id="fWh-np-f7d"/>
-                            <constraint firstAttribute="bottom" secondItem="I56-KI-2m6" secondAttribute="bottom" id="oo5-6N-Sf3"/>
-                            <constraint firstItem="I56-KI-2m6" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="pJp-Jd-9nx"/>
+                            <constraint firstItem="I56-KI-2m6" firstAttribute="top" secondItem="FIe-kL-kWh" secondAttribute="bottom" constant="12" id="oMK-Fy-Pdd"/>
+                            <constraint firstItem="EzH-uK-JdF" firstAttribute="bottom" secondItem="I56-KI-2m6" secondAttribute="bottom" id="oo5-6N-Sf3"/>
                             <constraint firstItem="EzH-uK-JdF" firstAttribute="trailing" secondItem="J5b-tK-OzU" secondAttribute="trailing" constant="12" id="qjQ-Zm-EkC"/>
                             <constraint firstItem="8ZL-hG-Iwq" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="urG-K5-mzB"/>
+                            <constraint firstItem="AQC-iN-xUV" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="zpo-d8-c23"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EzH-uK-JdF"/>
                     </view>
                     <connections>
+                        <outlet property="appendDown" destination="AQC-iN-xUV" id="l7U-e4-Ia2"/>
+                        <outlet property="appendUp" destination="FIe-kL-kWh" id="Bmi-Vb-6er"/>
                         <outlet property="commandPicker" destination="I56-KI-2m6" id="jza-pj-kce"/>
                         <outlet property="downCommands" destination="j8r-mM-n4a" id="L9Q-gf-419"/>
                         <outlet property="upCommands" destination="Stc-FY-csz" id="WsT-1h-j1J"/>

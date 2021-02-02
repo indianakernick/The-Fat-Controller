@@ -156,6 +156,8 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
     @IBOutlet weak var downCommands: UITableView!;
     @IBOutlet weak var upCommands: UITableView!;
     @IBOutlet weak var commandPicker: UIPickerView!;
+    @IBOutlet weak var appendDown: ButtonInput!
+    @IBOutlet weak var appendUp: ButtonInput!
     
     private var mouseCommand = true;
     private var downRows: [CommandRow] = [CommandRow(
@@ -224,27 +226,26 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            if row < 3 && !mouseCommand {
-                mouseCommand = true;
-                commandPicker.reloadComponent(1);
-                commandPicker.selectRow(0, inComponent: 1, animated: false);
-            } else if row >= 3 && mouseCommand {
-                mouseCommand = false;
+            if (row < 3 && !mouseCommand) || (row >= 3 && mouseCommand) {
+                mouseCommand = !mouseCommand
                 commandPicker.reloadComponent(1);
                 commandPicker.selectRow(0, inComponent: 1, animated: false);
             }
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            if tableView == downCommands {
-                return downRows.count;
-            } else if tableView == upCommands {
-                return upRows.count;
-            }
+    private func selectTableRows<T>(tableView: UITableView, _ callback: (inout [CommandRow]) -> T) -> T {
+        if tableView == downCommands {
+            return callback(&downRows);
+        } else if tableView == upCommands {
+            return callback(&upRows);
+        } else {
+            fatalError();
         }
-        return 0;
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return selectTableRows(tableView: tableView) { $0.count };
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -253,34 +254,27 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         // Sets color of reorder control.
         // Might want to consider setting this for the whole app.
         cell.overrideUserInterfaceStyle = .dark;
-        if tableView == downCommands {
-            cell.textLabel!.text = downRows[indexPath.row].display;
-        } else if tableView == upCommands {
-            cell.textLabel!.text = upRows[indexPath.row].display;
-        }
+        selectTableRows(tableView: tableView) {rows in
+            cell.textLabel!.text = rows[indexPath.row].display;
+        };
         return cell;
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if tableView == downCommands {
-                downRows.remove(at: indexPath.row);
-            } else if tableView == upCommands {
-                upRows.remove(at: indexPath.row);
-            }
+            selectTableRows(tableView: tableView) {rows in
+                rows.remove(at: indexPath.row);
+                return; // Suppress warning
+            };
             tableView.deleteRows(at: [indexPath], with: .automatic);
         }
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if tableView == downCommands {
-            let item = downRows[sourceIndexPath.row];
-            downRows.remove(at: sourceIndexPath.row);
-            downRows.insert(item, at: destinationIndexPath.row);
-        } else if tableView == upCommands {
-            let item = upRows[sourceIndexPath.row];
-            upRows.remove(at: sourceIndexPath.row);
-            upRows.insert(item, at: destinationIndexPath.row);
-        }
+        selectTableRows(tableView: tableView) {rows in
+            let item = rows[sourceIndexPath.row];
+            rows.remove(at: sourceIndexPath.row);
+            rows.insert(item, at: destinationIndexPath.row);
+        };
     }
 }
