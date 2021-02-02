@@ -203,7 +203,15 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
                 return false;
             }
         } else if gestureRecognizer == panOneRecog {
-            if otherGestureRecognizer == tapOnceRecog {
+            if otherGestureRecognizer == tapOnceRecog || otherGestureRecognizer == panTwoRecog || otherGestureRecognizer == panThreeRecog {
+                return false;
+            }
+        } else if gestureRecognizer == panTwoRecog {
+            if otherGestureRecognizer == panOneRecog || otherGestureRecognizer == panThreeRecog {
+                return false;
+            }
+        } else if gestureRecognizer == panThreeRecog {
+            if otherGestureRecognizer == panOneRecog || otherGestureRecognizer == panTwoRecog {
                 return false;
             }
         }
