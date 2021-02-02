@@ -147,19 +147,40 @@ fileprivate let keyRows = [
     (key: Key.help, name: "Help"),
 ];
 
-class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+fileprivate struct CommandRow {
+    var display: String;
+    var data: [UInt8];
+}
+
+class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource {
     @IBOutlet weak var downCommands: UITableView!;
     @IBOutlet weak var upCommands: UITableView!;
     @IBOutlet weak var commandPicker: UIPickerView!;
     
     private var mouseCommand = true;
+    private var downRows: [CommandRow] = [CommandRow(
+        display: "Mouse down, Left",
+        data: [CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]
+    )];
+    private var upRows: [CommandRow] = [CommandRow(
+        display: "Mouse up, Left",
+        data: [CommandCode.mouseUp.rawValue, MouseButton.right.rawValue]
+    )];
 
     override func viewDidLoad() {
         super.viewDidLoad();
         
         commandPicker.dataSource = self;
         commandPicker.delegate = self;
-        commandPicker.reloadAllComponents()
+        commandPicker.reloadAllComponents();
+
+        downCommands.dataSource = self;
+        downCommands.isEditing = true;
+        downCommands.reloadData();
+        
+        upCommands.dataSource = self;
+        upCommands.isEditing = true;
+        upCommands.reloadData();
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -180,14 +201,21 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         }
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    private func makeWhiteString(string: String) -> NSAttributedString {
+        return NSAttributedString(
+            string: string,
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        );
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         if component == 0 {
-            return commandCodeRows[row].name;
+            return makeWhiteString(string: commandCodeRows[row].name);
         } else if component == 1 {
             if mouseCommand {
-                return mouseButtonRows[row].name;
+                return makeWhiteString(string: mouseButtonRows[row].name);
             } else {
-                return keyRows[row].name;
+                return makeWhiteString(string: keyRows[row].name);
             }
         } else {
             return nil;
@@ -205,6 +233,54 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
                 commandPicker.reloadComponent(1);
                 commandPicker.selectRow(0, inComponent: 1, animated: false);
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            if tableView == downCommands {
+                return downRows.count;
+            } else if tableView == upCommands {
+                return upRows.count;
+            }
+        }
+        return 0;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath);
+        cell.textLabel!.textColor = UIColor.white;
+        // Sets color of reorder control.
+        // Might want to consider setting this for the whole app.
+        cell.overrideUserInterfaceStyle = .dark;
+        if tableView == downCommands {
+            cell.textLabel!.text = downRows[indexPath.row].display;
+        } else if tableView == upCommands {
+            cell.textLabel!.text = upRows[indexPath.row].display;
+        }
+        return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if tableView == downCommands {
+                downRows.remove(at: indexPath.row);
+            } else if tableView == upCommands {
+                upRows.remove(at: indexPath.row);
+            }
+            tableView.deleteRows(at: [indexPath], with: .automatic);
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        if tableView == downCommands {
+            let item = downRows[sourceIndexPath.row];
+            downRows.remove(at: sourceIndexPath.row);
+            downRows.insert(item, at: destinationIndexPath.row);
+        } else if tableView == upCommands {
+            let item = upRows[sourceIndexPath.row];
+            upRows.remove(at: sourceIndexPath.row);
+            upRows.insert(item, at: destinationIndexPath.row);
         }
     }
 }
