@@ -204,7 +204,7 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
     private func makeWhiteString(string: String) -> NSAttributedString {
         return NSAttributedString(
             string: string,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor(cgColor: Colors.gray200)]
         );
     }
     
@@ -249,7 +249,7 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath);
-        cell.textLabel!.textColor = UIColor.white;
+        cell.textLabel!.textColor = UIColor(cgColor: Colors.gray200);
         // Sets color of reorder control.
         // Might want to consider setting this for the whole app.
         cell.overrideUserInterfaceStyle = .dark;
