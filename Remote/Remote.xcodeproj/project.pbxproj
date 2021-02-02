@@ -33,6 +33,7 @@
 		45E31FAE25C8D69D00A4E59D /* TapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FAD25C8D69D00A4E59D /* TapViewController.swift */; };
 		45E31FAF25C8DA0700A4E59D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; };
 		45E31FB025C8DA0700A4E59D /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		45E31FB325C8DF2400A4E59D /* ConfigureTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */; };
 		45F6860F25C27E7E00E89F33 /* MoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6860E25C27E7E00E89F33 /* MoveView.swift */; };
 		45F6861125C27EBB00E89F33 /* LookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F6861025C27EBB00E89F33 /* LookView.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		45A5DB7A25C3A5B700796DA3 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		45E31FAB25C8D65500A4E59D /* TapInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapInput.swift; sourceTree = "<group>"; };
 		45E31FAD25C8D69D00A4E59D /* TapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapViewController.swift; sourceTree = "<group>"; };
+		45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTapViewController.swift; sourceTree = "<group>"; };
 		45F6860E25C27E7E00E89F33 /* MoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveView.swift; sourceTree = "<group>"; };
 		45F6861025C27EBB00E89F33 /* LookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +156,7 @@
 				4597534B25C794AD00BEED00 /* SlideViewController.swift */,
 				4597535325C7C20300BEED00 /* TrackpadViewController.swift */,
 				45E31FAD25C8D69D00A4E59D /* TapViewController.swift */,
+				45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			files = (
 				4597535425C7C20300BEED00 /* TrackpadViewController.swift in Sources */,
 				4522697625C2B49900F08645 /* Haptic.swift in Sources */,
+				45E31FB325C8DF2400A4E59D /* ConfigureTapViewController.swift in Sources */,
 				4597535625C7C3A000BEED00 /* TrackpadInput.swift in Sources */,
 				4597534E25C797B700BEED00 /* BasicViewController.swift in Sources */,
 				45E31FAC25C8D65500A4E59D /* TapInput.swift in Sources */,
