@@ -10,10 +10,10 @@ class NumberPadViewController: BasicViewController {
     @IBOutlet weak var cut: ButtonInput!;
     @IBOutlet weak var copyButton: ButtonInput!;
     @IBOutlet weak var paste: ButtonInput!;
-    @IBOutlet weak var delete: ButtonInput!;
     @IBOutlet weak var equal: ButtonInput!;
     @IBOutlet weak var divide: ButtonInput!;
     @IBOutlet weak var multiply: ButtonInput!;
+    @IBOutlet weak var delete: ButtonInput!;
     @IBOutlet weak var lparen: ButtonInput!;
     @IBOutlet weak var up: ButtonInput!;
     @IBOutlet weak var rparen: ButtonInput!;
@@ -70,10 +70,10 @@ class NumberPadViewController: BasicViewController {
         setPressListener(for: cut, with: [CommandCode.keyClickFlags.rawValue, Key.x.rawValue, Flags.command.rawValue]);
         setPressListener(for: copyButton, with: [CommandCode.keyClickFlags.rawValue, Key.c.rawValue, Flags.command.rawValue]);
         setPressListener(for: paste, with: [CommandCode.keyClickFlags.rawValue, Key.v.rawValue, Flags.command.rawValue]);
-        setPressListener(for: delete, with: [CommandCode.keyClick.rawValue, Key.delete.rawValue]);
         setPressListener(for: equal, with: [CommandCode.keyClick.rawValue, Key.equal.rawValue]);
         setPressListener(for: divide, with: [CommandCode.keyClick.rawValue, Key.slash.rawValue]);
         setPressListener(for: multiply, with: [CommandCode.keyClickFlags.rawValue, Key.n8.rawValue, Flags.shift.rawValue]);
+        setPressListener(for: delete, with: [CommandCode.keyClick.rawValue, Key.delete.rawValue]);
         
         setPressListener(for: lparen, with: [CommandCode.keyClickFlags.rawValue, Key.n9.rawValue, Flags.shift.rawValue]);
         setPressListener(for: up, with: [CommandCode.keyClick.rawValue, Key.upArrow.rawValue]);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lx9-cm-gsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DVQ-GD-KRS">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -75,28 +75,28 @@
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⌫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FL-S5-Lu2" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FL-S5-Lu2" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="12" y="12" width="79" height="119"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of8-Bw-uVU" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of8-Bw-uVU" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="103" y="12" width="78.5" height="119"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-Gd-bX7" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-Gd-bX7" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="193.5" y="12" width="79" height="119"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-oW-Itp" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⌫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-oW-Itp" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="284.5" y="12" width="78.5" height="119"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -480,19 +480,19 @@
                         <outlet property="comma" destination="WPa-QX-TjF" id="xpI-5J-0vA"/>
                         <outlet property="copyButton" destination="EhV-6n-FCx" id="1yk-st-dIG"/>
                         <outlet property="cut" destination="0pF-lh-LCS" id="Tws-Jj-ofT"/>
-                        <outlet property="delete" destination="2FL-S5-Lu2" id="hK3-w4-3dB"/>
-                        <outlet property="divide" destination="CdU-Gd-bX7" id="tFD-x4-9mS"/>
+                        <outlet property="delete" destination="sCY-oW-Itp" id="7nN-wT-pec"/>
+                        <outlet property="divide" destination="of8-Bw-uVU" id="OnF-SI-nC2"/>
                         <outlet property="dollar" destination="iUu-LN-uqb" id="2Mq-wJ-q37"/>
                         <outlet property="down" destination="VZn-v3-6LC" id="NP5-XY-xHN"/>
                         <outlet property="eight" destination="tz3-Xy-QDx" id="tEO-mG-tr4"/>
-                        <outlet property="equal" destination="of8-Bw-uVU" id="Fzi-HK-kPj"/>
+                        <outlet property="equal" destination="2FL-S5-Lu2" id="vSN-uZ-NaG"/>
                         <outlet property="five" destination="YB4-5e-tFh" id="END-JY-rl7"/>
                         <outlet property="four" destination="Mye-a1-3sO" id="EBx-R1-VfO"/>
                         <outlet property="greater" destination="NmF-Xp-Cb3" id="ecu-49-u75"/>
                         <outlet property="left" destination="iHf-Dw-KW6" id="E8H-tM-ejL"/>
                         <outlet property="less" destination="dHu-7j-XZ3" id="0aM-ef-zo5"/>
                         <outlet property="lparen" destination="J2G-SD-ldO" id="ofa-XQ-tFr"/>
-                        <outlet property="multiply" destination="sCY-oW-Itp" id="nLi-ym-joe"/>
+                        <outlet property="multiply" destination="CdU-Gd-bX7" id="Iva-7J-oqE"/>
                         <outlet property="nine" destination="OTV-kj-YK9" id="JGm-2a-xDv"/>
                         <outlet property="offlineCover" destination="zHc-g1-k1g" id="KUS-lC-9LH"/>
                         <outlet property="one" destination="zFT-ae-LhP" id="Ukj-kn-8iY"/>
