@@ -9,14 +9,12 @@
 import UIKit;
 
 class BasicViewController: UIViewController, SocketManagerDelegate {
-    private var socket = SocketManager();
+    private var socket: SocketManager!;
     
     @IBOutlet weak var offlineCover: UIView!;
     
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        socket.delegate = self;
-        socket.connect();
+    func setSocket(_ sock: SocketManager) {
+        socket = sock;
     }
     
     func send(_ data: Data) {
