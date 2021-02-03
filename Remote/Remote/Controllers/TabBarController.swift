@@ -8,11 +8,13 @@
 
 import UIKit;
 
-class TabBarController: UITabBarController, SocketManagerDelegate {
+class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketManagerDelegate {
     private var socket = SocketManager();
+    private var previouslySelected: UIViewController?;
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        delegate = self;
         for controller in viewControllers! {
             (controller as! BasicViewController).setSocket(socket);
         }
@@ -32,5 +34,12 @@ class TabBarController: UITabBarController, SocketManagerDelegate {
         for controller in viewControllers! {
             (controller as! BasicViewController).onlineStatusChanged(online: online);
         }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController == viewControllers![3] && viewController == previouslySelected {
+            viewController.performSegue(withIdentifier: "tapConfig", sender: viewController);
+        }
+        previouslySelected = viewController;
     }
 }
