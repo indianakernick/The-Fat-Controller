@@ -152,46 +152,8 @@ fileprivate struct CommandRow {
     var data: [UInt8];
 }
 
-class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var downCommands: UITableView!;
-    @IBOutlet weak var upCommands: UITableView!;
-    @IBOutlet weak var commandPicker: UIPickerView!;
-    @IBOutlet weak var appendDown: ButtonInput!
-    @IBOutlet weak var appendUp: ButtonInput!
-    
+class CommandPickerDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
     private var mouseCommand = true;
-    private var downRows: [CommandRow] = [CommandRow(
-        display: "Mouse down, Left",
-        data: [CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]
-    )];
-    private var upRows: [CommandRow] = [CommandRow(
-        display: "Mouse up, Left",
-        data: [CommandCode.mouseUp.rawValue, MouseButton.right.rawValue]
-    )];
-
-    override func viewDidLoad() {
-        super.viewDidLoad();
-        
-        commandPicker.dataSource = self;
-        commandPicker.delegate = self;
-        commandPicker.reloadAllComponents();
-
-        downCommands.dataSource = self;
-        downCommands.isEditing = true;
-        downCommands.reloadData();
-        
-        upCommands.dataSource = self;
-        upCommands.isEditing = true;
-        upCommands.reloadData();
-        
-        appendDown.pressed = { [weak self] in
-            self!.appendTo(tableView: self!.downCommands);
-        };
-        
-        appendUp.pressed = { [weak self] in
-            self!.appendTo(tableView: self!.upCommands);
-        };
-    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2;
@@ -236,24 +198,21 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         if component == 0 {
             if (row < 3 && !mouseCommand) || (row >= 3 && mouseCommand) {
                 mouseCommand = !mouseCommand
-                commandPicker.reloadComponent(1);
-                commandPicker.selectRow(0, inComponent: 1, animated: false);
+                pickerView.reloadComponent(1);
+                pickerView.selectRow(0, inComponent: 1, animated: false);
             }
         }
     }
-    
-    private func selectTableRows<T>(tableView: UITableView, _ callback: (inout [CommandRow]) -> T) -> T {
-        if tableView == downCommands {
-            return callback(&downRows);
-        } else if tableView == upCommands {
-            return callback(&upRows);
-        } else {
-            fatalError();
-        }
-    }
+}
+
+class CommandListDelegate: NSObject, UITableViewDataSource {
+    fileprivate var rows: [CommandRow] = [CommandRow(
+        display: "Mouse down, Left",
+        data: [CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]
+    )];
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectTableRows(tableView: tableView) { $0.count };
+        return rows.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -262,27 +221,56 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         // Sets color of reorder control.
         // Might want to consider setting this for the whole app.
         cell.overrideUserInterfaceStyle = .dark;
-        selectTableRows(tableView: tableView) {rows in
-            cell.textLabel!.text = rows[indexPath.row].display;
-        };
+        cell.textLabel!.text = rows[indexPath.row].display;
         return cell;
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            selectTableRows(tableView: tableView) {rows in
-                rows.remove(at: indexPath.row);
-                return; // Suppress warning
-            };
+            rows.remove(at: indexPath.row);
             tableView.deleteRows(at: [indexPath], with: .fade);
         }
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        selectTableRows(tableView: tableView) {rows in
-            let item = rows[sourceIndexPath.row];
-            rows.remove(at: sourceIndexPath.row);
-            rows.insert(item, at: destinationIndexPath.row);
+        let item = rows[sourceIndexPath.row];
+        rows.remove(at: sourceIndexPath.row);
+        rows.insert(item, at: destinationIndexPath.row);
+    }
+}
+
+class ConfigureTapViewController: UIViewController {
+    @IBOutlet weak var downCommands: UITableView!;
+    @IBOutlet weak var upCommands: UITableView!;
+    @IBOutlet weak var commandPicker: UIPickerView!;
+    @IBOutlet weak var appendDown: ButtonInput!
+    @IBOutlet weak var appendUp: ButtonInput!
+    
+    private var commandPickerDelegate = CommandPickerDelegate();
+    private var downCommandsDelegate = CommandListDelegate();
+    private var upCommandsDelegate = CommandListDelegate();
+
+    override func viewDidLoad() {
+        super.viewDidLoad();
+        
+        commandPicker.dataSource = commandPickerDelegate;
+        commandPicker.delegate = commandPickerDelegate;
+        commandPicker.reloadAllComponents();
+
+        downCommands.dataSource = downCommandsDelegate;
+        downCommands.isEditing = true;
+        downCommands.reloadData();
+        
+        upCommands.dataSource = upCommandsDelegate;
+        upCommands.isEditing = true;
+        upCommands.reloadData();
+        
+        appendDown.pressed = { [weak self] in
+            self!.appendTo(tableView: self!.downCommands);
+        };
+        
+        appendUp.pressed = { [weak self] in
+            self!.appendTo(tableView: self!.upCommands);
         };
     }
     
@@ -304,10 +292,9 @@ class ConfigureTapViewController: UIViewController, UIPickerViewDataSource, UIPi
         
         let display = commandName + ", " + argumentName;
         let data = [commandByte, argumentByte];
-        let count = selectTableRows(tableView: tableView) {rows -> Int in
-            rows.append(CommandRow(display: display, data: data));
-            return rows.count;
-        };
+        let listDelegate = tableView.dataSource as! CommandListDelegate;
+        listDelegate.rows.append(CommandRow(display: display, data: data));
+        let count = listDelegate.rows.count;
         tableView.insertRows(at: [IndexPath(row: count - 1, section: 0)], with: .fade);
     }
 }
