@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Lx9-cm-gsY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T3d-2L-CyJ">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -48,257 +48,253 @@
             <objects>
                 <viewController id="DVQ-GD-KRS" userLabel="NumberPad" customClass="NumberPadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lvK-jl-YbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3YN-hv-zfa" userLabel="Background">
-                                <rect key="frame" x="-200" y="-200" width="775" height="1067"/>
-                                <color key="backgroundColor" name="gray800"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-lh-LCS" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="12" width="79" height="119"/>
+                                <rect key="frame" x="-260.5" y="12" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhV-6n-FCx" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="12" width="78.5" height="119"/>
+                                <rect key="frame" x="-169.5" y="12" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZD-tL-lff" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="12" width="79" height="119"/>
+                                <rect key="frame" x="-79" y="12" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FL-S5-Lu2" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="12" width="79" height="119"/>
+                                <rect key="frame" x="12" y="12" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of8-Bw-uVU" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="12" width="78.5" height="119"/>
+                                <rect key="frame" x="103" y="12" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-Gd-bX7" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="12" width="79" height="119"/>
+                                <rect key="frame" x="193.5" y="12" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⌫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-oW-Itp" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="12" width="78.5" height="119"/>
+                                <rect key="frame" x="284.5" y="12" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2G-SD-ldO" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="143" width="79" height="119"/>
+                                <rect key="frame" x="-260.5" y="133" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksO-pE-xBV" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="143" width="78.5" height="119"/>
+                                <rect key="frame" x="-169.5" y="133" width="78.5" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=")" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91Q-wq-PYa" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="143" width="79" height="119"/>
+                                <rect key="frame" x="-79" y="133" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4WH-dw-j7n" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="143" width="79" height="119"/>
+                                <rect key="frame" x="12" y="133" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tz3-Xy-QDx" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="143" width="78.5" height="119"/>
+                                <rect key="frame" x="103" y="133" width="78.5" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTV-kj-YK9" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="143" width="79" height="119"/>
+                                <rect key="frame" x="193.5" y="133" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-me-ov6" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="143" width="78.5" height="119"/>
+                                <rect key="frame" x="284.5" y="133" width="78.5" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="←" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHf-Dw-KW6" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="274" width="79" height="119"/>
+                                <rect key="frame" x="-260.5" y="254.5" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUu-LN-uqb" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="274" width="78.5" height="119"/>
+                                <rect key="frame" x="-169.5" y="254.5" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="→" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmk-ez-mME" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="274" width="79" height="119"/>
+                                <rect key="frame" x="-79" y="254.5" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mye-a1-3sO" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="274" width="79" height="119"/>
+                                <rect key="frame" x="12" y="254.5" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YB4-5e-tFh" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="274" width="78.5" height="119"/>
+                                <rect key="frame" x="103" y="254.5" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9n-gR-cgr" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="274" width="79" height="119"/>
+                                <rect key="frame" x="193.5" y="254.5" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gG3-9e-RTw" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="274" width="78.5" height="119"/>
+                                <rect key="frame" x="284.5" y="254.5" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHu-7j-XZ3" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="405" width="79" height="119"/>
+                                <rect key="frame" x="-260.5" y="375.5" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZn-v3-6LC" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="405" width="78.5" height="119"/>
+                                <rect key="frame" x="-169.5" y="375.5" width="78.5" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmF-Xp-Cb3" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="405" width="79" height="119"/>
+                                <rect key="frame" x="-79" y="375.5" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFT-ae-LhP" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="405" width="79" height="119"/>
+                                <rect key="frame" x="12" y="375.5" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCY-NY-sl0" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="405" width="78.5" height="119"/>
+                                <rect key="frame" x="103" y="375.5" width="78.5" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alK-CQ-irM" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="405" width="79" height="119"/>
+                                <rect key="frame" x="193.5" y="375.5" width="79" height="109.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⮐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aev-Ly-rZG" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="405" width="78.5" height="250"/>
+                                <rect key="frame" x="284.5" y="375.5" width="78.5" height="230.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⇧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMZ-ur-a5f" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="536" width="79" height="119"/>
+                                <rect key="frame" x="-260.5" y="497" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="^" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytx-mj-7p0" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="536" width="78.5" height="119"/>
+                                <rect key="frame" x="-169.5" y="497" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vm-gl-Pgx" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="536" width="79" height="119"/>
+                                <rect key="frame" x="-79" y="497" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="," textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-QX-TjF" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="536" width="79" height="119"/>
+                                <rect key="frame" x="12" y="497" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Le-WM-OrI" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="536" width="78.5" height="119"/>
+                                <rect key="frame" x="103" y="497" width="78.5" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZV-6r-6G9" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="536" width="79" height="119"/>
+                                <rect key="frame" x="193.5" y="497" width="79" height="109"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-g1-k1g" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="iUu-LN-uqb" firstAttribute="height" secondItem="ksO-pE-xBV" secondAttribute="height" id="057-fH-e2m"/>
                             <constraint firstItem="hmk-ez-mME" firstAttribute="height" secondItem="NmF-Xp-Cb3" secondAttribute="height" id="0O2-dF-NhH"/>
@@ -316,8 +312,6 @@
                             <constraint firstItem="4WH-dw-j7n" firstAttribute="leading" secondItem="91Q-wq-PYa" secondAttribute="trailing" constant="12" id="6it-fh-0hi"/>
                             <constraint firstItem="OTV-kj-YK9" firstAttribute="width" secondItem="lHY-me-ov6" secondAttribute="width" id="735-Qt-BAb"/>
                             <constraint firstItem="Mye-a1-3sO" firstAttribute="width" secondItem="YB4-5e-tFh" secondAttribute="width" id="73E-hg-wGc"/>
-                            <constraint firstItem="3YN-hv-zfa" firstAttribute="leading" secondItem="rEa-gu-D7a" secondAttribute="leading" constant="-200" id="7iv-EI-1Iv"/>
-                            <constraint firstItem="3YN-hv-zfa" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" constant="-200" id="7vW-cu-i0e"/>
                             <constraint firstItem="2FL-S5-Lu2" firstAttribute="leading" secondItem="5ZD-tL-lff" secondAttribute="trailing" constant="12" id="8R0-TL-RbP"/>
                             <constraint firstItem="rEa-gu-D7a" firstAttribute="bottom" secondItem="WPa-QX-TjF" secondAttribute="bottom" constant="12" id="8Wv-fV-pqP"/>
                             <constraint firstItem="4WH-dw-j7n" firstAttribute="width" secondItem="tz3-Xy-QDx" secondAttribute="width" id="A7i-CM-tax"/>
@@ -377,13 +371,12 @@
                             <constraint firstItem="CdU-Gd-bX7" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" constant="12" id="Wq7-Qc-Eq3"/>
                             <constraint firstItem="0Le-WM-OrI" firstAttribute="leading" secondItem="WPa-QX-TjF" secondAttribute="trailing" constant="12" id="WsK-QT-h6r"/>
                             <constraint firstItem="Y9n-gR-cgr" firstAttribute="top" secondItem="OTV-kj-YK9" secondAttribute="bottom" constant="12" id="X8I-i3-3mR"/>
-                            <constraint firstItem="3YN-hv-zfa" firstAttribute="bottom" secondItem="rEa-gu-D7a" secondAttribute="bottom" constant="200" id="Xau-AV-iRE"/>
                             <constraint firstItem="rEa-gu-D7a" firstAttribute="bottom" secondItem="EMZ-ur-a5f" secondAttribute="bottom" constant="12" id="Xpx-xf-PAM"/>
                             <constraint firstItem="rEa-gu-D7a" firstAttribute="leading" secondItem="91Q-wq-PYa" secondAttribute="trailing" id="YDW-re-cTv"/>
                             <constraint firstItem="NmF-Xp-Cb3" firstAttribute="width" secondItem="zFT-ae-LhP" secondAttribute="width" id="YRX-uC-P7I"/>
                             <constraint firstItem="Mye-a1-3sO" firstAttribute="height" secondItem="zFT-ae-LhP" secondAttribute="height" id="Ydu-e4-s9s"/>
                             <constraint firstItem="91Q-wq-PYa" firstAttribute="leading" secondItem="ksO-pE-xBV" secondAttribute="trailing" constant="12" id="ZJO-nL-yyT"/>
-                            <constraint firstItem="zHc-g1-k1g" firstAttribute="top" secondItem="lvK-jl-YbI" secondAttribute="top" id="Ztp-ue-JTL"/>
+                            <constraint firstItem="zHc-g1-k1g" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" id="Ztp-ue-JTL"/>
                             <constraint firstItem="alK-CQ-irM" firstAttribute="width" secondItem="Aev-Ly-rZG" secondAttribute="width" id="aHD-ct-efo"/>
                             <constraint firstItem="5ZD-tL-lff" firstAttribute="top" secondItem="rEa-gu-D7a" secondAttribute="top" constant="12" id="air-KG-1AP"/>
                             <constraint firstItem="dHu-7j-XZ3" firstAttribute="height" secondItem="iHf-Dw-KW6" secondAttribute="height" id="bF0-LN-4iQ"/>
@@ -422,7 +415,6 @@
                             <constraint firstItem="iHf-Dw-KW6" firstAttribute="height" secondItem="J2G-SD-ldO" secondAttribute="height" id="l9Z-Bq-aDZ"/>
                             <constraint firstItem="Y9n-gR-cgr" firstAttribute="height" secondItem="alK-CQ-irM" secondAttribute="height" id="lR3-ev-ark"/>
                             <constraint firstItem="iUu-LN-uqb" firstAttribute="width" secondItem="hmk-ez-mME" secondAttribute="width" id="mMw-j3-U4m"/>
-                            <constraint firstItem="3YN-hv-zfa" firstAttribute="trailing" secondItem="rEa-gu-D7a" secondAttribute="trailing" constant="200" id="myf-Jm-evf"/>
                             <constraint firstItem="lHY-me-ov6" firstAttribute="leading" secondItem="OTV-kj-YK9" secondAttribute="trailing" constant="12" id="n63-z5-jK2"/>
                             <constraint firstItem="of8-Bw-uVU" firstAttribute="width" secondItem="CdU-Gd-bX7" secondAttribute="width" id="nzN-VF-Rec"/>
                             <constraint firstItem="lHY-me-ov6" firstAttribute="top" secondItem="sCY-oW-Itp" secondAttribute="bottom" constant="12" id="pHs-0h-Nri"/>
@@ -475,6 +467,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Number pad" image="number.square.fill" catalog="system" id="6vc-NY-Uro"/>
                     <connections>
                         <outlet property="add" destination="gG3-9e-RTw" id="o8P-8F-Qcb"/>
                         <outlet property="caret" destination="Ytx-mj-7p0" id="S5D-r1-jwD"/>
@@ -522,43 +515,39 @@
             <objects>
                 <viewController id="uZg-7D-ijb" userLabel="Slide" customClass="SlideViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS1-3P-GlG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8h6-of-lrG" userLabel="Background">
-                                <rect key="frame" x="-200" y="-200" width="775" height="1067"/>
-                                <color key="backgroundColor" name="gray800"/>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N77-ZB-G8B" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="12" width="351" height="60.5"/>
+                                <rect key="frame" x="12" y="12" width="351" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3G-Oz-6O6" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="84.5" width="351" height="243"/>
+                                <rect key="frame" x="12" y="80" width="351" height="223"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5oO-GW-sDn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="339.5" width="351" height="243"/>
+                                <rect key="frame" x="12" y="315" width="351" height="223"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNx-49-jIy" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="594.5" width="351" height="60.5"/>
+                                <rect key="frame" x="12" y="550" width="351" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZt-eJ-LSO" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GpR-b6-0oT" userLabel="Volume" customClass="SimpleVolumeInput" customModule="Remote" customModuleProvider="target">
@@ -567,7 +556,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="rNx-49-jIy" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="0hW-fE-VP5"/>
                             <constraint firstItem="N77-ZB-G8B" firstAttribute="width" secondItem="rNx-49-jIy" secondAttribute="width" id="41l-rf-N2R"/>
@@ -577,20 +566,16 @@
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="QuF-3p-4W6"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" id="Scd-P8-xej"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="bottom" secondItem="MLd-kz-pFo" secondAttribute="bottom" id="SrT-7Y-mlX"/>
-                            <constraint firstItem="8h6-of-lrG" firstAttribute="leading" secondItem="iS1-3P-GlG" secondAttribute="leading" constant="-200" id="Srs-Nx-VZV"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="rNx-49-jIy" secondAttribute="trailing" constant="12" id="TYX-Cq-KVM"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="trailing" secondItem="MLd-kz-pFo" secondAttribute="trailing" id="WhU-rE-Ime"/>
-                            <constraint firstItem="8h6-of-lrG" firstAttribute="top" secondItem="iS1-3P-GlG" secondAttribute="top" constant="-200" id="XQ1-Si-aIL"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="top" secondItem="N77-ZB-G8B" secondAttribute="bottom" constant="12" id="XRM-qf-de9"/>
                             <constraint firstItem="5oO-GW-sDn" firstAttribute="top" secondItem="M3G-Oz-6O6" secondAttribute="bottom" constant="12" id="Xuc-yV-X9u"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="M3G-Oz-6O6" secondAttribute="bottom" constant="12" id="aMY-LF-ULa"/>
-                            <constraint firstAttribute="trailing" secondItem="8h6-of-lrG" secondAttribute="trailing" constant="-200" id="alC-u9-CED"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="rNx-49-jIy" secondAttribute="bottom" constant="12" id="azL-FJ-OvP"/>
                             <constraint firstItem="rNx-49-jIy" firstAttribute="top" secondItem="5oO-GW-sDn" secondAttribute="bottom" constant="12" id="bLn-z8-1gd"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="5oO-GW-sDn" secondAttribute="trailing" constant="12" id="cGx-nt-Sw4"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="5oO-GW-sDn" secondAttribute="bottom" constant="12" id="cpG-OA-Otw"/>
-                            <constraint firstAttribute="bottom" secondItem="8h6-of-lrG" secondAttribute="bottom" constant="-200" id="cz5-Mx-CFj"/>
-                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="top" secondItem="iS1-3P-GlG" secondAttribute="top" id="dCH-NW-lwH"/>
+                            <constraint firstItem="MZt-eJ-LSO" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" id="dCH-NW-lwH"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="N77-ZB-G8B" secondAttribute="trailing" constant="12" id="fpe-ks-mJd"/>
                             <constraint firstItem="5oO-GW-sDn" firstAttribute="height" secondItem="rNx-49-jIy" secondAttribute="height" multiplier="4" id="hnF-r5-Ug2"/>
                             <constraint firstItem="M3G-Oz-6O6" firstAttribute="height" secondItem="N77-ZB-G8B" secondAttribute="height" multiplier="4" id="isi-1V-GPg"/>
@@ -634,6 +619,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Slideshow" image="play.rectangle.fill" catalog="system" id="5ly-qV-yvA"/>
                     <connections>
                         <outlet property="first" destination="rNx-49-jIy" id="uou-vK-ufh"/>
                         <outlet property="last" destination="N77-ZB-G8B" id="P2l-Bm-5Xq"/>
@@ -652,31 +638,32 @@
             <objects>
                 <viewController id="9YC-yz-z0H" userLabel="Trackpad" customClass="TrackpadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TiK-68-nKN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7D5-Je-jU9" userLabel="Trackpad" customClass="TrackpadInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3DT-hd-qSN" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="gray800"/>
                         <constraints>
-                            <constraint firstItem="3DT-hd-qSN" firstAttribute="top" secondItem="TiK-68-nKN" secondAttribute="top" id="8WL-pw-O9q"/>
+                            <constraint firstItem="3DT-hd-qSN" firstAttribute="top" secondItem="9Z8-eW-e1Y" secondAttribute="top" id="8WL-pw-O9q"/>
                             <constraint firstItem="3DT-hd-qSN" firstAttribute="trailing" secondItem="9Z8-eW-e1Y" secondAttribute="trailing" id="Dte-uF-mhZ"/>
                             <constraint firstItem="9Z8-eW-e1Y" firstAttribute="bottom" secondItem="7D5-Je-jU9" secondAttribute="bottom" id="EcI-dV-fSz"/>
                             <constraint firstItem="9Z8-eW-e1Y" firstAttribute="trailing" secondItem="7D5-Je-jU9" secondAttribute="trailing" id="d4l-d2-fmb"/>
                             <constraint firstItem="3DT-hd-qSN" firstAttribute="bottom" secondItem="9Z8-eW-e1Y" secondAttribute="bottom" id="g86-0J-ncd"/>
                             <constraint firstItem="7D5-Je-jU9" firstAttribute="leading" secondItem="9Z8-eW-e1Y" secondAttribute="leading" id="mKE-9y-2qZ"/>
-                            <constraint firstItem="7D5-Je-jU9" firstAttribute="top" secondItem="TiK-68-nKN" secondAttribute="top" id="qQb-qJ-Uzq"/>
+                            <constraint firstItem="7D5-Je-jU9" firstAttribute="top" secondItem="9Z8-eW-e1Y" secondAttribute="top" id="qQb-qJ-Uzq"/>
                             <constraint firstItem="3DT-hd-qSN" firstAttribute="leading" secondItem="9Z8-eW-e1Y" secondAttribute="leading" id="wH2-ts-Gq1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Z8-eW-e1Y"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Trackpad" image="hand.draw.fill" catalog="system" id="OAm-4f-C9D"/>
                     <connections>
                         <outlet property="offlineCover" destination="3DT-hd-qSN" id="1AQ-kW-y8d"/>
                         <outlet property="trackpad" destination="7D5-Je-jU9" id="cMh-U4-mKU"/>
@@ -691,26 +678,36 @@
             <objects>
                 <viewController id="DwP-Ry-g0R" userLabel="Tap" customClass="TapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O8S-3F-Jip">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-Lu-zZc" userLabel="Tap" customClass="TapInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-Lu-zZc" userLabel="Tap" customClass="TapInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EW7-k6-Cbg" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EW7-k6-Cbg" userLabel="OfflineCover">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="gray800"/>
+                        <constraints>
+                            <constraint firstItem="C21-AP-Mwg" firstAttribute="bottom" secondItem="EW7-k6-Cbg" secondAttribute="bottom" id="1Bh-C5-lPa"/>
+                            <constraint firstItem="EW7-k6-Cbg" firstAttribute="trailing" secondItem="C21-AP-Mwg" secondAttribute="trailing" id="5to-Mq-uqW"/>
+                            <constraint firstItem="Xkg-Lu-zZc" firstAttribute="leading" secondItem="C21-AP-Mwg" secondAttribute="leading" id="BO8-aC-q9I"/>
+                            <constraint firstItem="Xkg-Lu-zZc" firstAttribute="top" secondItem="C21-AP-Mwg" secondAttribute="top" id="JRf-LX-fm1"/>
+                            <constraint firstItem="EW7-k6-Cbg" firstAttribute="top" secondItem="C21-AP-Mwg" secondAttribute="top" id="PKu-Yx-fNj"/>
+                            <constraint firstItem="Xkg-Lu-zZc" firstAttribute="trailing" secondItem="C21-AP-Mwg" secondAttribute="trailing" id="T9b-lh-nex"/>
+                            <constraint firstItem="C21-AP-Mwg" firstAttribute="bottom" secondItem="Xkg-Lu-zZc" secondAttribute="bottom" id="lS1-9Y-ACY"/>
+                            <constraint firstItem="EW7-k6-Cbg" firstAttribute="leading" secondItem="C21-AP-Mwg" secondAttribute="leading" id="vCx-RJ-Fp4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="C21-AP-Mwg"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Tap" image="cursor.rays" catalog="system" id="yEr-yx-oGE"/>
                     <connections>
                         <outlet property="offlineCover" destination="EW7-k6-Cbg" id="Btv-6Z-ncT"/>
                         <outlet property="tap" destination="Xkg-Lu-zZc" id="to0-le-hM3"/>
+                        <segue destination="Lx9-cm-gsY" kind="show" identifier="tapConfig" id="xb9-6u-FCB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKN-XT-E3c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -722,11 +719,11 @@
             <objects>
                 <viewController id="Lx9-cm-gsY" userLabel="Configure Tap" customClass="ConfigureTapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ujn-Je-2wn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ZL-hG-Iwq" userLabel="Background">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <color key="backgroundColor" name="gray800"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-81-2lD" userLabel="Down Commands Label">
@@ -739,7 +736,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j8r-mM-n4a" userLabel="Down Commands">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="160.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="154.5"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -756,7 +753,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5b-tK-OzU" userLabel="Up Commands Label">
-                                <rect key="frame" x="12" y="217" width="351" height="20.5"/>
+                                <rect key="frame" x="12" y="211" width="351" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="l54-ZR-Cnr"/>
                                 </constraints>
@@ -765,7 +762,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Stc-FY-csz" userLabel="Up Commands">
-                                <rect key="frame" x="0.0" y="249.5" width="375" height="160.5"/>
+                                <rect key="frame" x="0.0" y="243.5" width="375" height="154.5"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -782,7 +779,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to down" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQC-iN-xUV" userLabel="Append Down Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="422" width="169.5" height="32"/>
+                                <rect key="frame" x="12" y="410" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="6Is-6g-nn5"/>
                                 </constraints>
@@ -791,7 +788,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIe-kL-kWh" userLabel="Append Up Button" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="422" width="169.5" height="32"/>
+                                <rect key="frame" x="193.5" y="410" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="H7n-px-hVt"/>
                                 </constraints>
@@ -800,11 +797,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I56-KI-2m6" userLabel="Command Picker">
-                                <rect key="frame" x="0.0" y="466" width="375" height="201"/>
+                                <rect key="frame" x="0.0" y="454" width="375" height="193"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FIe-kL-kWh" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="1Re-OA-gts"/>
                             <constraint firstItem="j8r-mM-n4a" firstAttribute="height" secondItem="Stc-FY-csz" secondAttribute="height" id="5Jr-DE-W9l"/>
@@ -850,19 +847,61 @@
             </objects>
             <point key="canvasLocation" x="1304.8" y="2817.8410794602701"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="YR3-Zh-dAR">
+            <objects>
+                <tabBarController id="T3d-2L-CyJ" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="RQs-9c-Sqc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="gray900"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" name="blue"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" name="gray600"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="DVQ-GD-KRS" kind="relationship" relationship="viewControllers" id="2Uy-fa-NBw"/>
+                        <segue destination="uZg-7D-ijb" kind="relationship" relationship="viewControllers" id="h8C-cL-w4L"/>
+                        <segue destination="9YC-yz-z0H" kind="relationship" relationship="viewControllers" id="42I-W8-fvg"/>
+                        <segue destination="DwP-Ry-g0R" kind="relationship" relationship="viewControllers" id="BsV-P3-Ges"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-oF-B4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2452" y="2230"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="cursor.rays" catalog="system" width="128" height="119"/>
+        <image name="hand.draw.fill" catalog="system" width="128" height="107"/>
+        <image name="number.square.fill" catalog="system" width="128" height="114"/>
+        <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
+        <namedColor name="blue">
+            <color red="0.0" green="0.4823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="gray200">
             <color red="0.9137254901960784" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="gray500">
             <color red="0.67843137254901964" green="0.70980392156862748" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="gray600">
+            <color red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="gray700">
             <color red="0.28627450980392155" green="0.31372549019607843" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="gray800">
             <color red="0.20392156862745098" green="0.22745098039215686" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="gray900">
+            <color red="0.12941176470588237" green="0.14509803921568629" blue="0.16078431372549021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="red">
             <color red="0.86274509803921573" green="0.20784313725490197" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
