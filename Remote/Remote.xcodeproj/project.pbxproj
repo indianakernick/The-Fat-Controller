@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
+		452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26425CA44AF003B1E1D /* TabBarController.swift */; };
 		454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2EE25C388DB005D59DD /* VolumeInput.swift */; };
 		454FA2F225C39D57005D59DD /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2F125C39D57005D59DD /* SocketManager.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
+		452CE26425CA44AF003B1E1D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		454FA2EE25C388DB005D59DD /* VolumeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInput.swift; sourceTree = "<group>"; };
 		454FA2F125C39D57005D59DD /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				4597535325C7C20300BEED00 /* TrackpadViewController.swift */,
 				45E31FAD25C8D69D00A4E59D /* TapViewController.swift */,
 				45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */,
+				452CE26425CA44AF003B1E1D /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				4597535225C79DA900BEED00 /* SimpleVolumeInput.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
+				452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */,
 				45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */,
 				4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */,
 				4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */,
