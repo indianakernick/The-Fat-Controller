@@ -8,11 +8,20 @@
 
 import Foundation;
 
+fileprivate func dataFromPlist(plist: [Any]) -> Data {
+    var bytes: [UInt8] = [];
+    for element in plist {
+        let dict = element as! [String : Any];
+        bytes += dict["data"] as! [UInt8];
+    }
+    return Data(bytes);
+}
+
 class TapViewController: BasicViewController {
     @IBOutlet weak var tap: TapInput!;
     
-    private var downData = Data([CommandCode.mouseClick.rawValue, MouseButton.left.rawValue]);
-    private var upData = Data();
+    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
+    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -22,5 +31,15 @@ class TapViewController: BasicViewController {
         tap.released = { [weak self] in
             self!.send(self!.upData);
         };
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList);
+        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList);
+        if downRows != nil && upRows != nil {
+            downData = dataFromPlist(plist: downRows!);
+            upData = dataFromPlist(plist: upRows!);
+        }
     }
 }

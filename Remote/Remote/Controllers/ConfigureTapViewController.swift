@@ -239,6 +239,25 @@ class CommandListDelegate: NSObject, UITableViewDataSource {
     }
 }
 
+fileprivate func rowsFromPlist(plist: [Any]) -> [CommandRow] {
+    var rows: [CommandRow] = [];
+    for element in plist {
+        let dict = element as! [String : Any];
+        let display = dict["display"] as! String;
+        let data = dict["data"] as! [UInt8];
+        rows.append(CommandRow(display: display, data: data));
+    }
+    return rows;
+}
+
+fileprivate func rowsToPlist(rows: [CommandRow]) -> [Any] {
+    var plist: [[String : Any]] = [];
+    for row in rows {
+        plist.append(["display": row.display, "data": row.data]);
+    }
+    return plist;
+}
+
 class ConfigureTapViewController: UIViewController {
     @IBOutlet weak var downCommands: UITableView!;
     @IBOutlet weak var upCommands: UITableView!;
@@ -259,11 +278,9 @@ class ConfigureTapViewController: UIViewController {
 
         downCommands.dataSource = downCommandsDelegate;
         downCommands.isEditing = true;
-        downCommands.reloadData();
         
         upCommands.dataSource = upCommandsDelegate;
         upCommands.isEditing = true;
-        upCommands.reloadData();
         
         appendDown.pressed = { [weak self] in
             self!.appendTo(tableView: self!.downCommands);
@@ -272,6 +289,26 @@ class ConfigureTapViewController: UIViewController {
         appendUp.pressed = { [weak self] in
             self!.appendTo(tableView: self!.upCommands);
         };
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList);
+        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList);
+        if downRows != nil && upRows != nil {
+            downCommandsDelegate.rows = rowsFromPlist(plist: downRows!);
+            upCommandsDelegate.rows = rowsFromPlist(plist: upRows!);
+        }
+        downCommands.reloadData();
+        upCommands.reloadData();
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated);
+        let downRows = rowsToPlist(rows: downCommandsDelegate.rows);
+        let upRows = rowsToPlist(rows: upCommandsDelegate.rows);
+        UserDefaults.standard.set(downRows, forKey: StorageKeys.tapDownCommandList);
+        UserDefaults.standard.set(upRows, forKey: StorageKeys.tapUpCommandList);
     }
     
     private func appendTo(tableView: UITableView) {

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
 		452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26425CA44AF003B1E1D /* TabBarController.swift */; };
+		452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26825CA61A7003B1E1D /* StorageKeys.swift */; };
 		454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2EE25C388DB005D59DD /* VolumeInput.swift */; };
 		454FA2F225C39D57005D59DD /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454FA2F125C39D57005D59DD /* SocketManager.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		452CE26425CA44AF003B1E1D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		452CE26825CA61A7003B1E1D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
 		454FA2EE25C388DB005D59DD /* VolumeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInput.swift; sourceTree = "<group>"; };
 		454FA2F125C39D57005D59DD /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				4522697525C2B49900F08645 /* Haptic.swift */,
 				454FA2F125C39D57005D59DD /* SocketManager.swift */,
+				452CE26825CA61A7003B1E1D /* StorageKeys.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */,
 				458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */,
 				458490D925C4EA9E0063404D /* VolumeEmitter.swift in Sources */,
+				452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */,
 				454FA2EF25C388DB005D59DD /* VolumeInput.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
