@@ -300,9 +300,14 @@ fn generate_swift_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std
         file.write_all(var.0.to_mixed_case().as_bytes())?;
         file.write_all(b" = ")?;
         file.write_all(name)?;
-        file.write_all(b"(rawValue: ")?;
-        file.write_all(var.1.to_string().as_bytes())?;
-        file.write_all(b");\n")?;
+        if var.1 == 0 {
+            // Not strictly necessary but this suppresses a compiler warning
+            file.write_all(b"([]);\n")?;
+        } else {
+            file.write_all(b"(rawValue: ")?;
+            file.write_all(var.1.to_string().as_bytes())?;
+            file.write_all(b");\n")?;
+        }
     }
 
     file.write_all(b"}\n")?;

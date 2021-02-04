@@ -3,7 +3,7 @@
 struct Flags: OptionSet {
     let rawValue: UInt8;
 
-    static let null = Flags(rawValue: 0);
+    static let null = Flags([]);
     static let capsLock = Flags(rawValue: 1);
     static let shift = Flags(rawValue: 2);
     static let control = Flags(rawValue: 4);
