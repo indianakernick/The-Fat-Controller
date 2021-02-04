@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E125C2C42F00E5AE57 /* Flags.swift */; };
 		4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E225C2C42F00E5AE57 /* Key.swift */; };
 		4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E325C2C42F00E5AE57 /* MouseButton.swift */; };
+		4578F15725CB8DC800800056 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 4578F15625CB8DC800800056 /* Starscream */; };
 		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
 		458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490E925C677F90063404D /* NumberPadViewController.swift */; };
 		4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597534B25C794AD00BEED00 /* SlideViewController.swift */; };
@@ -31,24 +32,8 @@
 		45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5DB7A25C3A5B700796DA3 /* Colors.swift */; };
 		45E31FAC25C8D65500A4E59D /* TapInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FAB25C8D65500A4E59D /* TapInput.swift */; };
 		45E31FAE25C8D69D00A4E59D /* TapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FAD25C8D69D00A4E59D /* TapViewController.swift */; };
-		45E31FAF25C8DA0700A4E59D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; };
-		45E31FB025C8DA0700A4E59D /* Starscream.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 458490E325C508920063404D /* Starscream.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		45E31FB325C8DF2400A4E59D /* ConfigureTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		45E31FB125C8DA0700A4E59D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				45E31FB025C8DA0700A4E59D /* Starscream.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
@@ -61,7 +46,6 @@
 		4572C3E225C2C42F00E5AE57 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		4572C3E325C2C42F00E5AE57 /* MouseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseButton.swift; sourceTree = "<group>"; };
 		458490DA25C4EF2A0063404D /* ButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonInput.swift; sourceTree = "<group>"; };
-		458490E325C508920063404D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Starscream.framework; sourceTree = "<group>"; };
 		458490E925C677F90063404D /* NumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		4597534B25C794AD00BEED00 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 		4597534D25C797B700BEED00 /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
@@ -86,21 +70,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45E31FAF25C8DA0700A4E59D /* Starscream.framework in Frameworks */,
+				4578F15725CB8DC800800056 /* Starscream in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4522697725C2B8C900F08645 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				458490E325C508920063404D /* Starscream.framework */,
-			);
-			path = Frameworks;
-			sourceTree = "<group>";
-		};
 		4522697C25C2BE6300F08645 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +130,6 @@
 			children = (
 				45A3607C25C22C1200DFE76A /* Remote */,
 				45A3607B25C22C1200DFE76A /* Products */,
-				4522697725C2B8C900F08645 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,13 +168,15 @@
 				45A3607625C22C1200DFE76A /* Sources */,
 				45A3607725C22C1200DFE76A /* Frameworks */,
 				45A3607825C22C1200DFE76A /* Resources */,
-				45E31FB125C8DA0700A4E59D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Remote;
+			packageProductDependencies = (
+				4578F15625CB8DC800800056 /* Starscream */,
+			);
 			productName = Remote;
 			productReference = 45A3607A25C22C1200DFE76A /* Remote.app */;
 			productType = "com.apple.product-type.application";
@@ -228,6 +205,9 @@
 				Base,
 			);
 			mainGroup = 45A3607125C22C1200DFE76A;
+			packageReferences = (
+				4578F15525CB8DC800800056 /* XCRemoteSwiftPackageReference "Starscream" */,
+			);
 			productRefGroup = 45A3607B25C22C1200DFE76A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -484,6 +464,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4578F15525CB8DC800800056 /* XCRemoteSwiftPackageReference "Starscream" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/daltoniam/Starscream.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4578F15625CB8DC800800056 /* Starscream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4578F15525CB8DC800800056 /* XCRemoteSwiftPackageReference "Starscream" */;
+			productName = Starscream;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 45A3607225C22C1200DFE76A /* Project object */;
 }

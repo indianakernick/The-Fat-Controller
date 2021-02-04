@@ -6,43 +6,14 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-#if true
-
-import Starscream;
-
-#else
-
 import Foundation;
-
-protocol WebSocketDelegate: class {
-    func websocketDidConnect(socket: WebSocketClient);
-}
-
-class WebSocket {
-    weak var delegate: WebSocketDelegate?;
-    
-    func connect() {
-        delegate?.websocketDidConnect(socket: WebSocketClient());
-    }
-    
-    init(url: URL) {}
-    
-    func write(data: Data) {
-        if !data.isEmpty {
-            print(data);
-        }
-    }
-}
-
-class WebSocketClient {}
-
-#endif
+import Starscream;
 
 protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool);
 }
 
-class SocketManager: WebSocketDelegate {
+class SocketManager {
     private static let retryDelay = 1.0;
     private static let tickDelay = 0.05;
     private static let maxTickCount = Int(30.0 / tickDelay);
@@ -55,30 +26,36 @@ class SocketManager: WebSocketDelegate {
     weak var delegate: SocketManagerDelegate?;
     
     init() {
-        socket = WebSocket(url: URL(string: "ws://indi-mac.local:80/socket")!);
-        socket.delegate = self;
+        socket = WebSocket(request: URLRequest(url: URL(string: "ws://indi-mac.local:80/socket")!));
+        socket.onEvent = { [weak self] event in
+            switch event {
+            case .connected:
+                self!.connected();
+            case.disconnected:
+                self!.disconnected();
+            default:
+                break;
+            }
+        };
     }
     
     func connect() {
         socket.connect();
     }
     
-    func websocketDidConnect(socket: WebSocketClient) {
+    func connected() {
         updateOnlineStatus(online: true);
         tickCount = 0;
         startTicking();
     }
     
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+    func disconnected() {
         updateOnlineStatus(online: false);
         stopTicking();
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
             self.connect();
         }
     }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
     
     func send(_ data: Data) {
         socket.write(data: data);
