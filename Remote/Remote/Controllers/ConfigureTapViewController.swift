@@ -309,6 +309,7 @@ class ConfigureTapViewController: UIViewController {
         let upRows = rowsToPlist(rows: upCommandsDelegate.rows);
         UserDefaults.standard.set(downRows, forKey: StorageKeys.tapDownCommandList);
         UserDefaults.standard.set(upRows, forKey: StorageKeys.tapUpCommandList);
+        TapViewController.instance?.updateData();
     }
     
     private func appendTo(tableView: UITableView) {

@@ -23,8 +23,11 @@ class TapViewController: BasicViewController {
     private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
     private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
     
+    static weak var instance: TapViewController?;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
+        TapViewController.instance = self;
         tap.pressed = { [weak self] in
             self!.send(self!.downData);
         };
@@ -35,6 +38,10 @@ class TapViewController: BasicViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
+        updateData();
+    }
+    
+    func updateData() {
         let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList);
         let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList);
         if downRows != nil && upRows != nil {
