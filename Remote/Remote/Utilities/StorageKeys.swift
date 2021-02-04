@@ -10,4 +10,5 @@ enum StorageKeys {
     static let tapUpCommandList = "TapCommandListUp";
     static let tapDownCommandList = "TapCommandListDown";
     static let hostName = "HostName";
+    static let selectedTabIndex = "TabBarSelectedIndex";
 }

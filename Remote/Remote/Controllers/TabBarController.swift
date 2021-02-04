@@ -26,6 +26,18 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
         socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "");
     }
     
+    // The currently selected index should probably be stored in NSUserActivity
+    // but getting that set up seems like a bit of a pain when all I want to do
+    // is store an integer.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        selectedIndex = UserDefaults.standard.integer(forKey: StorageKeys.selectedTabIndex);
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.set(selectedIndex, forKey: StorageKeys.selectedTabIndex);
+    }
+    
     override func viewWillTransition(to: CGSize, with: UIViewControllerTransitionCoordinator) {
         if to.width > to.height {
             tabBar.isHidden = true;
