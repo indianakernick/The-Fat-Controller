@@ -7,16 +7,16 @@
 //
 
 class SlideViewController: BasicViewController {
-    @IBOutlet weak var last: ButtonInput!;
-    @IBOutlet weak var nextButton: ButtonInput!;
-    @IBOutlet weak var previous: ButtonInput!;
-    @IBOutlet weak var first: ButtonInput!;
+    @IBOutlet weak var lastBtn: ButtonInput!;
+    @IBOutlet weak var nextBtn: ButtonInput!;
+    @IBOutlet weak var previousBtn: ButtonInput!;
+    @IBOutlet weak var firstBtn: ButtonInput!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        setPressListener(for: last, with: [CommandCode.keyClick.rawValue, Key.end.rawValue]);
-        setPressListener(for: nextButton, with: [CommandCode.keyClick.rawValue, Key.rightArrow.rawValue]);
-        setPressListener(for: previous, with: [CommandCode.keyClick.rawValue, Key.leftArrow.rawValue]);
-        setPressListener(for: first, with: [CommandCode.keyClick.rawValue, Key.home.rawValue]);
+        setPressListener(for: lastBtn, with: [CommandCode.keyClick.rawValue, Key.end.rawValue]);
+        setPressListener(for: nextBtn, with: [CommandCode.keyClick.rawValue, Key.rightArrow.rawValue]);
+        setPressListener(for: previousBtn, with: [CommandCode.keyClick.rawValue, Key.leftArrow.rawValue]);
+        setPressListener(for: firstBtn, with: [CommandCode.keyClick.rawValue, Key.home.rawValue]);
     }
 }

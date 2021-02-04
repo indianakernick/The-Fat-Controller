@@ -434,41 +434,41 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Number pad" image="number.square.fill" catalog="system" id="6vc-NY-Uro"/>
                     <connections>
-                        <outlet property="add" destination="gG3-9e-RTw" id="o8P-8F-Qcb"/>
-                        <outlet property="caret" destination="Ytx-mj-7p0" id="S5D-r1-jwD"/>
-                        <outlet property="comma" destination="WPa-QX-TjF" id="xpI-5J-0vA"/>
-                        <outlet property="copyButton" destination="EhV-6n-FCx" id="1yk-st-dIG"/>
-                        <outlet property="cut" destination="0pF-lh-LCS" id="Tws-Jj-ofT"/>
-                        <outlet property="delete" destination="sCY-oW-Itp" id="7nN-wT-pec"/>
-                        <outlet property="divide" destination="of8-Bw-uVU" id="OnF-SI-nC2"/>
-                        <outlet property="dollar" destination="iUu-LN-uqb" id="2Mq-wJ-q37"/>
-                        <outlet property="down" destination="VZn-v3-6LC" id="NP5-XY-xHN"/>
-                        <outlet property="eight" destination="tz3-Xy-QDx" id="tEO-mG-tr4"/>
-                        <outlet property="equal" destination="2FL-S5-Lu2" id="vSN-uZ-NaG"/>
-                        <outlet property="five" destination="YB4-5e-tFh" id="END-JY-rl7"/>
-                        <outlet property="four" destination="Mye-a1-3sO" id="EBx-R1-VfO"/>
-                        <outlet property="greater" destination="NmF-Xp-Cb3" id="ecu-49-u75"/>
-                        <outlet property="left" destination="iHf-Dw-KW6" id="E8H-tM-ejL"/>
-                        <outlet property="less" destination="dHu-7j-XZ3" id="0aM-ef-zo5"/>
-                        <outlet property="lparen" destination="J2G-SD-ldO" id="ofa-XQ-tFr"/>
-                        <outlet property="multiply" destination="CdU-Gd-bX7" id="Iva-7J-oqE"/>
-                        <outlet property="nine" destination="OTV-kj-YK9" id="JGm-2a-xDv"/>
+                        <outlet property="addBtn" destination="gG3-9e-RTw" id="o8P-8F-Qcb"/>
+                        <outlet property="caretBtn" destination="Ytx-mj-7p0" id="S5D-r1-jwD"/>
+                        <outlet property="commaBtn" destination="WPa-QX-TjF" id="xpI-5J-0vA"/>
+                        <outlet property="copyBtn" destination="EhV-6n-FCx" id="1yk-st-dIG"/>
+                        <outlet property="cutBtn" destination="0pF-lh-LCS" id="Tws-Jj-ofT"/>
+                        <outlet property="deleteBtn" destination="sCY-oW-Itp" id="7nN-wT-pec"/>
+                        <outlet property="divideBtn" destination="of8-Bw-uVU" id="OnF-SI-nC2"/>
+                        <outlet property="dollarBtn" destination="iUu-LN-uqb" id="2Mq-wJ-q37"/>
+                        <outlet property="downBtn" destination="VZn-v3-6LC" id="NP5-XY-xHN"/>
+                        <outlet property="eightBtn" destination="tz3-Xy-QDx" id="tEO-mG-tr4"/>
+                        <outlet property="equalBtn" destination="2FL-S5-Lu2" id="vSN-uZ-NaG"/>
+                        <outlet property="fiveBtn" destination="YB4-5e-tFh" id="END-JY-rl7"/>
+                        <outlet property="fourBtn" destination="Mye-a1-3sO" id="EBx-R1-VfO"/>
+                        <outlet property="greaterBtn" destination="NmF-Xp-Cb3" id="ecu-49-u75"/>
+                        <outlet property="leftBtn" destination="iHf-Dw-KW6" id="E8H-tM-ejL"/>
+                        <outlet property="lessBtn" destination="dHu-7j-XZ3" id="0aM-ef-zo5"/>
+                        <outlet property="lparenBtn" destination="J2G-SD-ldO" id="ofa-XQ-tFr"/>
+                        <outlet property="multiplyBtn" destination="CdU-Gd-bX7" id="Iva-7J-oqE"/>
+                        <outlet property="nineBtn" destination="OTV-kj-YK9" id="JGm-2a-xDv"/>
                         <outlet property="offlineCover" destination="zHc-g1-k1g" id="KUS-lC-9LH"/>
-                        <outlet property="one" destination="zFT-ae-LhP" id="Ukj-kn-8iY"/>
-                        <outlet property="paste" destination="5ZD-tL-lff" id="Wku-e7-m1z"/>
-                        <outlet property="percent" destination="8vm-gl-Pgx" id="m2w-K6-thP"/>
-                        <outlet property="period" destination="wZV-6r-6G9" id="3fy-qS-IHp"/>
-                        <outlet property="return" destination="Aev-Ly-rZG" id="vqm-y5-TC0"/>
-                        <outlet property="right" destination="hmk-ez-mME" id="Ov5-gI-RzF"/>
-                        <outlet property="rparen" destination="91Q-wq-PYa" id="7VY-aT-4QP"/>
-                        <outlet property="seven" destination="4WH-dw-j7n" id="rVi-O7-Eao"/>
-                        <outlet property="shift" destination="EMZ-ur-a5f" id="cCM-h1-wGG"/>
-                        <outlet property="six" destination="Y9n-gR-cgr" id="cRf-I8-WCL"/>
-                        <outlet property="subtract" destination="lHY-me-ov6" id="gmj-nV-SLz"/>
-                        <outlet property="three" destination="alK-CQ-irM" id="Cnm-CT-PP1"/>
-                        <outlet property="two" destination="hCY-NY-sl0" id="sRd-aH-tD7"/>
-                        <outlet property="up" destination="ksO-pE-xBV" id="MKi-Gm-GQ9"/>
-                        <outlet property="zero" destination="0Le-WM-OrI" id="3eP-ho-K1l"/>
+                        <outlet property="oneBtn" destination="zFT-ae-LhP" id="Ukj-kn-8iY"/>
+                        <outlet property="pasteBtn" destination="5ZD-tL-lff" id="Wku-e7-m1z"/>
+                        <outlet property="percentBtn" destination="8vm-gl-Pgx" id="m2w-K6-thP"/>
+                        <outlet property="periodBtn" destination="wZV-6r-6G9" id="3fy-qS-IHp"/>
+                        <outlet property="returnBtn" destination="Aev-Ly-rZG" id="9IB-Aq-R2e"/>
+                        <outlet property="rightBtn" destination="hmk-ez-mME" id="Ov5-gI-RzF"/>
+                        <outlet property="rparenBtn" destination="91Q-wq-PYa" id="7VY-aT-4QP"/>
+                        <outlet property="sevenBtn" destination="4WH-dw-j7n" id="rVi-O7-Eao"/>
+                        <outlet property="shiftBtn" destination="EMZ-ur-a5f" id="cCM-h1-wGG"/>
+                        <outlet property="sixBtn" destination="Y9n-gR-cgr" id="cRf-I8-WCL"/>
+                        <outlet property="subtractBtn" destination="lHY-me-ov6" id="gmj-nV-SLz"/>
+                        <outlet property="threeBtn" destination="alK-CQ-irM" id="Cnm-CT-PP1"/>
+                        <outlet property="twoBtn" destination="hCY-NY-sl0" id="sRd-aH-tD7"/>
+                        <outlet property="upBtn" destination="ksO-pE-xBV" id="MKi-Gm-GQ9"/>
+                        <outlet property="zeroBtn" destination="0Le-WM-OrI" id="3eP-ho-K1l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZd-fQ-2bn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -581,11 +581,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Slideshow" image="play.rectangle.fill" catalog="system" id="5ly-qV-yvA"/>
                     <connections>
-                        <outlet property="first" destination="rNx-49-jIy" id="uou-vK-ufh"/>
-                        <outlet property="last" destination="N77-ZB-G8B" id="P2l-Bm-5Xq"/>
-                        <outlet property="nextButton" destination="M3G-Oz-6O6" id="pvj-G9-7wF"/>
+                        <outlet property="firstBtn" destination="rNx-49-jIy" id="uou-vK-ufh"/>
+                        <outlet property="lastBtn" destination="N77-ZB-G8B" id="P2l-Bm-5Xq"/>
+                        <outlet property="nextBtn" destination="M3G-Oz-6O6" id="pvj-G9-7wF"/>
                         <outlet property="offlineCover" destination="MZt-eJ-LSO" id="fJ2-K2-hyf"/>
-                        <outlet property="previous" destination="5oO-GW-sDn" id="UL0-qG-jg7"/>
+                        <outlet property="previousBtn" destination="5oO-GW-sDn" id="UL0-qG-jg7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
