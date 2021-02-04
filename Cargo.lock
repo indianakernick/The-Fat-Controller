@@ -649,23 +649,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dd25036021b0de88a0aff6b850051563c6516d0bf53f8638938edbb9de732736"
 
 [[package]]
-name = "keyboard"
-version = "0.1.0"
-dependencies = [
- "askama",
- "askama_warp",
- "bitflags",
- "core-graphics",
- "futures",
- "heck",
- "log",
- "pretty_env_logger",
- "tokio",
- "tokio-stream",
- "warp",
-]
-
-[[package]]
 name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1089,6 +1072,23 @@ name = "regex-syntax"
 version = "0.6.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5eb417147ba9860a96cfe72a0b93bf88fee1744b5636ec99ab20c1aa9376581"
+
+[[package]]
+name = "remote"
+version = "0.1.0"
+dependencies = [
+ "askama",
+ "askama_warp",
+ "bitflags",
+ "core-graphics",
+ "futures",
+ "heck",
+ "log",
+ "pretty_env_logger",
+ "tokio",
+ "tokio-stream",
+ "warp",
+]
 
 [[package]]
 name = "remove_dir_all"
