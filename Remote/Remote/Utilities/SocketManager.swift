@@ -13,7 +13,7 @@ protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool);
 }
 
-class SocketManager {
+class SocketManager: WebSocketDelegate {
     private static let retryDelay = 1.0;
     private static let tickDelay = 0.05;
     private static let maxTickCount = Int(30.0 / tickDelay);
@@ -26,36 +26,31 @@ class SocketManager {
     weak var delegate: SocketManagerDelegate?;
     
     init() {
-        socket = WebSocket(request: URLRequest(url: URL(string: "ws://indi-mac.local:80/socket")!));
-        socket.onEvent = { [weak self] event in
-            switch event {
-            case .connected:
-                self!.connected();
-            case.disconnected:
-                self!.disconnected();
-            default:
-                break;
-            }
-        };
+        socket = WebSocket(url: URL(string: "ws://indi-mac.local:80/socket")!);
+        socket.delegate = self;
     }
     
     func connect() {
         socket.connect();
     }
     
-    func connected() {
+    func websocketDidConnect(socket: WebSocketClient) {
         updateOnlineStatus(online: true);
         tickCount = 0;
         startTicking();
     }
     
-    func disconnected() {
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         updateOnlineStatus(online: false);
         stopTicking();
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
             self.connect();
-        }
+        };
     }
+    
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
+    
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
     
     func send(_ data: Data) {
         socket.write(data: data);
