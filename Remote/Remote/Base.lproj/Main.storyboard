@@ -829,15 +829,76 @@
                         <segue destination="uZg-7D-ijb" kind="relationship" relationship="viewControllers" id="h8C-cL-w4L"/>
                         <segue destination="9YC-yz-z0H" kind="relationship" relationship="viewControllers" id="42I-W8-fvg"/>
                         <segue destination="DwP-Ry-g0R" kind="relationship" relationship="viewControllers" id="BsV-P3-Ges"/>
+                        <segue destination="1Oh-A8-Ql5" kind="relationship" relationship="viewControllers" id="SLB-k0-1tq"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-oF-B4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2452" y="2230"/>
         </scene>
+        <!--Settings-->
+        <scene sceneID="Xx9-Dc-B4M">
+            <objects>
+                <viewController id="1Oh-A8-Ql5" customClass="SettingsViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kh0-8C-lXw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
+                                <rect key="frame" x="12" y="12" width="351" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="gray200"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-mac.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OcR-Tr-PYw">
+                                <rect key="frame" x="12" y="45" width="351" height="32"/>
+                                <color key="backgroundColor" name="gray700"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="pww-gb-9p5"/>
+                                </constraints>
+                                <color key="textColor" name="gray200"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rl-pk-ait">
+                                <rect key="frame" x="12" y="89" width="351" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="izT-w0-egK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="gray200"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="gray800"/>
+                        <constraints>
+                            <constraint firstItem="WbM-mz-2TT" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="4hF-E1-I1M"/>
+                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="OcR-Tr-PYw" secondAttribute="trailing" constant="12" id="8LR-NM-eJp"/>
+                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="WbM-mz-2TT" secondAttribute="trailing" constant="12" id="BDE-VJ-ut9"/>
+                            <constraint firstItem="0Rl-pk-ait" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="fwm-qz-nat"/>
+                            <constraint firstItem="0Rl-pk-ait" firstAttribute="top" secondItem="OcR-Tr-PYw" secondAttribute="bottom" constant="12" id="hIA-l0-UTa"/>
+                            <constraint firstItem="OcR-Tr-PYw" firstAttribute="top" secondItem="WbM-mz-2TT" secondAttribute="bottom" constant="12" id="hgC-J5-1OW"/>
+                            <constraint firstItem="WbM-mz-2TT" firstAttribute="top" secondItem="Tdh-7S-rD6" secondAttribute="top" constant="12" id="jb3-Hn-NPn"/>
+                            <constraint firstItem="OcR-Tr-PYw" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="lca-3o-Gex"/>
+                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="0Rl-pk-ait" secondAttribute="trailing" constant="12" id="pHp-L2-Ig4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Tdh-7S-rD6"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="OuB-HQ-FAm"/>
+                    <connections>
+                        <outlet property="hostNameField" destination="OcR-Tr-PYw" id="CjH-VT-Pu8"/>
+                        <outlet property="statusLabel" destination="0Rl-pk-ait" id="h6I-JO-6ws"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BRJ-i5-hx8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137" y="3566"/>
+        </scene>
     </scenes>
     <resources>
         <image name="cursor.rays" catalog="system" width="128" height="119"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="hand.draw.fill" catalog="system" width="128" height="107"/>
         <image name="number.square.fill" catalog="system" width="128" height="114"/>
         <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>

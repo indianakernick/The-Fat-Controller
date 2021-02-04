@@ -8,13 +8,13 @@
 
 import UIKit;
 
-class BasicViewController: UIViewController, SocketManagerDelegate {
+class BasicViewController: UIViewController, SocketManagerDelegate, TakeSocket {
     private var socket: SocketManager!;
     
     @IBOutlet weak var offlineCover: UIView!;
     
-    func setSocket(_ sock: SocketManager) {
-        socket = sock;
+    func takeSocket(_ socket: SocketManager) {
+        self.socket = socket;
     }
     
     func send(_ data: Data) {

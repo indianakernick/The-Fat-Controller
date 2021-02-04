@@ -18,19 +18,24 @@ class SocketManager: WebSocketDelegate {
     private static let tickDelay = 0.05;
     private static let maxTickCount = Int(30.0 / tickDelay);
     
-    private var socket: WebSocket;
+    private var socket: WebSocket!;
     private var tickTimer: Timer?;
     private var tickCount = 0;
     private var onlineStatus = false;
     
     weak var delegate: SocketManagerDelegate?;
     
-    init() {
-        socket = WebSocket(url: URL(string: "ws://indi-mac.local:80/socket")!);
-        socket.delegate = self;
+    func connectTo(host: String) {
+        updateOnlineStatus(online: false);
+        stopTicking();
+        if let url = URL(string: "ws://" + host + ":80/socket") {
+            socket = WebSocket(url: url);
+            socket.delegate = self;
+            socket.connect();
+        }
     }
     
-    func connect() {
+    func reconnect() {
         socket.connect();
     }
     
@@ -44,7 +49,7 @@ class SocketManager: WebSocketDelegate {
         updateOnlineStatus(online: false);
         stopTicking();
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            self.connect();
+            self.reconnect();
         };
     }
     

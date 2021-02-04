@@ -8,6 +8,10 @@
 
 import UIKit;
 
+protocol TakeSocket {
+    func takeSocket(_ socket: SocketManager);
+}
+
 class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketManagerDelegate {
     private var socket = SocketManager();
     private var previouslySelected: UIViewController?;
@@ -16,10 +20,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
         super.viewDidLoad();
         delegate = self;
         for controller in viewControllers! {
-            (controller as! BasicViewController).setSocket(socket);
+            (controller as? TakeSocket)?.takeSocket(socket);
         }
         socket.delegate = self;
-        socket.connect();
+        socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "");
     }
     
     override func viewWillTransition(to: CGSize, with: UIViewControllerTransitionCoordinator) {
@@ -32,7 +36,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
     
     func onlineStatusChanged(online: Bool) {
         for controller in viewControllers! {
-            (controller as! BasicViewController).onlineStatusChanged(online: online);
+            (controller as? SocketManagerDelegate)?.onlineStatusChanged(online: online);
         }
     }
     
