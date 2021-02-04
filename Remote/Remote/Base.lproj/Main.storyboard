@@ -8,41 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qX-oc-feU" userLabel="MoveView" customClass="MoveView" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kUN-es-kL8" userLabel="LookView" customClass="LookView" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" red="0.86274509803921573" green="0.20784313725490194" blue="0.27058823529411763" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="kUN-es-kL8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3gX-Ky-RV8"/>
-                            <constraint firstItem="5qX-oc-feU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="5Kf-Tc-s8Z"/>
-                            <constraint firstItem="kUN-es-kL8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="7X5-bw-dhg"/>
-                            <constraint firstItem="kUN-es-kL8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="DJi-vZ-BPh"/>
-                            <constraint firstItem="5qX-oc-feU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MXV-EE-4gi"/>
-                            <constraint firstItem="5qX-oc-feU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="TCB-qg-rHZ"/>
-                            <constraint firstItem="kUN-es-kL8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Vwv-zs-qnA"/>
-                            <constraint firstItem="5qX-oc-feU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="sFu-xs-Mr2"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="137.18140929535232" y="111.2"/>
-        </scene>
         <!--NumberPad-->
         <scene sceneID="Uq9-p6-Q8w">
             <objects>

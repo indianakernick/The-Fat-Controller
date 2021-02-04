@@ -16,14 +16,6 @@ fileprivate func hexColor(_ hex: UInt32) -> CGColor {
     return array.withUnsafeBufferPointer() { pointer in
         return CGColor(colorSpace: CGColorSpace(name: CGColorSpace.extendedSRGB)!, components: pointer.baseAddress!)!;
     };
-    /*
-    return CGColor(
-        srgbRed: CGFloat(red) / 255.0,
-        green: CGFloat(green) / 255.0,
-        blue: CGFloat(blue) / 255.0,
-        alpha: 1.0
-    );
-    */
 }
 
 enum Colors {
