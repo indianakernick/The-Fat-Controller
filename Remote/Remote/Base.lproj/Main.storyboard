@@ -535,15 +535,23 @@
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="pSZ-fI-5qa" secondAttribute="bottom" constant="12" id="16m-CP-dB2"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="1If-b9-JCe"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="29d-3e-J8e"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="E56-vD-b58" secondAttribute="trailing" constant="12" id="2Gc-Ji-QIu"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="width" secondItem="E56-vD-b58" secondAttribute="width" multiplier="4" id="3Zp-hf-XM0"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="x7X-SR-YRF" secondAttribute="trailing" constant="12" id="4NY-DP-tRt"/>
                             <constraint firstItem="Rtz-YR-bbR" firstAttribute="top" secondItem="E56-vD-b58" secondAttribute="bottom" constant="12" id="IDg-fD-OrC"/>
                             <constraint firstItem="E56-vD-b58" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="If5-nJ-zmv"/>
+                            <constraint firstItem="E56-vD-b58" firstAttribute="leading" secondItem="Rtz-YR-bbR" secondAttribute="trailing" constant="12" id="MQk-3V-26F"/>
                             <constraint firstItem="x7X-SR-YRF" firstAttribute="height" secondItem="pSZ-fI-5qa" secondAttribute="height" multiplier="4" id="Prm-Mt-BNx"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="leading" secondItem="x7X-SR-YRF" secondAttribute="trailing" constant="12" id="Q5v-NI-FUb"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="leading" secondItem="pSZ-fI-5qa" secondAttribute="trailing" constant="12" id="RFz-nf-m6c"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" id="Scd-P8-xej"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="bottom" secondItem="MLd-kz-pFo" secondAttribute="bottom" id="SrT-7Y-mlX"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="Rtz-YR-bbR" secondAttribute="bottom" constant="12" id="VJe-55-Uhr"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="trailing" secondItem="MLd-kz-pFo" secondAttribute="trailing" id="WhU-rE-Ime"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="Rtz-YR-bbR" secondAttribute="trailing" constant="12" id="X2c-Rj-cuV"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="x7X-SR-YRF" secondAttribute="bottom" constant="12" id="aAq-fd-tBD"/>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="pSZ-fI-5qa" secondAttribute="trailing" constant="12" id="awz-yt-QQW"/>
                             <constraint firstItem="Rtz-YR-bbR" firstAttribute="height" secondItem="E56-vD-b58" secondAttribute="height" multiplier="4" id="biX-aC-PR4"/>
                             <constraint firstItem="E56-vD-b58" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="d0V-F5-lRa"/>
@@ -554,8 +562,59 @@
                             <constraint firstItem="x7X-SR-YRF" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="kwx-sj-AHp"/>
                             <constraint firstItem="pSZ-fI-5qa" firstAttribute="top" secondItem="x7X-SR-YRF" secondAttribute="bottom" constant="12" id="lGJ-gH-eJw"/>
                             <constraint firstItem="Rtz-YR-bbR" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="r3x-b0-sKF"/>
+                            <constraint firstItem="pSZ-fI-5qa" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="rXo-8j-3UL"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="width" secondItem="pSZ-fI-5qa" secondAttribute="width" multiplier="4" id="tbm-4r-y5X"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="E56-vD-b58" secondAttribute="bottom" constant="12" id="wjf-4G-yCH"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="width" secondItem="Rtz-YR-bbR" secondAttribute="width" id="xUU-m1-tHy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MLd-kz-pFo"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="MZt-eJ-LSO"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="4NY-DP-tRt"/>
+                                <exclude reference="X2c-Rj-cuV"/>
+                                <exclude reference="awz-yt-QQW"/>
+                                <exclude reference="lGJ-gH-eJw"/>
+                                <exclude reference="Prm-Mt-BNx"/>
+                                <exclude reference="gSC-5Y-dhB"/>
+                                <exclude reference="gh3-uP-dU6"/>
+                                <exclude reference="kwx-sj-AHp"/>
+                                <exclude reference="IDg-fD-OrC"/>
+                                <exclude reference="biX-aC-PR4"/>
+                                <exclude reference="r3x-b0-sKF"/>
+                                <exclude reference="d0V-F5-lRa"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="4NY-DP-tRt"/>
+                                <exclude reference="VJe-55-Uhr"/>
+                                <include reference="X2c-Rj-cuV"/>
+                                <exclude reference="aAq-fd-tBD"/>
+                                <include reference="awz-yt-QQW"/>
+                                <exclude reference="wjf-4G-yCH"/>
+                                <include reference="lGJ-gH-eJw"/>
+                                <exclude reference="rXo-8j-3UL"/>
+                                <exclude reference="1If-b9-JCe"/>
+                                <include reference="Prm-Mt-BNx"/>
+                                <exclude reference="RFz-nf-m6c"/>
+                                <include reference="gSC-5Y-dhB"/>
+                                <include reference="gh3-uP-dU6"/>
+                                <include reference="kwx-sj-AHp"/>
+                                <exclude reference="tbm-4r-y5X"/>
+                                <exclude reference="xUU-m1-tHy"/>
+                                <exclude reference="29d-3e-J8e"/>
+                                <exclude reference="3Zp-hf-XM0"/>
+                                <include reference="IDg-fD-OrC"/>
+                                <exclude reference="Q5v-NI-FUb"/>
+                                <include reference="biX-aC-PR4"/>
+                                <include reference="r3x-b0-sKF"/>
+                                <exclude reference="MQk-3V-26F"/>
+                                <include reference="d0V-F5-lRa"/>
+                            </mask>
+                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Slideshow" image="play.rectangle.fill" catalog="system" id="5ly-qV-yvA"/>
                     <connections>
