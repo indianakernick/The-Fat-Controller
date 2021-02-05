@@ -17,6 +17,7 @@
 		4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E325C2C42F00E5AE57 /* MouseButton.swift */; };
 		4578F15725CB8DC800800056 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 4578F15625CB8DC800800056 /* Starscream */; };
 		4578F15B25CBC79500800056 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4578F15A25CBC79500800056 /* SettingsViewController.swift */; };
+		457F8B1025CCEE2200CC6148 /* NewButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F8B0F25CCEE2200CC6148 /* NewButtonInput.swift */; };
 		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
 		458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490E925C677F90063404D /* NumberPadViewController.swift */; };
 		4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597534B25C794AD00BEED00 /* SlideViewController.swift */; };
@@ -44,6 +45,7 @@
 		4572C3E225C2C42F00E5AE57 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		4572C3E325C2C42F00E5AE57 /* MouseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseButton.swift; sourceTree = "<group>"; };
 		4578F15A25CBC79500800056 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		457F8B0F25CCEE2200CC6148 /* NewButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewButtonInput.swift; sourceTree = "<group>"; };
 		458490DA25C4EF2A0063404D /* ButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonInput.swift; sourceTree = "<group>"; };
 		458490E925C677F90063404D /* NumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		4597534B25C794AD00BEED00 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				458490DA25C4EF2A0063404D /* ButtonInput.swift */,
 				4597535525C7C3A000BEED00 /* TrackpadInput.swift */,
 				45E31FAB25C8D65500A4E59D /* TapInput.swift */,
+				457F8B0F25CCEE2200CC6148 /* NewButtonInput.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */,
 				452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */,
 				4572C3E525C2C42F00E5AE57 /* Flags.swift in Sources */,
+				457F8B1025CCEE2200CC6148 /* NewButtonInput.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
 				452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */,

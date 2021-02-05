@@ -58,4 +58,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
         }
         previouslySelected = viewController;
     }
+    
+    // Makes it possible to have more than 5 tabs.
+    // https://stackoverflow.com/a/40147148/4093378
+    // It's a little bit cramped with 6 tabs so if we ever need 7, we should do
+    // the right thing and show the "More" button.
+    override var traitCollection: UITraitCollection {
+        let realTraits = super.traitCollection;
+        let lieTrait = UITraitCollection.init(horizontalSizeClass: .regular);
+        return UITraitCollection(traitsFrom: [realTraits, lieTrait]);
+    }
 }

@@ -13,7 +13,7 @@
             <objects>
                 <viewController restorationIdentifier="NumberPadViewController" id="DVQ-GD-KRS" userLabel="NumberPad" customClass="NumberPadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lvK-jl-YbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-lh-LCS" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
@@ -473,14 +473,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZd-fQ-2bn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="806"/>
+            <point key="canvasLocation" x="-3423" y="3263"/>
         </scene>
         <!--Slide-->
         <scene sceneID="seD-f1-qnY">
             <objects>
                 <viewController restorationIdentifier="SlideViewController" id="uZg-7D-ijb" userLabel="Slide" customClass="SlideViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS1-3P-GlG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N77-ZB-G8B" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
@@ -590,14 +590,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="1490"/>
+            <point key="canvasLocation" x="-2735" y="3262"/>
         </scene>
         <!--Trackpad-->
         <scene sceneID="eyq-b2-kKS">
             <objects>
                 <viewController restorationIdentifier="TrackpadViewController" id="9YC-yz-z0H" userLabel="Trackpad" customClass="TrackpadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TiK-68-nKN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7D5-Je-jU9" userLabel="Trackpad" customClass="TrackpadInput" customModule="Remote" customModuleProvider="target">
@@ -630,14 +630,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSd-g9-pbp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="2149"/>
+            <point key="canvasLocation" x="-2033" y="3262"/>
         </scene>
         <!--Tap-->
         <scene sceneID="rVk-ey-7VW">
             <objects>
                 <viewController restorationIdentifier="TapViewController" id="DwP-Ry-g0R" userLabel="Tap" customClass="TapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O8S-3F-Jip">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-Lu-zZc" userLabel="Tap" customClass="TapInput" customModule="Remote" customModuleProvider="target">
@@ -671,14 +671,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKN-XT-E3c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="2818"/>
+            <point key="canvasLocation" x="-1289" y="3262"/>
         </scene>
         <!--Configure Tap-->
         <scene sceneID="jut-5g-QSf">
             <objects>
                 <viewController restorationIdentifier="ConfigureTapViewController" id="Lx9-cm-gsY" userLabel="Configure Tap" customClass="ConfigureTapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ujn-Je-2wn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ZL-hG-Iwq" userLabel="Background">
@@ -804,7 +804,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OpB-LL-2Jd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1304.8" y="2817.8410794602701"/>
+            <point key="canvasLocation" x="-1290" y="4066"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="YR3-Zh-dAR">
@@ -829,7 +829,8 @@
                         <segue destination="uZg-7D-ijb" kind="relationship" relationship="viewControllers" id="h8C-cL-w4L"/>
                         <segue destination="9YC-yz-z0H" kind="relationship" relationship="viewControllers" id="42I-W8-fvg"/>
                         <segue destination="DwP-Ry-g0R" kind="relationship" relationship="viewControllers" id="BsV-P3-Ges"/>
-                        <segue destination="1Oh-A8-Ql5" kind="relationship" relationship="viewControllers" id="SLB-k0-1tq"/>
+                        <segue destination="KBK-PH-etv" kind="relationship" relationship="viewControllers" id="Tx0-DG-a03"/>
+                        <segue destination="1Oh-A8-Ql5" kind="relationship" relationship="viewControllers" id="ZdL-1E-OHp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-oF-B4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -841,7 +842,7 @@
             <objects>
                 <viewController id="1Oh-A8-Ql5" customClass="SettingsViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh0-8C-lXw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
@@ -893,15 +894,121 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BRJ-i5-hx8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="3566"/>
+            <point key="canvasLocation" x="201" y="3262"/>
+        </scene>
+        <!--Video-->
+        <scene sceneID="14y-Sg-KWv">
+            <objects>
+                <viewController id="KBK-PH-etv" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uvm-yL-nX9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fk3-d7-qdd" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="247" width="351" height="124"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="playpause.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-zx-aJn" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="173.5" width="169.5" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="speaker.1.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OrV-c8-5Sf" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="193.5" y="173.5" width="169.5" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="speaker.3.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckp-rb-Lhg" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="103" y="383" width="78.5" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="backward.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-HZ-7Q4" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="193.5" y="383" width="79" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="forward.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBY-Ba-RQo" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="383" width="79" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="backward.end.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiK-dz-hyR" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="284.5" y="383" width="78.5" height="61.5"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="forward.end.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" name="gray800"/>
+                        <constraints>
+                            <constraint firstItem="Xbh-zx-aJn" firstAttribute="leading" secondItem="X2S-z8-iXS" secondAttribute="leading" constant="12" id="0Q4-qh-Zh0"/>
+                            <constraint firstItem="yiK-dz-hyR" firstAttribute="height" secondItem="hdA-HZ-7Q4" secondAttribute="height" id="0df-fE-WOw"/>
+                            <constraint firstItem="yiK-dz-hyR" firstAttribute="leading" secondItem="hdA-HZ-7Q4" secondAttribute="trailing" constant="12" id="3sD-R4-5zX"/>
+                            <constraint firstItem="ckp-rb-Lhg" firstAttribute="width" secondItem="hdA-HZ-7Q4" secondAttribute="width" id="45z-RX-CjS"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="centerY" secondItem="X2S-z8-iXS" secondAttribute="centerY" id="6qE-DF-XQy"/>
+                            <constraint firstItem="ckp-rb-Lhg" firstAttribute="top" secondItem="fk3-d7-qdd" secondAttribute="bottom" constant="12" id="8pV-Uu-kp9"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="X2S-z8-iXS" secondAttribute="height" multiplier="0.2" id="AZF-Px-rVE"/>
+                            <constraint firstItem="ckp-rb-Lhg" firstAttribute="leading" secondItem="aBY-Ba-RQo" secondAttribute="trailing" constant="12" id="GrD-db-xPX"/>
+                            <constraint firstItem="aBY-Ba-RQo" firstAttribute="width" secondItem="ckp-rb-Lhg" secondAttribute="width" id="H8e-gc-AC6"/>
+                            <constraint firstItem="yiK-dz-hyR" firstAttribute="width" secondItem="hdA-HZ-7Q4" secondAttribute="width" id="Jwe-vX-1db"/>
+                            <constraint firstItem="hdA-HZ-7Q4" firstAttribute="top" secondItem="fk3-d7-qdd" secondAttribute="bottom" constant="12" id="LbB-cD-Dfo"/>
+                            <constraint firstItem="yiK-dz-hyR" firstAttribute="top" secondItem="fk3-d7-qdd" secondAttribute="bottom" constant="12" id="NLf-g6-CEb"/>
+                            <constraint firstItem="X2S-z8-iXS" firstAttribute="trailing" secondItem="fk3-d7-qdd" secondAttribute="trailing" constant="12" id="O92-Sb-gAw"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="top" secondItem="Xbh-zx-aJn" secondAttribute="bottom" constant="12" id="OwR-H1-DYW"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="Xbh-zx-aJn" secondAttribute="height" multiplier="2" id="Ozu-ls-E7I"/>
+                            <constraint firstItem="aBY-Ba-RQo" firstAttribute="leading" secondItem="X2S-z8-iXS" secondAttribute="leading" constant="12" id="PhU-vQ-9vS"/>
+                            <constraint firstItem="hdA-HZ-7Q4" firstAttribute="leading" secondItem="ckp-rb-Lhg" secondAttribute="trailing" constant="12" id="SGw-Ah-Pqh"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="leading" secondItem="X2S-z8-iXS" secondAttribute="leading" constant="12" id="Tgk-Nk-5pk"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="hdA-HZ-7Q4" secondAttribute="height" multiplier="2" id="bn5-60-RLG"/>
+                            <constraint firstItem="OrV-c8-5Sf" firstAttribute="leading" secondItem="Xbh-zx-aJn" secondAttribute="trailing" constant="12" id="cev-Uc-gOg"/>
+                            <constraint firstItem="aBY-Ba-RQo" firstAttribute="top" secondItem="fk3-d7-qdd" secondAttribute="bottom" constant="12" id="eDS-wJ-3kY"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="OrV-c8-5Sf" secondAttribute="height" multiplier="2" id="eRT-Y4-04C"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="ckp-rb-Lhg" secondAttribute="height" multiplier="2" id="gJi-y8-AzP"/>
+                            <constraint firstItem="aBY-Ba-RQo" firstAttribute="height" secondItem="ckp-rb-Lhg" secondAttribute="height" id="guy-Sv-cpk"/>
+                            <constraint firstItem="fk3-d7-qdd" firstAttribute="top" secondItem="OrV-c8-5Sf" secondAttribute="bottom" constant="12" id="l2P-H4-0Z3"/>
+                            <constraint firstItem="X2S-z8-iXS" firstAttribute="trailing" secondItem="yiK-dz-hyR" secondAttribute="trailing" constant="12" id="lFN-xE-8mD"/>
+                            <constraint firstItem="X2S-z8-iXS" firstAttribute="trailing" secondItem="OrV-c8-5Sf" secondAttribute="trailing" constant="12" id="nV0-GR-qwh"/>
+                            <constraint firstItem="Xbh-zx-aJn" firstAttribute="width" secondItem="OrV-c8-5Sf" secondAttribute="width" id="v0k-wX-551"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="X2S-z8-iXS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Video" image="video.fill" catalog="system" id="rXU-By-HJk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifp-vM-2bs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-556" y="3260"/>
         </scene>
     </scenes>
     <resources>
+        <image name="backward.end.fill" catalog="system" width="128" height="102"/>
+        <image name="backward.fill" catalog="system" width="128" height="79"/>
         <image name="cursor.rays" catalog="system" width="128" height="119"/>
+        <image name="forward.end.fill" catalog="system" width="128" height="102"/>
+        <image name="forward.fill" catalog="system" width="128" height="79"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="hand.draw.fill" catalog="system" width="128" height="107"/>
         <image name="number.square.fill" catalog="system" width="128" height="114"/>
         <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
+        <image name="playpause.fill" catalog="system" width="128" height="73"/>
+        <image name="speaker.1.fill" catalog="system" width="128" height="117"/>
+        <image name="speaker.3.fill" catalog="system" width="128" height="90"/>
+        <image name="video.fill" catalog="system" width="128" height="82"/>
         <namedColor name="blue">
             <color red="0.0" green="0.4823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
