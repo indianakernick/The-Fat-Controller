@@ -54,4 +54,10 @@ class BasicViewController: UIViewController, SocketManagerDelegate, TakeSocket {
             });
         }
     }
+    
+    override var traitCollection: UITraitCollection {
+        let realTraits = super.traitCollection;
+        let lieTrait = UITraitCollection.init(horizontalSizeClass: .compact);
+        return UITraitCollection(traitsFrom: [realTraits, lieTrait]);
+    }
 }
