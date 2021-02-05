@@ -483,34 +483,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N77-ZB-G8B" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E56-vD-b58" userLabel="Last" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="12" y="12" width="351" height="56"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" name="gray200"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3G-Oz-6O6" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="80" width="351" height="223"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" name="gray200"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5oO-GW-sDn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="forward.end.fill" catalog="system">
+                                    <color key="titleColor" name="gray200"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                                <connections>
+                                    <action selector="lastPressed" destination="uZg-7D-ijb" eventType="touchDown" id="6gd-Ld-m0m"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7X-SR-YRF" userLabel="Previous" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="12" y="315" width="351" height="223"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" name="gray200"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNx-49-jIy" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="arrowtriangle.left.fill" catalog="system">
+                                    <color key="titleColor" name="gray200"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                                <connections>
+                                    <action selector="previousPressed" destination="uZg-7D-ijb" eventType="touchDown" id="7D0-iF-Pfp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSZ-fI-5qa" userLabel="First" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="12" y="550" width="351" height="56"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" name="gray200"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="backward.end.fill" catalog="system">
+                                    <color key="titleColor" name="gray200"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                                <connections>
+                                    <action selector="firstPressed" destination="uZg-7D-ijb" eventType="touchDown" id="mjX-Tv-AGa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-YR-bbR" userLabel="Next" customClass="NewButtonInput" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="12" y="80" width="351" height="223"/>
+                                <color key="tintColor" name="gray200"/>
+                                <state key="normal" image="arrowtriangle.right.fill" catalog="system">
+                                    <color key="titleColor" name="gray200"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextPressed" destination="uZg-7D-ijb" eventType="touchDown" id="qLR-bN-RLd"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZt-eJ-LSO" userLabel="OfflineCover">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" name="red"/>
@@ -518,74 +534,32 @@
                         </subviews>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
-                            <constraint firstItem="rNx-49-jIy" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="0hW-fE-VP5"/>
-                            <constraint firstItem="N77-ZB-G8B" firstAttribute="width" secondItem="rNx-49-jIy" secondAttribute="width" id="41l-rf-N2R"/>
-                            <constraint firstItem="5oO-GW-sDn" firstAttribute="top" secondItem="rNx-49-jIy" secondAttribute="bottom" constant="12" id="CmJ-or-JDJ"/>
-                            <constraint firstItem="N77-ZB-G8B" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="DvW-XB-uel"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="5oO-GW-sDn" secondAttribute="trailing" constant="12" id="Qos-60-jhk"/>
-                            <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="QuF-3p-4W6"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="pSZ-fI-5qa" secondAttribute="bottom" constant="12" id="16m-CP-dB2"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="E56-vD-b58" secondAttribute="trailing" constant="12" id="2Gc-Ji-QIu"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="x7X-SR-YRF" secondAttribute="trailing" constant="12" id="4NY-DP-tRt"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="top" secondItem="E56-vD-b58" secondAttribute="bottom" constant="12" id="IDg-fD-OrC"/>
+                            <constraint firstItem="E56-vD-b58" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="If5-nJ-zmv"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="height" secondItem="pSZ-fI-5qa" secondAttribute="height" multiplier="4" id="Prm-Mt-BNx"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" id="Scd-P8-xej"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="bottom" secondItem="MLd-kz-pFo" secondAttribute="bottom" id="SrT-7Y-mlX"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="rNx-49-jIy" secondAttribute="trailing" constant="12" id="TYX-Cq-KVM"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="trailing" secondItem="MLd-kz-pFo" secondAttribute="trailing" id="WhU-rE-Ime"/>
-                            <constraint firstItem="M3G-Oz-6O6" firstAttribute="top" secondItem="N77-ZB-G8B" secondAttribute="bottom" constant="12" id="XRM-qf-de9"/>
-                            <constraint firstItem="5oO-GW-sDn" firstAttribute="top" secondItem="M3G-Oz-6O6" secondAttribute="bottom" constant="12" id="Xuc-yV-X9u"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="M3G-Oz-6O6" secondAttribute="bottom" constant="12" id="aMY-LF-ULa"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="rNx-49-jIy" secondAttribute="bottom" constant="12" id="azL-FJ-OvP"/>
-                            <constraint firstItem="rNx-49-jIy" firstAttribute="top" secondItem="5oO-GW-sDn" secondAttribute="bottom" constant="12" id="bLn-z8-1gd"/>
-                            <constraint firstItem="M3G-Oz-6O6" firstAttribute="leading" secondItem="5oO-GW-sDn" secondAttribute="trailing" constant="12" id="cGx-nt-Sw4"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="5oO-GW-sDn" secondAttribute="bottom" constant="12" id="cpG-OA-Otw"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="Rtz-YR-bbR" secondAttribute="trailing" constant="12" id="X2c-Rj-cuV"/>
+                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="pSZ-fI-5qa" secondAttribute="trailing" constant="12" id="awz-yt-QQW"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="height" secondItem="E56-vD-b58" secondAttribute="height" multiplier="4" id="biX-aC-PR4"/>
+                            <constraint firstItem="E56-vD-b58" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="d0V-F5-lRa"/>
                             <constraint firstItem="MZt-eJ-LSO" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" id="dCH-NW-lwH"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="N77-ZB-G8B" secondAttribute="trailing" constant="12" id="fpe-ks-mJd"/>
-                            <constraint firstItem="5oO-GW-sDn" firstAttribute="height" secondItem="rNx-49-jIy" secondAttribute="height" multiplier="4" id="hnF-r5-Ug2"/>
-                            <constraint firstItem="M3G-Oz-6O6" firstAttribute="height" secondItem="N77-ZB-G8B" secondAttribute="height" multiplier="4" id="isi-1V-GPg"/>
-                            <constraint firstItem="5oO-GW-sDn" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="nZP-lr-do5"/>
-                            <constraint firstItem="M3G-Oz-6O6" firstAttribute="width" secondItem="5oO-GW-sDn" secondAttribute="width" id="okv-rK-ciN"/>
-                            <constraint firstItem="N77-ZB-G8B" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="rHa-6R-MIz"/>
-                            <constraint firstItem="5oO-GW-sDn" firstAttribute="height" secondItem="M3G-Oz-6O6" secondAttribute="height" id="tVQ-mJ-zz2"/>
-                            <constraint firstItem="MLd-kz-pFo" firstAttribute="trailing" secondItem="M3G-Oz-6O6" secondAttribute="trailing" constant="12" id="vWp-z3-OKL"/>
-                            <constraint firstItem="N77-ZB-G8B" firstAttribute="leading" secondItem="rNx-49-jIy" secondAttribute="trailing" constant="12" id="xMx-3c-Cb2"/>
-                            <constraint firstItem="rNx-49-jIy" firstAttribute="top" secondItem="MLd-kz-pFo" secondAttribute="top" constant="12" id="yRF-32-WkA"/>
+                            <constraint firstItem="pSZ-fI-5qa" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="f12-dM-dP3"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="top" secondItem="Rtz-YR-bbR" secondAttribute="bottom" constant="12" id="gSC-5Y-dhB"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="height" secondItem="Rtz-YR-bbR" secondAttribute="height" id="gh3-uP-dU6"/>
+                            <constraint firstItem="x7X-SR-YRF" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="kwx-sj-AHp"/>
+                            <constraint firstItem="pSZ-fI-5qa" firstAttribute="top" secondItem="x7X-SR-YRF" secondAttribute="bottom" constant="12" id="lGJ-gH-eJw"/>
+                            <constraint firstItem="Rtz-YR-bbR" firstAttribute="leading" secondItem="MLd-kz-pFo" secondAttribute="leading" constant="12" id="r3x-b0-sKF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MLd-kz-pFo"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Qos-60-jhk"/>
-                                <exclude reference="TYX-Cq-KVM"/>
-                                <exclude reference="azL-FJ-OvP"/>
-                                <exclude reference="DvW-XB-uel"/>
-                                <exclude reference="QuF-3p-4W6"/>
-                                <exclude reference="Xuc-yV-X9u"/>
-                                <exclude reference="tVQ-mJ-zz2"/>
-                                <exclude reference="bLn-z8-1gd"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="Qos-60-jhk"/>
-                                <include reference="TYX-Cq-KVM"/>
-                                <exclude reference="aMY-LF-ULa"/>
-                                <include reference="azL-FJ-OvP"/>
-                                <exclude reference="cpG-OA-Otw"/>
-                                <include reference="DvW-XB-uel"/>
-                                <exclude reference="xMx-3c-Cb2"/>
-                                <include reference="QuF-3p-4W6"/>
-                                <exclude reference="cGx-nt-Sw4"/>
-                                <exclude reference="CmJ-or-JDJ"/>
-                                <include reference="Xuc-yV-X9u"/>
-                                <include reference="tVQ-mJ-zz2"/>
-                                <include reference="bLn-z8-1gd"/>
-                                <exclude reference="yRF-32-WkA"/>
-                            </mask>
-                        </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Slideshow" image="play.rectangle.fill" catalog="system" id="5ly-qV-yvA"/>
                     <connections>
-                        <outlet property="firstBtn" destination="rNx-49-jIy" id="uou-vK-ufh"/>
-                        <outlet property="lastBtn" destination="N77-ZB-G8B" id="P2l-Bm-5Xq"/>
-                        <outlet property="nextBtn" destination="M3G-Oz-6O6" id="pvj-G9-7wF"/>
                         <outlet property="offlineCover" destination="MZt-eJ-LSO" id="fJ2-K2-hyf"/>
-                        <outlet property="previousBtn" destination="5oO-GW-sDn" id="UL0-qG-jg7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dZv-ot-MZ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1026,8 +1000,8 @@
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
                                 <exclude reference="ITC-0w-3i5"/>
-                                <include reference="AZF-Px-rVE"/>
                                 <exclude reference="VBO-Hh-bHq"/>
+                                <include reference="AZF-Px-rVE"/>
                             </mask>
                         </variation>
                     </view>
@@ -1042,8 +1016,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowtriangle.left.fill" catalog="system" width="128" height="113"/>
+        <image name="arrowtriangle.right.fill" catalog="system" width="128" height="113"/>
+        <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
         <image name="cursor.rays" catalog="system" width="128" height="119"/>
+        <image name="forward.end.fill" catalog="system" width="128" height="102"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="hand.draw.fill" catalog="system" width="128" height="107"/>
