@@ -18,6 +18,7 @@
 		4578F15725CB8DC800800056 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 4578F15625CB8DC800800056 /* Starscream */; };
 		4578F15B25CBC79500800056 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4578F15A25CBC79500800056 /* SettingsViewController.swift */; };
 		457F8B1025CCEE2200CC6148 /* NewButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F8B0F25CCEE2200CC6148 /* NewButtonInput.swift */; };
+		457F8B1225CCFD6600CC6148 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457F8B1125CCFD6600CC6148 /* VideoViewController.swift */; };
 		458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490DA25C4EF2A0063404D /* ButtonInput.swift */; };
 		458490EA25C677FA0063404D /* NumberPadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458490E925C677F90063404D /* NumberPadViewController.swift */; };
 		4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4597534B25C794AD00BEED00 /* SlideViewController.swift */; };
@@ -46,6 +47,7 @@
 		4572C3E325C2C42F00E5AE57 /* MouseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MouseButton.swift; sourceTree = "<group>"; };
 		4578F15A25CBC79500800056 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		457F8B0F25CCEE2200CC6148 /* NewButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewButtonInput.swift; sourceTree = "<group>"; };
+		457F8B1125CCFD6600CC6148 /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 		458490DA25C4EF2A0063404D /* ButtonInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonInput.swift; sourceTree = "<group>"; };
 		458490E925C677F90063404D /* NumberPadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPadViewController.swift; sourceTree = "<group>"; };
 		4597534B25C794AD00BEED00 /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
@@ -113,13 +115,14 @@
 		458490E825C677E20063404D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				452CE26425CA44AF003B1E1D /* TabBarController.swift */,
 				4597534D25C797B700BEED00 /* BasicViewController.swift */,
 				458490E925C677F90063404D /* NumberPadViewController.swift */,
 				4597534B25C794AD00BEED00 /* SlideViewController.swift */,
 				4597535325C7C20300BEED00 /* TrackpadViewController.swift */,
 				45E31FAD25C8D69D00A4E59D /* TapViewController.swift */,
 				45E31FB225C8DF2400A4E59D /* ConfigureTapViewController.swift */,
-				452CE26425CA44AF003B1E1D /* TabBarController.swift */,
+				457F8B1125CCFD6600CC6148 /* VideoViewController.swift */,
 				4578F15A25CBC79500800056 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
@@ -253,6 +256,7 @@
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
 				452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */,
 				45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */,
+				457F8B1225CCFD6600CC6148 /* VideoViewController.swift in Sources */,
 				4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */,
 				4597534C25C794AE00BEED00 /* SlideViewController.swift in Sources */,
 				454FA2F225C39D57005D59DD /* SocketManager.swift in Sources */,

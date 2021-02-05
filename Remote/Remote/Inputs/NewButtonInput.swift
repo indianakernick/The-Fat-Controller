@@ -9,7 +9,7 @@
 import UIKit;
 
 class NewButtonInput: UIButton {
-    static private let downColor = Colors.gray600;
+    static private let downColor = Colors.gray500;
     static private let upColor = Colors.gray700;
     
     var pressed = {};

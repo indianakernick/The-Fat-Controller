@@ -17,6 +17,7 @@ class SocketManager: WebSocketDelegate {
     private static let retryDelay = 1.0;
     private static let tickDelay = 0.05;
     private static let maxTickCount = Int(30.0 / tickDelay);
+    private static let emptyData = Data();
     
     private var socket: WebSocket!;
     private var tickTimer: Timer?;
@@ -85,7 +86,7 @@ class SocketManager: WebSocketDelegate {
     }
     
     @objc private func sendTick() {
-        socket.write(data: Data());
+        socket.write(data: SocketManager.emptyData);
         tickCount += 1;
         if tickCount > SocketManager.maxTickCount {
             stopTicking();
