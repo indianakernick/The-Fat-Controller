@@ -26,7 +26,7 @@ async fn main() {
         .or(filters::css());
 
     tokio::spawn(async {
-        warp::serve(routes.with(warp::log("key")))
+        warp::serve(routes.with(warp::log("remote")))
             .run(([0, 0, 0, 0], 80))
             .await;
     });
