@@ -19,3 +19,24 @@ a QR code.
 
 Something like this could also be used for encryption. The sequence of random
 numbers could be used as the key for an XOR stream cipher.
+
+## Tap controller expansion
+
+Allowing the tap controller to access all commands could be interesting. Moving
+the mouse around and clicking things at the tap of a button would be pretty
+cool. I'm not sure exactly what it could be used for though. Doing this would
+require reworking to configuration screen.
+
+If this was to be implemented, then it would make sense to be able to save and
+load multiple configurations. This would be a big overhaul of the configuration
+page.
+
+[This](https://stackoverflow.com/questions/2855857/how-to-display-multiple-columns-in-a-uitableview)
+might be helpful.
+
+## Running the server
+
+You could open up the terminal and type in a command but that's not particularly
+convenient. Investigate the alternates.
+[This](https://apple.stackexchange.com/questions/376778/a-way-to-run-console-commands-in-menu-bar)
+is a possibility.
