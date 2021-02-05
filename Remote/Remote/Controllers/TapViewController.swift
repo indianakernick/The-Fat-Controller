@@ -6,47 +6,47 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-import Foundation;
+import Foundation
 
 fileprivate func dataFromPlist(plist: [Any]) -> Data {
-    var bytes: [UInt8] = [];
+    var bytes: [UInt8] = []
     for element in plist {
-        let dict = element as! [String : Any];
-        bytes += dict["data"] as! [UInt8];
+        let dict = element as! [String : Any]
+        bytes += dict["data"] as! [UInt8]
     }
-    return Data(bytes);
+    return Data(bytes)
 }
 
 class TapViewController: BasicViewController {
-    @IBOutlet weak var tap: TapInput!;
+    @IBOutlet weak var tap: TapInput!
     
-    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]);
-    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue]);
+    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue])
+    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue])
     
-    static weak var instance: TapViewController?;
+    static weak var instance: TapViewController?
     
     override func viewDidLoad() {
-        super.viewDidLoad();
-        TapViewController.instance = self;
+        super.viewDidLoad()
+        TapViewController.instance = self
         tap.pressed = { [weak self] in
-            self!.send(self!.downData);
-        };
+            self!.send(self!.downData)
+        }
         tap.released = { [weak self] in
-            self!.send(self!.upData);
-        };
+            self!.send(self!.upData)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
-        updateData();
+        super.viewWillAppear(animated)
+        updateData()
     }
     
     func updateData() {
-        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList);
-        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList);
+        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList)
+        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList)
         if downRows != nil && upRows != nil {
-            downData = dataFromPlist(plist: downRows!);
-            upData = dataFromPlist(plist: upRows!);
+            downData = dataFromPlist(plist: downRows!)
+            upData = dataFromPlist(plist: upRows!)
         }
     }
 }

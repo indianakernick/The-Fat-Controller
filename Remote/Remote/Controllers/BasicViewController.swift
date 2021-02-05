@@ -6,58 +6,58 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-import UIKit;
+import UIKit
 
 class BasicViewController: UIViewController, SocketManagerDelegate, TakeSocket {
-    private var socket: SocketManager!;
+    private var socket: SocketManager!
     
-    @IBOutlet weak var offlineCover: UIView!;
+    @IBOutlet weak var offlineCover: UIView!
     
     func takeSocket(_ socket: SocketManager) {
-        self.socket = socket;
+        self.socket = socket
     }
     
     func send(_ data: Data) {
-        socket.send(data);
+        socket.send(data)
     }
     
     func makeListener(with array: [UInt8]) -> () -> () {
-        let data = Data(array);
+        let data = Data(array)
         return { [weak self] in
-            self!.socket.send(data);
-        };
+            self!.socket.send(data)
+        }
     }
     
     func setPressListener(for button: ButtonInput, with array: [UInt8]) {
-        button.pressed = makeListener(with: array);
+        button.pressed = makeListener(with: array)
     }
     
     func onlineStatusChanged(online: Bool) {
         if online {
             for view in view.subviews {
-                view.isHidden = false;
+                view.isHidden = false
             }
             UIView.animate(withDuration: 0.25, animations: {
-                self.offlineCover.alpha = 0.0;
+                self.offlineCover.alpha = 0.0
             }, completion: { finished in
-                self.offlineCover.isHidden = true;
-            });
+                self.offlineCover.isHidden = true
+            })
         } else {
-            offlineCover.isHidden = false;
+            offlineCover.isHidden = false
             UIView.animate(withDuration: 0.25, animations: {
-                self.offlineCover.alpha = 1.0;
+                self.offlineCover.alpha = 1.0
             }, completion: { finished in
                 for view in self.view.subviews {
-                    view.isHidden = true;
+                    view.isHidden = true
                 }
-                self.offlineCover.isHidden = false;
-            });
+                self.offlineCover.isHidden = false
+            })
         }
     }
     
     override var traitCollection: UITraitCollection {
-        let realTraits = super.traitCollection;
-        let lieTrait = UITraitCollection.init(horizontalSizeClass: .compact);
-        return UITraitCollection(traitsFrom: [realTraits, lieTrait]);
+        let realTraits = super.traitCollection
+        let lieTrait = UITraitCollection.init(horizontalSizeClass: .compact)
+        return UITraitCollection(traitsFrom: [realTraits, lieTrait])
     }
 }

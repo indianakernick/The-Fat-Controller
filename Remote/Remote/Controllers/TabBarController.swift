@@ -6,24 +6,24 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-import UIKit;
+import UIKit
 
 protocol TakeSocket {
-    func takeSocket(_ socket: SocketManager);
+    func takeSocket(_ socket: SocketManager)
 }
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketManagerDelegate {
-    private var socket = SocketManager();
-    private var previouslySelected: UIViewController?;
+    private var socket = SocketManager()
+    private var previouslySelected: UIViewController?
     
     override func viewDidLoad() {
-        super.viewDidLoad();
-        delegate = self;
+        super.viewDidLoad()
+        delegate = self
         for controller in viewControllers! {
-            (controller as? TakeSocket)?.takeSocket(socket);
+            (controller as? TakeSocket)?.takeSocket(socket)
         }
-        socket.delegate = self;
-        socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "");
+        socket.delegate = self
+        socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "")
     }
     
     // The currently selected index should probably be stored in NSUserActivity
@@ -31,32 +31,32 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
     // is store an integer.
     
     override func viewWillAppear(_ animated: Bool) {
-        selectedIndex = UserDefaults.standard.integer(forKey: StorageKeys.selectedTabIndex);
+        selectedIndex = UserDefaults.standard.integer(forKey: StorageKeys.selectedTabIndex)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        UserDefaults.standard.set(selectedIndex, forKey: StorageKeys.selectedTabIndex);
+        UserDefaults.standard.set(selectedIndex, forKey: StorageKeys.selectedTabIndex)
     }
     
     override func viewWillTransition(to: CGSize, with: UIViewControllerTransitionCoordinator) {
         if to.width > to.height {
-            tabBar.isHidden = true;
+            tabBar.isHidden = true
         } else {
-            tabBar.isHidden = false;
+            tabBar.isHidden = false
         }
     }
     
     func onlineStatusChanged(online: Bool) {
         for controller in viewControllers! {
-            (controller as? SocketManagerDelegate)?.onlineStatusChanged(online: online);
+            (controller as? SocketManagerDelegate)?.onlineStatusChanged(online: online)
         }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController == viewControllers![3] && viewController == previouslySelected {
-            viewController.performSegue(withIdentifier: "tapConfig", sender: viewController);
+            viewController.performSegue(withIdentifier: "tapConfig", sender: viewController)
         }
-        previouslySelected = viewController;
+        previouslySelected = viewController
     }
     
     // Makes it possible to have more than 5 tabs.
@@ -64,8 +64,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
     // It's a little bit cramped with 6 tabs so if we ever need 7, we should do
     // the right thing and show the "More" button.
     override var traitCollection: UITraitCollection {
-        let realTraits = super.traitCollection;
-        let lieTrait = UITraitCollection.init(horizontalSizeClass: .regular);
-        return UITraitCollection(traitsFrom: [realTraits, lieTrait]);
+        let realTraits = super.traitCollection
+        let lieTrait = UITraitCollection.init(horizontalSizeClass: .regular)
+        return UITraitCollection(traitsFrom: [realTraits, lieTrait])
     }
 }

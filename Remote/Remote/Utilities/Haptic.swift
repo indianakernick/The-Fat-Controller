@@ -12,18 +12,18 @@ import AudioToolbox
 
 enum Haptic {
     static func buzz() {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
     static func weakTap() {
-        AudioServicesPlaySystemSound(1519);
+        AudioServicesPlaySystemSound(1519)
     }
     
     static func strongTap() {
-        AudioServicesPlaySystemSound(1520);
+        AudioServicesPlaySystemSound(1520)
     }
     
     static func tripleWeakTap() {
-        AudioServicesPlaySystemSound(1521);
+        AudioServicesPlaySystemSound(1521)
     }
 }

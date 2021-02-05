@@ -279,7 +279,7 @@ fn generate_swift_enum(path: &str, name: &[u8], variants: &[Variant]) -> std::io
         }
         file.write_all(b" = ")?;
         file.write_all(var.1.to_string().as_bytes())?;
-        file.write_all(b";\n")?;
+        file.write_all(b"\n")?;
     }
 
     file.write_all(b"}\n")?;
@@ -293,7 +293,7 @@ fn generate_swift_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std
 
     file.write_all(b"struct ")?;
     file.write_all(name)?;
-    file.write_all(b": OptionSet {\n    let rawValue: UInt8;\n\n")?;
+    file.write_all(b": OptionSet {\n    let rawValue: UInt8\n\n")?;
 
     for var in variants.iter() {
         file.write_all(b"    static let ")?;
@@ -302,11 +302,11 @@ fn generate_swift_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std
         file.write_all(name)?;
         if var.1 == 0 {
             // Not strictly necessary but this suppresses a compiler warning
-            file.write_all(b"([]);\n")?;
+            file.write_all(b"([])\n")?;
         } else {
             file.write_all(b"(rawValue: ")?;
             file.write_all(var.1.to_string().as_bytes())?;
-            file.write_all(b");\n")?;
+            file.write_all(b")\n")?;
         }
     }
 
