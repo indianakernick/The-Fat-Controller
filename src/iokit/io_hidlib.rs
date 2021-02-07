@@ -15,7 +15,7 @@ pub const kIOHIDPostHIDManagerEvent: IOOptionBits = 8;
 #[link(name = "IOKit", kind = "framework")]
 extern {
     #[allow(non_snake_case)]
-    fn IOHIDPostEvent(
+    pub fn IOHIDPostEvent(
         connect: io_connect_t,
         eventType: u32,
         location: IOGPoint,
@@ -25,5 +25,5 @@ extern {
         options: IOOptionBits
     ) -> kern_return_t;
 
-    fn IOHIDSetMouseLocation(connect: io_connect_t, x: c_int, y: c_int) -> kern_return_t;
+    pub fn IOHIDSetMouseLocation(connect: io_connect_t, x: c_int, y: c_int) -> kern_return_t;
 }
