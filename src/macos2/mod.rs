@@ -1,10 +1,13 @@
 mod mouse;
 
+pub use mouse::*;
+
 use crate::iokit as io;
 
 pub struct EventContext {
     service: io::io_service_t,
     connect: io::io_connect_t,
+    button_state: u8,
 }
 
 // I don't know if IOHIDPostEvent is thread-safe so I'm going to assume that it
@@ -17,13 +20,13 @@ impl EventContext {
     pub fn new() -> Option<Self> {
         unsafe {
             // Create a dictionary that describes a service matching a name.
-            let matching = io::IOServiceNameMatching(io::kIOHIDSystemClass.as_ptr());
+            let matching = io::IOServiceMatching(io::kIOHIDSystemClass.as_ptr());
 
             // Get an iterator to all IOService objects that match the
             // dictionary. IOServiceGetMatchingServices will release the
             // dictionary.
             let mut iterator = io::IO_OBJECT_NULL;
-            if io::IOServiceGetMatchingServices(io::kIOMasterPortDefault, matching, &mut iterator) != io::KERN_SUCCESS {
+            if io::IOServiceGetMatchingServices(io::kIOMasterPortDefault, matching, &mut iterator) != io::kIOReturnSuccess {
                 return None;
             }
 
@@ -40,7 +43,7 @@ impl EventContext {
 
                 // Try to open a connection to the IOService. If successful,
                 // we're done.
-                if io::IOServiceOpen(service, io::mach_task_self_, io::kIOHIDParamConnectType, &mut connect) == io::KERN_SUCCESS {
+                if io::IOServiceOpen(service, io::mach_task_self_, io::kIOHIDParamConnectType, &mut connect) == io::kIOReturnSuccess {
                     found = true;
                     break;
                 }
@@ -58,6 +61,9 @@ impl EventContext {
             Some(EventContext {
                 service,
                 connect,
+                // I don't know how to access this using I/O Kit so we have to
+                // keep track of it ourselves
+                button_state: 0,
             })
         }
     }

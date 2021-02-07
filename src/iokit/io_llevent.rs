@@ -24,6 +24,7 @@ pub const NX_ZOOM: u32 = 28;
 pub const NX_TABLETPOINTER: u32 = 23;
 pub const NX_TABLETPROXIMITY: u32 = 24;
 
+pub const NX_SUBTYPE_AUX_MOUSE_BUTTONS: i16 = 7;
 pub const NX_SUBTYPE_AUX_CONTROL_BUTTONS: i16 = 8;
 
 pub const NX_ALPHASHIFTMASK: u32 = 0x00010000;

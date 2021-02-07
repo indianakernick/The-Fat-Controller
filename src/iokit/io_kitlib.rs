@@ -32,5 +32,5 @@ extern {
         existing: *mut io_iterator_t
     ) -> kern_return_t;
 
-    pub fn IOServiceNameMatching(name: *const u8) -> CFMutableDictionaryRef;
+    pub fn IOServiceMatching(name: *const u8) -> CFMutableDictionaryRef;
 }
