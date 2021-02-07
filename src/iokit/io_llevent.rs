@@ -48,13 +48,13 @@ pub const NX_DINGBATSSET: u16 = 2;
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub struct NXMouseEventData {
-    subx: u8,
-    suby: u8,
-    eventNum: i16,
-    click: i32,
-    pressure: u8,
-    buttonNumber: u8,
-    subType: u8,
+    pub subx: u8,
+    pub suby: u8,
+    pub eventNum: i16,
+    pub click: i32,
+    pub pressure: u8,
+    pub buttonNumber: u8,
+    pub subType: u8,
     reserved2: u8,
     reserved3: i32,
     tablet: [u8; 32], // I don't need this so I didn't bother declaring it
@@ -65,11 +65,11 @@ pub struct NXMouseEventData {
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub struct NXMouseMoveEventData {
-    dx: i32,
-    dy: i32,
-    subx: u8,
-    suby: u8,
-    subType: u8,
+    pub dx: i32,
+    pub dy: i32,
+    pub subx: u8,
+    pub suby: u8,
+    pub subType: u8,
     reserved1: u8,
     reserved2: i32,
     tablet: [u8; 32], // I don't need this so I didn't bother declaring it
@@ -80,14 +80,14 @@ pub struct NXMouseMoveEventData {
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub struct NXKeyEventData {
-    origChatSet: u16,
-    repeat: i16,
-    charSet: u16,
-    charCode: u16,
-    keyCode: u16,
-    origCharCode: u16,
+    pub origChatSet: u16,
+    pub repeat: i16,
+    pub charSet: u16,
+    pub charCode: u16,
+    pub keyCode: u16,
+    pub origCharCode: u16,
     reserved1: i32,
-    keyboardType: u32,
+    pub keyboardType: u32,
     reserved2: i32,
     reserved3: i32,
     reserved4: i32,
@@ -99,16 +99,16 @@ pub struct NXKeyEventData {
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub struct NXScrollWheelEventData {
-    deltaAxis1: i16,
-    deltaAxis2: i16,
-    deltaAxis3: i16,
+    pub deltaAxis1: i16,
+    pub deltaAxis2: i16,
+    pub deltaAxis3: i16,
     reserved1: i16,
-    fixedDeltaAxis1: i32,
-    fixedDeltaAxis2: i32,
-    fixedDeltaAxis3: i32,
-    pointDeltaAxis1: i32,
-    pointDeltaAxis2: i32,
-    pointDeltaAxis3: i32,
+    pub fixedDeltaAxis1: i32,
+    pub fixedDeltaAxis2: i32,
+    pub fixedDeltaAxis3: i32,
+    pub pointDeltaAxis1: i32,
+    pub pointDeltaAxis2: i32,
+    pub pointDeltaAxis3: i32,
     reserved8: [i32; 4]
 }
 
@@ -117,10 +117,10 @@ pub struct NXScrollWheelEventData {
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub union NXCompoundEventDataMisc {
-    F: [f32; 11],
-    L: [i32; 11],
-    S: [i16; 22],
-    C: [i8; 44],
+    pub F: [f32; 11],
+    pub L: [i32; 11],
+    pub S: [i16; 22],
+    pub C: [i8; 44],
 }
 
 // Synthesised
@@ -129,19 +129,27 @@ pub union NXCompoundEventDataMisc {
 #[allow(non_snake_case)]
 pub struct NXCompoundEventData {
     reserved: i16,
-    subType: i16,
-    misc: NXCompoundEventDataMisc,
+    pub subType: i16,
+    pub misc: NXCompoundEventDataMisc,
 }
 
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub union NXEventData {
-    mouse: NXMouseEventData,
-    mouseMove: NXMouseMoveEventData,
-    key: NXKeyEventData,
-    scrollWheel: NXScrollWheelEventData,
-    compound: NXCompoundEventData,
+    pub mouse: NXMouseEventData,
+    pub mouseMove: NXMouseMoveEventData,
+    pub key: NXKeyEventData,
+    pub scrollWheel: NXScrollWheelEventData,
+    pub compound: NXCompoundEventData,
+}
+
+impl Default for NXEventData {
+    fn default() -> Self {
+        unsafe {
+            std::mem::zeroed()
+        }
+    }
 }
 
 #[allow(non_upper_case_globals)]

@@ -1,3 +1,5 @@
+mod mouse;
+
 use crate::iokit as io;
 
 pub struct EventContext {
