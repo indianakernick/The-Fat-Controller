@@ -19,15 +19,19 @@ impl super::EventContext {
             event_type = io::NX_OMOUSEDRAGGED;
         }
 
-        self.post_event(event_type, &event, io::kIOHIDSetRelativeCursorPosition, 0)
+        self.post_event(event_type, &event, 0, io::kIOHIDSetRelativeCursorPosition)
     }
 
     pub fn mouse_move_abs(&mut self, x: i32, y: i32) -> bool {
-        // TODO: get the current mouse position and then do a relative movement
+        let location = self.mouse_location();
+        self.mouse_move_rel(x - location.0, y - location.1)
+    }
+
+    pub fn mouse_warp(&mut self, x: i32, y: i32) -> bool {
         use std::os::raw::c_int;
         unsafe {
             io::IOHIDSetMouseLocation(
-                self.connect,
+                self.hid_connect,
                 x as c_int,
                 y as c_int
             ) == io::kIOReturnSuccess

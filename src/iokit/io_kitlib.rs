@@ -18,12 +18,30 @@ extern {
     #[allow(non_snake_case)]
     pub fn IOServiceOpen(
         service: io_service_t,
-        owningTask: mach_port_t,
+        owningTask: task_port_t,
         type_: u32,
         connect: *mut io_connect_t
     ) -> kern_return_t;
 
     pub fn IOServiceClose(connect: io_connect_t) -> kern_return_t;
+
+    #[allow(non_snake_case)]
+    pub fn IOConnectMapMemory64(
+        connect: io_connect_t,
+        memoryType: u32,
+        intoTask: task_port_t,
+        atAddress: *mut mach_vm_address_t,
+        ofSize: *mut mach_vm_size_t,
+        options: IOOptionBits
+    ) -> kern_return_t;
+
+    #[allow(non_snake_case)]
+    pub fn IOConnectUnmapMemory64(
+        connect: io_connect_t,
+        memoryType: u32,
+        fromTask: task_port_t,
+        atAddress: mach_vm_address_t
+    ) -> kern_return_t;
 
     #[allow(non_snake_case)]
     pub fn IOServiceGetMatchingServices(
