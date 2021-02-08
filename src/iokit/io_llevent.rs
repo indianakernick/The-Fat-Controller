@@ -37,6 +37,16 @@ pub const NX_HELPMASK: u32 = 0x00400000;
 pub const NX_SECONDARYFNMASK: u32 = 0x00800000;
 pub const NX_ALPHASHIFT_STATELESS_MASK: u32 = 0x01000000;
 
+pub const NX_DEVICELCTLKEYMASK: u32 = 0x00000001;
+pub const NX_DEVICELSHIFTKEYMASK: u32 = 0x00000002;
+pub const NX_DEVICERSHIFTKEYMASK: u32 = 0x00000004;
+pub const NX_DEVICELCMDKEYMASK: u32 = 0x00000008;
+pub const NX_DEVICERCMDKEYMASK: u32 = 0x00000010;
+pub const NX_DEVICELALTKEYMASK: u32 = 0x00000020;
+pub const NX_DEVICERALTKEYMASK: u32 = 0x00000040;
+pub const NX_DEVICE_ALPHASHIFT_STATELESS_MASK: u32 = 0x00000080;
+pub const NX_DEVICERCTLKEYMASK: u32 = 0x00002000;
+
 pub const NX_ASCIISET: u16 = 0;
 pub const NX_SYMBOLSET: u16 = 1;
 pub const NX_DINGBATSSET: u16 = 2;
@@ -81,7 +91,7 @@ pub struct NXMouseMoveEventData {
 #[derive(Copy, Clone)]
 #[allow(non_snake_case)]
 pub struct NXKeyEventData {
-    pub origChatSet: u16,
+    pub origCharSet: u16,
     pub repeat: i16,
     pub charSet: u16,
     pub charCode: u16,

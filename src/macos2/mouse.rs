@@ -1,19 +1,14 @@
+use super::MouseButton;
 use crate::iokit as io;
 
-#[repr(u8)]
-#[derive(Copy, Clone)]
-pub enum MouseButton {
-    Left = 0,
-    Right = 1,
-    Middle = 2,
-}
+// Largely adapted from here
+// https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
 impl super::EventContext {
     pub fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> bool {
         let mut event = io::NXEventData::default();
         event.mouseMove.dx = dx;
         event.mouseMove.dy = dy;
-        let location = io::IOGPoint::default();
 
         let mut event_type = io::NX_MOUSEMOVED;
         if self.button_state & 0b1 != 0 {
@@ -24,20 +19,11 @@ impl super::EventContext {
             event_type = io::NX_OMOUSEDRAGGED;
         }
 
-        unsafe {
-            io::IOHIDPostEvent(
-                self.connect,
-                event_type,
-                location,
-                &event,
-                io::kNXEventDataVersion,
-                0,
-                0
-            ) == io::kIOReturnSuccess
-        }
+        self.post_event(event_type, &event, io::kIOHIDSetRelativeCursorPosition, 0)
     }
 
     pub fn mouse_move_abs(&mut self, x: i32, y: i32) -> bool {
+        // TODO: get the current mouse position and then do a relative movement
         use std::os::raw::c_int;
         unsafe {
             io::IOHIDSetMouseLocation(
@@ -52,23 +38,10 @@ impl super::EventContext {
         let mut event = io::NXEventData::default();
         event.scrollWheel.fixedDeltaAxis1 = dy << 13;
         event.scrollWheel.fixedDeltaAxis2 = dx << 13;
-        let location = io::IOGPoint::default();
-
-        unsafe {
-            io::IOHIDPostEvent(
-                self.connect,
-                io::NX_SCROLLWHEELMOVED,
-                location,
-                &event,
-                io::kNXEventDataVersion,
-                0,
-                0
-            ) == io::kIOReturnSuccess
-        }
+        self.post_event(io::NX_SCROLLWHEELMOVED, &event, 0, 0)
     }
 
     fn mouse_event(&mut self, event_type: u32, click_count: u32, button_number: u8, down: bool) -> bool {
-        let location = io::IOGPoint::default();
         let mut event = io::NXEventData::default();
         event.compound.subType = io::NX_SUBTYPE_AUX_MOUSE_BUTTONS;
         unsafe {
@@ -76,35 +49,15 @@ impl super::EventContext {
             event.compound.misc.L[1] = if down { 1 << button_number } else { 0 };
         }
 
-        unsafe {
-            if io::IOHIDPostEvent(
-                self.connect,
-                io::NX_SYSDEFINED,
-                location,
-                &event,
-                io::kNXEventDataVersion,
-                0,
-                0
-            ) != io::kIOReturnSuccess {
-                return false;
-            }
+        if !self.post_event(io::NX_SYSDEFINED, &event, 0, 0) {
+            return false;
         }
 
         event = io::NXEventData::default();
         event.mouse.click = click_count as i32;
         event.mouse.buttonNumber = button_number;
 
-        unsafe {
-            io::IOHIDPostEvent(
-                self.connect,
-                event_type,
-                location,
-                &event,
-                io::kNXEventDataVersion,
-                0,
-                0
-            ) == io::kIOReturnSuccess
-        }
+        self.post_event(event_type, &event, 0, 0)
     }
 
     pub fn mouse_down(&mut self, button: MouseButton, click_count: u32) -> bool {

@@ -1,3 +1,4 @@
+mod carbon;
 mod io_graphicstypes;
 mod io_hidlib;
 mod io_hidshared;
@@ -8,6 +9,7 @@ mod io_return;
 mod io_types;
 mod mach_init;
 
+pub use carbon::*;
 pub use io_graphicstypes::*;
 pub use io_hidlib::*;
 pub use io_hidshared::*;

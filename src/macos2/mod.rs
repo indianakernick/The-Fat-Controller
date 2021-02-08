@@ -1,6 +1,12 @@
+mod key;
+mod key_enum;
 mod mouse;
+mod mouse_button_enum;
 
+pub use key::*;
+pub use key_enum::*;
 pub use mouse::*;
+pub use mouse_button_enum::*;
 
 use crate::iokit as io;
 
@@ -8,6 +14,7 @@ pub struct EventContext {
     service: io::io_service_t,
     connect: io::io_connect_t,
     button_state: u8,
+    modifiers: io::IOOptionBits,
 }
 
 // I don't know if IOHIDPostEvent is thread-safe so I'm going to assume that it
@@ -61,10 +68,29 @@ impl EventContext {
             Some(EventContext {
                 service,
                 connect,
-                // I don't know how to access this using I/O Kit so we have to
-                // keep track of it ourselves
                 button_state: 0,
+                modifiers: 0,
             })
+        }
+    }
+
+    fn post_event(
+        &mut self,
+        event_type: u32,
+        event: *const io::NXEventData,
+        flags: io::IOOptionBits,
+        options: io::IOOptionBits
+    ) -> bool {
+        unsafe {
+            io::IOHIDPostEvent(
+                self.connect,
+                event_type,
+                io::IOGPoint::default(),
+                event,
+                io::kNXEventDataVersion,
+                flags,
+                options
+            ) == io::kIOReturnSuccess
         }
     }
 }
