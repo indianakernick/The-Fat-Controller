@@ -1,13 +1,11 @@
+mod iokit;
+mod key;
+mod mouse;
+
 pub use key::*;
 pub use mouse::*;
 
 use iokit as io;
-pub use crate::key::*;
-pub use crate::mouse::*;
-
-mod iokit;
-mod key;
-mod mouse;
 
 pub struct Context {
     hid_connect: io::io_connect_t,

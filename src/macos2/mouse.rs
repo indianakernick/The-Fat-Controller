@@ -1,4 +1,4 @@
-use super::MouseButton;
+use crate::MouseButton;
 use super::iokit as io;
 
 // Largely adapted from here

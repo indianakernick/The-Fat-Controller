@@ -1,4 +1,4 @@
-use super::Key;
+use crate::Key;
 use super::iokit as io;
 
 // Largely adapted from here
