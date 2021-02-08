@@ -1,14 +1,13 @@
-mod key;
-mod key_enum;
-mod mouse;
-mod mouse_button_enum;
-
 pub use key::*;
-pub use key_enum::*;
 pub use mouse::*;
-pub use mouse_button_enum::*;
 
-use crate::iokit as io;
+use iokit as io;
+pub use crate::key::*;
+pub use crate::mouse::*;
+
+mod iokit;
+mod key;
+mod mouse;
 
 pub struct EventContext {
     hid_connect: io::io_connect_t,

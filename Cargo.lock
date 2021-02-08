@@ -1074,23 +1074,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5eb417147ba9860a96cfe72a0b93bf88fee1744b5636ec99ab20c1aa9376581"
 
 [[package]]
-name = "remote"
-version = "0.1.0"
-dependencies = [
- "askama",
- "askama_warp",
- "bitflags",
- "core-graphics",
- "futures",
- "heck",
- "log",
- "pretty_env_logger",
- "tokio",
- "tokio-stream",
- "warp",
-]
-
-[[package]]
 name = "remove_dir_all"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1267,6 +1250,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dfed899f0eb03f32ee8c6a0aabdb8a7949659e3466561fc0adf54e26d88c5f4"
 dependencies = [
  "winapi-util",
+]
+
+[[package]]
+name = "tfc"
+version = "0.1.0"
+dependencies = [
+ "askama",
+ "askama_warp",
+ "bitflags",
+ "core-graphics",
+ "futures",
+ "heck",
+ "log",
+ "pretty_env_logger",
+ "tokio",
+ "tokio-stream",
+ "warp",
 ]
 
 [[package]]

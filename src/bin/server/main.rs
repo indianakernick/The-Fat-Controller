@@ -1,12 +1,10 @@
 mod filters;
 mod handlers;
 mod socket_command;
-mod macos;
-mod iokit;
-mod macos2;
 
 use warp::Filter;
 use tokio::sync::mpsc;
+use tfc::macos;
 
 #[tokio::main(flavor="current_thread")]
 async fn main() {
@@ -28,7 +26,7 @@ async fn main() {
         .or(filters::css());
 
     tokio::spawn(async {
-        warp::serve(routes.with(warp::log("remote")))
+        warp::serve(routes.with(warp::log("server")))
             .run(([0, 0, 0, 0], 80))
             .await;
     });

@@ -1,5 +1,5 @@
 use super::Key;
-use crate::iokit as io;
+use super::iokit as io;
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
