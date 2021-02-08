@@ -40,3 +40,8 @@ You could open up the terminal and type in a command but that's not particularly
 convenient. Investigate the alternates.
 [This](https://apple.stackexchange.com/questions/376778/a-way-to-run-console-commands-in-menu-bar)
 is a possibility.
+
+## Go public
+
+Push to a public github repo and publish to crates.io. Maybe make a post to
+r/rust too.
