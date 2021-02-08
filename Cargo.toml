@@ -1,6 +1,7 @@
 [package]
 name = "tfc"
 description = "The Fat Controller. A library for simulating mouse and keyboard events. Features an iOS app for remote control."
+keywords = ["keyboard", "mouse", "automation", "control"]
 version = "0.1.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"

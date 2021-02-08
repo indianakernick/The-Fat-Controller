@@ -4,7 +4,7 @@ use super::iokit as io;
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
-impl super::EventContext {
+impl super::Context {
     pub fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> bool {
         let mut event = io::NXEventData::default();
         event.mouseMove.dx = dx;

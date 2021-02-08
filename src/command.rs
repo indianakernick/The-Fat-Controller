@@ -1,7 +1,6 @@
-use super::{EventContext, Key, MouseButton};
+use super::{Context, Key, MouseButton};
 
 pub enum Command {
-    Null,
     KeyDown(Key, bool),
     KeyUp(Key),
     KeyClick(Key),
@@ -14,11 +13,10 @@ pub enum Command {
     MouseClick(MouseButton, u32),
 }
 
-impl EventContext {
+impl Context {
     pub fn execute_command(&mut self, command: Command) -> bool {
         use Command::*;
         match command {
-            Null => true,
             KeyDown(key, repeat) => self.key_down(key, repeat),
             KeyUp(key) => self.key_up(key),
             KeyClick(key) => self.key_click(key),

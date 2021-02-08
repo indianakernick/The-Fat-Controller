@@ -147,7 +147,7 @@ fn update_modifiers(modifiers: &mut u32, left: u32, right: u32, both: u32) {
     }
 }
 
-impl super::EventContext {
+impl super::Context {
     fn update_modifiers(&mut self) {
         update_modifiers(&mut self.modifiers, io::NX_DEVICELSHIFTKEYMASK, io::NX_DEVICERSHIFTKEYMASK, io::NX_SHIFTMASK);
         update_modifiers(&mut self.modifiers, io::NX_DEVICELCTLKEYMASK, io::NX_DEVICERCTLKEYMASK, io::NX_CONTROLMASK);

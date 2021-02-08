@@ -1,5 +1,5 @@
 #[repr(u8)]
-#[derive(Clone, Copy)]
+#[derive(Copy, Clone)]
 pub enum Key {
     // Modifier keys
     CapsLock,
@@ -95,7 +95,6 @@ pub enum Key {
     Keypad9,
 
     // Keypad keys
-    // KeypadNumLock,
     KeypadClear,
     KeypadEquals,
     KeypadDivide,
@@ -126,4 +125,8 @@ pub enum Key {
     VolumeUp,
     VolumeDown,
     Mute,
+}
+
+impl Key {
+    pub const COUNT: u8 = Self::Mute as u8 + 1;
 }

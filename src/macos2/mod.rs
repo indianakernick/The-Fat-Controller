@@ -9,7 +9,7 @@ mod iokit;
 mod key;
 mod mouse;
 
-pub struct EventContext {
+pub struct Context {
     hid_connect: io::io_connect_t,
     fb_connect: io::io_connect_t,
     fb_address: io::mach_vm_address_t,
@@ -69,7 +69,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Option<io::io_conne
     }
 }
 
-impl EventContext {
+impl Context {
     pub fn new() -> Option<Self> {
         let hid_connect = match connect_to_service(io::kIOHIDSystemClass.as_ptr(), io::kIOHIDParamConnectType) {
             Some(connect) => connect,
@@ -103,7 +103,7 @@ impl EventContext {
             }
         }
 
-        Some(EventContext {
+        Some(Context {
             hid_connect,
             fb_connect,
             fb_address,
@@ -151,7 +151,7 @@ impl EventContext {
     }
 }
 
-impl Drop for EventContext {
+impl Drop for Context {
     fn drop(&mut self) {
         unsafe {
             io::IOConnectUnmapMemory64(
