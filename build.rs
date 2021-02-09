@@ -315,7 +315,8 @@ fn generate_swift_bitflags(path: &str, name: &[u8], variants: &[Variant]) -> std
     Ok(())
 }
 
-fn main() {
+fn main() {}
+fn old_main() {
     generate_js_enum("client/src/pages/common/Key.js", &KEYS).unwrap();
     generate_js_enum("client/src/pages/common/Flags.js", &FLAGS).unwrap();
     generate_js_enum("client/src/pages/common/MouseButton.js", &MOUSE_BUTTONS).unwrap();
