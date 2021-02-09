@@ -1,14 +1,4 @@
-#[repr(u8)]
-#[derive(Copy, Clone, Debug)]
-pub enum MouseButton {
-    Left,
-    Right,
-    Middle,
-}
-
-impl MouseButton {
-    pub const COUNT: u8 = Self::Middle as u8 + 1;
-}
+use crate::MouseButton;
 
 pub trait MouseContext: crate::FallibleContext {
     fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Self::Error>;

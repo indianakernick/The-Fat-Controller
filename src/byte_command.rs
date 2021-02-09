@@ -1,23 +1,4 @@
-use crate::{Command, Key, MouseButton};
-
-#[repr(u8)]
-#[derive(Copy, Clone)]
-pub enum CommandCode {
-    KeyDown,
-    KeyUp,
-    KeyClick,
-    MouseMoveRel,
-    MouseMoveAbs,
-    MouseWarp,
-    MouseScroll,
-    MouseDown,
-    MouseUp,
-    MouseClick,
-}
-
-impl CommandCode {
-    pub const COUNT: u8 = Self::MouseClick as u8 + 1;
-}
+use crate::{Command, CommandCode, Key, MouseButton};
 
 #[derive(Debug)]
 pub enum ParseByteCommandError {

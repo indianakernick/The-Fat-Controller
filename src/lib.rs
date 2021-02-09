@@ -1,15 +1,21 @@
 mod byte_command;
 mod command;
-mod error;
-mod info;
+mod command_code;
+mod error_context;
+mod info_context;
 mod key;
+mod key_context;
 mod macos;
-mod mouse;
+mod mouse_button;
+mod mouse_context;
 
 pub use byte_command::*;
 pub use command::*;
-pub use error::*;
-pub use info::*;
+pub use command_code::*;
+pub use error_context::*;
+pub use info_context::*;
 pub use key::*;
+pub use key_context::*;
 pub use macos::Context;
-pub use mouse::*;
+pub use mouse_button::*;
+pub use mouse_context::*;
