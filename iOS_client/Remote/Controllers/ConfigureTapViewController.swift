@@ -17,132 +17,6 @@ fileprivate let commandCodeRows = [
     (code: CommandCode.keyClick, name: "Key click"),
 ]
 
-fileprivate let mouseButtonRows = [
-    (button: MouseButton.left, name: "Left"),
-    (button: MouseButton.right, name: "Right"),
-    (button: MouseButton.middle, name: "Middle"),
-]
-
-fileprivate let keyRows = [
-    (key: Key.capsLock, name: "Caps Lock"),
-    (key: Key.shift, name: "Shift"),
-    (key: Key.control, name: "Control"),
-    (key: Key.alt, name: "Alt"),
-    (key: Key.meta, name: "Meta"),
-    (key: Key.controlOrMeta, name: "Control or Meta"),
-    (key: Key.rightShift, name: "Right Shift"),
-    (key: Key.rightControl, name: "Right Control"),
-    (key: Key.rightAlt, name: "Right Alt"),
-    (key: Key.rightMeta, name: "Right Meta"),
-    (key: Key.rightControlOrMeta, name: "Right Control or Meta"),
-    (key: Key.fn, name: "Fn"),
-    
-    (key: Key.return, name: "Return"),
-    (key: Key.escape, name: "Escape"),
-    (key: Key.delete, name: "Delete"),
-    (key: Key.forwardDelete, name: "Forward Delete"),
-    (key: Key.tab, name: "Tab"),
-    (key: Key.space, name: "Space"),
-    (key: Key.minus, name: "Minus"),
-    (key: Key.equal, name: "Equal"),
-    (key: Key.leftBracket, name: "Left Bracket"),
-    (key: Key.rightBracket, name: "Right Bracket"),
-    (key: Key.backslash, name: "Backslash"),
-    (key: Key.semicolon, name: "Semicolon"),
-    (key: Key.quote, name: "Quote"),
-    (key: Key.grave, name: "Grave"),
-    (key: Key.comma, name: "Comma"),
-    (key: Key.period, name: "Period"),
-    (key: Key.slash, name: "Slash"),
-    
-    (key: Key.upArrow, name: "Up Arrow"),
-    (key: Key.rightArrow, name: "Right Arrow"),
-    (key: Key.downArrow, name: "Down Arrow"),
-    (key: Key.leftArrow, name: "Left Arrow"),
-    (key: Key.pageUp, name: "Page Up"),
-    (key: Key.pageDown, name: "Page Down"),
-    (key: Key.home, name: "Home"),
-    (key: Key.end, name: "End"),
-    
-    (key: Key.a, name: "A"),
-    (key: Key.b, name: "B"),
-    (key: Key.c, name: "C"),
-    (key: Key.d, name: "D"),
-    (key: Key.e, name: "E"),
-    (key: Key.f, name: "F"),
-    (key: Key.g, name: "G"),
-    (key: Key.h, name: "H"),
-    (key: Key.i, name: "I"),
-    (key: Key.j, name: "J"),
-    (key: Key.k, name: "K"),
-    (key: Key.l, name: "L"),
-    (key: Key.m, name: "M"),
-    (key: Key.n, name: "N"),
-    (key: Key.o, name: "O"),
-    (key: Key.p, name: "P"),
-    (key: Key.q, name: "Q"),
-    (key: Key.r, name: "R"),
-    (key: Key.s, name: "S"),
-    (key: Key.t, name: "T"),
-    (key: Key.u, name: "U"),
-    (key: Key.v, name: "V"),
-    (key: Key.w, name: "W"),
-    (key: Key.x, name: "X"),
-    (key: Key.y, name: "Y"),
-    (key: Key.z, name: "Z"),
-    
-    (key: Key.n0, name: "0"),
-    (key: Key.n1, name: "1"),
-    (key: Key.n2, name: "2"),
-    (key: Key.n3, name: "3"),
-    (key: Key.n4, name: "4"),
-    (key: Key.n5, name: "5"),
-    (key: Key.n6, name: "6"),
-    (key: Key.n7, name: "7"),
-    (key: Key.n8, name: "8"),
-    (key: Key.n9, name: "9"),
-    
-    (key: Key.keypad0, name: "Keypad 0"),
-    (key: Key.keypad1, name: "Keypad 1"),
-    (key: Key.keypad2, name: "Keypad 2"),
-    (key: Key.keypad3, name: "Keypad 3"),
-    (key: Key.keypad4, name: "Keypad 4"),
-    (key: Key.keypad5, name: "Keypad 5"),
-    (key: Key.keypad6, name: "Keypad 6"),
-    (key: Key.keypad7, name: "Keypad 7"),
-    (key: Key.keypad8, name: "Keypad 8"),
-    (key: Key.keypad9, name: "Keypad 9"),
-    
-    (key: Key.keypadClear, name: "Keypad Clear"),
-    (key: Key.keypadEquals, name: "Keypad Equals"),
-    (key: Key.keypadDivide, name: "Keypad Divide"),
-    (key: Key.keypadMultiply, name: "Keypad Multiply"),
-    (key: Key.keypadMinus, name: "Keypad Minus"),
-    (key: Key.keypadPlus, name: "Keypad Plus"),
-    (key: Key.keypadEnter, name: "Keypad Enter"),
-    (key: Key.keypadDecimal, name: "Keypad Decimal"),
-    
-    (key: Key.f1, name: "F1"),
-    (key: Key.f2, name: "F2"),
-    (key: Key.f3, name: "F3"),
-    (key: Key.f4, name: "F4"),
-    (key: Key.f5, name: "F5"),
-    (key: Key.f6, name: "F6"),
-    (key: Key.f7, name: "F7"),
-    (key: Key.f8, name: "F8"),
-    (key: Key.f9, name: "F9"),
-    (key: Key.f10, name: "F10"),
-    (key: Key.f11, name: "F11"),
-    (key: Key.f12, name: "F12"),
-    
-    (key: Key.fastForward, name: "Fast-forward"),
-    (key: Key.rewind, name: "Rewind"),
-    (key: Key.playPause, name: "Play/pause"),
-    (key: Key.volumeUp, name: "Volume Up"),
-    (key: Key.volumeDown, name: "Volume Down"),
-    (key: Key.mute, name: "Mute"),
-]
-
 fileprivate struct CommandRow {
     var display: String
     var data: [UInt8]
@@ -160,9 +34,9 @@ class CommandPickerDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDeleg
             return commandCodeRows.count
         } else if component == 1 {
             if mouseCommand {
-                return mouseButtonRows.count
+                return MouseButton.allCases.count
             } else {
-                return keyRows.count
+                return Key.allCases.count
             }
         } else {
             return 0
@@ -181,9 +55,9 @@ class CommandPickerDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDeleg
             return makeWhiteString(string: commandCodeRows[row].name)
         } else if component == 1 {
             if mouseCommand {
-                return makeWhiteString(string: mouseButtonRows[row].name)
+                return makeWhiteString(string: MouseButton(rawValue: UInt8(row))!.description)
             } else {
-                return makeWhiteString(string: keyRows[row].name)
+                return makeWhiteString(string: Key(rawValue: UInt8(row))!.description)
             }
         } else {
             return nil
@@ -203,7 +77,7 @@ class CommandPickerDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDeleg
 
 class CommandListDelegate: NSObject, UITableViewDataSource {
     fileprivate var rows: [CommandRow] = [CommandRow(
-        display: "Mouse down, Left",
+        display: "\(CommandCode.mouseDown), \(MouseButton.left)",
         data: [CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]
     )]
     
@@ -317,11 +191,11 @@ class ConfigureTapViewController: UIViewController {
         let argumentName: String
         let argumentByte: UInt8
         if column0 < 3 {
-            argumentName = mouseButtonRows[column1].name
-            argumentByte = mouseButtonRows[column1].button.rawValue
+            argumentName = MouseButton(rawValue: UInt8(column1))!.description
+            argumentByte = UInt8(column1)
         } else {
-            argumentName = keyRows[column1].name
-            argumentByte = keyRows[column1].key.rawValue
+            argumentName = Key(rawValue: UInt8(column1))!.description
+            argumentByte = UInt8(column1)
         }
         
         let display = commandName + ", " + argumentName
