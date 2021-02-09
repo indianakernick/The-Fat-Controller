@@ -29,6 +29,7 @@ impl SocketContext {
         // TODO: Fix this
         // Sometimes we end up in a state where we are disconnected but
         // self.ch_tx is Some.
+        // https://github.com/seanmonstar/warp/issues/798
         if self.ch_tx.read().await.is_some() {
              return Ok(Box::new(warp::http::StatusCode::FORBIDDEN));
         }
