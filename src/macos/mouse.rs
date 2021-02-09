@@ -1,144 +1,96 @@
-use super::{EventContext, MouseButton};
-use core_graphics::base::{boolean_t, CGFloat};
-use core_graphics::display::{CGPoint, CGDisplay};
-use core_graphics::event_source::CGEventSourceStateID;
-use core_graphics::event::{CGEventType, CGEvent, CGMouseButton, CGEventTapLocation, ScrollEventUnit, EventField};
+use crate::MouseButton;
+use super::iokit as io;
 
-#[link(name = "CoreGraphics", kind = "framework")]
-extern {
-    /// Returns a Boolean value indicating the current button state of a Quartz event source
-    fn CGEventSourceButtonState(state_id: CGEventSourceStateID, button: CGMouseButton) -> boolean_t;
-}
+// Largely adapted from here
+// https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
-impl EventContext {
-    fn button_state(button: CGMouseButton) -> bool {
+impl super::Context {
+    pub fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> bool {
+        let mut event = io::NXEventData::default();
+        event.mouseMove.dx = dx;
+        event.mouseMove.dy = dy;
+
+        let mut event_type = io::NX_MOUSEMOVED;
+        if self.button_state & 0b1 != 0 {
+            event_type = io::NX_LMOUSEDRAGGED;
+        } else if self.button_state & 0b10 != 0 {
+            event_type = io::NX_RMOUSEDRAGGED;
+        } else if self.button_state & 0b100 != 0 {
+            event_type = io::NX_OMOUSEDRAGGED;
+        }
+
+        self.post_event(event_type, &event, 0, io::kIOHIDSetRelativeCursorPosition)
+    }
+
+    pub fn mouse_move_abs(&mut self, x: i32, y: i32) -> bool {
+        let location = self.mouse_location();
+        self.mouse_move_rel(x - location.0, y - location.1)
+    }
+
+    pub fn mouse_warp(&mut self, x: i32, y: i32) -> bool {
+        use std::os::raw::c_int;
         unsafe {
-            CGEventSourceButtonState(CGEventSourceStateID::CombinedSessionState, button) != 0
+            io::IOHIDSetMouseLocation(
+                self.hid_connect,
+                x as c_int,
+                y as c_int
+            ) == io::kIOReturnSuccess
         }
     }
 
-    fn mouse_event_type() -> (CGMouseButton, CGEventType) {
-        if Self::button_state(CGMouseButton::Left) {
-            (CGMouseButton::Left, CGEventType::LeftMouseDragged)
-        } else if Self::button_state(CGMouseButton::Right) {
-            (CGMouseButton::Right, CGEventType::RightMouseDragged)
-        } else if Self::button_state(CGMouseButton::Center) {
-            (CGMouseButton::Center, CGEventType::OtherMouseDragged)
-        } else {
-            (CGMouseButton::Left, CGEventType::MouseMoved)
+    pub fn mouse_scroll(&mut self, dx: i32, dy: i32) -> bool {
+        let mut event = io::NXEventData::default();
+        event.scrollWheel.fixedDeltaAxis1 = dy << 13;
+        event.scrollWheel.fixedDeltaAxis2 = dx << 13;
+        self.post_event(io::NX_SCROLLWHEELMOVED, &event, 0, 0)
+    }
+
+    fn mouse_event(&mut self, event_type: u32, click_count: u32, button_number: u8, down: bool) -> bool {
+        let mut event = io::NXEventData::default();
+        event.compound.subType = io::NX_SUBTYPE_AUX_MOUSE_BUTTONS;
+        unsafe {
+            event.compound.misc.L[0] = 1 << button_number;
+            event.compound.misc.L[1] = if down { 1 << button_number } else { 0 };
         }
-    }
 
-    pub fn mouse_move_to(&mut self, x: i32, y: i32) {
-        let (button, event_type) = Self::mouse_event_type();
-        CGEvent::new_mouse_event(
-            self.event_source.clone(),
-            event_type,
-            CGPoint::new(x as CGFloat, y as CGFloat),
-            button
-        ).unwrap().post(CGEventTapLocation::HID);
-    }
-
-    fn mouse_location(&mut self) -> CGPoint {
-        CGEvent::new(self.event_source.clone()).unwrap().location()
-    }
-
-    pub fn mouse_move_relative(&mut self, x: i32, y: i32) {
-        let mut pos = self.mouse_location();
-        pos.x += x as CGFloat;
-        pos.y += y as CGFloat;
-
-        let display = CGDisplay::main();
-        pos.x = pos.x.max(0.0).min((display.pixels_wide() - 1) as CGFloat);
-        pos.y = pos.y.max(0.0).min((display.pixels_high() - 1) as CGFloat);
-
-        let (button, event_type) = Self::mouse_event_type();
-        let event = CGEvent::new_mouse_event(
-            self.event_source.clone(),
-            event_type,
-            pos,
-            button
-        ).unwrap();
-        event.set_integer_value_field(EventField::MOUSE_EVENT_DELTA_X, x as i64);
-        event.set_integer_value_field(EventField::MOUSE_EVENT_DELTA_Y, y as i64);
-        event.post(CGEventTapLocation::HID);
-    }
-
-    fn mouse_event(&mut self, button: CGMouseButton, event_type: CGEventType, click_count: u32) {
-        let event = CGEvent::new_mouse_event(
-            self.event_source.clone(),
-            event_type,
-            self.mouse_location(),
-            button
-        ).unwrap();
-        event.set_integer_value_field(EventField::MOUSE_EVENT_CLICK_STATE, click_count as i64);
-        event.post(CGEventTapLocation::HID);
-    }
-
-    fn convert_button(button: MouseButton) -> CGMouseButton {
-        match button {
-            MouseButton::Left => CGMouseButton::Left,
-            MouseButton::Right => CGMouseButton::Right,
-            MouseButton::Middle => CGMouseButton::Center,
+        if !self.post_event(io::NX_SYSDEFINED, &event, 0, 0) {
+            return false;
         }
+
+        event = io::NXEventData::default();
+        event.mouse.click = click_count as i32;
+        event.mouse.buttonNumber = button_number;
+
+        self.post_event(event_type, &event, 0, 0)
     }
 
-    fn mouse_nth_down(&mut self, button: MouseButton, click_count: u32) {
-        let button = Self::convert_button(button);
-        let event_type = match button {
-            CGMouseButton::Left => CGEventType::LeftMouseDown,
-            CGMouseButton::Right => CGEventType::RightMouseDown,
-            CGMouseButton::Center => CGEventType::OtherMouseDown,
+    pub fn mouse_down(&mut self, button: MouseButton, click_count: u32) -> bool {
+        let (event_type, button_number) = match button {
+            MouseButton::Left => (io::NX_LMOUSEDOWN, 0),
+            MouseButton::Right => (io::NX_RMOUSEDOWN, 1),
+            MouseButton::Middle => (io::NX_OMOUSEDOWN, 2),
         };
-        self.mouse_event(button, event_type, click_count);
+        if !self.mouse_event(event_type, click_count, button_number, true) {
+            return false;
+        }
+        self.button_state |= 1 << button_number;
+        true
     }
 
-    fn mouse_nth_up(&mut self, button: MouseButton, click_count: u32) {
-        let button = Self::convert_button(button);
-        let event_type = match button {
-            CGMouseButton::Left => CGEventType::LeftMouseUp,
-            CGMouseButton::Right => CGEventType::RightMouseUp,
-            CGMouseButton::Center => CGEventType::OtherMouseUp,
+    pub fn mouse_up(&mut self, button: MouseButton, click_count: u32) -> bool {
+        let (event_type, button_number) = match button {
+            MouseButton::Left => (io::NX_LMOUSEUP, 0),
+            MouseButton::Right => (io::NX_RMOUSEUP, 1),
+            MouseButton::Middle => (io::NX_OMOUSEUP, 2),
         };
-        self.mouse_event(button, event_type, click_count);
+        if !self.mouse_event(event_type, click_count, button_number, false) {
+            return false;
+        }
+        self.button_state &= !(1 << button_number);
+        true
     }
 
-    pub fn mouse_down(&mut self, button: MouseButton) {
-        self.mouse_nth_down(button, 1);
-    }
-
-    pub fn mouse_up(&mut self, button: MouseButton) {
-        self.mouse_nth_up(button, 1);
-    }
-
-    pub fn mouse_click(&mut self, button: MouseButton) {
-        self.mouse_nth_click(button, 1);
-    }
-
-    pub fn mouse_nth_click(&mut self, button: MouseButton, click_count: u32) {
-        self.mouse_nth_down(button, click_count);
-        self.mouse_nth_up(button, click_count);
-    }
-
-    pub fn mouse_scroll_x(&mut self, length: i32) {
-        CGEvent::new_scroll_event(
-            self.event_source.clone(),
-            ScrollEventUnit::PIXEL,
-            2,
-            0,
-            length,
-            0,
-        ).unwrap().post(CGEventTapLocation::HID);
-    }
-
-    pub fn mouse_scroll_y(&mut self, length: i32) {
-        CGEvent::new_scroll_event(
-            self.event_source.clone(),
-            ScrollEventUnit::PIXEL,
-            1,
-            length,
-            0,
-            0,
-        ).unwrap().post(CGEventTapLocation::HID);
+    pub fn mouse_click(&mut self, button: MouseButton, click_count: u32) -> bool {
+        self.mouse_down(button, click_count) && self.mouse_up(button, click_count)
     }
 }

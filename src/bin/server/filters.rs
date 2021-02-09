@@ -6,6 +6,7 @@ fn with_state<S: Clone + Send>(state: S) -> impl Filter<Extract = (S,), Error = 
     warp::any().map(move || state.clone())
 }
 
+/*
 pub fn click() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("click" / String)
         .and(warp::get())
@@ -23,6 +24,7 @@ pub fn press() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejectio
         .and(warp::get())
         .and_then(handlers::press)
 }
+*/
 
 pub fn trackpad() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("trackpad")

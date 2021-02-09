@@ -19,6 +19,7 @@ impl CommandCode {
     pub const COUNT: u8 = Self::MouseClick as u8 + 1;
 }
 
+#[derive(Debug)]
 pub enum ParseByteCommandError {
     InvalidCommandCode(u8),
     InvalidKey(u8),

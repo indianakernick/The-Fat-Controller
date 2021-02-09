@@ -1,10 +1,8 @@
 use log::error;
 use std::sync::Arc;
-use crate::macos::Command;
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
 use warp::ws::{Ws, WebSocket, Message};
-use crate::socket_command::parse_socket_command;
 use tokio_stream::wrappers::UnboundedReceiverStream;
 
 type Sender = mpsc::UnboundedSender<Result<Message, warp::Error>>;
@@ -16,11 +14,11 @@ pub async fn socket_upgrade(ws: Ws, ctx: SocketContext) -> Result<Box<dyn warp::
 #[derive(Clone)]
 pub struct SocketContext {
     ch_tx: Arc<RwLock<Option<Sender>>>,
-    event: mpsc::UnboundedSender<Command>,
+    event: mpsc::UnboundedSender<tfc::Command>,
 }
 
 impl SocketContext {
-    pub fn new(event: mpsc::UnboundedSender<Command>) -> Self {
+    pub fn new(event: mpsc::UnboundedSender<tfc::Command>) -> Self {
         Self {
             ch_tx: Default::default(),
             event,
@@ -69,11 +67,17 @@ impl SocketContext {
     fn receive(&self, message: Message) {
         if message.is_binary() {
             let mut bytes = message.as_bytes();
+            if bytes.len() == 0 {
+                return;
+            }
             loop {
-                let (command, len) = parse_socket_command(bytes);
-                if let Command::Null = command {
-                    return;
-                }
+                let (command, len) = match tfc::parse_byte_command(bytes) {
+                    Ok(pair) => pair,
+                    Err(e) => {
+                        error!("{:?}", e);
+                        break;
+                    },
+                };
                 if self.event.send(command).is_err() {}
                 if len < bytes.len() {
                     bytes = &bytes[len..];

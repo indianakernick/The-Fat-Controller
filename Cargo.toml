@@ -13,7 +13,7 @@ name = "tfc"
 path = "src/lib.rs"
 
 [[bin]]
-name = "server"
+name = "tfc-server"
 path = "src/bin/server/main.rs"
 
 [dependencies]
