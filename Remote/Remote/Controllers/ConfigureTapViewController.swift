@@ -25,15 +25,15 @@ fileprivate let mouseButtonRows = [
 
 fileprivate let keyRows = [
     (key: Key.capsLock, name: "Caps Lock"),
-    (key: Key.control, name: "Control"),
     (key: Key.shift, name: "Shift"),
-    (key: Key.option, name: "Option"),
-    (key: Key.command, name: "Command"),
-    (key: Key.rightControl, name: "Right Control"),
+    (key: Key.control, name: "Control"),
+    (key: Key.alt, name: "Alt"),
+    (key: Key.meta, name: "Meta"),
     (key: Key.rightShift, name: "Right Shift"),
-    (key: Key.rightOption, name: "Right Option"),
-    (key: Key.rightCommand, name: "Right Command"),
-    (key: Key.function, name: "Function"),
+    (key: Key.rightControl, name: "Right Control"),
+    (key: Key.rightAlt, name: "Right Alt"),
+    (key: Key.rightMeta, name: "Right Meta"),
+    (key: Key.fn, name: "Function"),
     
     (key: Key.return, name: "Return"),
     (key: Key.escape, name: "Escape"),
@@ -48,15 +48,15 @@ fileprivate let keyRows = [
     (key: Key.backslash, name: "Backslash"),
     (key: Key.semicolon, name: "Semicolon"),
     (key: Key.quote, name: "Quote"),
-    (key: Key.grave, name: "Tilde"),
+    (key: Key.grave, name: "Grave"),
     (key: Key.comma, name: "Comma"),
     (key: Key.period, name: "Period"),
     (key: Key.slash, name: "Slash"),
     
     (key: Key.upArrow, name: "Up Arrow"),
+    (key: Key.rightArrow, name: "Right Arrow"),
     (key: Key.downArrow, name: "Down Arrow"),
     (key: Key.leftArrow, name: "Left Arrow"),
-    (key: Key.rightArrow, name: "Right Arrow"),
     (key: Key.pageUp, name: "Page Up"),
     (key: Key.pageDown, name: "Page Down"),
     (key: Key.home, name: "Home"),
@@ -132,19 +132,13 @@ fileprivate let keyRows = [
     (key: Key.f10, name: "F10"),
     (key: Key.f11, name: "F11"),
     (key: Key.f12, name: "F12"),
-    (key: Key.f13, name: "F13"),
-    (key: Key.f14, name: "F14"),
-    (key: Key.f15, name: "F15"),
-    (key: Key.f16, name: "F16"),
-    (key: Key.f17, name: "F17"),
-    (key: Key.f18, name: "F18"),
-    (key: Key.f19, name: "F19"),
-    (key: Key.f20, name: "F20"),
     
+    (key: Key.fastForward, name: "Fast-forward"),
+    (key: Key.rewind, name: "Rewind"),
+    (key: Key.playPause, name: "Play/pause"),
     (key: Key.volumeUp, name: "Volume Up"),
     (key: Key.volumeDown, name: "Volume Down"),
     (key: Key.mute, name: "Mute"),
-    (key: Key.help, name: "Help"),
 ]
 
 fileprivate struct CommandRow {
@@ -329,7 +323,10 @@ class ConfigureTapViewController: UIViewController {
         }
         
         let display = commandName + ", " + argumentName
-        let data = [commandByte, argumentByte]
+        var data = [commandByte, argumentByte]
+        if commandByte != CommandCode.keyClick.rawValue && commandByte != CommandCode.keyUp.rawValue {
+            data.append(0);
+        }
         let listDelegate = tableView.dataSource as! CommandListDelegate
         listDelegate.rows.append(CommandRow(display: display, data: data))
         let count = listDelegate.rows.count

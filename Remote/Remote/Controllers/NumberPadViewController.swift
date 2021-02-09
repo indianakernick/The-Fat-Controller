@@ -50,10 +50,10 @@ class NumberPadViewController: BasicViewController {
         sixBtn.text = "→"
         twoBtn.text = "↓"
         fourBtn.text = "←"
-        setPressListener(for: eightBtn, with: [CommandCode.keyClickFlags.rawValue, Key.upArrow.rawValue, Flags.shift.rawValue])
-        setPressListener(for: sixBtn, with: [CommandCode.keyClickFlags.rawValue, Key.rightArrow.rawValue, Flags.shift.rawValue])
-        setPressListener(for: twoBtn, with: [CommandCode.keyClickFlags.rawValue, Key.downArrow.rawValue, Flags.shift.rawValue])
-        setPressListener(for: fourBtn, with: [CommandCode.keyClickFlags.rawValue, Key.leftArrow.rawValue, Flags.shift.rawValue])
+        setPressListener(for: eightBtn, with: Command.keyClick(Key.upArrow, with: Key.shift))
+        setPressListener(for: sixBtn, with: Command.keyClick(Key.rightArrow, with: Key.shift))
+        setPressListener(for: twoBtn, with: Command.keyClick(Key.downArrow, with: Key.shift))
+        setPressListener(for: fourBtn, with: Command.keyClick(Key.leftArrow, with: Key.shift))
         pressShift()
     }
     
@@ -62,56 +62,61 @@ class NumberPadViewController: BasicViewController {
         sixBtn.text = "6"
         twoBtn.text = "2"
         fourBtn.text = "4"
-        setPressListener(for: eightBtn, with: [CommandCode.keyClick.rawValue, Key.n8.rawValue])
-        setPressListener(for: sixBtn, with: [CommandCode.keyClick.rawValue, Key.n6.rawValue])
-        setPressListener(for: twoBtn, with: [CommandCode.keyClick.rawValue, Key.n2.rawValue])
-        setPressListener(for: fourBtn, with: [CommandCode.keyClick.rawValue, Key.n4.rawValue])
+        setPressListener(for: eightBtn, with: Command.keyClick(Key.n8))
+        setPressListener(for: sixBtn, with: Command.keyClick(Key.n6))
+        setPressListener(for: twoBtn, with: Command.keyClick(Key.n2))
+        setPressListener(for: fourBtn, with: Command.keyClick(Key.n4))
         releaseShift()
     }
+    
+    // \[CommandCode\.keyClickFlags\.rawValue, (Key\.\w+)\.rawValue, Flags\.shift.rawValue\]
+    // Command.keyClick($1, with: Key.shift)
+    // \[CommandCode.keyClick.rawValue, (Key\.\w+)\.rawValue]
+    // Command.keyClick($1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pressShift = makeListener(with: [CommandCode.keyDown.rawValue, Key.shift.rawValue])
-        releaseShift = makeListener(with: [CommandCode.keyUp.rawValue, Key.shift.rawValue])
+        pressShift = makeListener(with: Command.keyDown(Key.shift))
+        releaseShift = makeListener(with: Command.keyUp(Key.shift))
         
-        setPressListener(for: cutBtn, with: [CommandCode.keyClickFlags.rawValue, Key.x.rawValue, Flags.command.rawValue])
-        setPressListener(for: copyBtn, with: [CommandCode.keyClickFlags.rawValue, Key.c.rawValue, Flags.command.rawValue])
-        setPressListener(for: pasteBtn, with: [CommandCode.keyClickFlags.rawValue, Key.v.rawValue, Flags.command.rawValue])
-        setPressListener(for: equalBtn, with: [CommandCode.keyClick.rawValue, Key.equal.rawValue])
-        setPressListener(for: divideBtn, with: [CommandCode.keyClick.rawValue, Key.slash.rawValue])
-        setPressListener(for: multiplyBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n8.rawValue, Flags.shift.rawValue])
-        setPressListener(for: deleteBtn, with: [CommandCode.keyClick.rawValue, Key.delete.rawValue])
+        setPressListener(for: cutBtn, with: Command.keyClick(Key.x, with: Key.meta))
+        setPressListener(for: copyBtn, with: Command.keyClick(Key.c, with: Key.meta))
+        setPressListener(for: pasteBtn, with: Command.keyClick(Key.v, with: Key.meta))
+        setPressListener(for: equalBtn, with: Command.keyClick(Key.equal))
+        setPressListener(for: divideBtn, with: Command.keyClick(Key.slash))
+        setPressListener(for: multiplyBtn, with: Command.keyClick(Key.n8, with: Key.shift))
+        setPressListener(for: deleteBtn, with: Command.keyClick(Key.delete))
         
-        setPressListener(for: lparenBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n9.rawValue, Flags.shift.rawValue])
-        setPressListener(for: upBtn, with: [CommandCode.keyClick.rawValue, Key.upArrow.rawValue])
-        setPressListener(for: rparenBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n0.rawValue, Flags.shift.rawValue])
-        setPressListener(for: sevenBtn, with: [CommandCode.keyClick.rawValue, Key.n7.rawValue])
-        setPressListener(for: eightBtn, with: [CommandCode.keyClick.rawValue, Key.n8.rawValue])
-        setPressListener(for: nineBtn, with: [CommandCode.keyClick.rawValue, Key.n9.rawValue])
-        setPressListener(for: subtractBtn, with: [CommandCode.keyClick.rawValue, Key.minus.rawValue])
+        setPressListener(for: lparenBtn, with: Command.keyClick(Key.n9, with: Key.shift))
+        setPressListener(for: upBtn, with: Command.keyClick(Key.upArrow))
+        setPressListener(for: rparenBtn, with: Command.keyClick(Key.n0, with: Key.shift))
+        setPressListener(for: sevenBtn, with: Command.keyClick(Key.n7))
+        setPressListener(for: eightBtn, with: Command.keyClick(Key.n8))
+        setPressListener(for: nineBtn, with: Command.keyClick(Key.n9))
+        setPressListener(for: subtractBtn, with: Command.keyClick(Key.minus))
         
-        setPressListener(for: leftBtn, with: [CommandCode.keyClick.rawValue, Key.leftArrow.rawValue])
-        setPressListener(for: dollarBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n4.rawValue, Flags.shift.rawValue])
-        setPressListener(for: rightBtn, with: [CommandCode.keyClick.rawValue, Key.rightArrow.rawValue])
-        setPressListener(for: fourBtn, with: [CommandCode.keyClick.rawValue, Key.n4.rawValue])
-        setPressListener(for: fiveBtn, with: [CommandCode.keyClick.rawValue, Key.n5.rawValue])
-        setPressListener(for: sixBtn, with: [CommandCode.keyClick.rawValue, Key.n6.rawValue])
-        setPressListener(for: addBtn, with: [CommandCode.keyClickFlags.rawValue, Key.equal.rawValue, Flags.shift.rawValue])
+        setPressListener(for: leftBtn, with: Command.keyClick(Key.leftArrow))
+        setPressListener(for: dollarBtn, with: Command.keyClick(Key.n4, with: Key.shift))
+        setPressListener(for: rightBtn, with: Command.keyClick(Key.rightArrow))
+        setPressListener(for: fourBtn, with: Command.keyClick(Key.n4))
+        setPressListener(for: fiveBtn, with: Command.keyClick(Key.n5))
+        setPressListener(for: sixBtn, with: Command.keyClick(Key.n6))
+        setPressListener(for: addBtn, with: Command.keyClick(Key.equal, with: Key.shift))
         
-        setPressListener(for: lessBtn, with: [CommandCode.keyClickFlags.rawValue, Key.comma.rawValue, Flags.shift.rawValue])
-        setPressListener(for: downBtn, with: [CommandCode.keyClick.rawValue, Key.downArrow.rawValue])
-        setPressListener(for: greaterBtn, with: [CommandCode.keyClickFlags.rawValue, Key.period.rawValue, Flags.shift.rawValue])
-        setPressListener(for: oneBtn, with: [CommandCode.keyClick.rawValue, Key.n1.rawValue])
-        setPressListener(for: twoBtn, with: [CommandCode.keyClick.rawValue, Key.n2.rawValue])
-        setPressListener(for: threeBtn, with: [CommandCode.keyClick.rawValue, Key.n3.rawValue])
-        setPressListener(for: returnBtn, with: [CommandCode.keyClick.rawValue, Key.return.rawValue])
+        setPressListener(for: lessBtn, with: Command.keyClick(Key.comma, with: Key.shift))
+        setPressListener(for: downBtn, with: Command.keyClick(Key.downArrow))
+        setPressListener(for: greaterBtn, with: Command.keyClick(Key.period, with: Key.shift))
+        setPressListener(for: oneBtn, with: Command.keyClick(Key.n1))
+        setPressListener(for: twoBtn, with: Command.keyClick(Key.n2))
+        setPressListener(for: threeBtn, with: Command.keyClick(Key.n3))
+        setPressListener(for: returnBtn, with: Command.keyClick(Key.return))
         
-        setPressListener(for: caretBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n6.rawValue, Flags.shift.rawValue])
-        setPressListener(for: percentBtn, with: [CommandCode.keyClickFlags.rawValue, Key.n5.rawValue, Flags.shift.rawValue])
-        setPressListener(for: commaBtn, with: [CommandCode.keyClick.rawValue, Key.comma.rawValue])
-        setPressListener(for: zeroBtn, with: [CommandCode.keyClick.rawValue, Key.n0.rawValue])
-        setPressListener(for: periodBtn, with: [CommandCode.keyClick.rawValue, Key.period.rawValue])
+        setPressListener(for: caretBtn, with: Command.keyClick(Key.n6, with: Key.shift))
+        setPressListener(for: percentBtn, with: Command.keyClick(Key.n5, with: Key.shift))
+        setPressListener(for: commaBtn, with: Command.keyClick(Key.comma))
+        setPressListener(for: zeroBtn, with: Command.keyClick(Key.n0))
+        setPressListener(for: periodBtn, with: Command.keyClick(Key.period))
         
         shiftBtn.pressed = shiftPressed
         shiftBtn.released = shiftReleased

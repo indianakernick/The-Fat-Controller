@@ -9,10 +9,10 @@
 import Foundation
 
 class SlideViewController: BasicViewController {
-    private let lastData = Data([CommandCode.keyClick.rawValue, Key.end.rawValue])
-    private let nextData = Data([CommandCode.keyClick.rawValue, Key.rightArrow.rawValue])
-    private let previousData = Data([CommandCode.keyClick.rawValue, Key.leftArrow.rawValue])
-    private let firstData = Data([CommandCode.keyClick.rawValue, Key.home.rawValue])
+    private let lastData = Command.keyClick(Key.end)
+    private let nextData = Command.keyClick(Key.rightArrow)
+    private let previousData = Command.keyClick(Key.leftArrow)
+    private let firstData = Command.keyClick(Key.home)
     
     @IBAction func lastPressed() {
         send(lastData)

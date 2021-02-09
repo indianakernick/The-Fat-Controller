@@ -9,13 +9,13 @@
 import Foundation
 
 class VideoViewController: BasicViewController {
-    private let muteData = Data([CommandCode.keyClick.rawValue, Key.mute.rawValue])
-    private let volumeDownData = Data([CommandCode.keyClick.rawValue, Key.volumeDown.rawValue])
-    private let volumeUpData = Data([CommandCode.keyClick.rawValue, Key.volumeUp.rawValue])
-    private let playPauseData = Data([CommandCode.keyClick.rawValue, Key.space.rawValue])
-    private let backwardData = Data([CommandCode.keyClick.rawValue, Key.leftArrow.rawValue])
-    private let timeData = Data([CommandCode.mouseMoveRelative.rawValue, 0, 0, 0, 0])
-    private let forwardData = Data([CommandCode.keyClick.rawValue, Key.rightArrow.rawValue])
+    private let muteData = Command.keyClick(Key.mute)
+    private let volumeDownData = Command.keyClick(Key.volumeDown)
+    private let volumeUpData = Command.keyClick(Key.volumeUp)
+    private let playPauseData = Command.keyClick(Key.space)
+    private let backwardData = Command.keyClick(Key.leftArrow)
+    private let timeData = Command.mouseMoveRel()
+    private let forwardData = Command.keyClick(Key.rightArrow)
     
     @IBAction func mutePressed() {
         send(muteData)

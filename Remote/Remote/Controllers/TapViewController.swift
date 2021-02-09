@@ -20,8 +20,8 @@ fileprivate func dataFromPlist(plist: [Any]) -> Data {
 class TapViewController: BasicViewController {
     @IBOutlet weak var tap: TapInput!
     
-    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue])
-    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue])
+    private var downData = Command.mouseDown(MouseButton.left)
+    private var upData = Command.mouseUp(MouseButton.left)
     
     static weak var instance: TapViewController?
     

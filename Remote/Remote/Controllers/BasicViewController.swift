@@ -21,15 +21,14 @@ class BasicViewController: UIViewController, SocketManagerDelegate, TakeSocket {
         socket.send(data)
     }
     
-    func makeListener(with array: [UInt8]) -> () -> () {
-        let data = Data(array)
+    func makeListener(with data: Data) -> () -> () {
         return { [weak self] in
             self!.socket.send(data)
         }
     }
     
-    func setPressListener(for button: ButtonInput, with array: [UInt8]) {
-        button.pressed = makeListener(with: array)
+    func setPressListener(for button: ButtonInput, with data: Data) {
+        button.pressed = makeListener(with: data)
     }
     
     func onlineStatusChanged(online: Bool) {

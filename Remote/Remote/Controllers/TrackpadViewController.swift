@@ -8,26 +8,19 @@
 
 import Foundation
 
-fileprivate func setInt16(buf: inout Data, index: Int, value: Int16) {
-    buf[index] = UInt8((value >> 8) & 0xFF)
-    buf[index + 1] = UInt8(value & 0xFF)
-}
-
 class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     @IBOutlet weak var trackpad: TrackpadInput!
     
-    private var clickData = Data([CommandCode.mouseClick.rawValue, MouseButton.left.rawValue])
-    private var doubleClickData = Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 2])
-    private var tripleClickData = Data([CommandCode.mouseNthClick.rawValue, MouseButton.left.rawValue, 3])
-    private var rightClickData = Data([CommandCode.mouseClick.rawValue, MouseButton.right.rawValue])
-    private var moveData = Data([CommandCode.mouseMoveRelative.rawValue, 0, 0, 0, 0])
-    private var scrollXData = Data([CommandCode.mouseScrollX.rawValue, 0, 0])
-    private var scrollYData = Data([CommandCode.mouseScrollY.rawValue, 0, 0])
-    private var scrollXYData = Data([CommandCode.mouseScrollX.rawValue, 0, 0, CommandCode.mouseScrollY.rawValue, 0, 0])
-    private var downData = Data([CommandCode.mouseDown.rawValue, MouseButton.left.rawValue])
-    private var upData = Data([CommandCode.mouseUp.rawValue, MouseButton.left.rawValue])
-    private var spaceLeftData = Data([CommandCode.keyClickFlags.rawValue, Key.leftArrow.rawValue, Flags.control.rawValue])
-    private var spaceRightData = Data([CommandCode.keyClickFlags.rawValue, Key.rightArrow.rawValue, Flags.control.rawValue])
+    private var clickData = Command.mouseClick(MouseButton.left)
+    private var doubleClickData = Command.mouseClick(MouseButton.left, count: 2)
+    private var tripleClickData = Command.mouseClick(MouseButton.left, count: 3)
+    private var rightClickData = Command.mouseClick(MouseButton.right)
+    private var moveData = Command.mouseMoveRel()
+    private var scrollData = Command.mouseScroll()
+    private var downData = Command.mouseDown(MouseButton.left)
+    private var upData = Command.mouseUp(MouseButton.left)
+    private var spaceLeftData = Command.keyClick(Key.leftArrow, with: Key.control)
+    private var spaceRightData = Command.keyClick(Key.rightArrow, with: Key.control)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,23 +51,15 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     
     func mouseMove(dx: Int32, dy: Int32) {
         if dx != 0 || dy != 0 {
-            setInt16(buf: &moveData, index: 1, value: Int16(dx))
-            setInt16(buf: &moveData, index: 3, value: Int16(dy))
+            Command.setMouseParams(&moveData, x: Int16(dx), y: Int16(dy));
             send(moveData)
         }
     }
     
     func mouseScroll(dx: Int32, dy: Int32) {
-        if dx != 0 && dy != 0 {
-            setInt16(buf: &scrollXYData, index: 1, value: Int16(dx))
-            setInt16(buf: &scrollXYData, index: 4, value: Int16(dy))
-            send(scrollXYData)
-        } else if dx != 0 {
-            setInt16(buf: &scrollXData, index: 1, value: Int16(dx))
-            send(scrollXData)
-        } else if dy != 0 {
-            setInt16(buf: &scrollYData, index: 1, value: Int16(dy))
-            send(scrollYData)
+        if dx != 0 || dy != 0 {
+            Command.setMouseParams(&scrollData, x: Int16(-dx), y: Int16(-dy));
+            send(scrollData)
         }
     }
     
