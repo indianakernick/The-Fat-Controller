@@ -1,5 +1,6 @@
-use crate::Key;
+use super::Context;
 use super::iokit as io;
+use crate::{FallibleContext, Key};
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
@@ -147,7 +148,7 @@ fn update_modifiers(modifiers: &mut u32, left: u32, right: u32, both: u32) {
     }
 }
 
-impl super::Context {
+impl Context {
     fn update_modifiers(&mut self) {
         update_modifiers(&mut self.modifiers, io::NX_DEVICELSHIFTKEYMASK, io::NX_DEVICERSHIFTKEYMASK, io::NX_SHIFTMASK);
         update_modifiers(&mut self.modifiers, io::NX_DEVICELCTLKEYMASK, io::NX_DEVICERCTLKEYMASK, io::NX_CONTROLMASK);
@@ -155,7 +156,7 @@ impl super::Context {
         update_modifiers(&mut self.modifiers, io::NX_DEVICELCMDKEYMASK, io::NX_DEVICERCMDKEYMASK, io::NX_COMMANDMASK);
     }
 
-    fn key_event(&mut self, key: Key, down: bool) -> bool {
+    fn key_event(&mut self, key: Key, down: bool) -> Result<(), <Self as FallibleContext>::Error> {
         let event_type = if down { io::NX_KEYDOWN } else { io::NX_KEYUP };
         let mut event = io::NXEventData::default();
 
@@ -168,14 +169,12 @@ impl super::Context {
                     event.key.charSet = io::NX_ASCIISET;
                     event.key.keyCode = io::kVK_CapsLock as u16;
 
-                    if !self.post_event(
+                    self.post_event(
                         io::NX_FLAGSCHANGED,
                         &event,
                         self.modifiers,
                         io::kIOHIDSetGlobalEventFlags
-                    ) {
-                        return false;
-                    }
+                    )?;
                 }
 
                 event.compound.subType = io::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
@@ -222,16 +221,19 @@ impl super::Context {
             },
         }
     }
+}
 
-    pub fn key_down(&mut self, key: Key) -> bool {
+impl crate::KeyboardContext for Context {
+    fn key_down(&mut self, key: Key) -> Result<(), Self::Error> {
         self.key_event(key, true)
     }
 
-    pub fn key_up(&mut self, key: Key) -> bool {
+    fn key_up(&mut self, key: Key) -> Result<(), Self::Error> {
         self.key_event(key, false)
     }
 
-    pub fn key_click(&mut self, key: Key) -> bool {
-        self.key_down(key) && self.key_up(key)
+    fn key_click(&mut self, key: Key) -> Result<(), Self::Error> {
+        self.key_down(key)?;
+        self.key_up(key)
     }
 }

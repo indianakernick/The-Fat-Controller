@@ -31,6 +31,6 @@ async fn main() {
     });
 
     while let Some(command) = ch_rx.recv().await {
-        tfc_ctx.execute_command(command);
+        tfc_ctx.execute_command(command).unwrap();
     }
 }

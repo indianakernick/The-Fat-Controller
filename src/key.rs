@@ -132,3 +132,9 @@ pub enum Key {
 impl Key {
     pub const COUNT: u8 = Self::Mute as u8 + 1;
 }
+
+pub trait KeyboardContext: crate::FallibleContext {
+    fn key_down(&mut self, key: Key) -> Result<(), Self::Error>;
+    fn key_up(&mut self, key: Key) -> Result<(), Self::Error>;
+    fn key_click(&mut self, key: Key) -> Result<(), Self::Error>;
+}

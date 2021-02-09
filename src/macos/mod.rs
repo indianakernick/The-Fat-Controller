@@ -1,11 +1,16 @@
 mod iokit;
+mod error;
+mod info;
 mod key;
 mod mouse;
 
+pub use error::*;
+pub use info::*;
 pub use key::*;
 pub use mouse::*;
 
 use iokit as io;
+use crate::FallibleContext;
 
 pub struct Context {
     hid_connect: io::io_connect_t,
@@ -21,7 +26,7 @@ pub struct Context {
 // impl !Send for EventContext {}
 // impl !Sync for EventContext {}
 
-fn connect_to_service(name: *const u8, connect_type: u32) -> Option<io::io_connect_t> {
+fn connect_to_service(name: *const u8, connect_type: u32) -> Result<io::io_connect_t, IOKitError> {
     unsafe {
         // Create a dictionary that describes a service matching a name.
         let matching = io::IOServiceMatching(name);
@@ -30,8 +35,9 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Option<io::io_conne
         // dictionary. IOServiceGetMatchingServices will release the
         // dictionary.
         let mut iterator = io::IO_OBJECT_NULL;
-        if io::IOServiceGetMatchingServices(io::kIOMasterPortDefault, matching, &mut iterator) != io::kIOReturnSuccess {
-            return None;
+        let error_code = io::IOServiceGetMatchingServices(io::kIOMasterPortDefault, matching, &mut iterator);
+        if error_code != io::kIOReturnSuccess {
+            return Err(IOKitError::new(error_code));
         }
 
         let mut found = false;
@@ -60,48 +66,46 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Option<io::io_conne
         io::IOObjectRelease(iterator);
 
         if found {
-            Some(connect)
+            Ok(connect)
         } else {
-            None
+            Err(IOKitError::new(io::kIOReturnError))
         }
     }
 }
 
 impl Context {
-    pub fn new() -> Option<Self> {
-        let hid_connect = match connect_to_service(io::kIOHIDSystemClass.as_ptr(), io::kIOHIDParamConnectType) {
-            Some(connect) => connect,
-            None => return None,
-        };
+    pub fn new() -> Result<Self, <Context as FallibleContext>::Error> {
+        let hid_connect = connect_to_service(io::kIOHIDSystemClass.as_ptr(), io::kIOHIDParamConnectType)?;
 
         let fb_connect = match connect_to_service(io::kIOFramebufferClass.as_ptr(), io::kIOFBSharedConnectType) {
-            Some(connect) => connect,
-            None => {
+            Ok(connect) => connect,
+            Err(e) => {
                 unsafe {
                     io::IOServiceClose(hid_connect);
                 }
-                return None;
+                return Err(e);
             },
         };
 
         let mut fb_address = 0;
         unsafe {
             let mut size = 0;
-            if io::IOConnectMapMemory64(
+            let error_code = io::IOConnectMapMemory64(
                 fb_connect,
                 io::kIOFBCursorMemory,
                 io::mach_task_self_,
                 &mut fb_address,
                 &mut size,
                 io::kIOMapAnywhere
-            ) != io::kIOReturnSuccess {
+            );
+            if error_code != io::kIOReturnSuccess {
                 io::IOServiceClose(fb_connect);
                 io::IOServiceClose(hid_connect);
-                return None;
+                return Err(IOKitError::new(error_code));
             }
         }
 
-        Some(Context {
+        Ok(Context {
             hid_connect,
             fb_connect,
             fb_address,
@@ -116,9 +120,10 @@ impl Context {
         event: *const io::NXEventData,
         flags: io::IOOptionBits,
         options: io::IOOptionBits
-    ) -> bool {
+    ) -> Result<(), IOKitError> {
+        let error_code;
         unsafe {
-            io::IOHIDPostEvent(
+            error_code = io::IOHIDPostEvent(
                 self.hid_connect,
                 event_type,
                 io::IOGPoint{ x: 0, y: 0 },
@@ -126,25 +131,12 @@ impl Context {
                 io::kNXEventDataVersion,
                 flags,
                 options
-            ) == io::kIOReturnSuccess
+            );
         }
-    }
-
-    pub fn mouse_location(&mut self) -> (i32, i32) {
-        unsafe {
-            let struct_ptr = self.fb_address as *const io::StdFBShmem_t;
-            let loc_ptr: *const io::IOGPoint = &(*struct_ptr).cursorLoc;
-            let loc = std::ptr::read_volatile(loc_ptr);
-            (loc.x as i32, loc.y as i32)
-        }
-    }
-
-    pub fn screen_size(&mut self) -> (i32, i32) {
-        unsafe {
-            let struct_ptr = self.fb_address as *const io::StdFBShmem_t;
-            let bounds_ptr: *const io::IOGBounds = &(*struct_ptr).screenBounds;
-            let bounds = std::ptr::read_volatile(bounds_ptr);
-            ((bounds.maxx - bounds.minx) as i32, (bounds.maxy - bounds.miny) as i32)
+        if error_code == io::kIOReturnSuccess {
+            Ok(())
+        } else {
+            Err(IOKitError::new(error_code))
         }
     }
 }

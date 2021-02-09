@@ -1,4 +1,4 @@
-use super::{Context, Key, MouseButton};
+use crate::{FallibleContext, KeyboardContext, MouseContext, Context, Key, MouseButton};
 
 #[derive(Debug)]
 pub enum Command {
@@ -14,13 +14,10 @@ pub enum Command {
     MouseClick(MouseButton),
 }
 
-// Do we need a delay command?
-// Should we use 16 bit integers here since they're used in the byte representation?
-// Don't need click count!
-// Maybe don't need key repeat either then?
-
 impl Context {
-    pub fn execute_command(&mut self, command: Command) -> bool {
+    pub fn execute_command(&mut self, command: Command)
+        -> Result<(), <Context as FallibleContext>::Error>
+    {
         use Command::*;
         match command {
             KeyDown(key) => self.key_down(key),
