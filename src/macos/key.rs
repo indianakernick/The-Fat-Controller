@@ -155,7 +155,7 @@ impl super::Context {
         update_modifiers(&mut self.modifiers, io::NX_DEVICELCMDKEYMASK, io::NX_DEVICERCMDKEYMASK, io::NX_COMMANDMASK);
     }
 
-    fn key_event(&mut self, key: Key, repeat: bool, down: bool) -> bool {
+    fn key_event(&mut self, key: Key, down: bool) -> bool {
         let event_type = if down { io::NX_KEYDOWN } else { io::NX_KEYUP };
         let mut event = io::NXEventData::default();
 
@@ -165,7 +165,6 @@ impl super::Context {
                     self.modifiers ^= io::NX_ALPHASHIFTMASK;
 
                     event.key.origCharSet = io::NX_ASCIISET;
-                    event.key.repeat = repeat as i16;
                     event.key.charSet = io::NX_ASCIISET;
                     event.key.keyCode = io::kVK_CapsLock as u16;
 
@@ -181,7 +180,7 @@ impl super::Context {
 
                 event.compound.subType = io::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
                 unsafe {
-                    event.compound.misc.L[0] = aux_key(io::NX_KEYTYPE_CAPS_LOCK, event_type, repeat);
+                    event.compound.misc.L[0] = aux_key(io::NX_KEYTYPE_CAPS_LOCK, event_type, false);
                 }
                 self.post_event(io::NX_SYSDEFINED, &event, 0, 0)
             },
@@ -196,7 +195,6 @@ impl super::Context {
                 self.update_modifiers();
 
                 event.key.origCharSet = io::NX_ASCIISET;
-                event.key.repeat = repeat as i16;
                 event.key.charSet = io::NX_ASCIISET;
                 event.key.keyCode = key_code as u16;
 
@@ -210,7 +208,6 @@ impl super::Context {
 
             KeyCode::Regular(key_code) => {
                 event.key.origCharSet = io::NX_ASCIISET;
-                event.key.repeat = repeat as i16;
                 event.key.charSet = io::NX_ASCIISET;
                 event.key.keyCode = key_code as u16;
                 self.post_event(event_type, &event, 0, 0)
@@ -219,22 +216,22 @@ impl super::Context {
             KeyCode::Media(key_code) => {
                 event.compound.subType = io::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
                 unsafe {
-                    event.compound.misc.L[0] = aux_key(key_code, event_type, repeat);
+                    event.compound.misc.L[0] = aux_key(key_code, event_type, false);
                 }
                 self.post_event(io::NX_SYSDEFINED, &event, 0, 0)
             },
         }
     }
 
-    pub fn key_down(&mut self, key: Key, repeat: bool) -> bool {
-        self.key_event(key, repeat, true)
+    pub fn key_down(&mut self, key: Key) -> bool {
+        self.key_event(key, true)
     }
 
     pub fn key_up(&mut self, key: Key) -> bool {
-        self.key_event(key, false, false)
+        self.key_event(key, false)
     }
 
     pub fn key_click(&mut self, key: Key) -> bool {
-        self.key_down(key, false) && self.key_up(key)
+        self.key_down(key) && self.key_up(key)
     }
 }

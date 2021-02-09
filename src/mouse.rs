@@ -1,5 +1,5 @@
 #[repr(u8)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug)]
 pub enum MouseButton {
     Left,
     Right,

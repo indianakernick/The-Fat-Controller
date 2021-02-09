@@ -12,8 +12,6 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     @IBOutlet weak var trackpad: TrackpadInput!
     
     private var clickData = Command.mouseClick(MouseButton.left)
-    private var doubleClickData = Command.mouseClick(MouseButton.left, count: 2)
-    private var tripleClickData = Command.mouseClick(MouseButton.left, count: 3)
     private var rightClickData = Command.mouseClick(MouseButton.right)
     private var moveData = Command.mouseMoveRel()
     private var scrollData = Command.mouseScroll()
@@ -38,11 +36,11 @@ class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
     }
     
     func mouseDoubleClick() {
-        send(doubleClickData)
+        send(clickData)
     }
     
     func mouseTripleClick() {
-        send(tripleClickData)
+        send(clickData)
     }
     
     func mouseRightClick() {

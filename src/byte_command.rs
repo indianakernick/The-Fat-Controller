@@ -73,8 +73,8 @@ pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteComma
 
     match parse_command_code(buf[0])? {
         CommandCode::KeyDown => {
-            check_buffer_length(buf, 3)?;
-            Ok((Command::KeyDown(parse_key(buf[1])?, buf[2] != 0), 3))
+            check_buffer_length(buf, 2)?;
+            Ok((Command::KeyDown(parse_key(buf[1])?), 2))
         },
         CommandCode::KeyUp => {
             check_buffer_length(buf, 2)?;
@@ -101,16 +101,16 @@ pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteComma
             Ok((Command::MouseScroll(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
         },
         CommandCode::MouseDown => {
-            check_buffer_length(buf, 3)?;
-            Ok((Command::MouseDown(parse_mouse_button(buf[1])?, buf[2] as u32), 3))
+            check_buffer_length(buf, 2)?;
+            Ok((Command::MouseDown(parse_mouse_button(buf[1])?), 2))
         },
         CommandCode::MouseUp => {
-            check_buffer_length(buf, 3)?;
-            Ok((Command::MouseUp(parse_mouse_button(buf[1])?, buf[2] as u32), 3))
+            check_buffer_length(buf, 2)?;
+            Ok((Command::MouseUp(parse_mouse_button(buf[1])?), 2))
         },
         CommandCode::MouseClick => {
-            check_buffer_length(buf, 3)?;
-            Ok((Command::MouseClick(parse_mouse_button(buf[1])?, buf[2] as u32), 3))
+            check_buffer_length(buf, 2)?;
+            Ok((Command::MouseClick(parse_mouse_button(buf[1])?), 2))
         },
     }
 }

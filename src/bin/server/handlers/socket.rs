@@ -1,5 +1,5 @@
-use log::error;
 use std::sync::Arc;
+use log::{debug, error};
 use tokio::sync::{RwLock, mpsc};
 use futures::{FutureExt, StreamExt};
 use warp::ws::{Ws, WebSocket, Message};
@@ -78,6 +78,7 @@ impl SocketContext {
                         break;
                     },
                 };
+                debug!("{:?}", command);
                 if self.event.send(command).is_err() {}
                 if len < bytes.len() {
                     bytes = &bytes[len..];

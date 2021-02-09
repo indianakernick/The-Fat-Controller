@@ -323,10 +323,7 @@ class ConfigureTapViewController: UIViewController {
         }
         
         let display = commandName + ", " + argumentName
-        var data = [commandByte, argumentByte]
-        if commandByte != CommandCode.keyClick.rawValue && commandByte != CommandCode.keyUp.rawValue {
-            data.append(0);
-        }
+        let data = [commandByte, argumentByte]
         let listDelegate = tableView.dataSource as! CommandListDelegate
         listDelegate.rows.append(CommandRow(display: display, data: data))
         let count = listDelegate.rows.count
