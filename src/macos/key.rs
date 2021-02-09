@@ -21,11 +21,11 @@ fn to_key_code(key: Key) -> KeyCode {
         Shift => Modifier(kVK_Shift, NX_DEVICELSHIFTKEYMASK),
         Control => Modifier(kVK_Control, NX_DEVICELCTLKEYMASK),
         Alt => Modifier(kVK_Option, NX_DEVICELALTKEYMASK),
-        Meta => Modifier(kVK_Command, NX_DEVICELCMDKEYMASK),
+        Meta | ControlOrMeta => Modifier(kVK_Command, NX_DEVICELCMDKEYMASK),
         RightShift => Modifier(kVK_RightShift, NX_DEVICERSHIFTKEYMASK),
         RightControl => Modifier(kVK_RightControl, NX_DEVICERCTLKEYMASK),
         RightAlt => Modifier(kVK_RightOption, NX_DEVICERALTKEYMASK),
-        RightMeta => Modifier(kVK_RightCommand, NX_DEVICERCMDKEYMASK),
+        RightMeta | RightControlOrMeta => Modifier(kVK_RightCommand, NX_DEVICERCMDKEYMASK),
         Fn => Modifier(kVK_Function, NX_SECONDARYFNMASK),
 
         Return => Regular(kVK_Return),

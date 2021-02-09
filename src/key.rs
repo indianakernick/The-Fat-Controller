@@ -6,11 +6,13 @@ pub enum Key {
     Shift,
     Control,
     Alt,
-    Meta,
+    Meta, // Command on macOS. Windows key on Windows.
+    ControlOrMeta, // Command on macOS. Control on Windows.
     RightShift,
     RightControl,
     RightAlt,
-    RightMeta,
+    RightMeta, // Command on macOS. Windows key on Windows.
+    RightControlOrMeta, // Command on macOS. Control on Windows.
     Fn,
 
     // Controls and symbols

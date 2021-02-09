@@ -69,20 +69,15 @@ class NumberPadViewController: BasicViewController {
         releaseShift()
     }
     
-    // \[CommandCode\.keyClickFlags\.rawValue, (Key\.\w+)\.rawValue, Flags\.shift.rawValue\]
-    // Command.keyClick($1, with: Key.shift)
-    // \[CommandCode.keyClick.rawValue, (Key\.\w+)\.rawValue]
-    // Command.keyClick($1)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         pressShift = makeListener(with: Command.keyDown(Key.shift))
         releaseShift = makeListener(with: Command.keyUp(Key.shift))
         
-        setPressListener(for: cutBtn, with: Command.keyClick(Key.x, with: Key.meta))
-        setPressListener(for: copyBtn, with: Command.keyClick(Key.c, with: Key.meta))
-        setPressListener(for: pasteBtn, with: Command.keyClick(Key.v, with: Key.meta))
+        setPressListener(for: cutBtn, with: Command.keyClick(Key.x, with: Key.controlOrMeta))
+        setPressListener(for: copyBtn, with: Command.keyClick(Key.c, with: Key.controlOrMeta))
+        setPressListener(for: pasteBtn, with: Command.keyClick(Key.v, with: Key.controlOrMeta))
         setPressListener(for: equalBtn, with: Command.keyClick(Key.equal))
         setPressListener(for: divideBtn, with: Command.keyClick(Key.slash))
         setPressListener(for: multiplyBtn, with: Command.keyClick(Key.n8, with: Key.shift))

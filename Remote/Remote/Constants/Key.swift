@@ -13,10 +13,12 @@ enum Key: UInt8 {
     control,
     alt,
     meta,
+    controlOrMeta,
     rightShift,
     rightControl,
     rightAlt,
     rightMeta,
+    rightControlOrMeta,
     fn,
     
     `return`,
