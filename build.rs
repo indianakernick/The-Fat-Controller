@@ -165,7 +165,7 @@ fn generate_rust_enum(path: &str, name: &[u8], variants: &[&'static str]) -> std
     let mut file = std::fs::File::create(path)?;
     file.write_all(COMMENT)?;
 
-    file.write_all(b"#[repr(u8)]\n#[derive(Copy, Clone, Debug)]\npub enum ")?;
+    file.write_all(b"#[repr(u8)]\n#[derive(Copy, Clone, Debug, Eq, PartialEq)]\npub enum ")?;
     file.write_all(name)?;
     file.write_all(b" {\n")?;
 

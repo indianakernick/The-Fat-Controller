@@ -91,9 +91,4 @@ impl crate::MouseContext for Context {
         self.button_state &= !(1 << button_number);
         Ok(())
     }
-
-    fn mouse_click(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.mouse_down(button)?;
-        self.mouse_up(button)
-    }
 }

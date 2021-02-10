@@ -1,11 +1,17 @@
 use std::fmt;
 use crate::{Command, CommandCode, Key, MouseButton};
 
+/// Error enum for [`parse_byte_command`](parse_byte_command).
 #[derive(Debug)]
 pub enum ParseByteCommandError {
+    /// Encountered a byte that isn't a valid [`CommandCode`](CommandCode).
     InvalidCommandCode(u8),
+    /// Encountered a byte that isn't a valid [`Key`](Key).
     InvalidKey(u8),
+    /// Encountered a byte that isn't a valid [`MouseButton`](MouseButton).
     InvalidMouseButton(u8),
+    /// Expected the buffer to be longer based upon the
+    /// [`CommandCode`](CommandCode) byte.
     BufferTooShort(usize),
 }
 
@@ -61,6 +67,37 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandErr
     }
 }
 
+/// Parse a sequence of bytes to create a [`Command`](Command).
+///
+/// The first byte in the buffer must be a [`CommandCode`](CommandCode). This
+/// identifies the command and its arguments. Following the command identifier
+/// is a sequence of bytes that encode the arguments of the command.
+/// [`Key`](Key) and [`MouseButton`](MouseButton) are single bytes. For integer
+/// arguments (used for moving the mouse and scrolling), 16-bit signed
+/// big-endian integers are used.
+///
+/// Returns the command and the number of bytes that were read from the buffer.
+///
+/// # Arguments
+/// * `buf` - The byte buffer to read from.
+///
+/// # Examples
+///
+/// ```
+/// let bytes = &[
+///     tfc::CommandCode::MouseMoveRel as u8, 255, 214, 0, 64,
+///     tfc::CommandCode::KeyClick as u8, tfc::Key::T as u8
+/// ];
+///
+/// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
+/// assert_eq!(len, 5);
+/// assert_eq!(command, tfc::Command::MouseMoveRel(-42, 64));
+///
+/// let bytes = &bytes[len..];
+/// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
+/// assert_eq!(len, 2);
+/// assert_eq!(command, tfc::Command::KeyClick(tfc::Key::T));
+/// ```
 pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteCommandError> {
     if buf.len() == 0 {
         return Err(BufferTooShort(0));

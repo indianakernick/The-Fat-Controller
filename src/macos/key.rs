@@ -231,9 +231,4 @@ impl crate::KeyboardContext for Context {
     fn key_up(&mut self, key: Key) -> Result<(), Error> {
         self.key_event(key, false)
     }
-
-    fn key_click(&mut self, key: Key) -> Result<(), Error> {
-        self.key_down(key)?;
-        self.key_up(key)
-    }
 }

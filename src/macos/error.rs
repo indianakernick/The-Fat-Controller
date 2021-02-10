@@ -1,5 +1,9 @@
 use std::{fmt, num::NonZeroU32};
 
+/// Error type used throughout the library.
+///
+/// The exact type depends on the platform being used. All that can be assumed
+/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
 pub struct Error(NonZeroU32);
 

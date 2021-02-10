@@ -11,6 +11,11 @@ pub use mouse::*;
 
 use iokit as io;
 
+/// The main context used for generating events.
+///
+/// The most useful methods are on the [`InfoContext`](crate::InfoContext),
+/// [`KeyboardContext`](crate::KeyboardContext) and
+/// [`MouseContext`](crate::MouseContext) traits.
 pub struct Context {
     hid_connect: io::io_connect_t,
     fb_connect: io::io_connect_t,
