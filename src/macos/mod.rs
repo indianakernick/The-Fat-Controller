@@ -91,6 +91,10 @@ impl Context {
             },
         };
 
+        // Memory mapping IOFramebuffer to get StdFBShmem_t won't work on Apple
+        // Silicon. Instead, the properties of IOMobileFramebuffer need to be
+        // inspected.
+
         let mut fb_address = 0;
         unsafe {
             let mut size = 0;
