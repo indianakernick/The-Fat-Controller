@@ -1,4 +1,4 @@
-use crate::{Error, KeyboardContext, MouseContext, Context, Key, MouseButton};
+use crate::{Error, KeyboardContext, MouseContext, Key, MouseButton};
 
 /// A future invocation of a method on a [`Context`](Context).
 ///
@@ -31,23 +31,25 @@ pub enum Command {
     MouseClick(MouseButton),
 }
 
-impl Context {
+impl Command {
 
     /// Execute a [`Command`](Command) by calling the corresponding method on
     /// [`KeyboardContext`](KeyboardContext) or [`MouseContext`](MouseContext).
-    pub fn execute_command(&mut self, command: Command) -> Result<(), Error> {
+    pub fn execute<C>(&self, ctx: &mut C) -> Result<(), Error>
+        where C: KeyboardContext + MouseContext
+    {
         use Command::*;
-        match command {
-            KeyDown(key) => self.key_down(key),
-            KeyUp(key) => self.key_up(key),
-            KeyClick(key) => self.key_click(key),
-            MouseMoveRel(dx, dy) => self.mouse_move_rel(dx, dy),
-            MouseMoveAbs(x, y) => self.mouse_move_abs(x, y),
-            MouseWarp(x, y) => self.mouse_warp(x, y),
-            MouseScroll(dx, dy) => self.mouse_scroll(dx, dy),
-            MouseDown(button) => self.mouse_down(button),
-            MouseUp(button) => self.mouse_up(button),
-            MouseClick(button) => self.mouse_click(button),
+        match *self {
+            KeyDown(key) => ctx.key_down(key),
+            KeyUp(key) => ctx.key_up(key),
+            KeyClick(key) => ctx.key_click(key),
+            MouseMoveRel(dx, dy) => ctx.mouse_move_rel(dx, dy),
+            MouseMoveAbs(x, y) => ctx.mouse_move_abs(x, y),
+            MouseWarp(x, y) => ctx.mouse_warp(x, y),
+            MouseScroll(dx, dy) => ctx.mouse_scroll(dx, dy),
+            MouseDown(button) => ctx.mouse_down(button),
+            MouseUp(button) => ctx.mouse_up(button),
+            MouseClick(button) => ctx.mouse_click(button),
         }
     }
 }
