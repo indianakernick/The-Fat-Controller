@@ -5,7 +5,6 @@ mod error_context;
 mod info_context;
 mod key;
 mod key_context;
-mod macos;
 mod mouse_button;
 mod mouse_context;
 
@@ -16,6 +15,10 @@ pub use error_context::*;
 pub use info_context::*;
 pub use key::*;
 pub use key_context::*;
-pub use macos::Context;
 pub use mouse_button::*;
 pub use mouse_context::*;
+
+#[cfg(target_os = "macos")]
+mod macos;
+#[cfg(target_os = "macos")]
+pub use macos::Context;
