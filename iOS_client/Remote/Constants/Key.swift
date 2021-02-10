@@ -75,24 +75,24 @@ enum Key: UInt8, CaseIterable {
     n7,
     n8,
     n9,
-    keypad0,
-    keypad1,
-    keypad2,
-    keypad3,
-    keypad4,
-    keypad5,
-    keypad6,
-    keypad7,
-    keypad8,
-    keypad9,
-    keypadClear,
-    keypadEquals,
-    keypadDivide,
-    keypadMultiply,
-    keypadMinus,
-    keypadPlus,
-    keypadEnter,
-    keypadDecimal,
+    numpad0,
+    numpad1,
+    numpad2,
+    numpad3,
+    numpad4,
+    numpad5,
+    numpad6,
+    numpad7,
+    numpad8,
+    numpad9,
+    numpadClear,
+    numpadEquals,
+    numpadDivide,
+    numpadMultiply,
+    numpadMinus,
+    numpadPlus,
+    numpadEnter,
+    numpadDecimal,
     f1,
     f2,
     f3,
@@ -189,24 +189,24 @@ extension Key: CustomStringConvertible {
             case .n7: return "7"
             case .n8: return "8"
             case .n9: return "9"
-            case .keypad0: return "Keypad 0"
-            case .keypad1: return "Keypad 1"
-            case .keypad2: return "Keypad 2"
-            case .keypad3: return "Keypad 3"
-            case .keypad4: return "Keypad 4"
-            case .keypad5: return "Keypad 5"
-            case .keypad6: return "Keypad 6"
-            case .keypad7: return "Keypad 7"
-            case .keypad8: return "Keypad 8"
-            case .keypad9: return "Keypad 9"
-            case .keypadClear: return "Keypad Clear"
-            case .keypadEquals: return "Keypad Equals"
-            case .keypadDivide: return "Keypad Divide"
-            case .keypadMultiply: return "Keypad Multiply"
-            case .keypadMinus: return "Keypad Minus"
-            case .keypadPlus: return "Keypad Plus"
-            case .keypadEnter: return "Keypad Enter"
-            case .keypadDecimal: return "Keypad Decimal"
+            case .numpad0: return "Numpad 0"
+            case .numpad1: return "Numpad 1"
+            case .numpad2: return "Numpad 2"
+            case .numpad3: return "Numpad 3"
+            case .numpad4: return "Numpad 4"
+            case .numpad5: return "Numpad 5"
+            case .numpad6: return "Numpad 6"
+            case .numpad7: return "Numpad 7"
+            case .numpad8: return "Numpad 8"
+            case .numpad9: return "Numpad 9"
+            case .numpadClear: return "Numpad Clear"
+            case .numpadEquals: return "Numpad Equals"
+            case .numpadDivide: return "Numpad Divide"
+            case .numpadMultiply: return "Numpad Multiply"
+            case .numpadMinus: return "Numpad Minus"
+            case .numpadPlus: return "Numpad Plus"
+            case .numpadEnter: return "Numpad Enter"
+            case .numpadDecimal: return "Numpad Decimal"
             case .f1: return "F1"
             case .f2: return "F2"
             case .f3: return "F3"

@@ -98,27 +98,27 @@ const KEYS: [&'static str; 109] = [
     "8",
     "9",
 
-    // Keypad number keys
-    "Keypad 0",
-    "Keypad 1",
-    "Keypad 2",
-    "Keypad 3",
-    "Keypad 4",
-    "Keypad 5",
-    "Keypad 6",
-    "Keypad 7",
-    "Keypad 8",
-    "Keypad 9",
+    // Number pad numbers
+    "Numpad 0",
+    "Numpad 1",
+    "Numpad 2",
+    "Numpad 3",
+    "Numpad 4",
+    "Numpad 5",
+    "Numpad 6",
+    "Numpad 7",
+    "Numpad 8",
+    "Numpad 9",
 
-    // Keypad keys
-    "Keypad Clear",
-    "Keypad Equals",
-    "Keypad Divide",
-    "Keypad Multiply",
-    "Keypad Minus",
-    "Keypad Plus",
-    "Keypad Enter",
-    "Keypad Decimal",
+    // Number pad keys
+    "Numpad Clear",
+    "Numpad Equals",
+    "Numpad Divide",
+    "Numpad Multiply",
+    "Numpad Minus",
+    "Numpad Plus",
+    "Numpad Enter",
+    "Numpad Decimal",
 
     // Function keys
     "F1",
