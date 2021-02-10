@@ -1,4 +1,5 @@
 // IOKit/graphics/IOFramebufferShared.h
+// /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/graphics/IOFramebufferShared.h
 
 use super::{IOGPoint, IOGBounds};
 
@@ -6,7 +7,7 @@ use super::{IOGPoint, IOGBounds};
 // Plus some parts of it are conditionally compiled in.
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 pub struct StdFBShmem_t {

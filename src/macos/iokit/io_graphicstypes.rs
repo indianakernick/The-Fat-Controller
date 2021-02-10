@@ -1,4 +1,5 @@
 // IOKit/graphics/IOGraphicsTypes.h
+// /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/graphics/IOGraphicsTypes.h
 
 // Synthesised
 #[allow(non_upper_case_globals)]
