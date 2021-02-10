@@ -1,14 +1,12 @@
-use super::Context;
 use super::iokit as io;
-use crate::{FallibleContext, MouseButton, InfoContext};
+use super::{Context, Error};
+use crate::{MouseButton, InfoContext};
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
 impl Context {
-    fn mouse_event(&mut self, event_type: u32, button_number: u8, down: bool)
-        -> Result<(), <Self as FallibleContext>::Error>
-    {
+    fn mouse_event(&mut self, event_type: u32, button_number: u8, down: bool) -> Result<(), Error> {
         let mut event = io::NXEventData::default();
         event.compound.subType = io::NX_SUBTYPE_AUX_MOUSE_BUTTONS;
         unsafe {
@@ -26,7 +24,7 @@ impl Context {
 }
 
 impl crate::MouseContext for Context {
-    fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Self::Error> {
+    fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let mut event = io::NXEventData::default();
         event.mouseMove.dx = dx;
         event.mouseMove.dy = dy;
@@ -43,12 +41,12 @@ impl crate::MouseContext for Context {
         self.post_event(event_type, &event, 0, io::kIOHIDSetRelativeCursorPosition)
     }
 
-    fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Self::Error> {
+    fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let location = self.mouse_location()?;
         self.mouse_move_rel(x - location.0, y - location.1)
     }
 
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Self::Error> {
+    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let error_code;
         unsafe {
             use std::os::raw::c_int;
@@ -61,18 +59,18 @@ impl crate::MouseContext for Context {
         if error_code == io::kIOReturnSuccess {
             Ok(())
         } else {
-            Err(super::IOKitError::new(error_code))
+            Err(Error::new(error_code))
         }
     }
 
-    fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Self::Error> {
+    fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let mut event = io::NXEventData::default();
         event.scrollWheel.fixedDeltaAxis1 = dy << 13;
         event.scrollWheel.fixedDeltaAxis2 = dx << 13;
         self.post_event(io::NX_SCROLLWHEELMOVED, &event, 0, 0)
     }
 
-    fn mouse_down(&mut self, button: MouseButton) -> Result<(), Self::Error> {
+    fn mouse_down(&mut self, button: MouseButton) -> Result<(), Error> {
         let (event_type, button_number) = match button {
             MouseButton::Left => (io::NX_LMOUSEDOWN, 0),
             MouseButton::Right => (io::NX_RMOUSEDOWN, 1),
@@ -83,7 +81,7 @@ impl crate::MouseContext for Context {
         Ok(())
     }
 
-    fn mouse_up(&mut self, button: MouseButton) -> Result<(), Self::Error> {
+    fn mouse_up(&mut self, button: MouseButton) -> Result<(), Error> {
         let (event_type, button_number) = match button {
             MouseButton::Left => (io::NX_LMOUSEUP, 0),
             MouseButton::Right => (io::NX_RMOUSEUP, 1),
@@ -94,7 +92,7 @@ impl crate::MouseContext for Context {
         Ok(())
     }
 
-    fn mouse_click(&mut self, button: MouseButton) -> Result<(), Self::Error> {
+    fn mouse_click(&mut self, button: MouseButton) -> Result<(), Error> {
         self.mouse_down(button)?;
         self.mouse_up(button)
     }

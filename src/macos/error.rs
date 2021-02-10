@@ -1,15 +1,15 @@
 use std::{fmt, num::NonZeroU32};
 
 #[derive(Debug)]
-pub struct IOKitError(NonZeroU32);
+pub struct Error(NonZeroU32);
 
-impl IOKitError {
-    pub fn new(error_code: u32) -> Self {
+impl Error {
+    pub(super) fn new(error_code: u32) -> Self {
         Self(NonZeroU32::new(error_code).unwrap())
     }
 }
 
-impl fmt::Display for IOKitError {
+impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         use super::iokit::*;
         #[allow(non_upper_case_globals)]
@@ -70,8 +70,4 @@ impl fmt::Display for IOKitError {
     }
 }
 
-impl std::error::Error for IOKitError {}
-
-impl crate::FallibleContext for super::Context {
-    type Error = IOKitError;
-}
+impl std::error::Error for Error {}

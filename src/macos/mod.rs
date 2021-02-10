@@ -10,7 +10,6 @@ pub use key::*;
 pub use mouse::*;
 
 use iokit as io;
-use crate::FallibleContext;
 
 pub struct Context {
     hid_connect: io::io_connect_t,
@@ -26,7 +25,7 @@ pub struct Context {
 // impl !Send for EventContext {}
 // impl !Sync for EventContext {}
 
-fn connect_to_service(name: *const u8, connect_type: u32) -> Result<io::io_connect_t, IOKitError> {
+fn connect_to_service(name: *const u8, connect_type: u32) -> Result<io::io_connect_t, Error> {
     unsafe {
         // Create a dictionary that describes a service matching a name.
         let matching = io::IOServiceMatching(name);
@@ -37,7 +36,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<io::io_conne
         let mut iterator = io::IO_OBJECT_NULL;
         let error_code = io::IOServiceGetMatchingServices(io::kIOMasterPortDefault, matching, &mut iterator);
         if error_code != io::kIOReturnSuccess {
-            return Err(IOKitError::new(error_code));
+            return Err(Error::new(error_code));
         }
 
         let mut found = false;
@@ -68,13 +67,13 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<io::io_conne
         if found {
             Ok(connect)
         } else {
-            Err(IOKitError::new(io::kIOReturnError))
+            Err(Error::new(io::kIOReturnError))
         }
     }
 }
 
 impl Context {
-    pub fn new() -> Result<Self, <Context as FallibleContext>::Error> {
+    pub fn new() -> Result<Self, Error> {
         let hid_connect = connect_to_service(io::kIOHIDSystemClass.as_ptr(), io::kIOHIDParamConnectType)?;
 
         let fb_connect = match connect_to_service(io::kIOFramebufferClass.as_ptr(), io::kIOFBSharedConnectType) {
@@ -101,7 +100,7 @@ impl Context {
             if error_code != io::kIOReturnSuccess {
                 io::IOServiceClose(fb_connect);
                 io::IOServiceClose(hid_connect);
-                return Err(IOKitError::new(error_code));
+                return Err(Error::new(error_code));
             }
         }
 
@@ -120,7 +119,7 @@ impl Context {
         event: *const io::NXEventData,
         flags: io::IOOptionBits,
         options: io::IOOptionBits
-    ) -> Result<(), IOKitError> {
+    ) -> Result<(), Error> {
         let error_code;
         unsafe {
             error_code = io::IOHIDPostEvent(
@@ -136,7 +135,7 @@ impl Context {
         if error_code == io::kIOReturnSuccess {
             Ok(())
         } else {
-            Err(IOKitError::new(error_code))
+            Err(Error::new(error_code))
         }
     }
 }

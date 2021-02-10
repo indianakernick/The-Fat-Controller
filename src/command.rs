@@ -1,4 +1,4 @@
-use crate::{FallibleContext, KeyboardContext, MouseContext, Context, Key, MouseButton};
+use crate::{Error, KeyboardContext, MouseContext, Context, Key, MouseButton};
 
 #[derive(Debug)]
 pub enum Command {
@@ -15,9 +15,7 @@ pub enum Command {
 }
 
 impl Context {
-    pub fn execute_command(&mut self, command: Command)
-        -> Result<(), <Context as FallibleContext>::Error>
-    {
+    pub fn execute_command(&mut self, command: Command) -> Result<(), Error> {
         use Command::*;
         match command {
             KeyDown(key) => self.key_down(key),

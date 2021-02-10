@@ -1,6 +1,6 @@
-use super::Context;
+use crate::Key;
 use super::iokit as io;
-use crate::{FallibleContext, Key};
+use super::{Context, Error};
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
@@ -156,7 +156,7 @@ impl Context {
         update_modifiers(&mut self.modifiers, io::NX_DEVICELCMDKEYMASK, io::NX_DEVICERCMDKEYMASK, io::NX_COMMANDMASK);
     }
 
-    fn key_event(&mut self, key: Key, down: bool) -> Result<(), <Self as FallibleContext>::Error> {
+    fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
         let event_type = if down { io::NX_KEYDOWN } else { io::NX_KEYUP };
         let mut event = io::NXEventData::default();
 
@@ -224,15 +224,15 @@ impl Context {
 }
 
 impl crate::KeyboardContext for Context {
-    fn key_down(&mut self, key: Key) -> Result<(), Self::Error> {
+    fn key_down(&mut self, key: Key) -> Result<(), Error> {
         self.key_event(key, true)
     }
 
-    fn key_up(&mut self, key: Key) -> Result<(), Self::Error> {
+    fn key_up(&mut self, key: Key) -> Result<(), Error> {
         self.key_event(key, false)
     }
 
-    fn key_click(&mut self, key: Key) -> Result<(), Self::Error> {
+    fn key_click(&mut self, key: Key) -> Result<(), Error> {
         self.key_down(key)?;
         self.key_up(key)
     }

@@ -1,7 +1,8 @@
+use super::Error;
 use super::iokit as io;
 
 impl crate::InfoContext for super::Context {
-    fn mouse_location(&self) -> Result<(i32, i32), Self::Error> {
+    fn mouse_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let struct_ptr = self.fb_address as *const io::StdFBShmem_t;
             let loc_ptr: *const io::IOGPoint = &(*struct_ptr).cursorLoc;
@@ -10,7 +11,7 @@ impl crate::InfoContext for super::Context {
         }
     }
 
-    fn screen_size(&self) -> Result<(i32, i32), Self::Error> {
+    fn screen_size(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let struct_ptr = self.fb_address as *const io::StdFBShmem_t;
             let bounds_ptr: *const io::IOGBounds = &(*struct_ptr).screenBounds;
