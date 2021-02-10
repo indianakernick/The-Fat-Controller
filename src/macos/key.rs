@@ -5,6 +5,13 @@ use super::{Context, Error};
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
+// Some more resources
+// https://github.com/unbit/foohid
+// https://github.com/VoodooI2C/VoodooI2C
+// https://github.com/Siguza/ios-resources
+// https://developer.apple.com/library/archive/documentation/DeviceDrivers/Conceptual/IOKitFundamentals/Introduction/Introduction.html#//apple_ref/doc/uid/TP0000011-CH204-TPXREF101
+// https://github.com/pqrs-org/Karabiner-Elements/blob/5e39a7a92ad5d858024053daba58bebf59bad5b5/src/vendor/cget/cget/pkg/pqrs-org__cpp-osx-iokit_service_monitor/install/include/pqrs/osx/iokit_service_monitor.hpp
+
 enum KeyCode {
     CapsLock,
     Modifier(u8, u32),

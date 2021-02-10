@@ -86,7 +86,7 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandErr
 /// ```
 /// let bytes = &[
 ///     tfc::CommandCode::MouseMoveRel as u8, 255, 214, 0, 64,
-///     tfc::CommandCode::KeyClick as u8, tfc::Key::T as u8
+///     tfc::CommandCode::KeyClick as u8, tfc::Key::K as u8
 /// ];
 ///
 /// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
@@ -96,7 +96,7 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandErr
 /// let bytes = &bytes[len..];
 /// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
 /// assert_eq!(len, 2);
-/// assert_eq!(command, tfc::Command::KeyClick(tfc::Key::T));
+/// assert_eq!(command, tfc::Command::KeyClick(tfc::Key::K));
 /// ```
 pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteCommandError> {
     if buf.len() == 0 {
