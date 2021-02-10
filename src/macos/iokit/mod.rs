@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 mod carbon;
 mod io_framebuffershared;
 mod io_graphicstypes;
