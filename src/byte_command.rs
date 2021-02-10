@@ -1,3 +1,4 @@
+use std::fmt;
 use crate::{Command, CommandCode, Key, MouseButton};
 
 #[derive(Debug)]
@@ -9,6 +10,19 @@ pub enum ParseByteCommandError {
 }
 
 use ParseByteCommandError::*;
+
+impl fmt::Display for ParseByteCommandError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            InvalidCommandCode(byte) => write!(f, "Invalid command code byte ({})", byte),
+            InvalidKey(byte) => write!(f, "Invalid key byte ({})", byte),
+            InvalidMouseButton(byte) => write!(f, "Invalid mouse button byte ({})", byte),
+            BufferTooShort(len) => write!(f, "Buffer length ({}) is too short", len),
+        }
+    }
+}
+
+impl std::error::Error for ParseByteCommandError {}
 
 fn parse_int(byte_0: u8, byte_1: u8) -> i32 {
     (((byte_0 as i16) << 8) | (byte_1 as i16)) as i32

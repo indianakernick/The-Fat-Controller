@@ -1,5 +1,4 @@
-use std::fmt;
-use std::num::NonZeroU32;
+use std::{fmt, num::NonZeroU32};
 
 #[derive(Debug)]
 pub struct IOKitError(NonZeroU32);
