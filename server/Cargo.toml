@@ -1,0 +1,16 @@
+[package]
+name = "tfc-server"
+version = "0.1.0"
+authors = ["Kerndog73 <kerndog73@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+tokio-stream = "0.1"
+warp = "0.3"
+log = "0"
+pretty_env_logger = "0"
+futures = "0.3"
+tfc = { path = "../" }
