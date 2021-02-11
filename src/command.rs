@@ -1,3 +1,4 @@
+use std::{thread, time::Duration};
 use crate::{Error, KeyboardContext, MouseContext, Key, MouseButton};
 
 /// A future invocation of a method on a [`Context`](Context).
@@ -29,6 +30,8 @@ pub enum Command {
     MouseUp(MouseButton),
     /// Corresponds to [`mouse_click`](MouseContext::mouse_click)
     MouseClick(MouseButton),
+    /// Creates a delay for a number of milliseconds
+    Delay(u32),
 }
 
 impl Command {
@@ -50,6 +53,7 @@ impl Command {
             MouseDown(button) => ctx.mouse_down(button),
             MouseUp(button) => ctx.mouse_up(button),
             MouseClick(button) => ctx.mouse_click(button),
+            Delay(millis) => Ok(thread::sleep(Duration::from_millis(millis as u64))),
         }
     }
 }

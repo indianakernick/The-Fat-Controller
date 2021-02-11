@@ -1,7 +1,7 @@
 use std::io::Write;
 use heck::{MixedCase, CamelCase};
 
-const COMMANDS: [&'static str; 10] = [
+const COMMANDS: [&'static str; 11] = [
     "Key down",
     "Key up",
     "Key click",
@@ -12,6 +12,7 @@ const COMMANDS: [&'static str; 10] = [
     "Mouse down",
     "Mouse up",
     "Mouse click",
+    "Delay",
 ];
 
 const KEYS: [&'static str; 109] = [

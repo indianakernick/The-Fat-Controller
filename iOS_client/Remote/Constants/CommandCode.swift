@@ -11,7 +11,8 @@ enum CommandCode: UInt8, CaseIterable {
     mouseScroll,
     mouseDown,
     mouseUp,
-    mouseClick
+    mouseClick,
+    delay
 }
 
 extension CommandCode: CustomStringConvertible {
@@ -27,6 +28,7 @@ extension CommandCode: CustomStringConvertible {
             case .mouseDown: return "Mouse down"
             case .mouseUp: return "Mouse up"
             case .mouseClick: return "Mouse click"
+            case .delay: return "Delay"
         }
     }
 }

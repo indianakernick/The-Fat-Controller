@@ -13,8 +13,9 @@ pub enum CommandCode {
     MouseDown,
     MouseUp,
     MouseClick,
+    Delay,
 }
 
 impl CommandCode {
-    pub const COUNT: u8 = 10;
+    pub const COUNT: u8 = 11;
 }
