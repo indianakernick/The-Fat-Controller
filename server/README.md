@@ -12,9 +12,9 @@ cargo install tfc-server
 
 ## Usage
 
-Run `tfc-server`. Open the app and ensure that both the client and server are on
-the same network. Then enter the host name of the server (`my-computer.local`
-for example) into the app.
+Run `tfc-server`. Open the app and ensure that both the client and the server
+are on the same network. Then enter the host name of the server
+(`my-computer.local` for example) into the app.
 
 Currently, the iOS app is not on the App Store. The Xcode project must be
 downloaded from the repo and compiled.

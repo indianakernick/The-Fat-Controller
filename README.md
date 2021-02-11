@@ -3,8 +3,9 @@
 # The Fat Controller
 
 TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
-clicking, scrolling and key presses can all be simulated. Currently, the library only supports macOS but other platforms may be added in
-the future (perhaps with the help of some contributors 😉).
+clicking, scrolling and key presses can all be simulated. Currently, the library
+only supports macOS but other platforms may be added in the future (perhaps with
+the help of some contributors 😉).
 
 ## Usage
 
