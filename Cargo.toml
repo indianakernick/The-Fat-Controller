@@ -9,7 +9,6 @@ repository = "https://github.com/Kerndog73/The-Fat-Controller"
 homepage = "https://github.com/Kerndog73/The-Fat-Controller"
 readme = "README.md"
 categories = ["os::macos-apis"]
-license-file = "LICENSE"
 license = "MIT"
 
 exclude = [
