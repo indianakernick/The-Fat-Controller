@@ -1,5 +1,5 @@
 /target
 /server/target
-/generate/target
+/generator/target
 /interpreter/target
 **/.DS_Store

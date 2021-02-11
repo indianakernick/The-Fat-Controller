@@ -1,5 +1,5 @@
 [package]
-name = "generate"
+name = "generator"
 version = "0.1.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"

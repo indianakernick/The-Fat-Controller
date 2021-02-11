@@ -2,13 +2,13 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/generate/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/generator/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/interpreter/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/server/target" />
-      <excludeFolder url="file://$MODULE_DIR$/generate/target" />
+      <excludeFolder url="file://$MODULE_DIR$/generator/target" />
       <excludeFolder url="file://$MODULE_DIR$/interpreter/target" />
     </content>
     <orderEntry type="inheritedJdk" />
