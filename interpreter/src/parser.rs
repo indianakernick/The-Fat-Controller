@@ -1,5 +1,5 @@
-use std::{fmt, fmt::Formatter};
 use tfc::{Command, CommandCode, Key, MouseButton};
+use std::{fmt::{self, Display, Formatter}, iter::Iterator};
 
 #[derive(Debug)]
 pub enum ParseError<'a> {
@@ -14,7 +14,7 @@ pub enum ParseError<'a> {
 
 use ParseError::*;
 
-impl<'a> std::fmt::Display for ParseError<'a> {
+impl<'a> Display for ParseError<'a> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             InvalidCommand(s) => write!(f, "Expected command, found \"{}\"", s),
@@ -30,30 +30,39 @@ impl<'a> std::fmt::Display for ParseError<'a> {
 
 impl<'a> std::error::Error for ParseError<'a> {}
 
-fn parse_key<'a, I>(tokens: &mut I) -> Result<Key, ParseError<'a>>
-    where I: std::iter::Iterator<Item = &'a str>
-{
-    let token = tokens.next().ok_or(MissingKey)?;
-    token.parse::<Key>().map_err(|_| InvalidKey(token))
+trait Parsable<'a>: std::str::FromStr {
+    const MISSING: ParseError<'a> = MissingInteger;
+    fn invalid(s: &'a str) -> ParseError<'a> {
+        InvalidInteger(s)
+    }
 }
 
-fn parse_mouse_button<'a, I>(tokens: &mut I) -> Result<MouseButton, ParseError<'a>>
-    where I: std::iter::Iterator<Item = &'a str>
-{
-    let token = tokens.next().ok_or(MissingMouseButton)?;
-    token.parse::<MouseButton>().map_err(|_| InvalidMouseButton(token))
+impl<'a> Parsable<'a> for Key {
+    const MISSING: ParseError<'a> = MissingKey;
+    fn invalid(s: &'a str) -> ParseError<'a> {
+        InvalidKey(s)
+    }
 }
 
-fn parse_integer<'a, T, I>(tokens: &mut I) -> Result<T, ParseError<'a>>
-    where T: std::str::FromStr,
-          I: std::iter::Iterator<Item = &'a str>
+impl<'a> Parsable<'a> for MouseButton {
+    const MISSING: ParseError<'a> = MissingMouseButton;
+    fn invalid(s: &'a str) -> ParseError<'a> {
+        InvalidMouseButton(s)
+    }
+}
+
+impl<'a> Parsable<'a> for i32 {}
+impl<'a> Parsable<'a> for u32 {}
+
+fn parse<'a, T, I>(tokens: &mut I) -> Result<T, ParseError<'a>>
+    where T: Parsable<'a>, I: Iterator<Item = &'a str>
 {
-    let token = tokens.next().ok_or(MissingInteger)?;
-    token.parse::<T>().map_err(|_| InvalidInteger(token))
+    let token = tokens.next().ok_or(T::MISSING)?;
+    token.parse::<T>().map_err(|_| T::invalid(token))
 }
 
 pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>>
-    where I: std::iter::Iterator<Item = &'a str>
+    where I: Iterator<Item = &'a str>
 {
     let mut commands = Vec::new();
 
@@ -66,17 +75,17 @@ pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>
         };
 
         commands.push(match command_token.parse::<CommandCode>() {
-            Ok(KeyDown) => Command::KeyDown(parse_key(&mut tokens)?),
-            Ok(KeyUp) => Command::KeyUp(parse_key(&mut tokens)?),
-            Ok(KeyClick) => Command::KeyClick(parse_key(&mut tokens)?),
-            Ok(MouseMoveRel) => Command::MouseMoveRel(parse_integer(&mut tokens)?, parse_integer(&mut tokens)?),
-            Ok(MouseMoveAbs) => Command::MouseMoveAbs(parse_integer(&mut tokens)?, parse_integer(&mut tokens)?),
-            Ok(MouseWarp) => Command::MouseWarp(parse_integer(&mut tokens)?, parse_integer(&mut tokens)?),
-            Ok(MouseScroll) => Command::MouseScroll(parse_integer(&mut tokens)?, parse_integer(&mut tokens)?),
-            Ok(MouseDown) => Command::MouseDown(parse_mouse_button(&mut tokens)?),
-            Ok(MouseUp) => Command::MouseUp(parse_mouse_button(&mut tokens)?),
-            Ok(MouseClick) => Command::MouseClick(parse_mouse_button(&mut tokens)?),
-            Ok(Delay) => Command::Delay(parse_integer(&mut tokens)?),
+            Ok(KeyDown) => Command::KeyDown(parse(&mut tokens)?),
+            Ok(KeyUp) => Command::KeyUp(parse(&mut tokens)?),
+            Ok(KeyClick) => Command::KeyClick(parse(&mut tokens)?),
+            Ok(MouseMoveRel) => Command::MouseMoveRel(parse(&mut tokens)?, parse(&mut tokens)?),
+            Ok(MouseMoveAbs) => Command::MouseMoveAbs(parse(&mut tokens)?, parse(&mut tokens)?),
+            Ok(MouseWarp) => Command::MouseWarp(parse(&mut tokens)?, parse(&mut tokens)?),
+            Ok(MouseScroll) => Command::MouseScroll(parse(&mut tokens)?, parse(&mut tokens)?),
+            Ok(MouseDown) => Command::MouseDown(parse(&mut tokens)?),
+            Ok(MouseUp) => Command::MouseUp(parse(&mut tokens)?),
+            Ok(MouseClick) => Command::MouseClick(parse(&mut tokens)?),
+            Ok(Delay) => Command::Delay(parse(&mut tokens)?),
             Err(_) => return Err(InvalidCommand(command_token)),
         });
     }
