@@ -2,7 +2,7 @@ mod parser;
 
 use tfc::Command;
 use std::io::Read;
-use parser::{ParseError, parse_tokens};
+use parser::parse_tokens;
 
 fn execute(commands: Vec<Command>) -> Result<(), tfc::Error> {
     let mut ctx = tfc::Context::new()?;
