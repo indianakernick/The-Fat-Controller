@@ -3,15 +3,17 @@
 # The Fat Controller
 
 TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
-clicking, scrolling and key presses can all be simulated. The repo contains a
-WebSocket server (soon to be a TCP server) that allows for remote control.
-There's an iOS app that connects to the server to allow for remotely controlling
-a host on the same WiFi network that's running the server.
-
-<br/>
-
-Currently, the library only supports macOS but other platforms may be added in
+clicking, scrolling and key presses can all be simulated. Currently, the library only supports macOS but other platforms may be added in
 the future (perhaps with the help of some contributors 😉).
+
+## Usage
+
+Add the following to your `Cargo.toml`:
+
+```toml
+[dependencies]
+tfc = "0.1"
+```
 
 ## Example
 
@@ -39,16 +41,3 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
-
-# iOS Remote app
-
-See [docs/screenshots](docs/screenshots) for more.
-
-<p align="center">
-  <img alt="Number pad screenshot" width="300" src="docs/screenshots/2021-02-04_0.png"/>
-  <img alt="Video remote screenshot" width="300" src="docs/screenshots/2021-02-05_1.png"/>
-</p>
-
-<p align="center">
-  <img alt="Landscape orientation number pad screenshot" height="300" src="docs/screenshots/2021-02-04_5.png"/>
-</p>
