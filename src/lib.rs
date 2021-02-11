@@ -20,3 +20,8 @@ pub use mouse_context::*;
 mod macos;
 #[cfg(target_os = "macos")]
 pub use macos::{Context, Error};
+
+#[cfg(not(target_os = "macos"))]
+pub struct Context;
+#[cfg(not(target_os = "macos"))]
+pub struct Error;
