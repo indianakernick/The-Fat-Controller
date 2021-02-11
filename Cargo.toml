@@ -1,10 +1,22 @@
 [package]
 name = "tfc"
-description = "The Fat Controller. A library for simulating mouse and keyboard events. Repo contains an iOS app for remote control."
+description = "The Fat Controller. A library for simulating mouse and keyboard events."
 keywords = ["keyboard", "mouse", "automation", "control"]
 version = "0.1.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
+repository = "https://github.com/Kerndog73/The-Fat-Controller"
+readme = "README.md"
+categories = ["os::macos-apis"]
+license-file = "LICENSE"
+
+exclude = [
+    ".gitignore",
+    ".idea",
+    "docs",
+    "iOS_client",
+    "build.rs"
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
