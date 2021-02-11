@@ -46,7 +46,6 @@ See [docs/screenshots](docs/screenshots) for more.
 
 <p align="center">
   <img alt="Number pad screenshot" width="300" src="docs/screenshots/2021-02-04_0.png"/>
-  <img alt="Slideshow remote screenshot" width="300" src="docs/screenshots/2021-02-05_0.png"/>
   <img alt="Video remote screenshot" width="300" src="docs/screenshots/2021-02-05_1.png"/>
 </p>
 
