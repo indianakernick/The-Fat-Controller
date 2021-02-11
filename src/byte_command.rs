@@ -34,6 +34,10 @@ fn parse_int(byte_0: u8, byte_1: u8) -> i32 {
     (((byte_0 as i16) << 8) | (byte_1 as i16)) as i32
 }
 
+fn parse_uint(byte_0: u8, byte_1: u8) -> u32 {
+    (((byte_0 as u16) << 8) | (byte_1 as u16)) as u32
+}
+
 fn parse_command_code(byte: u8) -> Result<CommandCode, ParseByteCommandError> {
     if byte < CommandCode::COUNT {
         unsafe { Ok(std::mem::transmute(byte)) }
@@ -143,6 +147,10 @@ pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteComma
         CommandCode::MouseClick => {
             check_buffer_length(buf, 2)?;
             Ok((Command::MouseClick(parse_mouse_button(buf[1])?), 2))
+        },
+        CommandCode::Delay => {
+            check_buffer_length(buf, 3)?;
+            Ok((Command::Delay(parse_uint(buf[1], buf[2])), 3))
         },
     }
 }
