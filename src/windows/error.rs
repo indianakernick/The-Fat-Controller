@@ -21,7 +21,7 @@ impl Display for Error {
         unsafe {
             let message_buffer: *const u8 = std::ptr::null();
 
-            let message_length = win::FormatMessage(
+            let message_length = win::FormatMessageA(
                 win::FORMAT_MESSAGE_ALLOCATE_BUFFER
                     | win::FORMAT_MESSAGE_FROM_SYSTEM
                     | win::FORMAT_MESSAGE_IGNORE_INSERTS,

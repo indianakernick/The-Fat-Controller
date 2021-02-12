@@ -282,7 +282,8 @@ pub const VK_OEM_CLEAR: WORD = 0xFE;
 pub const SM_CXSCREEN: c_int = 0;
 pub const SM_CYSCREEN: c_int = 1;
 
-extern "C" {
+#[link(name = "user32")]
+extern "stdcall" {
     // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput
     #[allow(non_snake_case)]
     pub fn SendInput(cInputs: UINT, pInputs: LPINPUT, cbSize: c_int) -> UINT;

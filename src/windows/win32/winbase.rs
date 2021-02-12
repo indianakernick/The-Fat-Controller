@@ -2,10 +2,14 @@
 
 use super::types::*;
 
-extern "C" {
+#[link(name = "kernel32")]
+extern "stdcall" {
+    // FormatMessageA - ANSI
+    // FormatMessageW - Unicode
+
     // https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-formatmessage
     #[allow(non_snake_case)]
-    pub fn FormatMessage(
+    pub fn FormatMessageA(
         dwFlags: DWORD,
         lpSource: LPCVOID,
         dwMessageId: DWORD,
