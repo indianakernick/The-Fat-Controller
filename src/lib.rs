@@ -21,7 +21,12 @@ mod macos;
 #[cfg(target_os = "macos")]
 pub use macos::{Context, Error};
 
-#[cfg(not(target_os = "macos"))]
+#[cfg(target_os = "windows")]
+mod windows;
+#[cfg(target_os = "windows")]
+pub use windows::{Context, Error};
+
+#[cfg(not(any(target_os = "macos", target_os = "windows")))]
 pub struct Context;
-#[cfg(not(target_os = "macos"))]
+#[cfg(not(any(target_os = "macos", target_os = "windows")))]
 pub struct Error;

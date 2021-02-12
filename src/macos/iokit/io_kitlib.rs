@@ -2,7 +2,7 @@
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/IOKitLib.h
 
 use super::*;
-use std::os::raw::c_void;
+use std::ffi::c_void;
 
 #[allow(non_upper_case_globals)]
 pub const kIOMasterPortDefault: mach_port_t = 0;

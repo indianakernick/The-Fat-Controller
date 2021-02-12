@@ -52,8 +52,8 @@ pub const NX_ASCIISET: u16 = 0;
 pub const NX_SYMBOLSET: u16 = 1;
 pub const NX_DINGBATSSET: u16 = 2;
 
-// Rust doesn't support anonymous structs or anonymous unions so the
-// declarations marked as "synthesised" don't exist in I/O Kit.
+// Rust doesn't support unnamed structs or unnamed unions so the declarations
+// marked as "synthesised" don't exist in I/O Kit.
 
 // Synthesised
 #[repr(C)]
