@@ -40,3 +40,13 @@ You could open up the terminal and type in a command but that's not particularly
 convenient. Investigate the alternates.
 [This](https://apple.stackexchange.com/questions/376778/a-way-to-run-console-commands-in-menu-bar)
 is a possibility.
+
+## Better tab bar
+
+Currently, the tab bar has six tabs. Apple's guidelines say that you can only
+have five before you need to use a "more" button that shows a list of the rest.
+I really don't like the "more" button. It's very unpleasant to use. It would be
+better if the tab bar was scrollable. This is especially necessary if we add
+another tab. Six is cramped. Seven and beyond will be unusable.
+[Here](https://stackoverflow.com/questions/8482661/how-to-make-a-horizontal-scrollable-uitabbar-in-ios)
+are some options.
