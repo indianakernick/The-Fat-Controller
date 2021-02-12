@@ -5,8 +5,10 @@ use std::fmt::{self, Display, Formatter};
 pub struct Error(win::NonZeroDWORD);
 
 impl Error {
-    pub(super) fn new(error_code: u32) -> Self {
-        Self(win::NonZeroDWORD::new(error_code).unwrap())
+    pub(super) fn new() -> Self {
+        unsafe {
+            Self(win::NonZeroDWORD::new(win::GetLastError()).unwrap())
+        }
     }
 }
 

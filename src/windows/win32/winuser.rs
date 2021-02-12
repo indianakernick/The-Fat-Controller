@@ -1,19 +1,20 @@
 // Winuser.h
 
 use super::types::*;
+use std::os::raw::c_int;
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-mouseinput
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
-struct MOUSE_INPUT {
-    dx: LONG,
-    dy: LONG,
-    mouseData: DWORD,
-    dwFlags: DWORD,
-    time: DWORD,
-    dwExtraInfo: ULONG_PTR,
+pub struct MOUSE_INPUT {
+    pub dx: LONG,
+    pub dy: LONG,
+    pub mouseData: DWORD,
+    pub dwFlags: DWORD,
+    pub time: DWORD,
+    pub dwExtraInfo: ULONG_PTR,
 }
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-keybdinput
@@ -21,12 +22,12 @@ struct MOUSE_INPUT {
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
-struct KEYBD_INPUT {
-    wVk: WORD,
-    wScan: WORD,
-    dwFlags: DWORD,
-    time: DWORD,
-    dwExtraInfo: ULONG_PTR,
+pub struct KEYBD_INPUT {
+    pub wVk: WORD,
+    pub wScan: WORD,
+    pub dwFlags: DWORD,
+    pub time: DWORD,
+    pub dwExtraInfo: ULONG_PTR,
 }
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-hardwareinput
@@ -34,31 +35,45 @@ struct KEYBD_INPUT {
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
-struct HARDWARE_INPUT {
-    uMsg: DWORD,
-    wParamL: WORD,
-    wParamH: WORD,
+pub struct HARDWARE_INPUT {
+    pub uMsg: DWORD,
+    pub wParamL: WORD,
+    pub wParamH: WORD,
 }
 
 // This is an anonymous union in C
 #[repr(C)]
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
-union INPUT_UNION {
-    mi: MOUSE_INPUT,
-    ki: KEYBD_INPUT,
-    hi: HARDWARE_INPUT,
+pub union INPUT_UNION {
+    pub mi: MOUSE_INPUT,
+    pub ki: KEYBD_INPUT,
+    pub hi: HARDWARE_INPUT,
 }
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-input
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct INPUT {
-    r#type: DWORD,
-    u: INPUT_UNION,
+    pub type_: DWORD,
+    pub u: INPUT_UNION,
 }
 
-pub type LPINPUT = *mut INPUT;
+pub type LPINPUT = *const INPUT;
+
+pub const SIZEOF_INPUT: c_int = std::mem::size_of::<INPUT>() as c_int;
+
+impl Default for INPUT {
+    fn default() -> Self {
+        unsafe {
+            std::mem::zeroed()
+        }
+    }
+}
+
+pub const INPUT_MOUSE: DWORD = 0;
+pub const INPUT_KEYBOARD: DWORD = 1;
+pub const INPUT_HARDWARE: DWORD = 2;
 
 pub const MOUSEEVENTF_ABSOLUTE: DWORD = 0x8000;
 pub const MOUSEEVENTF_HWHEEL: DWORD = 0x1000;
@@ -270,6 +285,6 @@ extern "C" {
     pub fn SendInput(
         cInputs: UINT,
         pInputs: LPINPUT,
-        cbSize: std::os::raw::c_int,
+        cbSize: c_int,
     ) -> UINT;
 }
