@@ -4,6 +4,7 @@ use super::types::*;
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-mouseinput
 #[repr(C)]
+#[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 struct MOUSE_INPUT {
@@ -17,6 +18,7 @@ struct MOUSE_INPUT {
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-keybdinput
 #[repr(C)]
+#[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 struct KEYBD_INPUT {
@@ -29,6 +31,7 @@ struct KEYBD_INPUT {
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-hardwareinput
 #[repr(C)]
+#[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 #[allow(non_snake_case)]
 struct HARDWARE_INPUT {
@@ -39,6 +42,7 @@ struct HARDWARE_INPUT {
 
 // This is an anonymous union in C
 #[repr(C)]
+#[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 union INPUT_UNION {
     mi: MOUSE_INPUT,
@@ -48,6 +52,7 @@ union INPUT_UNION {
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-input
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct INPUT {
     r#type: DWORD,
     u: INPUT_UNION,
