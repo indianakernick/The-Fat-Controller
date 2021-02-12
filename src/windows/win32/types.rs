@@ -19,7 +19,19 @@ pub type LPCVOID = *const c_void;
 pub type LPVOID = *mut c_void;
 pub type UINT = u32;
 pub type HLOCAL = HANDLE;
+pub type BOOL = i32;
 
 // BaseTsd.h
 #[allow(non_camel_case_types)]
 pub type ULONG_PTR = u64;
+
+// Not sure where this is defined
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct POINT {
+    pub x: LONG,
+    pub y: LONG,
+}
+
+pub type LPPOINT = *mut POINT;

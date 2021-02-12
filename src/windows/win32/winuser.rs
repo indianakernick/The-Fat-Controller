@@ -279,12 +279,23 @@ pub const VK_NONAME: WORD = 0xFC;
 pub const VK_PA1: WORD = 0xFD;
 pub const VK_OEM_CLEAR: WORD = 0xFE;
 
+pub const SM_CXSCREEN: c_int = 0;
+pub const SM_CYSCREEN: c_int = 1;
+
 extern "C" {
     // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendinput
     #[allow(non_snake_case)]
-    pub fn SendInput(
-        cInputs: UINT,
-        pInputs: LPINPUT,
-        cbSize: c_int,
-    ) -> UINT;
+    pub fn SendInput(cInputs: UINT, pInputs: LPINPUT, cbSize: c_int) -> UINT;
+
+    // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setcursorpos
+    #[allow(non_snake_case)]
+    pub fn SetCursorPos(X: c_int, Y: c_int) -> BOOL;
+
+    // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getcursorpos
+    #[allow(non_snake_case)]
+    pub fn GetCursorPos(lpPoint: LPPOINT) -> BOOL;
+
+    // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics
+    #[allow(non_snake_case)]
+    pub fn GetSystemMetrics(nIndex: c_int) -> c_int;
 }

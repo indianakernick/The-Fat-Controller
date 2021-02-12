@@ -5,10 +5,14 @@ use std::fmt::{self, Display, Formatter};
 pub struct Error(win::NonZeroDWORD);
 
 impl Error {
-    pub(super) fn new() -> Self {
+    pub(super) fn last() -> Self {
         unsafe {
             Self(win::NonZeroDWORD::new(win::GetLastError()).unwrap())
         }
+    }
+
+    pub(super) fn unknown() -> Self {
+        Self(win::NonZeroDWORD::new(28).unwrap()) // The printer is out of paper
     }
 }
 

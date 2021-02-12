@@ -1,6 +1,8 @@
 mod win32;
 mod error;
 mod key;
+mod mouse;
+mod info;
 
 use win32 as win;
 
@@ -10,7 +12,7 @@ pub struct Context;
 
 impl Context {
     pub fn new() -> Result<Self, Error> {
-        Ok(Context{})
+        Ok(Context)
     }
 
     fn send_input(&self, input: &win::INPUT) -> Result<(), Error> {
@@ -18,7 +20,7 @@ impl Context {
             if win::SendInput(1, input, win::SIZEOF_INPUT) == 1 {
                 Ok(())
             } else {
-                Err(Error::new())
+                Err(Error::last())
             }
         }
     }
