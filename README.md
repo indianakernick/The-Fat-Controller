@@ -4,8 +4,13 @@
 
 TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
 clicking, scrolling and key presses can all be simulated. Currently, the library
-only supports macOS but other platforms may be added in the future (perhaps with
-the help of some contributors 😉).
+supports macOS and Windows but other platforms are on the roadmap.
+
+## Supported Platforms
+
+- [x] macOS
+- [x] Windows
+- [ ] Linux
 
 ## Usage
 

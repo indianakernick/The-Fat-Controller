@@ -1,8 +1,9 @@
 # TFC: Server
 
-A WebSocket server (soon to be a TCP server) that uses TFC for remote control.
-The repo contains an iOS app that connects to the server to allow for remotely
-controlling a host on the same WiFi network that's running the server.
+A WebSocket server (soon to be a TCP server) that uses
+[TFC](https://crates.io/crates/tfc) for remote control. The repo contains an iOS
+app that connects to the server to allow for remotely controlling a host on the
+same WiFi network that's running the server. An Android app is on the roadmap.
 
 ## Installation
 

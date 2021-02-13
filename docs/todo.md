@@ -50,3 +50,16 @@ better if the tab bar was scrollable. This is especially necessary if we add
 another tab. Six is cramped. Seven and beyond will be unusable.
 [Here](https://stackoverflow.com/questions/8482661/how-to-make-a-horizontal-scrollable-uitabbar-in-ios)
 are some options.
+
+## Android app
+
+Port the iOS app to Android. Using a tool that can generate iOS and Android from
+one source might work but since I've already written the iOS app, it would be
+the same amount of effort. Also, using a generator might not give me full
+control over the app. It just doesn't seem all that appealing.
+
+## Support Linux
+
+I think there are different Windowing systems or something... That might mean
+implementing this for Linux requires multiple modules. I'll obviously need to
+look into this.
