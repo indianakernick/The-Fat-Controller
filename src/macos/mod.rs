@@ -4,12 +4,9 @@ mod info;
 mod key;
 mod mouse;
 
-pub use error::*;
-pub use info::*;
-pub use key::*;
-pub use mouse::*;
-
 use iokit as io;
+
+pub use error::Error;
 
 /// The main context used for generating events.
 ///
@@ -94,6 +91,7 @@ impl Context {
         // Memory mapping IOFramebuffer to get StdFBShmem_t won't work on Apple
         // Silicon. Instead, the properties of IOMobileFramebuffer need to be
         // inspected.
+        // Maybe we should just use Core Graphics
 
         let mut fb_address = 0;
         unsafe {
@@ -113,7 +111,7 @@ impl Context {
             }
         }
 
-        Ok(Context {
+        Ok(Self {
             hid_connect,
             fb_connect,
             fb_address,

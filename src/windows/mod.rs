@@ -12,7 +12,7 @@ pub struct Context;
 
 impl Context {
     pub fn new() -> Result<Self, Error> {
-        Ok(Context)
+        Ok(Self)
     }
 
     fn send_input(&self, input: &win::INPUT) -> Result<(), Error> {

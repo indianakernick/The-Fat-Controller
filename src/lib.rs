@@ -16,6 +16,11 @@ pub use key_context::*;
 pub use mouse_button::*;
 pub use mouse_context::*;
 
+#[cfg(target_os = "linux")]
+mod linux;
+#[cfg(target_os = "linux")]
+pub use linux::{Context, Error};
+
 #[cfg(target_os = "macos")]
 mod macos;
 #[cfg(target_os = "macos")]
@@ -26,7 +31,7 @@ mod windows;
 #[cfg(target_os = "windows")]
 pub use windows::{Context, Error};
 
-#[cfg(not(any(target_os = "macos", target_os = "windows")))]
+#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
 pub struct Context;
-#[cfg(not(any(target_os = "macos", target_os = "windows")))]
+#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
 pub struct Error;
