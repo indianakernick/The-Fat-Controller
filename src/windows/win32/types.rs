@@ -4,8 +4,8 @@ use std::ffi::c_void;
 
 // WinNT.h
 pub type LONG = i32;
-pub type LPTSTR = *mut u8;
-pub type LPCTSTR = *const u8;
+pub type LPWSTR = *mut u16;
+pub type LPCWSTR = *const u16;
 pub type PVOID = *mut c_void;
 pub type HANDLE = PVOID;
 
@@ -16,7 +16,6 @@ pub type NonZeroDWORD = std::num::NonZeroU32;
 // WinDef.h
 pub type WORD = u16;
 pub type LPCVOID = *const c_void;
-pub type LPVOID = *mut c_void;
 pub type UINT = u32;
 pub type HLOCAL = HANDLE;
 pub type BOOL = i32;

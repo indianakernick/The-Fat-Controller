@@ -9,12 +9,12 @@ extern "stdcall" {
 
     // https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-formatmessage
     #[allow(non_snake_case)]
-    pub fn FormatMessageA(
+    pub fn FormatMessageW(
         dwFlags: DWORD,
         lpSource: LPCVOID,
         dwMessageId: DWORD,
         dwLanguageId: DWORD,
-        lpBuffer: LPTSTR,
+        lpBuffer: LPWSTR,
         nSize: DWORD,
         Arguments: *mut std::ffi::c_void, // va_list
     ) -> DWORD;

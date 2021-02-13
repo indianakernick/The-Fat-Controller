@@ -33,11 +33,12 @@ impl crate::MouseContext for Context {
 
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let screen = self.screen_size()?;
+        let screen = (screen.0 - 1, screen.1 - 1);
         let mut input = win::INPUT::default();
         input.type_ = win::INPUT_MOUSE;
         input.u.mi.dwFlags = win::MOUSEEVENTF_MOVE | win::MOUSEEVENTF_ABSOLUTE;
-        input.u.mi.dx = x * 65535 / screen.0;
-        input.u.mi.dy = y * 65535 / screen.1;
+        input.u.mi.dx = (x * 65535 + screen.0 / 2) / screen.0;
+        input.u.mi.dy = (y * 65535 + screen.1 / 2) / screen.1;
         self.send_input(&input)
     }
 
@@ -63,7 +64,7 @@ impl crate::MouseContext for Context {
 
         if dy != 0 {
             input.u.mi.dwFlags = win::MOUSEEVENTF_WHEEL;
-            input.u.mi.mouseData = dy as win::DWORD;
+            input.u.mi.mouseData = -dy as win::DWORD;
             self.send_input(&input)?;
         }
 

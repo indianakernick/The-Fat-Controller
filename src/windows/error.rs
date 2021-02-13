@@ -19,9 +19,9 @@ impl Error {
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         unsafe {
-            let message_buffer: *const u8 = std::ptr::null();
+            let message_buffer: win::LPCWSTR = std::ptr::null();
 
-            let message_length = win::FormatMessageA(
+            let message_length = win::FormatMessageW(
                 win::FORMAT_MESSAGE_ALLOCATE_BUFFER
                     | win::FORMAT_MESSAGE_FROM_SYSTEM
                     | win::FORMAT_MESSAGE_IGNORE_INSERTS,
@@ -37,11 +37,10 @@ impl Display for Error {
                 return write!(f, "Error code: {}", self.0.get());
             }
 
-            let message = std::slice::from_raw_parts(message_buffer, message_length as usize);
-            let result = match std::str::from_utf8(message) {
-                Ok(s) => write!(f, "{}", s),
-                Err(_) => write!(f, "Error code: {}", self.0.get()),
-            };
+            // Removing CRLF and period.
+            let message_length = (message_length - 3) as usize;
+            let message = std::slice::from_raw_parts(message_buffer, message_length);
+            let result = write!(f, "{}", String::from_utf16_lossy(message));
 
             win::LocalFree(std::mem::transmute(message_buffer));
 

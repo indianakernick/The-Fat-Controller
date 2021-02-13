@@ -24,8 +24,8 @@ fn to_key_code(key: Key) -> win::WORD {
         ForwardDelete => VK_DELETE,
         Tab => VK_TAB,
         Space => VK_SPACE,
-        Minus => VK_OEM_MINUS, // not sure
-        Equal => VK_OEM_PLUS, // not sure
+        Minus => VK_OEM_MINUS,
+        Equal => VK_OEM_PLUS,
         LeftBracket => VK_OEM_4,
         RightBracket => VK_OEM_6,
         Backslash => VK_OEM_5,
@@ -89,11 +89,12 @@ fn to_key_code(key: Key) -> win::WORD {
         Numpad7 => VK_NUMPAD7,
         Numpad8 => VK_NUMPAD8,
         Numpad9 => VK_NUMPAD9,
+        // Clear key seems to have no effect.
         NumpadClear => VK_CLEAR,
-        NumpadEquals => VK_OEM_PLUS, // not sure
+        NumpadEquals => VK_OEM_PLUS,
         NumpadDivide => VK_DIVIDE,
         NumpadMultiply => VK_MULTIPLY,
-        NumpadMinus => VK_OEM_MINUS, // not sure
+        NumpadMinus => VK_OEM_MINUS,
         NumpadPlus => VK_ADD,
         NumpadEnter => VK_RETURN,
         NumpadDecimal => VK_DECIMAL,
