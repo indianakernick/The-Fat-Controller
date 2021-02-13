@@ -2,7 +2,7 @@
 name = "tfc-server"
 description = "A server that facilitates remote control using the TFC library. Repo contains an iOS app."
 keywords = ["keyboard", "mouse", "remote", "control"]
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/Kerndog73/The-Fat-Controller"
@@ -20,7 +20,7 @@ warp = "0.3"
 log = "0"
 pretty_env_logger = "0"
 futures = "0.3"
-tfc = { version = "0.1", path = "../" }
+tfc = { version = "0.2", path = "../" }
 
 [profile.release]
 lto = true
