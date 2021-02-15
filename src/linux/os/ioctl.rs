@@ -1,6 +1,5 @@
 // https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/ioctl.h
 
-use std::ffi::c_void;
 use std::os::raw::c_int;
 
 const _IOC_NRBITS: u32 = 8;
@@ -47,5 +46,5 @@ pub const fn _IOW<T>(type_: u32, nr: u32) -> u32 {
 
 extern {
     // https://man7.org/linux/man-pages/man2/ioctl.2.html
-    pub fn ioctl(fd: c_int, request: u32, argp: *const c_void) -> c_int;
+    pub fn ioctl(fd: c_int, request: u32, ...) -> c_int;
 }
