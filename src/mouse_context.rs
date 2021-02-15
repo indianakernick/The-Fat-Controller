@@ -37,6 +37,11 @@ pub trait MouseContext {
     /// * `x` - The horizontal position. A zero value is the left side of the
     /// screen.
     /// * `y` - The vertical position. A zero value is the top of the screen.
+    ///
+    /// # Platform Differences
+    ///
+    /// On Linux, this function is equivalent to
+    /// [`mouse_move_abs`](MouseContext::mouse_move_abs).
     fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error>;
 
     /// Scroll the mouse horizontally and vertically in pixels.
