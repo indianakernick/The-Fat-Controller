@@ -1,6 +1,7 @@
 mod os;
 mod error;
 mod key;
+mod mouse;
 
 use std::mem;
 use std::os::raw::c_int;
