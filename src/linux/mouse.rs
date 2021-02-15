@@ -21,9 +21,7 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        self.write(os::EV_ABS, os::ABS_X, x)?;
-        self.write(os::EV_ABS, os::ABS_Y, y)?;
-        self.write_syn_report()
+        unimplemented!()
     }
 
     fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
@@ -31,8 +29,10 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
-        self.write(os::EV_REL, os::REL_HWHEEL_HI_RES, dx)?;
-        self.write(os::EV_REL, os::REL_WHEEL_HI_RES, dy)?;
+        // self.write(os::EV_REL, os::REL_HWHEEL_HI_RES, dx)?;
+        // self.write(os::EV_REL, os::REL_WHEEL_HI_RES, -dy)?;
+        self.write(os::EV_REL, os::REL_HWHEEL, dx)?;
+        self.write(os::EV_REL, os::REL_WHEEL, -dy)?;
         self.write_syn_report()
     }
 

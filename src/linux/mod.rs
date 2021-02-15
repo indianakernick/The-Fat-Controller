@@ -17,7 +17,7 @@ pub struct Context {
 impl Context {
     pub fn new() -> Result<Self, Error> {
         unsafe {
-            let file = os::open(b"/dev/uinput".as_ptr(), os::O_WRONLY | os::O_NONBLOCK);
+            let file = os::open(b"/dev/uinput\0".as_ptr(), os::O_WRONLY | os::O_NONBLOCK);
             if file == -1 {
                 return Err(Error::errno())
             }
@@ -26,7 +26,6 @@ impl Context {
 
             ctx.ioctl(os::UI_SET_EVBIT, os::EV_KEY)?;
             ctx.ioctl(os::UI_SET_EVBIT, os::EV_REL)?;
-            ctx.ioctl(os::UI_SET_EVBIT, os::EV_ABS)?;
 
             // TODO: only set the keys that we use
             for k in 0..256 {
@@ -39,11 +38,10 @@ impl Context {
 
             ctx.ioctl(os::UI_SET_RELBIT, os::REL_X)?;
             ctx.ioctl(os::UI_SET_RELBIT, os::REL_Y)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL_HI_RES)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL_HI_RES)?;
-
-            ctx.ioctl(os::UI_SET_ABSBIT, os::ABS_X)?;
-            ctx.ioctl(os::UI_SET_ABSBIT, os::ABS_Y)?;
+            // ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL_HI_RES)?;
+            // ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL_HI_RES)?;
+            ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL);
+            ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL);
 
             let mut setup: os::uinput_setup = mem::zeroed();
             setup.id.bustype = os::BUS_USB;

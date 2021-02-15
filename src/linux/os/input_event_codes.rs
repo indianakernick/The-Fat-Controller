@@ -283,5 +283,3 @@ pub const REL_WHEEL: u16 = 0x08;
 pub const REL_WHEEL_HI_RES: u16 = 0x0b;
 pub const REL_HWHEEL_HI_RES: u16 = 0x0c;
 
-pub const ABS_X: u16 = 0x00;
-pub const ABS_Y: u16 = 0x01;
