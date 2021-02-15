@@ -1,7 +1,7 @@
 // X11/XLib.h
 // https://github.com/mirror/libX11/blob/master/include/X11/Xlib.h
 
-use std::os::raw::{c_int, c_uint, c_ulong};
+use std::os::raw::{c_int, c_uint};
 
 #[repr(transparent)]
 pub struct Bool(c_int);

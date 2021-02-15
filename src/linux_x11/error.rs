@@ -3,6 +3,7 @@ use std::fmt::{self, Display, Formatter};
 #[derive(Debug)]
 pub enum Error {
     OpenDisplay,
+    XTestQuery,
 }
 
 impl Display for Error {
@@ -10,6 +11,7 @@ impl Display for Error {
         use Error::*;
         match self {
             OpenDisplay => write!(f, "Error opening display"),
+            XTestQuery => write!(f, "XTest extension is unavailable")
         }
     }
 }

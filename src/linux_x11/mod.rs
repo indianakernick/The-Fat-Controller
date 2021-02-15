@@ -1,5 +1,6 @@
 mod os;
 mod error;
+mod mouse;
 
 use std::ptr;
 use std::os::raw::c_int;
@@ -15,15 +16,17 @@ impl Context {
     pub fn new() -> Result<Self, Error> {
         unsafe {
             let display = os::XOpenDisplay(ptr::null());
-            if display != ptr::null_mut() {
-                let screen_number = os::XDefaultScreen(display);
-                Ok(Self {
-                    display,
-                    screen_number
-                })
-            } else {
-                Err(Error::OpenDisplay)
+            if display == ptr::null_mut() {
+                return Err(Error::OpenDisplay);
             }
+            let null = ptr::null_mut();
+            if os::XTestQueryExtension(display, null, null, null, null) == os::False {
+                return Err(Error::XTestQuery);
+            }
+            Ok(Self {
+                display,
+                screen_number: os::XDefaultScreen(display)
+            })
         }
     }
 }
