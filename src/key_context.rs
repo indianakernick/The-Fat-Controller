@@ -3,6 +3,12 @@ use crate::{Key, Error};
 /// A context that supports keyboard events.
 ///
 /// Implementors of this trait are able to emit key events.
+///
+/// # Platform Differences
+///
+/// `Key::Fn` and `Key::NumpadClear` are supported on macOS only. In the future,
+/// they may be named to reflect this or removed entirely (because they're
+/// really not that useful).
 pub trait KeyboardContext {
 
     /// Press down a key.

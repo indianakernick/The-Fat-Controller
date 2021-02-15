@@ -29,6 +29,13 @@ impl Error {
             Self(NonZeroInt::new_unchecked(*os::__errno_location()))
         }
     }
+
+    pub(super) fn unknown() -> Self {
+        unsafe {
+            // strerror will say "Unknown error 65535"
+            Self(NonZeroInt::new_unchecked(0xFFFF))
+        }
+    }
 }
 
 impl Display for Error {
