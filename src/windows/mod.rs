@@ -1,10 +1,8 @@
-mod win32;
+mod os;
 mod error;
 mod key;
 mod mouse;
 mod info;
-
-use win32 as win;
 
 pub use error::Error;
 
@@ -15,9 +13,9 @@ impl Context {
         Ok(Self)
     }
 
-    fn send_input(&self, input: &win::INPUT) -> Result<(), Error> {
+    fn send_input(&self, input: &os::INPUT) -> Result<(), Error> {
         unsafe {
-            if win::SendInput(1, input, win::SIZEOF_INPUT) == 1 {
+            if os::SendInput(1, input, os::SIZEOF_INPUT) == 1 {
                 Ok(())
             } else {
                 Err(Error::last())

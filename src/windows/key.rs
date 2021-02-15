@@ -1,10 +1,9 @@
 use crate::Key;
-use super::win32 as win;
-use super::{Context, Error};
+use super::{os, Context, Error};
 
-fn to_key_code(key: Key) -> win::WORD {
+fn to_key_code(key: Key) -> os::WORD {
     use Key::*;
-    use win::*;
+    use os::*;
     match key {
         CapsLock => VK_CAPITAL,
         Shift => VK_LSHIFT,
@@ -121,10 +120,10 @@ fn to_key_code(key: Key) -> win::WORD {
 
 impl Context {
     fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
-        let mut input = win::INPUT::default();
-        input.type_ = win::INPUT_KEYBOARD;
+        let mut input = os::INPUT::default();
+        input.type_ = os::INPUT_KEYBOARD;
         input.u.ki.wVk = to_key_code(key);
-        input.u.ki.dwFlags = if down { 0 } else { win::KEYEVENTF_KEYUP };
+        input.u.ki.dwFlags = if down { 0 } else { os::KEYEVENTF_KEYUP };
         self.send_input(&input)
     }
 }

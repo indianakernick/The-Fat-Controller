@@ -15,7 +15,7 @@ impl Error {
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        use super::iokit::*;
+        use super::os::*;
         #[allow(non_upper_case_globals)]
         match self.0.get() {
             kIOReturnError => write!(f, "General error"),
