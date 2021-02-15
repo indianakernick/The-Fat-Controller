@@ -7,8 +7,10 @@ use std::os::raw::{c_int, c_uint, c_ulong};
 pub struct Bool(c_int);
 #[repr(transparent)]
 pub struct Window(u32);
-pub struct Display;
-pub struct Screen;
+#[repr(transparent)]
+pub struct Display(u8);
+#[repr(transparent)]
+pub struct Screen(u8);
 
 #[allow(non_upper_case_globals)]
 pub const True: Bool = Bool(1);
@@ -16,8 +18,6 @@ pub const True: Bool = Bool(1);
 pub const False: Bool = Bool(0);
 #[allow(non_upper_case_globals)]
 pub const None: Window = Window(0);
-#[allow(non_upper_case_globals)]
-pub const CurrentTime: c_ulong = 0;
 
 #[link(name = "x11")]
 extern {
@@ -28,7 +28,13 @@ extern {
     pub fn XCloseDisplay(display: *mut Display) -> c_int;
 
     // Macro directly accesses struct member
-    pub fn XDefaultScreenOfDisplay(display: *mut Display) -> *mut Screen;
+    pub fn XDefaultScreen(display: *mut Display) -> c_int;
+
+    // Macro directly accesses struct member
+    // pub fn XDefaultScreenOfDisplay(display: *mut Display) -> *mut Screen;
+
+    // Macro directly accesses struct member
+    pub fn XScreenOfDisplay(display: *mut Display, screen_number: c_int) -> *mut Screen;
 
     // Macro directly accesses struct member
     pub fn XRootWindowOfScreen(screen: *mut Screen) -> Window;
@@ -38,19 +44,6 @@ extern {
 
     // Macro directly accesses struct member
     pub fn XHeightOfScreen(screen: *mut Screen) -> c_int;
-
-    // https://linux.die.net/man/3/xwarppointer
-    pub fn XWarpPointer(
-        display: *mut Display,
-        src_w: Window,
-        dest_w: Window,
-        src_x: c_int,
-        src_y: c_int,
-        src_width: c_uint,
-        src_height: c_uint,
-        dest_x: c_int,
-        dest_y: c_int,
-    ) -> c_int;
 
     // https://linux.die.net/man/3/xquerypointer
     pub fn XQueryPointer(
@@ -64,4 +57,7 @@ extern {
         win_y_return: *mut c_int,
         mask_return: *mut c_uint,
     ) -> Bool;
+
+    // https://linux.die.net/man/3/xsync
+    pub fn XSync(display: *mut Display, discard: Bool) -> c_int;
 }
