@@ -8,7 +8,9 @@ impl Context {
         unsafe {
             let key_code = (linux_common::to_key_code(key) + 8) as c_uint;
             let press = if down { os::True } else { os::False };
-            os::XTestFakeKeyEvent(self.display, key_code, press, os::CurrentTime);
+            if os::XTestFakeKeyEvent(self.display, key_code, press, os::CurrentTime) == 0 {
+                return Err(Error::XTestFakeKeyEvent);
+            }
             os::XSync(self.display, os::False);
             Ok(())
         }

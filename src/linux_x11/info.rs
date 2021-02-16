@@ -1,4 +1,3 @@
-use std::ptr;
 use super::{os, Error};
 
 impl crate::InfoContext for super::Context {
@@ -6,22 +5,29 @@ impl crate::InfoContext for super::Context {
         unsafe {
             let screen = os::XScreenOfDisplay(self.display, self.screen_number);
             let window = os::XRootWindowOfScreen(screen);
-            let mut x = 0;
-            let mut y = 0;
+            // Passing null pointers for the things we don't need results in a
+            // segfault.
+            let mut root_return = os::None;
+            let mut child_return = os::None;
+            let mut root_x_return = 0;
+            let mut root_y_return = 0;
+            let mut win_x_return = 0;
+            let mut win_y_return = 0;
+            let mut mask_return = 0;
             if os::XQueryPointer(
                 self.display,
                 window,
-                ptr::null_mut(), // root_return
-                ptr::null_mut(), // child_return
-                ptr::null_mut(), // root_x_return
-                ptr::null_mut(), // root_y_return
-                &mut x,          // win_x_return
-                &mut y,          // win_y_return
-                ptr::null_mut(), // mask_return
+                &mut root_return,
+                &mut child_return,
+                &mut root_x_return,
+                &mut root_y_return,
+                &mut win_x_return,
+                &mut win_y_return,
+                &mut mask_return,
             ) == os::False {
                 Err(Error::XQueryPointer)
             } else {
-                Ok((x as i32, y as i32))
+                Ok((win_x_return as i32, win_y_return as i32))
             }
         }
     }

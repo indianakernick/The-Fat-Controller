@@ -20,7 +20,7 @@ pub const False: Bool = Bool(0);
 #[allow(non_upper_case_globals)]
 pub const None: Window = Window(0);
 
-#[link(name = "x11")]
+#[link(name = "X11")]
 extern {
     // https://linux.die.net/man/3/xopendisplay
     pub fn XOpenDisplay(display_name: *const u8) -> *mut Display;
@@ -43,6 +43,9 @@ extern {
     // Macro directly accesses struct member
     pub fn XHeightOfScreen(screen: *mut Screen) -> c_int;
 
+    // Macro directly accesses struct member
+    pub fn XRootWindow(display: *mut Display, screen_number: c_int) -> Window;
+
     // https://linux.die.net/man/3/xquerypointer
     pub fn XQueryPointer(
         display: *mut Display,
@@ -55,7 +58,23 @@ extern {
         win_y_return: *mut c_int,
         mask_return: *mut c_uint,
     ) -> Bool;
-
+    
+    // https://linux.die.net/man/3/xwarppointer
+    pub fn XWarpPointer(
+        display: *mut Display,
+        src_w: Window,
+        dest_w: Window,
+        src_x: c_int,
+        src_y: c_int,
+        src_width: c_uint,
+        src_height: c_uint,
+        dest_x: c_int,
+        dest_y: c_int,
+    ) -> c_int;
+    
     // https://linux.die.net/man/3/xsync
     pub fn XSync(display: *mut Display, discard: Bool) -> c_int;
+    
+    // https://linux.die.net/man/3/xflush
+    pub fn XFlush(display: *mut Display) -> c_int;
 }

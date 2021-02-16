@@ -14,46 +14,51 @@ impl Context {
     fn button_event(&mut self, button: c_uint, down: bool) -> Result<(), Error> {
         let press = if down { os::True } else { os::False };
         unsafe {
-            os::XTestFakeButtonEvent(self.display, button, press, os::CurrentTime);
+            if os::XTestFakeButtonEvent(self.display, button, press, os::CurrentTime) == 0 {
+                return Err(Error::XTestFakeButtonEvent);
+            }
             os::XSync(self.display, os::False);
         }
         Ok(())
     }
 
-    fn repeat_button_event(&mut self, count: i32, button: c_uint) {
+    fn repeat_button_event(&mut self, count: i32, button: c_uint) -> Result<(), Error> {
         unsafe {
             for _ in 0..count {
-                os::XTestFakeButtonEvent(self.display, button, os::True, os::CurrentTime);
-                os::XTestFakeButtonEvent(self.display, button, os::False, os::CurrentTime);
+                if os::XTestFakeButtonEvent(self.display, button, os::True, os::CurrentTime) == 0 {
+                    return Err(Error::XTestFakeButtonEvent);
+                }
+                if os::XTestFakeButtonEvent(self.display, button, os::False, os::CurrentTime) == 0 {
+                    return Err(Error::XTestFakeButtonEvent);
+                }
             }
             os::XSync(self.display, os::False);
         }
+        Ok(())
     }
 }
 
 impl crate::MouseContext for Context {
     fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         unsafe {
-            os::XTestFakeRelativeMotionEvent(
-                self.display,
-                self.screen_number,
-                dx as c_int,
-                dy as c_int,
-                os::CurrentTime
-            );
+            // XTestFakeRelativeMotionEvent seems to only move the mouse
+            // vertically. Very odd.
+            if os::XWarpPointer(self.display, os::None, os::None, 0, 0, 0, 0, dx as c_int, dy as c_int) == 0 {
+                return Err(Error::XWarpPointer);
+            }
+            os::XFlush(self.display);
         }
         Ok(())
     }
 
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
         unsafe {
-            os::XTestFakeMotionEvent(
-                self.display,
-                self.screen_number,
-                x as c_int,
-                y as c_int,
-                os::CurrentTime
-            );
+            // XTestFakeMotionEvent apparently ignores the screen number.
+            let window = os::XRootWindow(self.display, self.screen_number);
+            if os::XWarpPointer(self.display, os::None, window, 0, 0, 0, 0, x as c_int, y as c_int) == 0 {
+                return Err(Error::XWarpPointer);
+            }
+            os::XFlush(self.display);
         }
         Ok(())
     }
@@ -65,14 +70,14 @@ impl crate::MouseContext for Context {
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let delta = self.scroll.accumulate(dx, dy);
         if dx < 0 {
-            self.repeat_button_event(-delta.0, 6);
+            self.repeat_button_event(-delta.0, 6)?;
         } else if dx > 0 {
-            self.repeat_button_event(delta.0, 7);
+            self.repeat_button_event(delta.0, 7)?;
         }
         if dy < 0 {
-            self.repeat_button_event(-delta.1, 4);
+            self.repeat_button_event(-delta.1, 4)?;
         } else if dy > 0 {
-            self.repeat_button_event(delta.1, 5);
+            self.repeat_button_event(delta.1, 5)?;
         }
         Ok(())
     }

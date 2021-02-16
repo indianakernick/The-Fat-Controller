@@ -23,8 +23,19 @@ impl Context {
             if display == ptr::null_mut() {
                 return Err(Error::XOpenDisplay);
             }
-            let null = ptr::null_mut();
-            if os::XTestQueryExtension(display, null, null, null, null) == os::False {
+            // Passing null pointers for the things we don't need results in a
+            // segfault.
+            let mut event_base = 0;
+            let mut error_base = 0;
+            let mut major_version = 0;
+            let mut minor_version = 0;
+            if os::XTestQueryExtension(
+                display,
+                &mut event_base,
+                &mut error_base,
+                &mut major_version,
+                &mut minor_version
+            ) == os::False {
                 return Err(Error::XTestQueryExtension);
             }
             Ok(Self {
