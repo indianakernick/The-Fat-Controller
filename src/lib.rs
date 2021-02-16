@@ -19,19 +19,14 @@ pub use mouse_context::*;
 #[cfg(target_os = "linux")]
 mod linux_common;
 
-// How do we detect X11 vs Wayland? Maybe we need a build.rs that sets a config
-// attribute?
-// There are some solutions here:
-// https://unix.stackexchange.com/questions/202891/how-to-know-whether-wayland-or-x11-is-being-used#:~:text=You%20could%20run%20the%20xdpyinfo,in%20a%20pure%20Wayland%20setting).&text=The%20%2DB%20flag%20stands%20for,to%20print%20the%20binary%20name.
-
-#[cfg(wayland)]
+#[cfg(all(target_os = "linux", not(x11)))]
 mod linux_wayland;
-#[cfg(wayland)]
+#[cfg(all(target_os = "linux", not(x11)))]
 pub use linux_wayland::{Context, Error};
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", x11))]
 mod linux_x11;
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", x11))]
 pub use linux_x11::{Context, Error};
 
 #[cfg(target_os = "macos")]
