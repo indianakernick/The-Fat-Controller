@@ -1,8 +1,8 @@
 mod os;
 mod error;
+mod info;
 mod key;
 mod mouse;
-mod info;
 
 pub use error::Error;
 

@@ -1,7 +1,8 @@
 mod os;
 mod error;
-mod mouse;
 mod info;
+mod key;
+mod mouse;
 
 use std::ptr;
 use std::os::raw::c_int;
