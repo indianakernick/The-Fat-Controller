@@ -63,15 +63,16 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
+        let delta = self.scroll.accumulate(dx, dy);
         if dx < 0 {
-            self.repeat_button_event(-dx, 6);
+            self.repeat_button_event(-delta.0, 6);
         } else if dx > 0 {
-            self.repeat_button_event(dx, 7);
+            self.repeat_button_event(delta.0, 7);
         }
         if dy < 0 {
-            self.repeat_button_event(-dy, 4);
+            self.repeat_button_event(-delta.1, 4);
         } else if dy > 0 {
-            self.repeat_button_event(dy, 5);
+            self.repeat_button_event(delta.1, 5);
         }
         Ok(())
     }

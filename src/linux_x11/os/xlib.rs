@@ -32,9 +32,6 @@ extern {
     pub fn XDefaultScreen(display: *mut Display) -> c_int;
 
     // Macro directly accesses struct member
-    // pub fn XDefaultScreenOfDisplay(display: *mut Display) -> *mut Screen;
-
-    // Macro directly accesses struct member
     pub fn XScreenOfDisplay(display: *mut Display, screen_number: c_int) -> *mut Screen;
 
     // Macro directly accesses struct member

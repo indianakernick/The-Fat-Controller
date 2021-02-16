@@ -5,12 +5,14 @@ mod info;
 
 use std::ptr;
 use std::os::raw::c_int;
+use crate::linux_common::ScrollAccum;
 
 pub use error::Error;
 
 pub struct Context {
     display: *mut os::Display,
     screen_number: c_int,
+    scroll: ScrollAccum,
 }
 
 impl Context {
@@ -26,7 +28,8 @@ impl Context {
             }
             Ok(Self {
                 display,
-                screen_number: os::XDefaultScreen(display)
+                screen_number: os::XDefaultScreen(display),
+                scroll: ScrollAccum::default(),
             })
         }
     }

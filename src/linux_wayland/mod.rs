@@ -4,7 +4,9 @@ mod key;
 mod mouse;
 
 use std::mem;
+use crate::Key;
 use std::os::raw::c_int;
+use crate::linux_common::{self, ScrollAccum};
 
 pub use error::Error;
 
@@ -12,6 +14,7 @@ pub use error::Error;
 
 pub struct Context {
     file: c_int,
+    scroll: ScrollAccum,
 }
 
 impl Context {
@@ -22,14 +25,15 @@ impl Context {
                 return Err(Error::errno())
             }
 
-            let ctx = Self { file };
+            let ctx = Self { file, scroll: ScrollAccum::default() };
 
             ctx.ioctl(os::UI_SET_EVBIT, os::EV_KEY)?;
             ctx.ioctl(os::UI_SET_EVBIT, os::EV_REL)?;
 
-            // TODO: only set the keys that we use
-            for k in 0..256 {
-                ctx.ioctl(os::UI_SET_KEYBIT, k as c_int)?;
+            for k in 0..Key::COUNT {
+                let key = std::mem::transmute(k);
+                let key_code = linux_common::to_key_code(key) as c_int;
+                ctx.ioctl(os::UI_SET_KEYBIT, key_code)?;
             }
 
             ctx.ioctl(os::UI_SET_KEYBIT, os::BTN_LEFT)?;
@@ -40,8 +44,8 @@ impl Context {
             ctx.ioctl(os::UI_SET_RELBIT, os::REL_Y)?;
             // ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL_HI_RES)?;
             // ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL_HI_RES)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL);
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL);
+            ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL)?;
+            ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL)?;
 
             let mut setup: os::uinput_setup = mem::zeroed();
             setup.id.bustype = os::BUS_USB;
