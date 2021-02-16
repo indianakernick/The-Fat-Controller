@@ -2,18 +2,18 @@ use std::fmt::{self, Display, Formatter};
 
 #[derive(Debug)]
 pub enum Error {
-    OpenDisplay,
-    XTestQuery,
-    QueryPointer,
+    XOpenDisplay,
+    XTestQueryExtension,
+    XQueryPointer,
 }
 
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         use Error::*;
         match self {
-            OpenDisplay => write!(f, "Error opening display"),
-            XTestQuery => write!(f, "XTest extension is unavailable"),
-            QueryPointer => write!(f, "Cursor is not in main screen"),
+            XOpenDisplay => write!(f, "Error opening display"),
+            XTestQueryExtension => write!(f, "XTest extension is unavailable"),
+            XQueryPointer => write!(f, "Cursor is not in main screen"),
         }
     }
 }

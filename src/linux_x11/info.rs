@@ -19,7 +19,7 @@ impl crate::InfoContext for super::Context {
                 &mut y,          // win_y_return
                 ptr::null_mut(), // mask_return
             ) == os::False {
-                Err(Error::QueryPointer)
+                Err(Error::XQueryPointer)
             } else {
                 Ok((x as i32, y as i32))
             }

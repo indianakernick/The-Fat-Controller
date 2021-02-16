@@ -21,11 +21,11 @@ impl Context {
         unsafe {
             let display = os::XOpenDisplay(ptr::null());
             if display == ptr::null_mut() {
-                return Err(Error::OpenDisplay);
+                return Err(Error::XOpenDisplay);
             }
             let null = ptr::null_mut();
             if os::XTestQueryExtension(display, null, null, null, null) == os::False {
-                return Err(Error::XTestQuery);
+                return Err(Error::XTestQueryExtension);
             }
             Ok(Self {
                 display,
