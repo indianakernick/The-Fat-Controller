@@ -45,23 +45,6 @@ impl crate::MouseContext for Context {
         self.mouse_move_rel(x - location.0, y - location.1)
     }
 
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        let error_code;
-        unsafe {
-            use std::os::raw::c_int;
-            error_code = os::IOHIDSetMouseLocation(
-                self.hid_connect,
-                x as c_int,
-                y as c_int
-            )
-        }
-        if error_code == os::kIOReturnSuccess {
-            Ok(())
-        } else {
-            Err(Error::new(error_code))
-        }
-    }
-
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let mut event = os::NXEventData::default();
         event.scrollWheel.fixedDeltaAxis1 = dy << 13;

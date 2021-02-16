@@ -7,7 +7,6 @@ enum CommandCode: UInt8, CaseIterable {
     keyClick,
     mouseMoveRel,
     mouseMoveAbs,
-    mouseWarp,
     mouseScroll,
     mouseDown,
     mouseUp,
@@ -23,7 +22,6 @@ extension CommandCode: CustomStringConvertible {
             case .keyClick: return "Key click"
             case .mouseMoveRel: return "Mouse move rel"
             case .mouseMoveAbs: return "Mouse move abs"
-            case .mouseWarp: return "Mouse warp"
             case .mouseScroll: return "Mouse scroll"
             case .mouseDown: return "Mouse down"
             case .mouseUp: return "Mouse up"

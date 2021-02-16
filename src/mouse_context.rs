@@ -33,20 +33,6 @@ pub trait MouseContext {
     /// * `y` - The vertical position. A zero value is the top of the screen.
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error>;
 
-    /// Warp the mouse to a location.
-    ///
-    /// This is similar to [`mouse_move_abs`](MouseContext::mouse_move_abs)
-    /// except that this doesn't emit proper mouse events. Instead, this will
-    /// warp the mouse to the location. A consequence of not emitting any events
-    /// is that things like hovering and dragging may not work.
-    ///
-    /// # Arguments
-    ///
-    /// * `x` - The horizontal position. A zero value is the left side of the
-    /// screen.
-    /// * `y` - The vertical position. A zero value is the top of the screen.
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error>;
-
     /// Scroll the mouse horizontally and vertically in pixels.
     ///
     /// # Arguments

@@ -25,10 +25,6 @@ impl crate::MouseContext for Context {
         self.mouse_move_rel(x, y)
     }
 
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        self.mouse_move_abs(x, y)
-    }
-
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         // self.write(os::EV_REL, os::REL_HWHEEL_HI_RES, dx)?;
         // self.write(os::EV_REL, os::REL_WHEEL_HI_RES, -dy)?;

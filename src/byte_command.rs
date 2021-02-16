@@ -128,10 +128,6 @@ pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteComma
             check_buffer_length(buf, 5)?;
             Ok((Command::MouseMoveAbs(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
         },
-        CommandCode::MouseWarp => {
-            check_buffer_length(buf, 5)?;
-            Ok((Command::MouseWarp(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
-        },
         CommandCode::MouseScroll => {
             check_buffer_length(buf, 5)?;
             Ok((Command::MouseScroll(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))

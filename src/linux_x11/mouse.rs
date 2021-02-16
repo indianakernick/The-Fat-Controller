@@ -63,10 +63,6 @@ impl crate::MouseContext for Context {
         Ok(())
     }
 
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        self.mouse_move_abs(x, y)
-    }
-
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let delta = self.scroll.accumulate(dx, dy);
         if dx < 0 {

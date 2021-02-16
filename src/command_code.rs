@@ -8,7 +8,6 @@ pub enum CommandCode {
     KeyClick,
     MouseMoveRel,
     MouseMoveAbs,
-    MouseWarp,
     MouseScroll,
     MouseDown,
     MouseUp,
@@ -17,7 +16,7 @@ pub enum CommandCode {
 }
 
 impl CommandCode {
-    pub const COUNT: u8 = 11;
+    pub const COUNT: u8 = 10;
 }
 
 impl std::str::FromStr for CommandCode {
@@ -31,7 +30,6 @@ impl std::str::FromStr for CommandCode {
             "keyclick" => Ok(KeyClick),
             "mousemoverel" => Ok(MouseMoveRel),
             "mousemoveabs" => Ok(MouseMoveAbs),
-            "mousewarp" => Ok(MouseWarp),
             "mousescroll" => Ok(MouseScroll),
             "mousedown" => Ok(MouseDown),
             "mouseup" => Ok(MouseUp),

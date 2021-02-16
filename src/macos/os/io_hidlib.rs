@@ -2,7 +2,6 @@
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework/Versions/A/Headers/hidsystem/IOHIDLib.h
 
 use super::*;
-use std::os::raw::c_int;
 
 #[allow(non_upper_case_globals)]
 pub const kIOHIDSetGlobalEventFlags: IOOptionBits = 1;
@@ -25,6 +24,4 @@ extern {
         eventFlags: IOOptionBits,
         options: IOOptionBits
     ) -> kern_return_t;
-
-    pub fn IOHIDSetMouseLocation(connect: io_connect_t, x: c_int, y: c_int) -> kern_return_t;
 }

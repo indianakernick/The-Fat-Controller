@@ -20,8 +20,6 @@ pub enum Command {
     MouseMoveRel(i32, i32),
     /// Corresponds to [`mouse_move_abs`](MouseContext::mouse_move_abs)
     MouseMoveAbs(i32, i32),
-    /// Corresponds to [`mouse_warp`](MouseContext::mouse_warp)
-    MouseWarp(i32, i32),
     /// Corresponds to [`mouse_scroll`](MouseContext::mouse_scroll)
     MouseScroll(i32, i32),
     /// Corresponds to [`mouse_down`](MouseContext::mouse_down)
@@ -48,7 +46,6 @@ impl Command {
             KeyClick(key) => ctx.key_click(key),
             MouseMoveRel(dx, dy) => ctx.mouse_move_rel(dx, dy),
             MouseMoveAbs(x, y) => ctx.mouse_move_abs(x, y),
-            MouseWarp(x, y) => ctx.mouse_warp(x, y),
             MouseScroll(dx, dy) => ctx.mouse_scroll(dx, dy),
             MouseDown(button) => ctx.mouse_down(button),
             MouseUp(button) => ctx.mouse_up(button),

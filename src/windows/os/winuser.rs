@@ -288,10 +288,6 @@ extern "stdcall" {
     #[allow(non_snake_case)]
     pub fn SendInput(cInputs: UINT, pInputs: LPINPUT, cbSize: c_int) -> UINT;
 
-    // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setcursorpos
-    #[allow(non_snake_case)]
-    pub fn SetCursorPos(X: c_int, Y: c_int) -> BOOL;
-
     // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getcursorpos
     #[allow(non_snake_case)]
     pub fn GetCursorPos(lpPoint: LPPOINT) -> BOOL;

@@ -1,4 +1,3 @@
-use std::os::raw::c_int;
 use super::{os, Context, Error};
 use crate::{MouseButton, InfoContext};
 
@@ -39,16 +38,6 @@ impl crate::MouseContext for Context {
         input.u.mi.dx = (x * 65535 + screen.0 / 2) / screen.0;
         input.u.mi.dy = (y * 65535 + screen.1 / 2) / screen.1;
         self.send_input(&input)
-    }
-
-    fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        unsafe {
-            if os::SetCursorPos(x as c_int, y as c_int) != 0 {
-                Ok(())
-            } else {
-                Err(Error::last())
-            }
-        }
     }
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
