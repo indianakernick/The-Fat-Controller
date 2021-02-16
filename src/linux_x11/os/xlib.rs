@@ -3,6 +3,7 @@
 
 use std::os::raw::{c_int, c_uint};
 
+#[derive(Eq, PartialEq)]
 #[repr(transparent)]
 pub struct Bool(c_int);
 #[repr(transparent)]

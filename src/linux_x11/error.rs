@@ -4,6 +4,7 @@ use std::fmt::{self, Display, Formatter};
 pub enum Error {
     OpenDisplay,
     XTestQuery,
+    QueryPointer,
 }
 
 impl Display for Error {
@@ -11,7 +12,8 @@ impl Display for Error {
         use Error::*;
         match self {
             OpenDisplay => write!(f, "Error opening display"),
-            XTestQuery => write!(f, "XTest extension is unavailable")
+            XTestQuery => write!(f, "XTest extension is unavailable"),
+            QueryPointer => write!(f, "Cursor is not in main screen"),
         }
     }
 }
