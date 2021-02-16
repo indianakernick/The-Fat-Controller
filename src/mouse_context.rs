@@ -4,6 +4,14 @@ use crate::{Error, MouseButton};
 ///
 /// Implementors of this trait are able to emit mouse events. The mouse can be
 /// moved or scrolled. The mouse buttons can also be pressed.
+///
+/// # Platform Differences
+///
+/// On Linux, [`mouse_warp`](MouseContext::mouse_warp) is equivalent to
+///  [`mouse_move_abs`](MouseContext::mouse_move_abs). Also on Linux, smooth
+/// scrolling isn't supported so [`mouse_scroll`](MouseContext::mouse_scroll)
+/// will accumulate up to `120` (a magic number that seems to pop up in various
+/// places) before issuing a scroll event.
 pub trait MouseContext {
 
     /// Move the mouse relative to its current location.
@@ -37,11 +45,6 @@ pub trait MouseContext {
     /// * `x` - The horizontal position. A zero value is the left side of the
     /// screen.
     /// * `y` - The vertical position. A zero value is the top of the screen.
-    ///
-    /// # Platform Differences
-    ///
-    /// On Linux, this function is equivalent to
-    /// [`mouse_move_abs`](MouseContext::mouse_move_abs).
     fn mouse_warp(&mut self, x: i32, y: i32) -> Result<(), Error>;
 
     /// Scroll the mouse horizontally and vertically in pixels.

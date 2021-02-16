@@ -1,7 +1,7 @@
 use super::{os, Error};
 
 impl crate::InfoContext for super::Context {
-    fn mouse_location(&self) -> Result<(i32, i32), Error> {
+    fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let mut point = os::POINT { x: 0, y: 0 };
             if os::GetCursorPos(&mut point) != 0 {

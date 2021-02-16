@@ -1,7 +1,7 @@
 use super::{os, Error};
 
 impl crate::InfoContext for super::Context {
-    fn mouse_location(&self) -> Result<(i32, i32), Error> {
+    fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let screen = os::XScreenOfDisplay(self.display, self.screen_number);
             let window = os::XRootWindowOfScreen(screen);

@@ -1,7 +1,7 @@
 use super::{os, Error};
 
 impl crate::InfoContext for super::Context {
-    fn mouse_location(&self) -> Result<(i32, i32), Error> {
+    fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let struct_ptr = self.fb_address as *const os::StdFBShmem_t;
             let loc_ptr: *const os::IOGPoint = &(*struct_ptr).cursorLoc;

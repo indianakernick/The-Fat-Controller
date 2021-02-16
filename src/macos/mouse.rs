@@ -41,7 +41,7 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
-        let location = self.mouse_location()?;
+        let location = self.cursor_location()?;
         self.mouse_move_rel(x - location.0, y - location.1)
     }
 
