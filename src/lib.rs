@@ -6,6 +6,7 @@ mod key;
 mod key_context;
 mod mouse_button;
 mod mouse_context;
+mod utils;
 
 pub use byte_command::*;
 pub use command::*;

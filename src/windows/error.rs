@@ -1,24 +1,26 @@
 use super::os;
 use std::fmt::{self, Display, Formatter};
 
+type NonZeroDWORD = <os::DWORD as crate::utils::NonZero>::Type;
+
 /// Error type used throughout the library (Windows).
 ///
 /// The exact type depends on the platform being used. All that can be assumed
 /// is that this type implements `std::error::Error`.
 #[derive(Debug)]
-pub struct Error(os::NonZeroDWORD);
+pub struct Error(NonZeroDWORD);
 
 impl Error {
     pub(super) fn last() -> Self {
         unsafe {
-            Self(os::NonZeroDWORD::new_unchecked(os::GetLastError()))
+            Self(NonZeroDWORD::new_unchecked(os::GetLastError()))
         }
     }
 
     pub(super) fn unknown() -> Self {
         unsafe {
             // The printer is out of paper
-            Self(os::NonZeroDWORD::new_unchecked(28))
+            Self(NonZeroDWORD::new_unchecked(28))
         }
     }
 }

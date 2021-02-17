@@ -11,7 +11,6 @@ pub type HANDLE = PVOID;
 
 // IntSafe.h
 pub type DWORD = u32;
-pub type NonZeroDWORD = std::num::NonZeroU32;
 
 // WinDef.h
 pub type WORD = u16;

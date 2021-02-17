@@ -2,23 +2,7 @@ use super::os;
 use std::os::raw::c_int;
 use std::fmt::{self, Display, Formatter};
 
-trait NonZero {
-    type Type;
-}
-
-impl NonZero for i16 {
-    type Type = std::num::NonZeroI16;
-}
-
-impl NonZero for i32 {
-    type Type = std::num::NonZeroI32;
-}
-
-impl NonZero for i64 {
-    type Type = std::num::NonZeroI64;
-}
-
-type NonZeroInt = <c_int as NonZero>::Type;
+type NonZeroInt = <c_int as crate::utils::NonZero>::Type;
 
 /// Error type used throughout the library (Linux-Wayland).
 ///
