@@ -3,7 +3,7 @@ mod command;
 mod command_code;
 mod info_context;
 mod key;
-mod key_context;
+mod keyboard_context;
 mod mouse_button;
 mod mouse_context;
 mod utils;
@@ -13,7 +13,7 @@ pub use command::*;
 pub use command_code::*;
 pub use info_context::*;
 pub use key::*;
-pub use key_context::*;
+pub use keyboard_context::*;
 pub use mouse_button::*;
 pub use mouse_context::*;
 

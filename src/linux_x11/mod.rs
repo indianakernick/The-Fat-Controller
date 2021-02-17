@@ -1,7 +1,7 @@
 mod os;
 mod error;
 mod info;
-mod key;
+mod keyboard;
 mod mouse;
 
 use std::ptr;

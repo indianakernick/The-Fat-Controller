@@ -1,6 +1,6 @@
 mod os;
 mod error;
-mod key;
+mod keyboard;
 mod mouse;
 
 use std::mem;
