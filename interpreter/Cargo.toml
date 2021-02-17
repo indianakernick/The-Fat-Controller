@@ -10,4 +10,4 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tfc = { version = "0.2", path = "../" }
+tfc = { version = "0.3", path = "../" }

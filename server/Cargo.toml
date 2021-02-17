@@ -2,7 +2,7 @@
 name = "tfc-server"
 description = "A server that facilitates remote control using the TFC library. Repo contains an iOS app."
 keywords = ["keyboard", "mouse", "remote", "control"]
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/Kerndog73/The-Fat-Controller"
@@ -11,8 +11,6 @@ readme = "README.md"
 categories = ["network-programming"]
 license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 tokio = { version = "1.0", features = ["full"] }
 tokio-stream = "0.1"
@@ -20,7 +18,7 @@ warp = "0.3"
 log = "0"
 pretty_env_logger = "0"
 futures = "0.3"
-tfc = { version = "0.2", path = "../" }
+tfc = { version = "0.3", path = "../" }
 
 [profile.release]
 lto = true

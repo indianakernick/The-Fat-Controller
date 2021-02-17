@@ -1,5 +1,9 @@
 # TFC: Server
 
+[![Crates.io](https://img.shields.io/crates/v/tfc-server)](https://crates.io/crates/tfc-server)
+[![Docs.rs](https://docs.rs/tfc-server/badge.svg)](https://docs.rs/tfc-server)
+![License](https://img.shields.io/crates/l/tfc-server)
+
 A WebSocket server (soon to be a TCP server) that uses
 [TFC](https://crates.io/crates/tfc) for remote control. The repo contains an iOS
 app that connects to the server to allow for remotely controlling a host on the
@@ -22,7 +26,9 @@ downloaded from the repo and compiled.
 
 ## iOS Remote app
 
-See [docs/screenshots](https://github.com/Kerndog73/The-Fat-Controller/tree/master/docs/screenshots) for more.
+See
+[docs/screenshots](https://github.com/Kerndog73/The-Fat-Controller/tree/master/docs/screenshots)
+for more.
 
 <p align="center">
   <img alt="Number pad screenshot" width="300" src="https://github.com/Kerndog73/The-Fat-Controller/raw/master/docs/screenshots/2021-02-04_0.png"/>

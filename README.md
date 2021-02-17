@@ -1,16 +1,35 @@
-<img alt="Sir Topham Hatt (The Fat Controller) from Thomas the Tank Engine" width="200" align="left" src="https://upload.wikimedia.org/wikipedia/en/f/fc/Sir_Topham_Hatt_1986.jpg"/>
-
 # The Fat Controller
 
+[![Crates.io](https://img.shields.io/crates/v/tfc)](https://crates.io/crates/tfc)
+[![Docs.rs](https://docs.rs/tfc/badge.svg)](https://docs.rs/tfc)
+![License](https://img.shields.io/crates/l/tfc)
+
 TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
-clicking, scrolling and key presses can all be simulated. Currently, the library
-supports macOS and Windows but other platforms are on the roadmap.
+clicking, scrolling and key presses can all be simulated. The library supports
+macOS, Windows and Linux. This library was built for use by
+[TFC-server]([TFC](https://crates.io/crates/tfc)), a server that allows for
+remote control of a PC via a mobile app.
 
-## Supported Platforms
+## Linux
 
-- [x] macOS
-- [x] Windows
-- [ ] Linux
+There are two implementations for Linux, one that uses X11, and one that depends
+only on the Linux kernel. The implementation that doesn't use X11 is missing
+some features. It is intended for Wayland but Wayland is a bit more locked down
+compared to X11, hence the missing features.
+
+Before using the X11 implementation, the X11 and XTest development libraries
+need to be installed. Using `apt`, the following snippet can be used.
+
+```shell
+sudo apt install libx11-dev libxtst-dev
+```
+
+The non-X11 implementation uses `/dev/uinput`. Before this can be used,
+permissions need to be granted. The following snippet can be used.
+
+```shell
+sudo bash -c 'echo -e "KERNEL==\"uinput\", MODE=\"0666\"" >> /etc/udev/rules.d/50-uinput.rules'
+```
 
 ## Usage
 
@@ -18,7 +37,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-tfc = "0.2"
+tfc = "0.3"
 ```
 
 ## Example
