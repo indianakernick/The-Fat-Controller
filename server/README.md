@@ -1,7 +1,6 @@
 # TFC: Server
 
 [![Crates.io](https://img.shields.io/crates/v/tfc-server)](https://crates.io/crates/tfc-server)
-[![Docs.rs](https://docs.rs/tfc-server/badge.svg)](https://docs.rs/tfc-server)
 ![License](https://img.shields.io/crates/l/tfc-server)
 
 A WebSocket server (soon to be a TCP server) that uses
