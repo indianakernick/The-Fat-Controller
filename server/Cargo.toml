@@ -9,7 +9,7 @@ repository = "https://github.com/Kerndog73/The-Fat-Controller"
 homepage = "https://github.com/Kerndog73/The-Fat-Controller"
 readme = "README.md"
 categories = ["network-programming"]
-license = "MIT"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 tokio = { version = "1.0", features = ["full"] }
