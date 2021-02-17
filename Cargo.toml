@@ -8,7 +8,7 @@ edition = "2018"
 repository = "https://github.com/Kerndog73/The-Fat-Controller"
 homepage = "https://github.com/Kerndog73/The-Fat-Controller"
 readme = "README.md"
-categories = ["os::macos-apis", "os::windows-apis", "os::linux-apis"]
+categories = ["os::linux-apis", "os::macos-apis", "os::windows-apis"]
 license = "MIT OR Apache-2.0"
 exclude = [".gitignore", ".idea", "docs", "iOS_client"]
 

@@ -7,7 +7,5 @@ repository = "https://github.com/Kerndog73/The-Fat-Controller"
 homepage = "https://github.com/Kerndog73/The-Fat-Controller"
 license = "MIT OR Apache-2.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 tfc = { version = "0.3", path = "../" }
