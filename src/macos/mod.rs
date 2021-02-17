@@ -6,7 +6,7 @@ mod mouse;
 
 pub use error::Error;
 
-/// The main context used for generating events.
+/// The main context used for generating events (macOS).
 ///
 /// The most useful methods are on the [`InfoContext`](crate::InfoContext),
 /// [`KeyboardContext`](crate::KeyboardContext) and

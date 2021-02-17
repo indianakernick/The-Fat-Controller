@@ -6,6 +6,11 @@ mod mouse;
 
 pub use error::Error;
 
+/// The main context used for generating events (Windows).
+///
+/// The most useful methods are on the [`InfoContext`](crate::InfoContext),
+/// [`KeyboardContext`](crate::KeyboardContext) and
+/// [`MouseContext`](crate::MouseContext) traits.
 pub struct Context;
 
 impl Context {

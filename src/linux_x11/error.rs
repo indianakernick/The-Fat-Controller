@@ -1,5 +1,9 @@
 use std::fmt::{self, Display, Formatter};
 
+/// Error type used throughout the library (Linux-X11).
+///
+/// The exact type depends on the platform being used. All that can be assumed
+/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
 pub enum Error {
     XOpenDisplay,

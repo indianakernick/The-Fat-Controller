@@ -1,18 +1,25 @@
 use super::os;
 use std::fmt::{self, Display, Formatter};
 
+/// Error type used throughout the library (Windows).
+///
+/// The exact type depends on the platform being used. All that can be assumed
+/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
 pub struct Error(os::NonZeroDWORD);
 
 impl Error {
     pub(super) fn last() -> Self {
         unsafe {
-            Self(os::NonZeroDWORD::new(os::GetLastError()).unwrap())
+            Self(os::NonZeroDWORD::new_unchecked(os::GetLastError()))
         }
     }
 
     pub(super) fn unknown() -> Self {
-        Self(os::NonZeroDWORD::new(28).unwrap()) // The printer is out of paper
+        unsafe {
+            // The printer is out of paper
+            Self(os::NonZeroDWORD::new_unchecked(28))
+        }
     }
 }
 

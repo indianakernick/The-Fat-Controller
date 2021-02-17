@@ -20,6 +20,10 @@ impl NonZero for i64 {
 
 type NonZeroInt = <c_int as NonZero>::Type;
 
+/// Error type used throughout the library (Linux-Wayland).
+///
+/// The exact type depends on the platform being used. All that can be assumed
+/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
 pub struct Error(NonZeroInt);
 

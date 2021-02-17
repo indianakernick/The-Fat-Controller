@@ -1,6 +1,6 @@
 use std::{fmt, num::NonZeroU32};
 
-/// Error type used throughout the library.
+/// Error type used throughout the library (macOS).
 ///
 /// The exact type depends on the platform being used. All that can be assumed
 /// is that this type implements `std::error::Error`.

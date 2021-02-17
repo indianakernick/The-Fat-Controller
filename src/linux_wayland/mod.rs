@@ -12,6 +12,14 @@ pub use error::Error;
 
 // https://www.kernel.org/doc/html/latest/input/uinput.html
 
+/// The main context used for generating events (Linux-Wayland).
+///
+/// The most useful methods are on the
+/// [`KeyboardContext`](crate::KeyboardContext) and
+/// [`MouseContext`](crate::MouseContext) traits.
+///
+/// The Linux-Wayland context doesn't implement
+/// [`InfoContext`](crate::InfoContext) but the Linux-X11 context does.
 pub struct Context {
     file: c_int,
     scroll: ScrollAccum,

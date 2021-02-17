@@ -10,6 +10,11 @@ use crate::linux_common::ScrollAccum;
 
 pub use error::Error;
 
+/// The main context used for generating events (Linux-X11).
+///
+/// The most useful methods are on the [`InfoContext`](crate::InfoContext),
+/// [`KeyboardContext`](crate::KeyboardContext) and
+/// [`MouseContext`](crate::MouseContext) traits.
 pub struct Context {
     display: *mut os::Display,
     screen_number: c_int,
