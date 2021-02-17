@@ -1,4 +1,4 @@
-pub const COMMANDS: [&'static str; 10] = [
+pub const COMMANDS: [&str; 10] = [
     "Key down",
     "Key up",
     "Key click",

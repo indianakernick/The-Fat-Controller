@@ -1,4 +1,4 @@
-pub const KEYS: [&'static str; 109] = [
+pub const KEYS: [&str; 109] = [
     // Modifier keys
     "Caps Lock",
     "Shift",

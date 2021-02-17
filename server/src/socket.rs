@@ -68,7 +68,7 @@ impl SocketContext {
     fn receive(&self, message: Message) {
         if message.is_binary() {
             let mut bytes = message.as_bytes();
-            if bytes.len() == 0 {
+            if bytes.is_empty() {
                 return;
             }
             loop {

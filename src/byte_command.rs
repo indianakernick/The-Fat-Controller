@@ -103,7 +103,7 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandErr
 /// assert_eq!(command, tfc::Command::KeyClick(tfc::Key::K));
 /// ```
 pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteCommandError> {
-    if buf.len() == 0 {
+    if buf.is_empty() {
         return Err(BufferTooShort(0));
     }
 

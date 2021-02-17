@@ -1,4 +1,4 @@
-pub const MOUSE_BUTTONS: [&'static str; 3] = [
+pub const MOUSE_BUTTONS: [&str; 3] = [
     "Left",
     "Right",
     "Middle",

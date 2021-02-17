@@ -80,7 +80,6 @@ pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>
             Ok(KeyClick) => Command::KeyClick(parse(&mut tokens)?),
             Ok(MouseMoveRel) => Command::MouseMoveRel(parse(&mut tokens)?, parse(&mut tokens)?),
             Ok(MouseMoveAbs) => Command::MouseMoveAbs(parse(&mut tokens)?, parse(&mut tokens)?),
-            Ok(MouseWarp) => Command::MouseWarp(parse(&mut tokens)?, parse(&mut tokens)?),
             Ok(MouseScroll) => Command::MouseScroll(parse(&mut tokens)?, parse(&mut tokens)?),
             Ok(MouseDown) => Command::MouseDown(parse(&mut tokens)?),
             Ok(MouseUp) => Command::MouseUp(parse(&mut tokens)?),
