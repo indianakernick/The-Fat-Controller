@@ -7,11 +7,10 @@ use crate::{Error, MouseButton};
 ///
 /// # Platform Differences
 ///
-/// On Linux, [`mouse_warp`](MouseContext::mouse_warp) is equivalent to
-///  [`mouse_move_abs`](MouseContext::mouse_move_abs). Also on Linux, smooth
-/// scrolling isn't supported so [`mouse_scroll`](MouseContext::mouse_scroll)
-/// will accumulate up to `120` (a magic number that seems to pop up in various
-/// places) before issuing a scroll event.
+/// On Linux, smooth scrolling isn't supported so
+/// [`mouse_scroll`](MouseContext::mouse_scroll) will accumulate up to `120` (a
+/// magic number that seems to pop up in various places) before issuing a scroll
+/// event.
 pub trait MouseContext {
 
     /// Move the mouse relative to its current location.

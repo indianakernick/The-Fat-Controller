@@ -7,8 +7,7 @@ use crate::{Key, Error};
 /// # Platform Differences
 ///
 /// `Key::Fn` and `Key::NumpadClear` are supported on macOS only. In the future,
-/// they may be named to reflect this or removed entirely (because they're
-/// really not that useful).
+/// they may be named to reflect this or removed entirely.
 pub trait KeyboardContext {
 
     /// Press down a key.
