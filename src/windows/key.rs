@@ -17,9 +17,9 @@ fn to_key_code(key: Key) -> os::WORD {
         // There is no virtual key code for Fn.
         // https://stackoverflow.com/a/48132748/4093378
         Fn => 0xFF,
-        Return => VK_RETURN,
+        ReturnOrEnter => VK_RETURN,
         Escape => VK_ESCAPE,
-        Delete => VK_BACK,
+        DeleteOrBackspace => VK_BACK,
         ForwardDelete => VK_DELETE,
         Tab => VK_TAB,
         Space => VK_SPACE,

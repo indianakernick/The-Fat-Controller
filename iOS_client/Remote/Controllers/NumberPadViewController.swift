@@ -81,7 +81,7 @@ class NumberPadViewController: BasicViewController {
         setPressListener(for: equalBtn, with: Command.keyClick(Key.equal))
         setPressListener(for: divideBtn, with: Command.keyClick(Key.slash))
         setPressListener(for: multiplyBtn, with: Command.keyClick(Key.n8, with: Key.shift))
-        setPressListener(for: deleteBtn, with: Command.keyClick(Key.delete))
+        setPressListener(for: deleteBtn, with: Command.keyClick(Key.deleteOrBackspace))
         
         setPressListener(for: lparenBtn, with: Command.keyClick(Key.n9, with: Key.shift))
         setPressListener(for: upBtn, with: Command.keyClick(Key.upArrow))
@@ -105,7 +105,7 @@ class NumberPadViewController: BasicViewController {
         setPressListener(for: oneBtn, with: Command.keyClick(Key.n1))
         setPressListener(for: twoBtn, with: Command.keyClick(Key.n2))
         setPressListener(for: threeBtn, with: Command.keyClick(Key.n3))
-        setPressListener(for: returnBtn, with: Command.keyClick(Key.return))
+        setPressListener(for: returnBtn, with: Command.keyClick(Key.returnOrEnter))
         
         setPressListener(for: caretBtn, with: Command.keyClick(Key.n6, with: Key.shift))
         setPressListener(for: percentBtn, with: Command.keyClick(Key.n5, with: Key.shift))

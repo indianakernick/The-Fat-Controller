@@ -42,10 +42,6 @@ enum Command {
         Data([CommandCode.mouseMoveAbs.rawValue, 0, 0, 0, 0])
     }
     
-    static func mouseWarp() -> Data {
-        Data([CommandCode.mouseWarp.rawValue, 0, 0, 0, 0])
-    }
-    
     static func mouseScroll() -> Data {
         Data([CommandCode.mouseScroll.rawValue, 0, 0, 0, 0])
     }

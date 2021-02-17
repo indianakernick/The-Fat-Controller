@@ -14,9 +14,9 @@ pub const KEYS: [&'static str; 109] = [
     "Fn",
 
     // Controls and symbols
-    "Return",
+    "Return or Enter",
     "Escape",
-    "Delete",
+    "Delete or Backspace",
     "Forward Delete",
     "Tab",
     "Space",

@@ -14,9 +14,9 @@ enum Key: UInt8, CaseIterable {
     rightMeta,
     rightControlOrMeta,
     fn,
-    `return`,
+    returnOrEnter,
     escape,
-    delete,
+    deleteOrBackspace,
     forwardDelete,
     tab,
     space,
@@ -128,9 +128,9 @@ extension Key: CustomStringConvertible {
             case .rightMeta: return "Right Meta"
             case .rightControlOrMeta: return "Right Control or Meta"
             case .fn: return "Fn"
-            case .`return`: return "Return"
+            case .returnOrEnter: return "Return or Enter"
             case .escape: return "Escape"
-            case .delete: return "Delete"
+            case .deleteOrBackspace: return "Delete or Backspace"
             case .forwardDelete: return "Forward Delete"
             case .tab: return "Tab"
             case .space: return "Space"

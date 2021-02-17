@@ -35,9 +35,9 @@ fn to_key_code(key: Key) -> KeyCode {
         RightMeta | RightControlOrMeta => Modifier(kVK_RightCommand, NX_DEVICERCMDKEYMASK),
         Fn => Modifier(kVK_Function, NX_SECONDARYFNMASK),
 
-        Return => Regular(kVK_Return),
+        ReturnOrEnter => Regular(kVK_Return),
         Escape => Regular(kVK_Escape),
-        Delete => Regular(kVK_Delete),
+        DeleteOrBackspace => Regular(kVK_Delete),
         ForwardDelete => Regular(kVK_ForwardDelete),
         Tab => Regular(kVK_Tab),
         Space => Regular(kVK_Space),
