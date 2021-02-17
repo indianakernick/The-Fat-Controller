@@ -58,12 +58,6 @@ one source might work but since I've already written the iOS app, it would be
 the same amount of effort. Also, using a generator might not give me full
 control over the app. It just doesn't seem all that appealing.
 
-## Support Linux
-
-I think there are different Windowing systems or something... That might mean
-implementing this for Linux requires multiple modules. I'll obviously need to
-look into this.
-
 ## Unicode
 
 The ability to type any character that can be typed without worrying about the
@@ -87,6 +81,9 @@ That has the disadvantage of not working everywhere.
 [`dumpkeys`](https://man7.org/linux/man-pages/man1/dumpkeys.1.html)
 might help. Maybe
 [`EVIOCGKEYCODE`](https://github.com/torvalds/linux/blob/358feceebbf68f33c44c6650d14455389e65282d/include/uapi/linux/input.h#L99-L121).
+For X11, there's
+[`XKeysymToKeycode`](https://linux.die.net/man/3/xkeysymtokeycode)
+but we'd still have to worry about translating unicode to keysym.
 
 On macOS, it's possible to convert characters to a keycode and set of modifiers.
 [SO](https://stackoverflow.com/questions/1918841/how-to-convert-ascii-character-to-cgkeycode).
@@ -103,3 +100,6 @@ independent of the keyboard layout and generating arbitrary unicode characters.
 Both of these require different solutions. It seems like it might be relatively
 easy to solve this for Windows. macOS is a little more difficult but still
 doable. Linux is what I'm not sure about.
+
+We should probably have a separate trait for layout independence and unicode so
+that we don't have to implement it for all platforms at once.
