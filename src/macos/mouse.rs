@@ -4,22 +4,20 @@ use crate::{MouseButton, InfoContext};
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
-impl Context {
-    fn mouse_event(&mut self, event_type: u32, button_number: u8, down: bool) -> Result<(), Error> {
-        let mut event = ffi::NXEventData::default();
-        event.compound.subType = ffi::NX_SUBTYPE_AUX_MOUSE_BUTTONS;
-        unsafe {
-            event.compound.misc.L[0] = 1 << button_number;
-            event.compound.misc.L[1] = if down { 1 << button_number } else { 0 };
-        }
-
-        self.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)?;
-
-        event = ffi::NXEventData::default();
-        event.mouse.buttonNumber = button_number;
-
-        self.post_event(event_type, &event, 0, 0)
+fn button_event(ctx: &mut Context, event_type: u32, button_number: u8, down: bool) -> Result<(), Error> {
+    let mut event = ffi::NXEventData::default();
+    event.compound.subType = ffi::NX_SUBTYPE_AUX_MOUSE_BUTTONS;
+    unsafe {
+        event.compound.misc.L[0] = 1 << button_number;
+        event.compound.misc.L[1] = if down { 1 << button_number } else { 0 };
     }
+
+    ctx.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)?;
+
+    event = ffi::NXEventData::default();
+    event.mouse.buttonNumber = button_number;
+
+    ctx.post_event(event_type, &event, 0, 0)
 }
 
 impl crate::MouseContext for Context {
@@ -58,7 +56,7 @@ impl crate::MouseContext for Context {
             MouseButton::Right => (ffi::NX_RMOUSEDOWN, 1),
             MouseButton::Middle => (ffi::NX_OMOUSEDOWN, 2),
         };
-        self.mouse_event(event_type, button_number, true)?;
+        button_event(self, event_type, button_number, true)?;
         self.button_state |= 1 << button_number;
         Ok(())
     }
@@ -69,7 +67,7 @@ impl crate::MouseContext for Context {
             MouseButton::Right => (ffi::NX_RMOUSEUP, 1),
             MouseButton::Middle => (ffi::NX_OMOUSEUP, 2),
         };
-        self.mouse_event(event_type, button_number, false)?;
+        button_event(self, event_type, button_number, false)?;
         self.button_state &= !(1 << button_number);
         Ok(())
     }

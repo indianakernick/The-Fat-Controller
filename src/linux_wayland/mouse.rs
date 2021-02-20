@@ -1,16 +1,14 @@
 use crate::MouseButton;
 use super::{ffi, Context, Error};
 
-impl Context {
-    fn mouse_event(&mut self, button: MouseButton, down: bool) -> Result<(), Error> {
-        let key = match button {
-            MouseButton::Left => ffi::BTN_LEFT,
-            MouseButton::Right => ffi::BTN_RIGHT,
-            MouseButton::Middle => ffi::BTN_MIDDLE,
-        };
-        self.write(ffi::EV_KEY, key, if down { 1 } else { 0 })?;
-        self.write_syn_report()
-    }
+fn button_event(ctx: &Context, button: MouseButton, down: bool) -> Result<(), Error> {
+    let key = match button {
+        MouseButton::Left => ffi::BTN_LEFT,
+        MouseButton::Right => ffi::BTN_RIGHT,
+        MouseButton::Middle => ffi::BTN_MIDDLE,
+    };
+    ctx.write(ffi::EV_KEY, key, if down { 1 } else { 0 })?;
+    ctx.write_syn_report()
 }
 
 impl crate::MouseContext for Context {
@@ -35,10 +33,10 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_down(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.mouse_event(button, true)
+        button_event(self, button, true)
     }
 
     fn mouse_up(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.mouse_event(button, false)
+        button_event(self, button, false)
     }
 }

@@ -118,22 +118,20 @@ fn to_key_code(key: Key) -> ffi::WORD {
     }
 }
 
-impl Context {
-    fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
-        let mut input = ffi::INPUT::default();
-        input.type_ = ffi::INPUT_KEYBOARD;
-        input.u.ki.wVk = to_key_code(key);
-        input.u.ki.dwFlags = if down { 0 } else { ffi::KEYEVENTF_KEYUP };
-        self.send_input(&input)
-    }
+fn key_event(ctx: &Context, key: Key, down: bool) -> Result<(), Error> {
+    let mut input = ffi::INPUT::default();
+    input.type_ = ffi::INPUT_KEYBOARD;
+    input.u.ki.wVk = to_key_code(key);
+    input.u.ki.dwFlags = if down { 0 } else { ffi::KEYEVENTF_KEYUP };
+    ctx.send_input(&input)
 }
 
 impl crate::KeyboardContext for Context {
     fn key_down(&mut self, key: Key) -> Result<(), Error> {
-        self.key_event(key, true)
+        key_event(self, key, true)
     }
 
     fn key_up(&mut self, key: Key) -> Result<(), Error> {
-        self.key_event(key, false)
+        key_event(self, key, false)
     }
 }

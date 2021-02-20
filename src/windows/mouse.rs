@@ -1,22 +1,20 @@
 use super::{ffi, Context, Error};
 use crate::{MouseButton, InfoContext};
 
-impl Context {
-    fn mouse_button_event(&mut self, button: MouseButton, down: bool) -> Result<(), Error> {
-        use MouseButton::*;
-        let event = match (button, down) {
-            (Left, true) => ffi::MOUSEEVENTF_LEFTDOWN,
-            (Left, false) => ffi::MOUSEEVENTF_LEFTUP,
-            (Right, true) => ffi::MOUSEEVENTF_RIGHTDOWN,
-            (Right, false) => ffi::MOUSEEVENTF_RIGHTUP,
-            (Middle, true) => ffi::MOUSEEVENTF_MIDDLEDOWN,
-            (Middle, false) => ffi::MOUSEEVENTF_MIDDLEUP,
-        };
-        let mut input = ffi::INPUT::default();
-        input.type_ = ffi::INPUT_MOUSE;
-        input.u.mi.dwFlags = event;
-        self.send_input(&input)
-    }
+fn button_event(ctx: &Context, button: MouseButton, down: bool) -> Result<(), Error> {
+    use MouseButton::*;
+    let event = match (button, down) {
+        (Left, true) => ffi::MOUSEEVENTF_LEFTDOWN,
+        (Left, false) => ffi::MOUSEEVENTF_LEFTUP,
+        (Right, true) => ffi::MOUSEEVENTF_RIGHTDOWN,
+        (Right, false) => ffi::MOUSEEVENTF_RIGHTUP,
+        (Middle, true) => ffi::MOUSEEVENTF_MIDDLEDOWN,
+        (Middle, false) => ffi::MOUSEEVENTF_MIDDLEUP,
+    };
+    let mut input = ffi::INPUT::default();
+    input.type_ = ffi::INPUT_MOUSE;
+    input.u.mi.dwFlags = event;
+    ctx.send_input(&input)
 }
 
 impl crate::MouseContext for Context {
@@ -60,10 +58,10 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_down(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.mouse_button_event(button, true)
+        button_event(self, button, true)
     }
 
     fn mouse_up(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.mouse_button_event(button, false)
+        button_event(self, button, false)
     }
 }

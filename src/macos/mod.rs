@@ -119,7 +119,7 @@ impl Context {
     }
 
     fn post_event(
-        &mut self,
+        &self,
         event_type: u32,
         event: *const ffi::NXEventData,
         flags: ffi::IOOptionBits,
