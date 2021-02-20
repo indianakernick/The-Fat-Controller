@@ -40,10 +40,10 @@ pub struct XModifierKeymap {
 
 #[link(name = "X11")]
 extern {
-    // https://linux.die.net/man/3/xopendisplay
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XOpenDisplay.3.html
     pub fn XOpenDisplay(display_name: *const u8) -> *mut Display;
 
-    // https://linux.die.net/man/3/xclosedisplay
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XCloseDisplay.3.html
     pub fn XCloseDisplay(display: *mut Display) -> c_int;
 
     // Macro directly accesses struct member
@@ -64,7 +64,7 @@ extern {
     // Macro directly accesses struct member
     pub fn XRootWindow(display: *mut Display, screen_number: c_int) -> Window;
 
-    // https://linux.die.net/man/3/xquerypointer
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XQueryPointer.3.html
     pub fn XQueryPointer(
         display: *mut Display,
         w: Window,
@@ -77,7 +77,7 @@ extern {
         mask_return: *mut c_uint,
     ) -> Bool;
     
-    // https://linux.die.net/man/3/xwarppointer
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XWarpPointer.3.html
     pub fn XWarpPointer(
         display: *mut Display,
         src_w: Window,
@@ -90,22 +90,23 @@ extern {
         dest_y: c_int,
     ) -> c_int;
     
-    // https://linux.die.net/man/3/xsync
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XSync.3.html
     pub fn XSync(display: *mut Display, discard: Bool) -> c_int;
     
-    // https://linux.die.net/man/3/xflush
+    // https://www.x.org/releases/current/doc/man/man3/XFlush.3.xhtml
     pub fn XFlush(display: *mut Display) -> c_int;
 
-    // https://tronche.com/gui/x/xlib/input/XDisplayKeycodes.html
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XDisplayKeycodes.3.html
     pub fn XDisplayKeycodes(
         display: *mut Display,
         min_keycodes_return: &mut c_int,
         max_keycodes_return: &mut c_int,
     ) -> c_int;
 
-    // https://tronche.com/gui/x/xlib/input/XGetModifierMapping.html
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XGetModifierMapping.3.html
     pub fn XGetModifierMapping(display: *mut Display) -> *const XModifierKeymap;
 
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XGetKeyboardMapping.3.html
     pub fn XGetKeyboardMapping(
         display: *mut Display,
         first_keycode: KeyCode,
@@ -113,12 +114,13 @@ extern {
         keysyms_per_keycode_return: *mut c_int,
     ) -> *const KeySym;
 
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XFree.3.html
     pub fn XFree(data: *const KeySym) -> c_int;
 
-    // https://tronche.com/gui/x/xlib/utilities/keyboard/XKeysymToString.html
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XKeysymToString.3.html
     pub fn XKeysymToString(keysym: KeySym) -> *const u8;
 
-    // https://tronche.com/gui/x/xlib/input/XChangeKeyboardMapping.html
+    // https://www.x.org/releases/X11R7.5/doc/man/man3/XChangeKeyboardMapping.3.html
     pub fn XChangeKeyboardMapping(
         display: *mut Display,
         first_keycode: c_int,
@@ -127,6 +129,6 @@ extern {
         num_codes: c_int,
     );
 
-    // https://tronche.com/gui/x/xlib/input/XFreeModifiermap.html
+    // https://www.x.org/releases/X11R6.8.0/doc/XFreeModifierMap.3.html
     pub fn XFreeModifiermap(modmap: *const XModifierKeymap);
 }
