@@ -7,7 +7,7 @@
 TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
 clicking, scrolling and key presses can all be simulated. The library supports
 macOS, Windows and Linux. This library was built for use by
-[TFC-server]([TFC](https://crates.io/crates/tfc)), a server that allows for
+[TFC-server](https://crates.io/crates/tfc-server), a server that allows for
 remote control of a PC via a mobile app.
 
 ## Linux
