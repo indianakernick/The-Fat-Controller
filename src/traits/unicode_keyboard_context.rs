@@ -11,12 +11,16 @@ use crate::Error;
 /// [`unicode_char`](UnicodeKeyboardContext::unicode_char) can have modifiers
 /// applied to it.
 ///
-/// The following snippet will do a select-all on any keyboard layout.
+/// The following snippet will do a select-all on any keyboard layout. Note that
+/// we're using a generic function here because
+/// [`UnicodeKeyboardContext`](UnicodeKeyboardContext) is not implemented when
+/// compiling for `docs.rs`.
 /// ```no_run
-/// use tfc::{Context, Error, Key, traits::*};
+/// use tfc::{Error, Key, KeyboardContext, UnicodeKeyboardContext};
 ///
-/// fn main() -> Result<(), Error> {
-///     let mut ctx = Context::new()?;
+/// fn select_all<C>(ctx: &mut C) -> Result<(), Error>
+///     where C: KeyboardContext + UnicodeKeyboardContext
+/// {
 ///     ctx.key_down(Key::ControlOrMeta)?;
 ///     ctx.unicode_char('a')?;
 ///     ctx.key_up(Key::ControlOrMeta)
@@ -27,8 +31,9 @@ use crate::Error;
 /// ```no_run
 /// use tfc::{Context, Error, Key, traits::*};
 ///
-/// fn main() -> Result<(), Error> {
-///     let mut ctx = Context::new()?;
+/// fn select_all<C>(ctx: &mut C) -> Result<(), Error>
+///     where C: KeyboardContext + UnicodeKeyboardContext
+/// {
 ///     ctx.key_down(Key::ControlOrMeta)?;
 ///     ctx.unicode_string("a")?;
 ///     ctx.key_up(Key::ControlOrMeta)

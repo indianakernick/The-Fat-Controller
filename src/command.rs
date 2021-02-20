@@ -1,10 +1,9 @@
 use std::{thread, time::Duration};
 use crate::{Error, KeyboardContext, MouseContext, Key, MouseButton};
 
-/// A future invocation of a method on a [`Context`](Context).
+/// A future invocation of a method on a [`Context`](crate::Context).
 ///
-/// Commands can be executed by calling
-/// [`execute_command`](Context::execute_command).
+/// Commands can be executed by calling [`execute`](Command::execute).
 /// Each variant corresponds to a method on either the
 /// [`KeyboardContext`](KeyboardContext) or [`MouseContext`](MouseContext)
 /// traits.

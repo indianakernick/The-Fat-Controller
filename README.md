@@ -43,7 +43,7 @@ tfc = "0.3"
 ## Example
 
 ```rust
-use tfc::*;
+use tfc::{Context, Error, traits::*};
 use std::{thread, time::Duration, f64::consts::PI};
 
 fn main() -> Result<(), Error> {
