@@ -4,8 +4,8 @@ use crate::Error;
 ///
 /// # Platform Differences
 ///
-/// This trait isn't implemented for the Wayland (or more accurately: not X11)
-/// context. It is simply not possible to obtain this information under Wayland.
+/// This trait isn't implemented for the Linux-Wayland context. It is simply not
+/// possible to obtain this information under Wayland.
 pub trait InfoContext {
 
     /// Get the location of the cursor in pixels.

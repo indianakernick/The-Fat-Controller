@@ -21,31 +21,6 @@ pub struct AsciiKey {
 }
 
 impl AsciiKey {
-    /// Apply an [`AsciiKey`](AsciiKey) to a
-    /// [`KeyboardContext`](KeyboardContext).
-    ///
-    /// This will press and release the key while also pressing and releasing
-    /// shift if necessary.
-    ///
-    /// # Example
-    ///
-    /// ```no_run
-    /// use tfc::{AsciiKey, Context};
-    ///
-    /// let mut context = Context::new().unwrap();
-    /// let dollar = AsciiKey::from_ascii('$').unwrap();
-    /// dollar.apply(&mut context).unwrap();
-    /// ```
-    pub fn apply<C: KeyboardContext>(&self, ctx: &mut C) -> Result<(), Error> {
-        if self.shift {
-            ctx.key_down(Key::Shift)?;
-            ctx.key_click(self.key)?;
-            ctx.key_up(Key::Shift)
-        } else {
-            ctx.key_click(self.key)
-        }
-    }
-
     fn new(key: Key) -> Self {
         Self { key, shift: false }
     }
@@ -198,5 +173,63 @@ impl AsciiKey {
 
             _ => None,
         }
+    }
+
+    /// Apply an [`AsciiKey`](AsciiKey) to a
+    /// [`KeyboardContext`](KeyboardContext).
+    ///
+    /// This will press and release the key while also pressing and releasing
+    /// shift if necessary.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use tfc::{AsciiKey, Context};
+    ///
+    /// let mut context = Context::new().unwrap();
+    /// let dollar = AsciiKey::from_ascii('$').unwrap();
+    /// dollar.apply(&mut context).unwrap();
+    /// ```
+    pub fn apply<C: KeyboardContext>(&self, ctx: &mut C) -> Result<(), Error> {
+        if self.shift {
+            ctx.key_down(Key::Shift)?;
+            ctx.key_click(self.key)?;
+            ctx.key_up(Key::Shift)
+        } else {
+            ctx.key_click(self.key)
+        }
+    }
+
+    /// A convenience function that constructs and applies an
+    /// [`AsciiKey`](AsciiKey) from an ASCII character.
+    ///
+    /// Returns `None` if the given character is unsupported.
+    pub fn apply_from_ascii<C>(ctx: &mut C, ascii: char) -> Option<Result<(), Error>>
+        where C: KeyboardContext
+    {
+        Some(AsciiKey::from_ascii(ascii)?.apply(ctx))
+    }
+
+    /// A convenience function that constructs and applies an
+    /// [`AsciiKey`](AsciiKey) from an ASCII string.
+    ///
+    /// If any of the characters in the string are unsupported, `None` will be
+    /// returned and no key presses will occur.
+    pub fn apply_from_ascii_string<C>(ctx: &mut C, ascii: &str) -> Option<Result<(), Error>>
+        where C: KeyboardContext
+    {
+        for ch in ascii.bytes() {
+            if AsciiKey::from_ascii(ch as char).is_none() {
+                return None;
+            }
+        }
+
+        for ch in ascii.bytes() {
+            if let Err(e) = AsciiKey::from_ascii(ch as char).unwrap().apply(ctx) {
+                return Some(Err(e));
+            }
+        }
+
+        Some(Ok(()))
     }
 }
