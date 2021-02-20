@@ -1,9 +1,9 @@
 use std::fmt;
 use crate::{Command, CommandCode, Key, MouseButton};
 
-/// Error enum for [`parse_byte_command`](parse_byte_command).
+/// Error enum for [`Command::from_bytes`](Command::from_bytes).
 #[derive(Debug)]
-pub enum ParseByteCommandError {
+pub enum CommandBytesError {
     /// Encountered a byte that isn't a valid [`CommandCode`](CommandCode).
     InvalidCommandCode(u8),
     /// Encountered a byte that isn't a valid [`Key`](Key).
@@ -15,9 +15,9 @@ pub enum ParseByteCommandError {
     BufferTooShort(usize),
 }
 
-use ParseByteCommandError::*;
+use CommandBytesError::*;
 
-impl fmt::Display for ParseByteCommandError {
+impl fmt::Display for CommandBytesError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             InvalidCommandCode(byte) => write!(f, "Invalid command code byte ({})", byte),
@@ -28,7 +28,7 @@ impl fmt::Display for ParseByteCommandError {
     }
 }
 
-impl std::error::Error for ParseByteCommandError {}
+impl std::error::Error for CommandBytesError {}
 
 fn parse_int(byte_0: u8, byte_1: u8) -> i32 {
     (((byte_0 as i16) << 8) | (byte_1 as i16)) as i32
@@ -38,7 +38,7 @@ fn parse_uint(byte_0: u8, byte_1: u8) -> u32 {
     (((byte_0 as u16) << 8) | (byte_1 as u16)) as u32
 }
 
-fn parse_command_code(byte: u8) -> Result<CommandCode, ParseByteCommandError> {
+fn parse_command_code(byte: u8) -> Result<CommandCode, CommandBytesError> {
     if byte < CommandCode::COUNT {
         unsafe { Ok(std::mem::transmute(byte)) }
     } else {
@@ -46,7 +46,7 @@ fn parse_command_code(byte: u8) -> Result<CommandCode, ParseByteCommandError> {
     }
 }
 
-fn parse_key(byte: u8) -> Result<Key, ParseByteCommandError> {
+fn parse_key(byte: u8) -> Result<Key, CommandBytesError> {
     if byte < Key::COUNT {
         unsafe { Ok(std::mem::transmute(byte)) }
     } else {
@@ -54,7 +54,7 @@ fn parse_key(byte: u8) -> Result<Key, ParseByteCommandError> {
     }
 }
 
-fn parse_mouse_button(byte: u8) -> Result<MouseButton, ParseByteCommandError> {
+fn parse_mouse_button(byte: u8) -> Result<MouseButton, CommandBytesError> {
     if byte < MouseButton::COUNT {
         unsafe { Ok(std::mem::transmute(byte)) }
     } else {
@@ -62,7 +62,7 @@ fn parse_mouse_button(byte: u8) -> Result<MouseButton, ParseByteCommandError> {
     }
 }
 
-fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandError> {
+fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), CommandBytesError> {
     if buf.len() >= len {
         Ok(())
     } else {
@@ -71,82 +71,87 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), ParseByteCommandErr
     }
 }
 
-/// Parse a sequence of bytes to create a [`Command`](Command).
-///
-/// The first byte in the buffer must be a [`CommandCode`](CommandCode). This
-/// identifies the command and its arguments. Following the command identifier
-/// is a sequence of bytes that encode the arguments of the command.
-/// [`Key`](Key) and [`MouseButton`](MouseButton) are single bytes. For integer
-/// arguments (used for moving the mouse and scrolling), 16-bit signed
-/// big-endian integers are used.
-///
-/// Returns the command and the number of bytes that were read from the buffer.
-///
-/// # Arguments
-/// * `buf` - The byte buffer to read from.
-///
-/// # Examples
-///
-/// ```
-/// let bytes = &[
-///     tfc::CommandCode::MouseMoveRel as u8, 255, 214, 0, 64,
-///     tfc::CommandCode::KeyClick as u8, tfc::Key::K as u8
-/// ];
-///
-/// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
-/// assert_eq!(len, 5);
-/// assert_eq!(command, tfc::Command::MouseMoveRel(-42, 64));
-///
-/// let bytes = &bytes[len..];
-/// let (command, len) = tfc::parse_byte_command(bytes).unwrap();
-/// assert_eq!(len, 2);
-/// assert_eq!(command, tfc::Command::KeyClick(tfc::Key::K));
-/// ```
-pub fn parse_byte_command(buf: &[u8]) -> Result<(Command, usize), ParseByteCommandError> {
-    if buf.is_empty() {
-        return Err(BufferTooShort(0));
-    }
+impl Command {
+    /// Parse a sequence of bytes to create a [`Command`](Command).
+    ///
+    /// The first byte in the buffer must be a [`CommandCode`](CommandCode).
+    /// This identifies the command and its arguments. Following the command
+    /// identifier is a sequence of bytes that encode the arguments of the
+    /// command. [`Key`](Key) and [`MouseButton`](MouseButton) are single bytes.
+    /// For integer arguments (used for moving the mouse and scrolling), 16-bit
+    /// signed big-endian integers are used.
+    ///
+    /// Returns the command and the number of bytes that were read from the
+    /// buffer.
+    ///
+    /// # Arguments
+    /// * `buf` - The byte buffer to read from.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use tfc::{Command, CommandCode, Key};
+    ///
+    /// let bytes = &[
+    ///     CommandCode::MouseMoveRel as u8, 255, 214, 0, 64,
+    ///     CommandCode::KeyClick as u8, Key::K as u8
+    /// ];
+    ///
+    /// let (command, len) = Command::from_bytes(bytes).unwrap();
+    /// assert_eq!(len, 5);
+    /// assert_eq!(command, Command::MouseMoveRel(-42, 64));
+    ///
+    /// let bytes = &bytes[len..];
+    /// let (command, len) = Command::from_bytes(bytes).unwrap();
+    /// assert_eq!(len, 2);
+    /// assert_eq!(command, Command::KeyClick(Key::K));
+    /// ```
+    pub fn from_bytes(buf: &[u8]) -> Result<(Command, usize), CommandBytesError> {
+        if buf.is_empty() {
+            return Err(BufferTooShort(0));
+        }
 
-    match parse_command_code(buf[0])? {
-        CommandCode::KeyDown => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::KeyDown(parse_key(buf[1])?), 2))
-        },
-        CommandCode::KeyUp => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::KeyUp(parse_key(buf[1])?), 2))
-        },
-        CommandCode::KeyClick => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::KeyClick(parse_key(buf[1])?), 2))
-        },
-        CommandCode::MouseMoveRel => {
-            check_buffer_length(buf, 5)?;
-            Ok((Command::MouseMoveRel(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
-        },
-        CommandCode::MouseMoveAbs => {
-            check_buffer_length(buf, 5)?;
-            Ok((Command::MouseMoveAbs(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
-        },
-        CommandCode::MouseScroll => {
-            check_buffer_length(buf, 5)?;
-            Ok((Command::MouseScroll(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
-        },
-        CommandCode::MouseDown => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::MouseDown(parse_mouse_button(buf[1])?), 2))
-        },
-        CommandCode::MouseUp => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::MouseUp(parse_mouse_button(buf[1])?), 2))
-        },
-        CommandCode::MouseClick => {
-            check_buffer_length(buf, 2)?;
-            Ok((Command::MouseClick(parse_mouse_button(buf[1])?), 2))
-        },
-        CommandCode::Delay => {
-            check_buffer_length(buf, 3)?;
-            Ok((Command::Delay(parse_uint(buf[1], buf[2])), 3))
-        },
+        match parse_command_code(buf[0])? {
+            CommandCode::KeyDown => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::KeyDown(parse_key(buf[1])?), 2))
+            },
+            CommandCode::KeyUp => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::KeyUp(parse_key(buf[1])?), 2))
+            },
+            CommandCode::KeyClick => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::KeyClick(parse_key(buf[1])?), 2))
+            },
+            CommandCode::MouseMoveRel => {
+                check_buffer_length(buf, 5)?;
+                Ok((Command::MouseMoveRel(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+            },
+            CommandCode::MouseMoveAbs => {
+                check_buffer_length(buf, 5)?;
+                Ok((Command::MouseMoveAbs(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+            },
+            CommandCode::MouseScroll => {
+                check_buffer_length(buf, 5)?;
+                Ok((Command::MouseScroll(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+            },
+            CommandCode::MouseDown => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::MouseDown(parse_mouse_button(buf[1])?), 2))
+            },
+            CommandCode::MouseUp => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::MouseUp(parse_mouse_button(buf[1])?), 2))
+            },
+            CommandCode::MouseClick => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::MouseClick(parse_mouse_button(buf[1])?), 2))
+            },
+            CommandCode::Delay => {
+                check_buffer_length(buf, 3)?;
+                Ok((Command::Delay(parse_uint(buf[1], buf[2])), 3))
+            },
+        }
     }
 }

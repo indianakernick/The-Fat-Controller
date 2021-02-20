@@ -72,7 +72,7 @@ impl SocketContext {
                 return;
             }
             loop {
-                let (command, len) = match tfc::parse_byte_command(bytes) {
+                let (command, len) = match tfc::Command::from_bytes(bytes) {
                     Ok(pair) => pair,
                     Err(e) => {
                         error!("{}", e);

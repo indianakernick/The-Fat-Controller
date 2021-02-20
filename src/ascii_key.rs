@@ -204,10 +204,10 @@ impl AsciiKey {
     /// [`AsciiKey`](AsciiKey) from an ASCII character.
     ///
     /// Returns `None` if the given character is unsupported.
-    pub fn apply_from_ascii<C>(ctx: &mut C, ascii: char) -> Option<Result<(), Error>>
+    pub fn apply_ascii_char<C>(ctx: &mut C, ascii: char) -> Option<Result<(), Error>>
         where C: KeyboardContext
     {
-        Some(AsciiKey::from_ascii(ascii)?.apply(ctx))
+        Some(Self::from_ascii(ascii)?.apply(ctx))
     }
 
     /// A convenience function that constructs and applies an
@@ -215,17 +215,17 @@ impl AsciiKey {
     ///
     /// If any of the characters in the string are unsupported, `None` will be
     /// returned and no key presses will occur.
-    pub fn apply_from_ascii_string<C>(ctx: &mut C, ascii: &str) -> Option<Result<(), Error>>
+    pub fn apply_ascii_string<C>(ctx: &mut C, ascii: &str) -> Option<Result<(), Error>>
         where C: KeyboardContext
     {
         for ch in ascii.bytes() {
-            if AsciiKey::from_ascii(ch as char).is_none() {
+            if Self::from_ascii(ch as char).is_none() {
                 return None;
             }
         }
 
         for ch in ascii.bytes() {
-            if let Err(e) = AsciiKey::from_ascii(ch as char).unwrap().apply(ctx) {
+            if let Err(e) = Self::from_ascii(ch as char).unwrap().apply(ctx) {
                 return Some(Err(e));
             }
         }

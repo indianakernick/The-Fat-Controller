@@ -15,6 +15,7 @@ pub use key::*;
 pub use mouse_button::*;
 pub use traits::*;
 
+/// Identifies a backend implementation.
 pub enum Backend {
     None,
     LinuxWayland,
