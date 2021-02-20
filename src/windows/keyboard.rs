@@ -1,9 +1,9 @@
 use crate::Key;
-use super::{os, Context, Error};
+use super::{ffi, Context, Error};
 
-fn to_key_code(key: Key) -> os::WORD {
+fn to_key_code(key: Key) -> ffi::WORD {
     use Key::*;
-    use os::*;
+    use ffi::*;
     match key {
         CapsLock => VK_CAPITAL,
         Shift => VK_LSHIFT,
@@ -120,10 +120,10 @@ fn to_key_code(key: Key) -> os::WORD {
 
 impl Context {
     fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
-        let mut input = os::INPUT::default();
-        input.type_ = os::INPUT_KEYBOARD;
+        let mut input = ffi::INPUT::default();
+        input.type_ = ffi::INPUT_KEYBOARD;
         input.u.ki.wVk = to_key_code(key);
-        input.u.ki.dwFlags = if down { 0 } else { os::KEYEVENTF_KEYUP };
+        input.u.ki.dwFlags = if down { 0 } else { ffi::KEYEVENTF_KEYUP };
         self.send_input(&input)
     }
 }

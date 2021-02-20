@@ -1,7 +1,7 @@
 // https://www.kernel.org/doc/html/latest/input/event-codes.html
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 
-// Part of this same header is in linux_common/os/input_event_codes.rs
+// Part of this same header is in linux_common/ffi/input_event_codes.rs
 
 pub const EV_SYN: u16 = 0x00;
 pub const EV_KEY: u16 = 0x01;

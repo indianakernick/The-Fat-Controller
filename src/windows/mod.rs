@@ -1,4 +1,4 @@
-mod os;
+mod ffi;
 mod error;
 mod info;
 mod keyboard;
@@ -18,9 +18,9 @@ impl Context {
         Ok(Self)
     }
 
-    fn send_input(&self, input: &os::INPUT) -> Result<(), Error> {
+    fn send_input(&self, input: &ffi::INPUT) -> Result<(), Error> {
         unsafe {
-            if os::SendInput(1, input, os::SIZEOF_INPUT) == 1 {
+            if ffi::SendInput(1, input, ffi::SIZEOF_INPUT) == 1 {
                 Ok(())
             } else {
                 Err(Error::last())

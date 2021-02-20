@@ -1,7 +1,7 @@
-use super::os;
+use super::ffi;
 use std::fmt::{self, Display, Formatter};
 
-type NonZeroDWORD = <os::DWORD as crate::utils::NonZero>::Type;
+type NonZeroDWORD = <ffi::DWORD as crate::utils::NonZero>::Type;
 
 /// Error type used throughout the library (Windows).
 ///
@@ -13,7 +13,7 @@ pub struct Error(NonZeroDWORD);
 impl Error {
     pub(super) fn last() -> Self {
         unsafe {
-            Self(NonZeroDWORD::new_unchecked(os::GetLastError()))
+            Self(NonZeroDWORD::new_unchecked(ffi::GetLastError()))
         }
     }
 
@@ -28,12 +28,12 @@ impl Error {
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         unsafe {
-            let message_buffer: os::LPCWSTR = std::ptr::null();
+            let message_buffer: ffi::LPCWSTR = std::ptr::null();
 
-            let message_length = os::FormatMessageW(
-                os::FORMAT_MESSAGE_ALLOCATE_BUFFER
-                    | os::FORMAT_MESSAGE_FROM_SYSTEM
-                    | os::FORMAT_MESSAGE_IGNORE_INSERTS,
+            let message_length = ffi::FormatMessageW(
+                ffi::FORMAT_MESSAGE_ALLOCATE_BUFFER
+                    | ffi::FORMAT_MESSAGE_FROM_SYSTEM
+                    | ffi::FORMAT_MESSAGE_IGNORE_INSERTS,
                 std::ptr::null(),
                 self.0.get(),
                 0,
@@ -51,7 +51,7 @@ impl Display for Error {
             let message = std::slice::from_raw_parts(message_buffer, message_length);
             let result = write!(f, "{}", String::from_utf16_lossy(message));
 
-            os::LocalFree(std::mem::transmute(message_buffer));
+            ffi::LocalFree(std::mem::transmute(message_buffer));
 
             result
         }

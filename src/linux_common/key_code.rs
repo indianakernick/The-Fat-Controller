@@ -2,7 +2,7 @@ use crate::Key;
 
 pub fn to_key_code(key: Key) -> u16 {
     use Key::*;
-    use super::os::*;
+    use super::ffi::*;
     match key {
         CapsLock => KEY_CAPSLOCK,
         Shift => KEY_LEFTSHIFT,

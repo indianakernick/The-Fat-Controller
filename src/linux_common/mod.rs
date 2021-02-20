@@ -1,4 +1,4 @@
-mod os;
+mod ffi;
 mod key_code;
 mod scroll;
 

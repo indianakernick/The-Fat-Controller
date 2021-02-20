@@ -1,22 +1,22 @@
 use crate::MouseButton;
-use super::{os, Context, Error};
+use super::{ffi, Context, Error};
 
 impl Context {
     fn mouse_event(&mut self, button: MouseButton, down: bool) -> Result<(), Error> {
         let key = match button {
-            MouseButton::Left => os::BTN_LEFT,
-            MouseButton::Right => os::BTN_RIGHT,
-            MouseButton::Middle => os::BTN_MIDDLE,
+            MouseButton::Left => ffi::BTN_LEFT,
+            MouseButton::Right => ffi::BTN_RIGHT,
+            MouseButton::Middle => ffi::BTN_MIDDLE,
         };
-        self.write(os::EV_KEY, key, if down { 1 } else { 0 })?;
+        self.write(ffi::EV_KEY, key, if down { 1 } else { 0 })?;
         self.write_syn_report()
     }
 }
 
 impl crate::MouseContext for Context {
     fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
-        self.write(os::EV_REL, os::REL_X, dx)?;
-        self.write(os::EV_REL, os::REL_Y, dy)?;
+        self.write(ffi::EV_REL, ffi::REL_X, dx)?;
+        self.write(ffi::EV_REL, ffi::REL_Y, dy)?;
         self.write_syn_report()
     }
 
@@ -26,11 +26,11 @@ impl crate::MouseContext for Context {
     }
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
-        // self.write(os::EV_REL, os::REL_HWHEEL_HI_RES, dx)?;
-        // self.write(os::EV_REL, os::REL_WHEEL_HI_RES, -dy)?;
+        // self.write(ffi::EV_REL, ffi::REL_HWHEEL_HI_RES, dx)?;
+        // self.write(ffi::EV_REL, ffi::REL_WHEEL_HI_RES, -dy)?;
         let delta = self.scroll.accumulate(dx, dy);
-        self.write(os::EV_REL, os::REL_HWHEEL, delta.0)?;
-        self.write(os::EV_REL, os::REL_WHEEL, -delta.1)?;
+        self.write(ffi::EV_REL, ffi::REL_HWHEEL, delta.0)?;
+        self.write(ffi::EV_REL, ffi::REL_WHEEL, -delta.1)?;
         self.write_syn_report()
     }
 

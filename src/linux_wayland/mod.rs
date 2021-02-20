@@ -1,4 +1,4 @@
-mod os;
+mod ffi;
 mod error;
 mod keyboard;
 mod mouse;
@@ -28,40 +28,40 @@ pub struct Context {
 impl Context {
     pub fn new() -> Result<Self, Error> {
         unsafe {
-            let file = os::open(b"/dev/uinput\0".as_ptr(), os::O_WRONLY | os::O_NONBLOCK);
+            let file = ffi::open(b"/dev/uinput\0".as_ptr(), ffi::O_WRONLY | ffi::O_NONBLOCK);
             if file == -1 {
                 return Err(Error::errno())
             }
 
             let ctx = Self { file, scroll: ScrollAccum::default() };
 
-            ctx.ioctl(os::UI_SET_EVBIT, os::EV_KEY)?;
-            ctx.ioctl(os::UI_SET_EVBIT, os::EV_REL)?;
+            ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_KEY)?;
+            ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_REL)?;
 
             for k in 0..Key::COUNT {
                 let key = std::mem::transmute(k);
                 let key_code = linux_common::to_key_code(key) as c_int;
-                ctx.ioctl(os::UI_SET_KEYBIT, key_code)?;
+                ctx.ioctl(ffi::UI_SET_KEYBIT, key_code)?;
             }
 
-            ctx.ioctl(os::UI_SET_KEYBIT, os::BTN_LEFT)?;
-            ctx.ioctl(os::UI_SET_KEYBIT, os::BTN_RIGHT)?;
-            ctx.ioctl(os::UI_SET_KEYBIT, os::BTN_MIDDLE)?;
+            ctx.ioctl(ffi::UI_SET_KEYBIT, ffi::BTN_LEFT)?;
+            ctx.ioctl(ffi::UI_SET_KEYBIT, ffi::BTN_RIGHT)?;
+            ctx.ioctl(ffi::UI_SET_KEYBIT, ffi::BTN_MIDDLE)?;
 
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_X)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_Y)?;
-            // ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL_HI_RES)?;
-            // ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL_HI_RES)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_HWHEEL)?;
-            ctx.ioctl(os::UI_SET_RELBIT, os::REL_WHEEL)?;
+            ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_X)?;
+            ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_Y)?;
+            // ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_HWHEEL_HI_RES)?;
+            // ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_WHEEL_HI_RES)?;
+            ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_HWHEEL)?;
+            ctx.ioctl(ffi::UI_SET_RELBIT, ffi::REL_WHEEL)?;
 
-            let mut setup: os::uinput_setup = mem::zeroed();
-            setup.id.bustype = os::BUS_USB;
+            let mut setup: ffi::uinput_setup = mem::zeroed();
+            setup.id.bustype = ffi::BUS_USB;
             let name = b"The Fat Controller";
             setup.name[..name.len()].copy_from_slice(name);
 
-            ctx.ioctl(os::UI_DEV_SETUP, &setup)?;
-            ctx.ioctl_0(os::UI_DEV_CREATE)?;
+            ctx.ioctl(ffi::UI_DEV_SETUP, &setup)?;
+            ctx.ioctl_0(ffi::UI_DEV_CREATE)?;
 
             Ok(ctx)
         }
@@ -69,7 +69,7 @@ impl Context {
 
     fn ioctl<T>(&self, request: u32, arg: T) -> Result<(), Error> {
         unsafe {
-            if os::ioctl(self.file, request, arg) == -1 {
+            if ffi::ioctl(self.file, request, arg) == -1 {
                 Err(Error::errno())
             } else {
                 Ok(())
@@ -79,7 +79,7 @@ impl Context {
 
     fn ioctl_0(&self, request: u32) -> Result<(), Error> {
         unsafe {
-            if os::ioctl(self.file, request) == -1 {
+            if ffi::ioctl(self.file, request) == -1 {
                 Err(Error::errno())
             } else {
                 Ok(())
@@ -89,8 +89,8 @@ impl Context {
 
     fn write(&self, type_: u16, code: u16, value: i32) -> Result<(), Error> {
         unsafe {
-            let event = os::input_event {
-                time: os::timeval {
+            let event = ffi::input_event {
+                time: ffi::timeval {
                     tv_sec: 0,
                     tv_usec: 0,
                 },
@@ -98,8 +98,8 @@ impl Context {
                 code,
                 value,
             };
-            let size = mem::size_of::<os::input_event>();
-            let written = os::write(self.file, mem::transmute(&event), size);
+            let size = mem::size_of::<ffi::input_event>();
+            let written = ffi::write(self.file, mem::transmute(&event), size);
             if written == -1 {
                 Err(Error::errno())
             } else if written != size as isize {
@@ -111,15 +111,15 @@ impl Context {
     }
 
     fn write_syn_report(&self) -> Result<(), Error> {
-        self.write(os::EV_SYN, os::SYN_REPORT, 0)
+        self.write(ffi::EV_SYN, ffi::SYN_REPORT, 0)
     }
 }
 
 impl Drop for Context {
     fn drop(&mut self) {
         unsafe {
-            os::ioctl(self.file, os::UI_DEV_DESTROY);
-            os::close(self.file);
+            ffi::ioctl(self.file, ffi::UI_DEV_DESTROY);
+            ffi::close(self.file);
         }
     }
 }

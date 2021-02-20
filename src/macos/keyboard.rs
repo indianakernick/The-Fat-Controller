@@ -1,5 +1,5 @@
 use crate::Key;
-use super::{os, Context, Error};
+use super::{ffi, Context, Error};
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
@@ -19,7 +19,7 @@ enum KeyCode {
 }
 
 fn to_key_code(key: Key) -> KeyCode {
-    use os::*;
+    use ffi::*;
     use Key::*;
     use KeyCode::*;
 
@@ -156,38 +156,38 @@ fn update_modifiers(modifiers: &mut u32, left: u32, right: u32, both: u32) {
 
 impl Context {
     fn update_modifiers(&mut self) {
-        update_modifiers(&mut self.modifiers, os::NX_DEVICELSHIFTKEYMASK, os::NX_DEVICERSHIFTKEYMASK, os::NX_SHIFTMASK);
-        update_modifiers(&mut self.modifiers, os::NX_DEVICELCTLKEYMASK, os::NX_DEVICERCTLKEYMASK, os::NX_CONTROLMASK);
-        update_modifiers(&mut self.modifiers, os::NX_DEVICELALTKEYMASK, os::NX_DEVICERALTKEYMASK, os::NX_ALTERNATEMASK);
-        update_modifiers(&mut self.modifiers, os::NX_DEVICELCMDKEYMASK, os::NX_DEVICERCMDKEYMASK, os::NX_COMMANDMASK);
+        update_modifiers(&mut self.modifiers, ffi::NX_DEVICELSHIFTKEYMASK, ffi::NX_DEVICERSHIFTKEYMASK, ffi::NX_SHIFTMASK);
+        update_modifiers(&mut self.modifiers, ffi::NX_DEVICELCTLKEYMASK, ffi::NX_DEVICERCTLKEYMASK, ffi::NX_CONTROLMASK);
+        update_modifiers(&mut self.modifiers, ffi::NX_DEVICELALTKEYMASK, ffi::NX_DEVICERALTKEYMASK, ffi::NX_ALTERNATEMASK);
+        update_modifiers(&mut self.modifiers, ffi::NX_DEVICELCMDKEYMASK, ffi::NX_DEVICERCMDKEYMASK, ffi::NX_COMMANDMASK);
     }
 
     fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
-        let event_type = if down { os::NX_KEYDOWN } else { os::NX_KEYUP };
-        let mut event = os::NXEventData::default();
+        let event_type = if down { ffi::NX_KEYDOWN } else { ffi::NX_KEYUP };
+        let mut event = ffi::NXEventData::default();
 
         match to_key_code(key) {
             KeyCode::CapsLock => {
                 if down {
-                    self.modifiers ^= os::NX_ALPHASHIFTMASK;
+                    self.modifiers ^= ffi::NX_ALPHASHIFTMASK;
 
-                    event.key.origCharSet = os::NX_ASCIISET;
-                    event.key.charSet = os::NX_ASCIISET;
-                    event.key.keyCode = os::kVK_CapsLock as u16;
+                    event.key.origCharSet = ffi::NX_ASCIISET;
+                    event.key.charSet = ffi::NX_ASCIISET;
+                    event.key.keyCode = ffi::kVK_CapsLock as u16;
 
                     self.post_event(
-                        os::NX_FLAGSCHANGED,
+                        ffi::NX_FLAGSCHANGED,
                         &event,
                         self.modifiers,
-                        os::kIOHIDSetGlobalEventFlags
+                        ffi::kIOHIDSetGlobalEventFlags
                     )?;
                 }
 
-                event.compound.subType = os::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
+                event.compound.subType = ffi::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
                 unsafe {
-                    event.compound.misc.L[0] = aux_key(os::NX_KEYTYPE_CAPS_LOCK, event_type, false);
+                    event.compound.misc.L[0] = aux_key(ffi::NX_KEYTYPE_CAPS_LOCK, event_type, false);
                 }
-                self.post_event(os::NX_SYSDEFINED, &event, 0, 0)
+                self.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)
             },
 
             KeyCode::Modifier(key_code, mask) => {
@@ -199,31 +199,31 @@ impl Context {
 
                 self.update_modifiers();
 
-                event.key.origCharSet = os::NX_ASCIISET;
-                event.key.charSet = os::NX_ASCIISET;
+                event.key.origCharSet = ffi::NX_ASCIISET;
+                event.key.charSet = ffi::NX_ASCIISET;
                 event.key.keyCode = key_code as u16;
 
                 self.post_event(
-                    os::NX_FLAGSCHANGED,
+                    ffi::NX_FLAGSCHANGED,
                     &event,
                     self.modifiers,
-                    os::kIOHIDSetGlobalEventFlags
+                    ffi::kIOHIDSetGlobalEventFlags
                 )
             },
 
             KeyCode::Regular(key_code) => {
-                event.key.origCharSet = os::NX_ASCIISET;
-                event.key.charSet = os::NX_ASCIISET;
+                event.key.origCharSet = ffi::NX_ASCIISET;
+                event.key.charSet = ffi::NX_ASCIISET;
                 event.key.keyCode = key_code as u16;
                 self.post_event(event_type, &event, 0, 0)
             },
 
             KeyCode::Media(key_code) => {
-                event.compound.subType = os::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
+                event.compound.subType = ffi::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
                 unsafe {
                     event.compound.misc.L[0] = aux_key(key_code, event_type, false);
                 }
-                self.post_event(os::NX_SYSDEFINED, &event, 0, 0)
+                self.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)
             },
         }
     }

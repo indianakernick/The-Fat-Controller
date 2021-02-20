@@ -1,10 +1,10 @@
 use crate::Key;
 use crate::linux_common;
-use super::{os, Context, Error};
+use super::{ffi, Context, Error};
 
 impl Context {
     fn key_event(&mut self, key: Key, down: bool) -> Result<(), Error> {
-        self.write(os::EV_KEY, linux_common::to_key_code(key), if down { 1 } else { 0 })?;
+        self.write(ffi::EV_KEY, linux_common::to_key_code(key), if down { 1 } else { 0 })?;
         self.write_syn_report()
     }
 }

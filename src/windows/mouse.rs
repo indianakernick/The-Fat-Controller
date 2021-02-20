@@ -1,19 +1,19 @@
-use super::{os, Context, Error};
+use super::{ffi, Context, Error};
 use crate::{MouseButton, InfoContext};
 
 impl Context {
     fn mouse_button_event(&mut self, button: MouseButton, down: bool) -> Result<(), Error> {
         use MouseButton::*;
         let event = match (button, down) {
-            (Left, true) => os::MOUSEEVENTF_LEFTDOWN,
-            (Left, false) => os::MOUSEEVENTF_LEFTUP,
-            (Right, true) => os::MOUSEEVENTF_RIGHTDOWN,
-            (Right, false) => os::MOUSEEVENTF_RIGHTUP,
-            (Middle, true) => os::MOUSEEVENTF_MIDDLEDOWN,
-            (Middle, false) => os::MOUSEEVENTF_MIDDLEUP,
+            (Left, true) => ffi::MOUSEEVENTF_LEFTDOWN,
+            (Left, false) => ffi::MOUSEEVENTF_LEFTUP,
+            (Right, true) => ffi::MOUSEEVENTF_RIGHTDOWN,
+            (Right, false) => ffi::MOUSEEVENTF_RIGHTUP,
+            (Middle, true) => ffi::MOUSEEVENTF_MIDDLEDOWN,
+            (Middle, false) => ffi::MOUSEEVENTF_MIDDLEUP,
         };
-        let mut input = os::INPUT::default();
-        input.type_ = os::INPUT_MOUSE;
+        let mut input = ffi::INPUT::default();
+        input.type_ = ffi::INPUT_MOUSE;
         input.u.mi.dwFlags = event;
         self.send_input(&input)
     }
@@ -21,38 +21,38 @@ impl Context {
 
 impl crate::MouseContext for Context {
     fn mouse_move_rel(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
-        let mut input = os::INPUT::default();
-        input.type_ = os::INPUT_MOUSE;
-        input.u.mi.dx = dx as os::LONG;
-        input.u.mi.dy = dy as os::LONG;
-        input.u.mi.dwFlags = os::MOUSEEVENTF_MOVE;
+        let mut input = ffi::INPUT::default();
+        input.type_ = ffi::INPUT_MOUSE;
+        input.u.mi.dx = dx as ffi::LONG;
+        input.u.mi.dy = dy as ffi::LONG;
+        input.u.mi.dwFlags = ffi::MOUSEEVENTF_MOVE;
         self.send_input(&input)
     }
 
     fn mouse_move_abs(&mut self, x: i32, y: i32) -> Result<(), Error> {
         let screen = self.screen_size()?;
         let screen = (screen.0 - 1, screen.1 - 1);
-        let mut input = os::INPUT::default();
-        input.type_ = os::INPUT_MOUSE;
-        input.u.mi.dwFlags = os::MOUSEEVENTF_MOVE | os::MOUSEEVENTF_ABSOLUTE;
+        let mut input = ffi::INPUT::default();
+        input.type_ = ffi::INPUT_MOUSE;
+        input.u.mi.dwFlags = ffi::MOUSEEVENTF_MOVE | ffi::MOUSEEVENTF_ABSOLUTE;
         input.u.mi.dx = (x * 65535 + screen.0 / 2) / screen.0;
         input.u.mi.dy = (y * 65535 + screen.1 / 2) / screen.1;
         self.send_input(&input)
     }
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
-        let mut input = os::INPUT::default();
-        input.type_ = os::INPUT_MOUSE;
+        let mut input = ffi::INPUT::default();
+        input.type_ = ffi::INPUT_MOUSE;
 
         if dx != 0 {
-            input.u.mi.dwFlags = os::MOUSEEVENTF_HWHEEL;
-            input.u.mi.mouseData = dx as os::DWORD;
+            input.u.mi.dwFlags = ffi::MOUSEEVENTF_HWHEEL;
+            input.u.mi.mouseData = dx as ffi::DWORD;
             self.send_input(&input)?;
         }
 
         if dy != 0 {
-            input.u.mi.dwFlags = os::MOUSEEVENTF_WHEEL;
-            input.u.mi.mouseData = -dy as os::DWORD;
+            input.u.mi.dwFlags = ffi::MOUSEEVENTF_WHEEL;
+            input.u.mi.mouseData = -dy as ffi::DWORD;
             self.send_input(&input)?;
         }
 

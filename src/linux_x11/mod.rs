@@ -1,4 +1,4 @@
-mod os;
+mod ffi;
 mod error;
 mod info;
 mod keyboard;
@@ -14,10 +14,10 @@ use crate::linux_common::ScrollAccum;
 
 #[derive(Copy, Clone)]
 struct KeyInfo {
-    keysym: os::KeySym,
+    keysym: ffi::KeySym,
     group: u8,
     modifiers: u8,
-    keycode: os::KeyCode,
+    keycode: ffi::KeyCode,
     default: bool,
 }
 
@@ -29,35 +29,35 @@ pub use error::Error;
 /// [`KeyboardContext`](crate::KeyboardContext) and
 /// [`MouseContext`](crate::MouseContext) traits.
 pub struct Context {
-    display: *mut os::Display,
+    display: *mut ffi::Display,
     screen_number: c_int,
     scroll: ScrollAccum,
     key_map: Vec<(char, KeyInfo)>,
-    unused_keycode: os::KeyCode,
-    modifier_map: *const os::XModifierKeymap,
+    unused_keycode: ffi::KeyCode,
+    modifier_map: *const ffi::XModifierKeymap,
 }
 
-unsafe fn no_xtest(display: *mut os::Display) -> bool {
+unsafe fn no_xtest(display: *mut ffi::Display) -> bool {
     // Passing null pointers for the things we don't need results in a
     // segfault.
     let mut event_base = 0;
     let mut error_base = 0;
     let mut major_version = 0;
     let mut minor_version = 0;
-    os::XTestQueryExtension(
+    ffi::XTestQueryExtension(
         display,
         &mut event_base,
         &mut error_base,
         &mut major_version,
         &mut minor_version
-    ) == os::False
+    ) == ffi::False
 }
 
 unsafe fn find_unused_key_code(
-    display: *mut os::Display,
-    min_keycode: os::KeyCode,
-    max_keycode: os::KeyCode,
-) -> Result<os::KeyCode, Error> {
+    display: *mut ffi::Display,
+    min_keycode: ffi::KeyCode,
+    max_keycode: ffi::KeyCode,
+) -> Result<ffi::KeyCode, Error> {
 
     // Get the full mapping from keycodes to keysyms. There may be
     // multiple keysyms for each keycode depending on which modifiers
@@ -65,7 +65,7 @@ unsafe fn find_unused_key_code(
     // a keycode without any associated keysyms.
     let keycode_count = (max_keycode - min_keycode) + 1;
     let mut keysyms_per_keycode = 0;
-    let keysyms = os::XGetKeyboardMapping(
+    let keysyms = ffi::XGetKeyboardMapping(
         display,
         min_keycode,
         keycode_count as c_int,
@@ -84,20 +84,20 @@ unsafe fn find_unused_key_code(
         let slice = std::slice::from_raw_parts(
             keysyms.add(sym_idx), keysyms_per_keycode
         );
-        if slice.iter().all(|keysym| *keysym == os::NoSymbol) {
-            os::XFree(keysyms);
+        if slice.iter().all(|keysym| *keysym == ffi::NoSymbol) {
+            ffi::XFree(keysyms);
             return Ok(code_idx + min_keycode);
         }
     }
 
-    os::XFree(keysyms);
+    ffi::XFree(keysyms);
     Err(Error::NoUnusedKeyCode)
 }
 
 unsafe fn create_key_map(
-    display: *mut os::Display,
-    min_keycode: os::KeyCode,
-    max_keycode: os::KeyCode,
+    display: *mut ffi::Display,
+    min_keycode: ffi::KeyCode,
+    max_keycode: ffi::KeyCode,
 ) -> Result<Vec<(char, KeyInfo)>, Error> {
 
     // Fuck, this library is so inconsistent. Sometimes a keycode is a
@@ -114,7 +114,7 @@ unsafe fn create_key_map(
     // key state identify a single keysym.
     // See https://tronche.com/gui/x/xlib/input/keyboard-encoding.html
 
-    let desc = os::XkbGetMap(display, os::XkbAllClientInfoMask, os::XkbUseCoreKbd);
+    let desc = ffi::XkbGetMap(display, ffi::XkbAllClientInfoMask, ffi::XkbUseCoreKbd);
     if desc == std::ptr::null() {
         return Err(Error::XkbGetMap);
     }
@@ -122,22 +122,22 @@ unsafe fn create_key_map(
     let mut key_map = Vec::new();
 
     for keycode in min_keycode..=max_keycode {
-        let groups = os::XkbKeyNumGroups(desc, keycode);
+        let groups = ffi::XkbKeyNumGroups(desc, keycode);
         for group in 0..groups {
-            let key_type = os::XkbKeyKeyType(desc, keycode, group);
+            let key_type = ffi::XkbKeyKeyType(desc, keycode, group);
             for level in 0..(*key_type).num_levels {
-                let keysym = os::XkbKeycodeToKeysym(display, keycode, group as c_uint, level as c_uint);
+                let keysym = ffi::XkbKeycodeToKeysym(display, keycode, group as c_uint, level as c_uint);
                 let mut modifiers = 0;
 
                 let maps = std::slice::from_raw_parts((*key_type).map, (*key_type).map_count as usize);
                 for map in maps {
-                    if map.active == os::True && map.level == level {
+                    if map.active == ffi::True && map.level == level {
                         modifiers = map.mods.mask;
                         break;
                     }
                 }
 
-                let charcode = os::xkb_keysym_to_utf32(keysym as os::xkb_keysym_t);
+                let charcode = ffi::xkb_keysym_to_utf32(keysym as ffi::xkb_keysym_t);
                 // We only care about keys that yield characters.
                 if charcode as u32 == 0 {
                     continue;
@@ -145,7 +145,7 @@ unsafe fn create_key_map(
                 let charcode = match std::char::from_u32(charcode) {
                     Some(c) => c,
                     None => {
-                        os::XkbFreeClientMap(desc, 0, os::True);
+                        ffi::XkbFreeClientMap(desc, 0, ffi::True);
                         return Err(Error::KeySymToUnicode);
                     }
                 };
@@ -161,7 +161,7 @@ unsafe fn create_key_map(
         }
     }
 
-    os::XkbFreeClientMap(desc, 0, os::True);
+    ffi::XkbFreeClientMap(desc, 0, ffi::True);
 
     // The keymap is sorted by the character code so that we can later do a
     // binary search to find a key. The keymap is likely to have around 100
@@ -176,13 +176,13 @@ unsafe fn create_key_map(
 impl Context {
     pub fn new() -> Result<Self, Error> {
         unsafe {
-            let display = os::XOpenDisplay(ptr::null());
+            let display = ffi::XOpenDisplay(ptr::null());
             if display == ptr::null_mut() {
                 return Err(Error::XOpenDisplay);
             }
 
             if no_xtest(display) {
-                os::XCloseDisplay(display);
+                ffi::XCloseDisplay(display);
                 return Err(Error::XTestQueryExtension);
             }
 
@@ -190,14 +190,14 @@ impl Context {
             // always 8-255 on Linux but we should make sure.
             let mut min_keycode = 0;
             let mut max_keycode = 0;
-            os::XDisplayKeycodes(display, &mut min_keycode, &mut max_keycode);
-            let min_keycode = min_keycode as os::KeyCode;
-            let max_keycode = max_keycode as os::KeyCode;
+            ffi::XDisplayKeycodes(display, &mut min_keycode, &mut max_keycode);
+            let min_keycode = min_keycode as ffi::KeyCode;
+            let max_keycode = max_keycode as ffi::KeyCode;
 
             let unused_keycode = match find_unused_key_code(display, min_keycode, max_keycode) {
                 Ok(k) => k,
                 Err(e) => {
-                    os::XCloseDisplay(display);
+                    ffi::XCloseDisplay(display);
                     return Err(e);
                 }
             };
@@ -205,20 +205,20 @@ impl Context {
             let key_map = match create_key_map(display, min_keycode, max_keycode) {
                 Ok(m) => m,
                 Err(e) => {
-                    os::XCloseDisplay(display);
+                    ffi::XCloseDisplay(display);
                     return Err(e);
                 }
             };
 
-            let modifier_map = os::XGetModifierMapping(display);
+            let modifier_map = ffi::XGetModifierMapping(display);
             if modifier_map == std::ptr::null() {
-                os::XCloseDisplay(display);
+                ffi::XCloseDisplay(display);
                 return Err(Error::XGetModifierMapping);
             }
 
             Ok(Self {
                 display,
-                screen_number: os::XDefaultScreen(display),
+                screen_number: ffi::XDefaultScreen(display),
                 scroll: ScrollAccum::default(),
                 key_map,
                 unused_keycode,
@@ -231,8 +231,8 @@ impl Context {
 impl Drop for Context {
     fn drop(&mut self) {
         unsafe {
-            os::XFreeModifiermap(self.modifier_map);
-            os::XCloseDisplay(self.display);
+            ffi::XFreeModifiermap(self.modifier_map);
+            ffi::XCloseDisplay(self.display);
         }
     }
 }

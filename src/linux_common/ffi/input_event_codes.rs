@@ -1,6 +1,6 @@
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 
-// Part of this same header is in linux_wayland/os/input_event_codes.rs
+// Part of this same header is in linux_wayland/ffi/input_event_codes.rs
 
 pub const KEY_RESERVED: u16 = 0;
 pub const KEY_ESC: u16 = 1;

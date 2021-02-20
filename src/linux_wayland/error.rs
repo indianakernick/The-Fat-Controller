@@ -1,4 +1,4 @@
-use super::os;
+use super::ffi;
 use std::os::raw::c_int;
 use std::fmt::{self, Display, Formatter};
 
@@ -14,7 +14,7 @@ pub struct Error(NonZeroInt);
 impl Error {
     pub(super) fn errno() -> Self {
         unsafe {
-            Self(NonZeroInt::new_unchecked(*os::__errno_location()))
+            Self(NonZeroInt::new_unchecked(*ffi::__errno_location()))
         }
     }
 
@@ -29,8 +29,8 @@ impl Error {
 impl Display for Error {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         unsafe {
-            let string = os::strerror(self.0.get());
-            let len = os::strlen(string);
+            let string = ffi::strerror(self.0.get());
+            let len = ffi::strlen(string);
             let message = std::slice::from_raw_parts(string, len);
             match std::str::from_utf8(message) {
                 Ok(s) => write!(f, "{}", s),
