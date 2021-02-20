@@ -1,23 +1,17 @@
 mod byte_command;
 mod command;
 mod command_code;
-mod info_context;
 mod key;
-mod keyboard_context;
 mod mouse_button;
-mod mouse_context;
-mod unicode_keyboard_context;
 mod utils;
+pub mod traits;
 
 pub use byte_command::*;
 pub use command::*;
 pub use command_code::*;
-pub use info_context::*;
 pub use key::*;
-pub use keyboard_context::*;
 pub use mouse_button::*;
-pub use mouse_context::*;
-pub use unicode_keyboard_context::*;
+pub use traits::*;
 
 #[cfg(target_os = "linux")]
 mod linux_common;

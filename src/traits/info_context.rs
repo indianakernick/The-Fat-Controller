@@ -2,8 +2,6 @@ use crate::Error;
 
 /// A context that supports fetching device information.
 ///
-/// Implementors of this trait are able to fetch the state of the device.
-///
 /// # Platform Differences
 ///
 /// This trait isn't implemented for the Wayland (or more accurately: not X11)

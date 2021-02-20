@@ -151,4 +151,11 @@ impl crate::UnicodeKeyboardContext for Context {
 
         Ok(())
     }
+
+    fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
+        for ch in s.chars() {
+            self.unicode_char(ch)?;
+        }
+        Ok(())
+    }
 }

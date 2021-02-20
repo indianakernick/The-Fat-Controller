@@ -2,9 +2,6 @@ use crate::{Error, MouseButton};
 
 /// A context that supports mouse events.
 ///
-/// Implementors of this trait are able to emit mouse events. The mouse can be
-/// moved or scrolled. The mouse buttons can also be pressed.
-///
 /// # Platform Differences
 ///
 /// On Linux, smooth scrolling isn't supported so
