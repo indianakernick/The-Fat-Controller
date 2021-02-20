@@ -17,18 +17,18 @@ only on the Linux kernel. The implementation that doesn't use X11 is missing
 some features. It is intended for Wayland but Wayland is a bit more locked down
 compared to X11, hence the missing features.
 
-Before using the X11 implementation, the X11 and XTest development libraries
-need to be installed. Using `apt`, the following snippet can be used.
+Before using the X11 implementation, the X11, XTest and xkbcommon development
+libraries need to be installed. Using `apt`, the following snippet can be used.
 
 ```shell
-sudo apt install libx11-dev libxtst-dev
+sudo apt install libx11-dev libxtst-dev libxkbcommon-dev
 ```
 
 The non-X11 implementation uses `/dev/uinput`. Before this can be used,
 permissions need to be granted. The following snippet can be used.
 
 ```shell
-sudo bash -c 'echo -e "KERNEL==\"uinput\", MODE=\"0666\"" >> /etc/udev/rules.d/50-uinput.rules'
+sudo sh -c 'echo -e "KERNEL==\"uinput\", MODE=\"0666\"" >> /etc/udev/rules.d/50-uinput.rules'
 ```
 
 ## Usage
