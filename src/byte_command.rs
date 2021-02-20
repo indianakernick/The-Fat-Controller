@@ -72,7 +72,7 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), CommandBytesError> 
 }
 
 impl Command {
-    /// Parse a sequence of bytes to create a [`Command`](Command).
+    /// Construct a [`Command`](Command) from a sequence of bytes.
     ///
     /// The first byte in the buffer must be a [`CommandCode`](CommandCode).
     /// This identifies the command and its arguments. Following the command

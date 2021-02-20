@@ -1,6 +1,6 @@
 use crate::Error;
 
-/// A context that supports layout-independent unicode keyboard events.
+/// A context that supports layout-independent Unicode keyboard events.
 ///
 /// # Platform Differences
 ///
@@ -56,13 +56,13 @@ pub trait UnicodeKeyboardContext {
     ///
     /// # Arguments
     ///
-    /// * `ch` - The unicode character to generate.
+    /// * `ch` - The Unicode character to type.
     fn unicode_char(&mut self, ch: char) -> Result<(), Error>;
 
-    /// Generate key presses and releases such that a unicode string is typed.
+    /// Generate key presses and releases such that a Unicode string is typed.
     ///
     /// # Arguments
     ///
-    /// * `s` - The unicode string to generate.
+    /// * `s` - The Unicode string to type.
     fn unicode_string(&mut self, s: &str) -> Result<(), Error>;
 }
