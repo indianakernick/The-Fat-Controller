@@ -1,17 +1,22 @@
 // X11/XLib.h
 // https://github.com/mirror/libX11/blob/master/include/X11/Xlib.h
 
-use std::os::raw::{c_int, c_uint};
+use std::ffi::c_void;
+use std::os::raw::{c_int, c_uint, c_ulong};
 
-#[derive(Eq, PartialEq)]
+type XID = c_ulong;
+
+#[derive(Eq, PartialEq, Clone, Copy)]
 #[repr(transparent)]
 pub struct Bool(c_int);
 #[repr(transparent)]
-pub struct Window(u32);
+pub struct Window(XID);
 #[repr(transparent)]
-pub struct Display(u8);
+pub struct Display(c_void);
 #[repr(transparent)]
-pub struct Screen(u8);
+pub struct Screen(c_void);
+#[repr(transparent)]
+pub struct Atom(XID);
 
 #[allow(non_upper_case_globals)]
 pub const True: Bool = Bool(1);
@@ -19,6 +24,19 @@ pub const True: Bool = Bool(1);
 pub const False: Bool = Bool(0);
 #[allow(non_upper_case_globals)]
 pub const None: Window = Window(0);
+
+pub type KeyCode = u8;
+
+pub type KeySym = XID;
+
+#[allow(non_upper_case_globals)]
+pub const NoSymbol: KeySym = 0;
+
+#[repr(C)]
+pub struct XModifierKeymap {
+    pub max_keypermod: c_int,
+    pub modifiermap: *const KeyCode,
+}
 
 #[link(name = "X11")]
 extern {
@@ -77,4 +95,38 @@ extern {
     
     // https://linux.die.net/man/3/xflush
     pub fn XFlush(display: *mut Display) -> c_int;
+
+    // https://tronche.com/gui/x/xlib/input/XDisplayKeycodes.html
+    pub fn XDisplayKeycodes(
+        display: *mut Display,
+        min_keycodes_return: &mut c_int,
+        max_keycodes_return: &mut c_int,
+    ) -> c_int;
+
+    // https://tronche.com/gui/x/xlib/input/XGetModifierMapping.html
+    pub fn XGetModifierMapping(display: *mut Display) -> *const XModifierKeymap;
+
+    pub fn XGetKeyboardMapping(
+        display: *mut Display,
+        first_keycode: KeyCode,
+        keycode_count: c_int,
+        keysyms_per_keycode_return: *mut c_int,
+    ) -> *const KeySym;
+
+    pub fn XFree(data: *const KeySym) -> c_int;
+
+    // https://tronche.com/gui/x/xlib/utilities/keyboard/XKeysymToString.html
+    pub fn XKeysymToString(keysym: KeySym) -> *const u8;
+
+    // https://tronche.com/gui/x/xlib/input/XChangeKeyboardMapping.html
+    pub fn XChangeKeyboardMapping(
+        display: *mut Display,
+        first_keycode: c_int,
+        keysyms_per_keycode: c_int,
+        keysyms: *const KeySym,
+        num_codes: c_int,
+    );
+
+    // https://tronche.com/gui/x/xlib/input/XFreeModifiermap.html
+    pub fn XFreeModifiermap(modmap: *const XModifierKeymap);
 }

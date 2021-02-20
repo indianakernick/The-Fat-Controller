@@ -6,6 +6,7 @@ mod key;
 mod keyboard_context;
 mod mouse_button;
 mod mouse_context;
+mod unicode_keyboard_context;
 mod utils;
 
 pub use byte_command::*;
@@ -16,6 +17,7 @@ pub use key::*;
 pub use keyboard_context::*;
 pub use mouse_button::*;
 pub use mouse_context::*;
+pub use unicode_keyboard_context::*;
 
 #[cfg(target_os = "linux")]
 mod linux_common;

@@ -10,32 +10,30 @@ fn to_button(button: MouseButton) -> c_uint {
     }
 }
 
-impl Context {
-    fn button_event(&mut self, button: c_uint, down: bool) -> Result<(), Error> {
-        let press = if down { os::True } else { os::False };
-        unsafe {
-            if os::XTestFakeButtonEvent(self.display, button, press, os::CurrentTime) == 0 {
+fn button_event(ctx: &Context, button: c_uint, down: bool) -> Result<(), Error> {
+    let press = if down { os::True } else { os::False };
+    unsafe {
+        if os::XTestFakeButtonEvent(ctx.display, button, press, os::CurrentTime) == 0 {
+            return Err(Error::XTestFakeButtonEvent);
+        }
+        os::XSync(ctx.display, os::False);
+    }
+    Ok(())
+}
+
+fn repeat_button_event(ctx: &Context, count: i32, button: c_uint) -> Result<(), Error> {
+    unsafe {
+        for _ in 0..count {
+            if os::XTestFakeButtonEvent(ctx.display, button, os::True, os::CurrentTime) == 0 {
                 return Err(Error::XTestFakeButtonEvent);
             }
-            os::XSync(self.display, os::False);
-        }
-        Ok(())
-    }
-
-    fn repeat_button_event(&mut self, count: i32, button: c_uint) -> Result<(), Error> {
-        unsafe {
-            for _ in 0..count {
-                if os::XTestFakeButtonEvent(self.display, button, os::True, os::CurrentTime) == 0 {
-                    return Err(Error::XTestFakeButtonEvent);
-                }
-                if os::XTestFakeButtonEvent(self.display, button, os::False, os::CurrentTime) == 0 {
-                    return Err(Error::XTestFakeButtonEvent);
-                }
+            if os::XTestFakeButtonEvent(ctx.display, button, os::False, os::CurrentTime) == 0 {
+                return Err(Error::XTestFakeButtonEvent);
             }
-            os::XSync(self.display, os::False);
         }
-        Ok(())
+        os::XSync(ctx.display, os::False);
     }
+    Ok(())
 }
 
 impl crate::MouseContext for Context {
@@ -66,23 +64,23 @@ impl crate::MouseContext for Context {
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let delta = self.scroll.accumulate(dx, dy);
         if dx < 0 {
-            self.repeat_button_event(-delta.0, 6)?;
+            repeat_button_event(self, -delta.0, 6)?;
         } else if dx > 0 {
-            self.repeat_button_event(delta.0, 7)?;
+            repeat_button_event(self, delta.0, 7)?;
         }
         if dy < 0 {
-            self.repeat_button_event(-delta.1, 4)?;
+            repeat_button_event(self, -delta.1, 4)?;
         } else if dy > 0 {
-            self.repeat_button_event(delta.1, 5)?;
+            repeat_button_event(self, delta.1, 5)?;
         }
         Ok(())
     }
 
     fn mouse_down(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.button_event(to_button(button), true)
+        button_event(self, to_button(button), true)
     }
 
     fn mouse_up(&mut self, button: MouseButton) -> Result<(), Error> {
-        self.button_event(to_button(button), false)
+        button_event(self, to_button(button), false)
     }
 }
