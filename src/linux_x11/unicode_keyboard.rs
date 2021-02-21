@@ -116,46 +116,52 @@ unsafe fn key_event(ctx: &Context, info: &KeyInfo, down: bool) -> Result<(), Err
     Ok(())
 }
 
-impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
-        let info = match info_from_char(self, ch) {
-            Some(info) => info,
-            None => return Err(Error::UnicodeToKeySym),
-        };
-
-        unsafe {
-            // If a keysym is not on the default keyboard mapping, we remap the
-            // unused keycode.
-            if !info.default {
-                ffi::XChangeKeyboardMapping(
-                    self.display,
-                    self.unused_keycode as c_int,
-                    1,
-                    &info.keysym,
-                    1,
-                );
-                ffi::XSync(self.display, ffi::False);
-            }
-
-            key_event(self, &info, true)?;
-            key_event(self, &info, false)?;
-
-            if !info.default {
-                ffi::XSync(self.display, ffi::False);
-            }
-        }
-
-        // The keyboard mapping might have changed by this point but there's no
-        // need to worry about it. It's not going to affect anything other than
-        // this function.
-
-        Ok(())
+unsafe fn char_event(ctx: &Context, info: KeyInfo) -> Result<(), Error> {
+    // If a keysym is not on the default keyboard mapping, we remap the
+    // unused keycode.
+    if !info.default {
+        ffi::XChangeKeyboardMapping(
+            ctx.display,
+            ctx.unused_keycode as c_int,
+            1,
+            &info.keysym,
+            1,
+        );
+        ffi::XSync(ctx.display, ffi::False);
     }
 
-    fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
-        for ch in s.chars() {
-            self.unicode_char(ch)?;
+    key_event(ctx, &info, true)?;
+    key_event(ctx, &info, false)?;
+
+    if !info.default {
+        ffi::XSync(ctx.display, ffi::False);
+    }
+
+    // The keyboard mapping might have changed by this point but there's no
+    // need to worry about it. It's not going to affect anything other than
+    // this function.
+
+    Ok(())
+}
+
+impl crate::UnicodeKeyboardContext for Context {
+    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
+        let info = match info_from_char(self, ch) {
+            Some(info) => info,
+            None => return None,
+        };
+        unsafe {
+            Some(char_event(self, info))
         }
-        Ok(())
+    }
+
+    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
+        for ch in s.chars() {
+            match self.unicode_char(ch) {
+                Some(Ok(_)) => continue,
+                err => return err,
+            }
+        }
+        Some(Ok(()))
     }
 }

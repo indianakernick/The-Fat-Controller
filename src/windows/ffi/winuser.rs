@@ -295,4 +295,8 @@ extern "stdcall" {
     // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics
     #[allow(non_snake_case)]
     pub fn GetSystemMetrics(nIndex: c_int) -> c_int;
+
+    // https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-vkkeyscanw
+    #[allow(non_snake_case)]
+    pub fn VkKeyScanW(ch: WCHAR) -> SHORT;
 }

@@ -8,9 +8,7 @@ pub use error::Error;
 
 /// The main context used for generating events (macOS).
 ///
-/// The most useful methods are on the [`InfoContext`](crate::InfoContext),
-/// [`KeyboardContext`](crate::KeyboardContext) and
-/// [`MouseContext`](crate::MouseContext) traits.
+/// The most useful methods are on the [traits](crate::traits).
 pub struct Context {
     hid_connect: ffi::io_connect_t,
     fb_connect: ffi::io_connect_t,

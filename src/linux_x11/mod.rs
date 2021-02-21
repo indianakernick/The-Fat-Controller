@@ -25,9 +25,7 @@ pub use error::Error;
 
 /// The main context used for generating events (Linux-X11).
 ///
-/// The most useful methods are on the [`InfoContext`](crate::InfoContext),
-/// [`KeyboardContext`](crate::KeyboardContext) and
-/// [`MouseContext`](crate::MouseContext) traits.
+/// The most useful methods are on the [traits](crate::traits).
 pub struct Context {
     display: *mut ffi::Display,
     screen_number: c_int,

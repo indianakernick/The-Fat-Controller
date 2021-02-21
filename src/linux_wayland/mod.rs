@@ -14,12 +14,10 @@ pub use error::Error;
 
 /// The main context used for generating events (Linux-Wayland).
 ///
-/// The most useful methods are on the
-/// [`KeyboardContext`](crate::KeyboardContext) and
-/// [`MouseContext`](crate::MouseContext) traits.
-///
-/// The Linux-Wayland context doesn't implement
-/// [`InfoContext`](crate::InfoContext) but the Linux-X11 context does.
+/// The most useful methods are on the [traits](crate::traits) however the
+/// Linux-Wayland context doesn't implement [`InfoContext`](crate::InfoContext)
+/// or [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) but the
+/// Linux-X11 context does.
 pub struct Context {
     file: c_int,
     scroll: ScrollAccum,

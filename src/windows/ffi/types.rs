@@ -3,9 +3,11 @@
 use std::ffi::c_void;
 
 // WinNT.h
+pub type SHORT = i16;
 pub type LONG = i32;
-pub type LPWSTR = *mut u16;
-pub type LPCWSTR = *const u16;
+pub type WCHAR = u16;
+pub type LPWSTR = *mut WCHAR;
+pub type LPCWSTR = *const WCHAR;
 pub type PVOID = *mut c_void;
 pub type HANDLE = PVOID;
 
