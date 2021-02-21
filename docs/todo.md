@@ -103,3 +103,18 @@ doable. Linux is what I'm not sure about.
 
 We should probably have a separate trait for layout independence and unicode so
 that we don't have to implement it for all platforms at once.
+
+## Deployment
+
+Release the controller app on the App Store. Also release prebuilt binaries for
+the server so that user's don't need to be programmers to use it.
+
+## Maybe...
+
+- Make it possible to choose between scrolling by pixels and scrolling by lines.
+  I feel like there's a better term for describing that.
+- Add another platform. I want this to be the best and most fully featured
+  library of its kind of crates.io. I could consider targeting another operating
+  system.
+- Expand `InfoContext` to handle multiple monitors. Also rename it. It's a
+  really bad name.
