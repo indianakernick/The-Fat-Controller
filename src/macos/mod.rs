@@ -3,6 +3,16 @@ mod error;
 mod info;
 mod keyboard;
 mod mouse;
+mod unicode_keyboard;
+
+const SHIFT_BIT: u32 = 0;
+const OPTION_BIT: u32 = 1;
+const CONTROL_BIT: u32 = 2;
+
+struct KeyInfo {
+    key_code: u8,
+    modifiers: u8,
+}
 
 pub use error::Error;
 
@@ -15,13 +25,14 @@ pub struct Context {
     fb_address: ffi::mach_vm_address_t,
     modifiers: ffi::IOOptionBits,
     button_state: u8,
+    key_map: Vec<(char, KeyInfo)>,
 }
 
 // I don't know if IOHIDPostEvent is thread-safe so I'm going to assume that it
 // isn't. Also, I might need to be on nightly for the below impls to work so
 // yeah...
-// impl !Send for EventContext {}
-// impl !Sync for EventContext {}
+// impl !Send for Context {}
+// impl !Sync for Context {}
 
 fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_connect_t, Error> {
     unsafe {
@@ -70,6 +81,92 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
     }
 }
 
+fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
+    // Iterate over all combinations of key codes and modifier states and
+    // convert them to characters. Use this to create a mapping from characters
+    // to key codes and modifier states.
+
+    unsafe {
+        const MAX_STRING_LENGTH: usize = 255;
+
+        let input_source = ffi::TISCopyCurrentKeyboardLayoutInputSource();
+        if input_source == std::ptr::null_mut() {
+            return Err(Error::new(ffi::kIOReturnError));
+        }
+        let layout_data = ffi::TISGetInputSourceProperty(input_source, ffi::kTISPropertyUnicodeKeyLayoutData);
+        if layout_data == std::ptr::null() {
+            ffi::CFRelease(std::mem::transmute(input_source));
+            return Err(Error::new(ffi::kIOReturnError));
+        }
+        let layout = std::mem::transmute(ffi::CFDataGetBytePtr(layout_data));
+        let keyboard_type = ffi::LMGetKbdType();
+
+        let mut key_map = Vec::new();
+
+        let mut dead_keys = 0;
+        let mut length = 0;
+        let mut string: [ffi::UniChar; MAX_STRING_LENGTH] = [0; MAX_STRING_LENGTH];
+
+        // Iterating modifiers then key codes because some characters can be
+        // produced in multiple ways. For example, '0' can be produced with
+        // the control modifier and key code 10. Key code 10 is not defined in
+        // events.h and this is an odd way of typing '0' when key code 29 would
+        // suffice.
+
+        for mod_idx in 0..8 {
+            // The modifier flags that UCKeyTranslate the ones defined in
+            // events.h shifted right by 8. So shift is shiftKeyBit >> 8.
+            let shift_bit = (mod_idx & (1 << SHIFT_BIT)) << (ffi::shiftKeyBit - SHIFT_BIT - 8);
+            let option_bit = (mod_idx & (1 << OPTION_BIT)) << (ffi::optionKeyBit - OPTION_BIT - 8);
+            let control_bit = (mod_idx & (1 << CONTROL_BIT)) << (ffi::controlKeyBit - CONTROL_BIT - 8);
+            let modifiers = shift_bit | option_bit | control_bit;
+
+            for key_code in 0..128 {
+                // UCKeyTranslate takes a key code, the state of the modifiers,
+                // and a keyboard layout to produce the UTF-16 string that would
+                // be typed if the key was pressed with the modifiers.
+                let status = ffi::UCKeyTranslate(
+                    layout,
+                    key_code,
+                    ffi::kUCKeyActionDisplay,
+                    modifiers,
+                    keyboard_type as u32,
+                    ffi::kUCKeyTranslateNoDeadKeysMask,
+                    &mut dead_keys,
+                    MAX_STRING_LENGTH as ffi::UniCharCount,
+                    &mut length,
+                    string.as_mut_ptr(),
+                );
+
+                if status != 0 {
+                    ffi::CFRelease(std::mem::transmute(input_source));
+                    return Err(Error::new(ffi::kIOReturnError));
+                }
+
+                let string_utf16 = &string[..length as usize];
+                let string_utf32 = std::char::decode_utf16(string_utf16.iter().cloned())
+                    .collect::<Vec<_>>();
+
+                if string_utf32.len() == 1 {
+                    if let Ok(ch) = string_utf32[0] {
+                        key_map.push((ch, KeyInfo {
+                            key_code: key_code as u8,
+                            modifiers: mod_idx as u8,
+                        }));
+                    }
+                }
+            }
+        }
+
+        ffi::CFRelease(std::mem::transmute(input_source));
+
+        // We'll use binary_search to find the key code for a character.
+        key_map.sort_by_key(|(c, _)| *c);
+        key_map.dedup_by_key(|(c, _)| *c);
+        Ok(key_map)
+    }
+}
+
 impl Context {
     pub fn new() -> Result<Self, Error> {
         let hid_connect = connect_to_service(ffi::kIOHIDSystemClass.as_ptr(), ffi::kIOHIDParamConnectType)?;
@@ -107,12 +204,24 @@ impl Context {
             }
         }
 
+        let key_map = match create_key_map() {
+            Ok(map) => map,
+            Err(e) => {
+                unsafe {
+                    ffi::IOServiceClose(fb_connect);
+                    ffi::IOServiceClose(hid_connect);
+                }
+                return Err(e);
+            }
+        };
+
         Ok(Self {
             hid_connect,
             fb_connect,
             fb_address,
             modifiers: 0,
             button_state: 0,
+            key_map,
         })
     }
 

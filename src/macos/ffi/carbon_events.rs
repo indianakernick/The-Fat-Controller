@@ -2,6 +2,15 @@
 // /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/Headers/Events.h
 
 #[allow(non_upper_case_globals)]
+pub const cmdKeyBit: u32 = 8;
+#[allow(non_upper_case_globals)]
+pub const shiftKeyBit: u32 = 9;
+#[allow(non_upper_case_globals)]
+pub const optionKeyBit: u32 = 11;
+#[allow(non_upper_case_globals)]
+pub const controlKeyBit: u32 = 12;
+
+#[allow(non_upper_case_globals)]
 pub const kVK_ANSI_A: u8 = 0x00;
 #[allow(non_upper_case_globals)]
 pub const kVK_ANSI_S: u8 = 0x01;
@@ -228,3 +237,8 @@ pub const kVK_RightArrow: u8 = 0x7C;
 pub const kVK_DownArrow: u8 = 0x7D;
 #[allow(non_upper_case_globals)]
 pub const kVK_UpArrow: u8 = 0x7E;
+
+#[link(name = "Carbon", kind = "framework")]
+extern {
+    pub fn LMGetKbdType() -> u8;
+}
