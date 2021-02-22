@@ -3,12 +3,11 @@ mod error;
 mod info;
 mod keyboard;
 mod mouse;
-mod unicode_keyboard;
 
 const SHIFT_BIT: u32 = 0;
 const OPTION_BIT: u32 = 1;
-const CONTROL_BIT: u32 = 2;
 
+#[derive(Copy, Clone)]
 struct KeyInfo {
     key_code: u8,
     modifiers: u8,
@@ -107,19 +106,12 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
         let mut length = 0;
         let mut string: [ffi::UniChar; MAX_STRING_LENGTH] = [0; MAX_STRING_LENGTH];
 
-        // Iterating modifiers then key codes because some characters can be
-        // produced in multiple ways. For example, '0' can be produced with
-        // the control modifier and key code 10. Key code 10 is not defined in
-        // events.h and this is an odd way of typing '0' when key code 29 would
-        // suffice.
-
-        for mod_idx in 0..8 {
-            // The modifier flags that UCKeyTranslate the ones defined in
-            // events.h shifted right by 8. So shift is shiftKeyBit >> 8.
+        for mod_idx in 0..4 {
+            // The modifier flags that UCKeyTranslate takes are the ones defined
+            // in events.h shifted right by 8. So shift is shiftKeyBit >> 8.
             let shift_bit = (mod_idx & (1 << SHIFT_BIT)) << (ffi::shiftKeyBit - SHIFT_BIT - 8);
             let option_bit = (mod_idx & (1 << OPTION_BIT)) << (ffi::optionKeyBit - OPTION_BIT - 8);
-            let control_bit = (mod_idx & (1 << CONTROL_BIT)) << (ffi::controlKeyBit - CONTROL_BIT - 8);
-            let modifiers = shift_bit | option_bit | control_bit;
+            let modifiers = shift_bit | option_bit;
 
             for key_code in 0..128 {
                 // UCKeyTranslate takes a key code, the state of the modifiers,
@@ -159,6 +151,15 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
         }
 
         ffi::CFRelease(std::mem::transmute(input_source));
+
+        // UCKeyTranslate seems to produce a carriage-return instead of a
+        // line-feed when given kVK_Return. That's kinda weird. Maybe it's
+        // because macOS used carriage-return as the newline character in the
+        // ancient times?
+        key_map.push(('\n', KeyInfo {
+            key_code: ffi::kVK_Return,
+            modifiers: 0,
+        }));
 
         // We'll use binary_search to find the key code for a character.
         key_map.sort_by_key(|(c, _)| *c);

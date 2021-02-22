@@ -1,5 +1,5 @@
 use crate::Key;
-use super::{ffi, Context, Error};
+use super::{ffi, Context, Error, KeyInfo, SHIFT_BIT, OPTION_BIT};
 
 // Largely adapted from here
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
@@ -161,6 +161,32 @@ fn update_context_modifiers(ctx: &mut Context) {
     update_modifiers(&mut ctx.modifiers, ffi::NX_DEVICELCMDKEYMASK, ffi::NX_DEVICERCMDKEYMASK, ffi::NX_COMMANDMASK);
 }
 
+fn flags_event(ctx: &Context, event: *const ffi::NXEventData) -> Result<(), Error> {
+    ctx.post_event(
+        ffi::NX_FLAGSCHANGED,
+        event,
+        ctx.modifiers,
+        ffi::kIOHIDSetGlobalEventFlags
+    )
+}
+
+fn modifier_key_event(
+    ctx: &mut Context,
+    event: &mut ffi::NXEventData,
+    key_code: u8,
+    mask: u32,
+    down: bool,
+) -> Result<(), Error> {
+    if down {
+        ctx.modifiers |= mask;
+    } else {
+        ctx.modifiers &= !mask;
+    }
+    update_context_modifiers(ctx);
+    event.key.keyCode = key_code as u16;
+    flags_event(ctx, event)
+}
+
 fn key_event(ctx: &mut Context, key: Key, down: bool) -> Result<(), Error> {
     let event_type = if down { ffi::NX_KEYDOWN } else { ffi::NX_KEYUP };
     let mut event = ffi::NXEventData::default();
@@ -169,17 +195,8 @@ fn key_event(ctx: &mut Context, key: Key, down: bool) -> Result<(), Error> {
         GroupedKey::CapsLock => {
             if down {
                 ctx.modifiers ^= ffi::NX_ALPHASHIFTMASK;
-
-                event.key.origCharSet = ffi::NX_ASCIISET;
-                event.key.charSet = ffi::NX_ASCIISET;
                 event.key.keyCode = ffi::kVK_CapsLock as u16;
-
-                ctx.post_event(
-                    ffi::NX_FLAGSCHANGED,
-                    &event,
-                    ctx.modifiers,
-                    ffi::kIOHIDSetGlobalEventFlags
-                )?;
+                flags_event(ctx, &event)?;
             }
 
             event.compound.subType = ffi::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
@@ -187,35 +204,16 @@ fn key_event(ctx: &mut Context, key: Key, down: bool) -> Result<(), Error> {
                 event.compound.misc.L[0] = aux_key(ffi::NX_KEYTYPE_CAPS_LOCK, event_type, false);
             }
             ctx.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)
-        },
+        }
 
         GroupedKey::Modifier(key_code, mask) => {
-            if down {
-                ctx.modifiers |= mask;
-            } else {
-                ctx.modifiers &= !mask;
-            }
-
-            update_context_modifiers(ctx);
-
-            event.key.origCharSet = ffi::NX_ASCIISET;
-            event.key.charSet = ffi::NX_ASCIISET;
-            event.key.keyCode = key_code as u16;
-
-            ctx.post_event(
-                ffi::NX_FLAGSCHANGED,
-                &event,
-                ctx.modifiers,
-                ffi::kIOHIDSetGlobalEventFlags
-            )
-        },
+            modifier_key_event(ctx, &mut event, key_code, mask, down)
+        }
 
         GroupedKey::Regular(key_code) => {
-            event.key.origCharSet = ffi::NX_ASCIISET;
-            event.key.charSet = ffi::NX_ASCIISET;
             event.key.keyCode = key_code as u16;
             ctx.post_event(event_type, &event, 0, 0)
-        },
+        }
 
         GroupedKey::Media(key_code) => {
             event.compound.subType = ffi::NX_SUBTYPE_AUX_CONTROL_BUTTONS;
@@ -223,7 +221,7 @@ fn key_event(ctx: &mut Context, key: Key, down: bool) -> Result<(), Error> {
                 event.compound.misc.L[0] = aux_key(key_code, event_type, false);
             }
             ctx.post_event(ffi::NX_SYSDEFINED, &event, 0, 0)
-        },
+        }
     }
 }
 
@@ -234,5 +232,42 @@ impl crate::KeyboardContext for Context {
 
     fn key_up(&mut self, key: Key) -> Result<(), Error> {
         key_event(self, key, false)
+    }
+}
+
+fn char_event(ctx: &mut Context, info: KeyInfo) -> Result<(), Error> {
+    let mut event = ffi::NXEventData::default();
+
+    if info.modifiers & (1 << SHIFT_BIT) != 0 {
+        modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, true)?;
+    }
+    if info.modifiers & (1 << OPTION_BIT) != 0 {
+        modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, true)?;
+    }
+
+    event.key.keyCode = info.key_code as u16;
+    ctx.post_event(ffi::NX_KEYDOWN, &event, 0, 0)?;
+    ctx.post_event(ffi::NX_KEYUP, &event, 0, 0)?;
+
+    if info.modifiers & (1 << OPTION_BIT) != 0 {
+        modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, false)?;
+    }
+    if info.modifiers & (1 << SHIFT_BIT) != 0 {
+        modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, false)?;
+    }
+
+    Ok(())
+}
+
+impl crate::UnicodeKeyboardContext for Context {
+    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
+        match self.key_map.binary_search_by_key(&ch, |(c, _)| *c) {
+            Ok(i) => Some(char_event(self, self.key_map[i].1)),
+            Err(_) => None,
+        }
+    }
+
+    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
+        unimplemented!()
     }
 }
