@@ -8,6 +8,7 @@ mod unicode_keyboard;
 use std::ptr;
 use std::os::raw::{c_int, c_uint};
 use crate::linux_common::ScrollAccum;
+use std::collections::hash_map::{HashMap, Entry};
 
 // Largely adapted from here
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
@@ -30,7 +31,7 @@ pub struct Context {
     display: *mut ffi::Display,
     screen_number: c_int,
     scroll: ScrollAccum,
-    key_map: Vec<(char, KeyInfo)>,
+    key_map: HashMap<char, KeyInfo>,
     unused_keycode: ffi::KeyCode,
     modifier_map: *const ffi::XModifierKeymap,
 }
@@ -96,7 +97,7 @@ unsafe fn create_key_map(
     display: *mut ffi::Display,
     min_keycode: ffi::KeyCode,
     max_keycode: ffi::KeyCode,
-) -> Result<Vec<(char, KeyInfo)>, Error> {
+) -> Result<HashMap<char, KeyInfo>, Error> {
 
     // Fuck, this library is so inconsistent. Sometimes a keycode is a
     // KeyCode and sometimes it's an int. Sometimes a group is an int
@@ -117,7 +118,7 @@ unsafe fn create_key_map(
         return Err(Error::XkbGetMap);
     }
 
-    let mut key_map = Vec::new();
+    let mut key_map = HashMap::new();
 
     for keycode in min_keycode..=max_keycode {
         let groups = ffi::XkbKeyNumGroups(desc, keycode);
@@ -148,25 +149,20 @@ unsafe fn create_key_map(
                     }
                 };
 
-                key_map.push((charcode, KeyInfo {
-                    keysym,
-                    group: group as u8,
-                    modifiers,
-                    keycode,
-                    default: true,
-                }));
+                if let Entry::Vacant(entry) = key_map.entry(charcode) {
+                    entry.insert(KeyInfo {
+                        keysym,
+                        group: group as u8,
+                        modifiers,
+                        keycode,
+                        default: true,
+                    });
+                }
             }
         }
     }
 
     ffi::XkbFreeClientMap(desc, 0, ffi::True);
-
-    // The keymap is sorted by the character code so that we can later do a
-    // binary search to find a key. The keymap is likely to have around 100
-    // elements (108 when I tested). For such a small number of elements, this
-    // is probably faster than a hashmap.
-    key_map.sort_by_key(|(c, _)| *c);
-    key_map.dedup_by_key(|(c, _)| *c);
 
     Ok(key_map)
 }

@@ -261,10 +261,12 @@ fn char_event(ctx: &mut Context, info: KeyInfo) -> Result<(), Error> {
 
 impl crate::UnicodeKeyboardContext for Context {
     fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
-        match self.key_map.binary_search_by_key(&ch, |(c, _)| *c) {
-            Ok(i) => Some(char_event(self, self.key_map[i].1)),
-            Err(_) => None,
-        }
+        // self.key_map.get(&ch).map(|info| char_event(self, *info))
+        let info = match self.key_map.get(&ch) {
+            Some(info) => *info,
+            None => return None,
+        };
+        Some(char_event(self, info))
     }
 
     fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {

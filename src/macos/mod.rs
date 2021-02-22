@@ -4,6 +4,8 @@ mod info;
 mod keyboard;
 mod mouse;
 
+use std::collections::hash_map::{HashMap, Entry};
+
 const SHIFT_BIT: u32 = 0;
 const OPTION_BIT: u32 = 1;
 
@@ -24,7 +26,7 @@ pub struct Context {
     fb_address: ffi::mach_vm_address_t,
     modifiers: ffi::IOOptionBits,
     button_state: u8,
-    key_map: Vec<(char, KeyInfo)>,
+    key_map: HashMap<char, KeyInfo>,
 }
 
 // I don't know if IOHIDPostEvent is thread-safe so I'm going to assume that it
@@ -80,7 +82,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
     }
 }
 
-fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
+fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
     // Iterate over all combinations of key codes and modifier states and
     // convert them to characters. Use this to create a mapping from characters
     // to key codes and modifier states.
@@ -94,7 +96,9 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
         if input_source == std::ptr::null_mut() {
             return Err(Error::new(ffi::kIOReturnError));
         }
-        let layout_data = ffi::TISGetInputSourceProperty(input_source, ffi::kTISPropertyUnicodeKeyLayoutData);
+        let layout_data = ffi::TISGetInputSourceProperty(
+            input_source, ffi::kTISPropertyUnicodeKeyLayoutData
+        );
         if layout_data == std::ptr::null() {
             ffi::CFRelease(std::mem::transmute(input_source));
             return Err(Error::new(ffi::kIOReturnError));
@@ -103,7 +107,7 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
     }
     let keyboard_type = unsafe { ffi::LMGetKbdType() };
 
-    let mut key_map = Vec::new();
+    let mut key_map = HashMap::new();
 
     let mut dead_keys = 0;
     let mut length = 0;
@@ -148,10 +152,12 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
 
             if string_utf32.len() == 1 {
                 if let Ok(ch) = string_utf32[0] {
-                    key_map.push((ch, KeyInfo {
-                        key_code: key_code as u8,
-                        modifiers: mod_idx as u8,
-                    }));
+                    if let Entry::Vacant(entry) = key_map.entry(ch) {
+                        entry.insert(KeyInfo {
+                            key_code: key_code as u8,
+                            modifiers: mod_idx as u8,
+                        });
+                    }
                 }
             }
         }
@@ -165,14 +171,11 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
     // line-feed when given kVK_Return. That's kinda weird. Maybe it's
     // because macOS used carriage-return as the newline character in the
     // ancient times?
-    key_map.push(('\n', KeyInfo {
+    key_map.insert('\n', KeyInfo {
         key_code: ffi::kVK_Return,
         modifiers: 0,
-    }));
+    });
 
-    // We'll use binary_search to find the key code for a character.
-    key_map.sort_by_key(|(c, _)| *c);
-    key_map.dedup_by_key(|(c, _)| *c);
     Ok(key_map)
 }
 

@@ -18,8 +18,8 @@ fn modifiers_from_char(ch: char) -> u8 {
 }
 
 fn info_from_char(ctx: &Context, ch: char) -> Option<KeyInfo> {
-    if let Ok(index) = ctx.key_map.binary_search_by_key(&ch, |(c, _)| *c) {
-        return Some(ctx.key_map[index].1);
+    if let Some(info) = ctx.key_map.get(&ch) {
+        return Some(*info);
     }
 
     let keysym = if ch as u32 >= 0x100 {
