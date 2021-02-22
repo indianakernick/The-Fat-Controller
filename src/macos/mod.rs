@@ -85,10 +85,12 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
     // convert them to characters. Use this to create a mapping from characters
     // to key codes and modifier states.
 
-    unsafe {
-        const MAX_STRING_LENGTH: usize = 255;
+    const MAX_STRING_LENGTH: usize = 255;
 
-        let input_source = ffi::TISCopyCurrentKeyboardLayoutInputSource();
+    let input_source;
+    let layout;
+    unsafe {
+        input_source = ffi::TISCopyCurrentKeyboardLayoutInputSource();
         if input_source == std::ptr::null_mut() {
             return Err(Error::new(ffi::kIOReturnError));
         }
@@ -97,27 +99,29 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
             ffi::CFRelease(std::mem::transmute(input_source));
             return Err(Error::new(ffi::kIOReturnError));
         }
-        let layout = std::mem::transmute(ffi::CFDataGetBytePtr(layout_data));
-        let keyboard_type = ffi::LMGetKbdType();
+        layout = std::mem::transmute(ffi::CFDataGetBytePtr(layout_data));
+    }
+    let keyboard_type = unsafe { ffi::LMGetKbdType() };
 
-        let mut key_map = Vec::new();
+    let mut key_map = Vec::new();
 
-        let mut dead_keys = 0;
-        let mut length = 0;
-        let mut string: [ffi::UniChar; MAX_STRING_LENGTH] = [0; MAX_STRING_LENGTH];
+    let mut dead_keys = 0;
+    let mut length = 0;
+    let mut string: [ffi::UniChar; MAX_STRING_LENGTH] = [0; MAX_STRING_LENGTH];
 
-        for mod_idx in 0..4 {
-            // The modifier flags that UCKeyTranslate takes are the ones defined
-            // in events.h shifted right by 8. So shift is shiftKeyBit >> 8.
-            let shift_bit = (mod_idx & (1 << SHIFT_BIT)) << (ffi::shiftKeyBit - SHIFT_BIT - 8);
-            let option_bit = (mod_idx & (1 << OPTION_BIT)) << (ffi::optionKeyBit - OPTION_BIT - 8);
-            let modifiers = shift_bit | option_bit;
+    for mod_idx in 0..4 {
+        // The modifier flags that UCKeyTranslate takes are the ones defined
+        // in events.h shifted right by 8. So shift is shiftKeyBit >> 8.
+        let shift_bit = (mod_idx & (1 << SHIFT_BIT)) << (ffi::shiftKeyBit - SHIFT_BIT - 8);
+        let option_bit = (mod_idx & (1 << OPTION_BIT)) << (ffi::optionKeyBit - OPTION_BIT - 8);
+        let modifiers = shift_bit | option_bit;
 
-            for key_code in 0..128 {
-                // UCKeyTranslate takes a key code, the state of the modifiers,
-                // and a keyboard layout to produce the UTF-16 string that would
-                // be typed if the key was pressed with the modifiers.
-                let status = ffi::UCKeyTranslate(
+        for key_code in 0..128 {
+            // UCKeyTranslate takes a key code, the state of the modifiers,
+            // and a keyboard layout to produce the UTF-16 string that would
+            // be typed if the key was pressed with the modifiers.
+            let status = unsafe {
+                ffi::UCKeyTranslate(
                     layout,
                     key_code,
                     ffi::kUCKeyActionDisplay,
@@ -128,44 +132,48 @@ fn create_key_map() -> Result<Vec<(char, KeyInfo)>, Error> {
                     MAX_STRING_LENGTH as ffi::UniCharCount,
                     &mut length,
                     string.as_mut_ptr(),
-                );
+                )
+            };
 
-                if status != 0 {
+            if status != 0 {
+                unsafe {
                     ffi::CFRelease(std::mem::transmute(input_source));
-                    return Err(Error::new(ffi::kIOReturnError));
                 }
+                return Err(Error::new(ffi::kIOReturnError));
+            }
 
-                let string_utf16 = &string[..length as usize];
-                let string_utf32 = std::char::decode_utf16(string_utf16.iter().cloned())
-                    .collect::<Vec<_>>();
+            let string_utf16 = &string[..length as usize];
+            let string_utf32 = std::char::decode_utf16(string_utf16.iter().cloned())
+                .collect::<Vec<_>>();
 
-                if string_utf32.len() == 1 {
-                    if let Ok(ch) = string_utf32[0] {
-                        key_map.push((ch, KeyInfo {
-                            key_code: key_code as u8,
-                            modifiers: mod_idx as u8,
-                        }));
-                    }
+            if string_utf32.len() == 1 {
+                if let Ok(ch) = string_utf32[0] {
+                    key_map.push((ch, KeyInfo {
+                        key_code: key_code as u8,
+                        modifiers: mod_idx as u8,
+                    }));
                 }
             }
         }
-
-        ffi::CFRelease(std::mem::transmute(input_source));
-
-        // UCKeyTranslate seems to produce a carriage-return instead of a
-        // line-feed when given kVK_Return. That's kinda weird. Maybe it's
-        // because macOS used carriage-return as the newline character in the
-        // ancient times?
-        key_map.push(('\n', KeyInfo {
-            key_code: ffi::kVK_Return,
-            modifiers: 0,
-        }));
-
-        // We'll use binary_search to find the key code for a character.
-        key_map.sort_by_key(|(c, _)| *c);
-        key_map.dedup_by_key(|(c, _)| *c);
-        Ok(key_map)
     }
+
+    unsafe {
+        ffi::CFRelease(std::mem::transmute(input_source));
+    }
+
+    // UCKeyTranslate seems to produce a carriage-return instead of a
+    // line-feed when given kVK_Return. That's kinda weird. Maybe it's
+    // because macOS used carriage-return as the newline character in the
+    // ancient times?
+    key_map.push(('\n', KeyInfo {
+        key_code: ffi::kVK_Return,
+        modifiers: 0,
+    }));
+
+    // We'll use binary_search to find the key code for a character.
+    key_map.sort_by_key(|(c, _)| *c);
+    key_map.dedup_by_key(|(c, _)| *c);
+    Ok(key_map)
 }
 
 impl Context {
@@ -233,18 +241,17 @@ impl Context {
         flags: ffi::IOOptionBits,
         options: ffi::IOOptionBits
     ) -> Result<(), Error> {
-        let error_code;
-        unsafe {
-            error_code = ffi::IOHIDPostEvent(
+        let error_code = unsafe {
+            ffi::IOHIDPostEvent(
                 self.hid_connect,
                 event_type,
-                ffi::IOGPoint{ x: 0, y: 0 },
+                ffi::IOGPoint { x: 0, y: 0 },
                 event,
                 ffi::kNXEventDataVersion,
                 flags,
                 options
-            );
-        }
+            )
+        };
         if error_code == ffi::kIOReturnSuccess {
             Ok(())
         } else {
