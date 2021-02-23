@@ -58,52 +58,6 @@ one source might work but since I've already written the iOS app, it would be
 the same amount of effort. Also, using a generator might not give me full
 control over the app. It just doesn't seem all that appealing.
 
-## Unicode
-
-The ability to type any character that can be typed without worrying about the
-keyboard layout would be really useful. Being able to type any unicode character
-(even ones that can't be typed) is even better but these two things have
-different implementations.
-
-On Windows, you can send unicode characters directly.
-[SO](https://stackoverflow.com/a/38625599/4093378).
-There's also
-[`VkKeyScanW`](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-vkkeyscanw)
-for mapping characters to key codes.
-
-On Linux, you can use `CTRL+SHIFT+U+<HEX>` to enter a unicode character. You
-would still need to worry about keyboard layout for the `0123456789ABCDEF` keys.
-Also, it seems to be application specific and isn't built into the operating
-system. Windows has a similar thing. macOS has it too but it needs to be enabled
-in settings. Translating characters to keycodes is possible with
-[X11](https://stackoverflow.com/a/42691752/4093378).
-That has the disadvantage of not working everywhere.
-[`dumpkeys`](https://man7.org/linux/man-pages/man1/dumpkeys.1.html)
-might help. Maybe
-[`EVIOCGKEYCODE`](https://github.com/torvalds/linux/blob/358feceebbf68f33c44c6650d14455389e65282d/include/uapi/linux/input.h#L99-L121).
-For X11, there's
-[`XKeysymToKeycode`](https://linux.die.net/man/3/xkeysymtokeycode)
-but we'd still have to worry about translating unicode to keysym.
-
-On macOS, it's possible to convert characters to a keycode and set of modifiers.
-[SO](https://stackoverflow.com/questions/1918841/how-to-convert-ascii-character-to-cgkeycode).
-For sending arbitrary unicode characters,
-[`CGEventKeyboardSetUnicodeString`](https://developer.apple.com/documentation/coregraphics/1456028-cgeventkeyboardsetunicodestring)
-can be used but this has the problem of not responding to modifiers. Also,
-`CGEventKeyboardSetUnicodeString` only accepts up to 20 characters at once so if
-we want to send strings, we'd need to split them up. Even splitting strings is
-non-trivial because we'd need to split them by graphemes. Probably need a
-library for that.
-
-There are really two problems to solve here. There's generating key codes
-independent of the keyboard layout and generating arbitrary unicode characters.
-Both of these require different solutions. It seems like it might be relatively
-easy to solve this for Windows. macOS is a little more difficult but still
-doable. Linux is what I'm not sure about.
-
-We should probably have a separate trait for layout independence and unicode so
-that we don't have to implement it for all platforms at once.
-
 ## Deployment
 
 Release the controller app on the App Store. Also release prebuilt binaries for
