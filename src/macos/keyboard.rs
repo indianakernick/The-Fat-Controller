@@ -1,4 +1,6 @@
 use crate::Key;
+use unicode_segmentation::UnicodeSegmentation;
+use core_graphics::event::{CGEvent, CGEventTapLocation};
 use super::{ffi, Context, Error, KeyInfo, SHIFT_BIT, OPTION_BIT};
 
 // Largely adapted from here
@@ -270,6 +272,20 @@ impl crate::UnicodeKeyboardContext for Context {
     }
 
     fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
-        unimplemented!()
+        // CGEventKeyboardSetUnicodeString only handles the first 20 UTF-16 code
+        // units (in other words, 40 bytes) and ignores the rest so we need to
+        // split the string up. Also, special characters like tab, line-feed and
+        // backspace work in TextEdit but not CLion. Maybe create a special case
+        // for these?
+
+        let event = match CGEvent::new_keyboard_event(self.event_source.clone(), 0, true) {
+            Ok(e) => e,
+            Err(()) => return Some(Err(Error::new(ffi::kIOReturnError))),
+        };
+        for grapheme in s.graphemes(true) {
+            event.set_string(grapheme);
+            event.post(CGEventTapLocation::HID);
+        }
+        Some(Ok(()))
     }
 }

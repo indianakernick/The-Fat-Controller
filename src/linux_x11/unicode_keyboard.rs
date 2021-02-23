@@ -7,6 +7,8 @@ use super::{ffi, Context, Error, KeyInfo};
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
 
 // TODO: Maybe make this configurable
+// The delay is only necessary if the layout is changed. However, inserting a
+// delay only at the point where the layout changes doesn't work.
 const KEY_DELAY: Duration = Duration::from_millis(25);
 
 fn modifiers_from_char(ch: char) -> u8 {

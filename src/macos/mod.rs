@@ -5,6 +5,7 @@ mod keyboard;
 mod mouse;
 
 use std::collections::hash_map::{HashMap, Entry};
+use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 
 const SHIFT_BIT: u32 = 0;
 const OPTION_BIT: u32 = 1;
@@ -24,6 +25,7 @@ pub struct Context {
     hid_connect: ffi::io_connect_t,
     fb_connect: ffi::io_connect_t,
     fb_address: ffi::mach_vm_address_t,
+    event_source: CGEventSource,
     modifiers: ffi::IOOptionBits,
     button_state: u8,
     key_map: HashMap<char, KeyInfo>,
@@ -227,10 +229,16 @@ impl Context {
             }
         };
 
+        let event_source = match CGEventSource::new(CGEventSourceStateID::Private) {
+            Ok(s) => s,
+            Err(()) => return Err(Error::new(ffi::kIOReturnError)),
+        };
+
         Ok(Self {
             hid_connect,
             fb_connect,
             fb_address,
+            event_source,
             modifiers: 0,
             button_state: 0,
             key_map,

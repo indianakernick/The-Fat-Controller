@@ -12,5 +12,10 @@ categories = ["os::linux-apis", "os::macos-apis", "os::windows-apis"]
 license = "MIT OR Apache-2.0"
 exclude = [".gitignore", ".idea", "docs", "iOS_client"]
 
+[target.'cfg(target_os = "macos")'.dependencies]
+# Both of these are required for UnicodeKeyboardContext::unicode_string
+unicode-segmentation = "1.7"
+core-graphics = "0.22"
+
 [profile.release]
 lto = true
