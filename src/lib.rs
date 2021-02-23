@@ -1,4 +1,3 @@
-mod byte_command;
 mod command;
 mod command_code;
 mod key;
@@ -6,7 +5,6 @@ mod mouse_button;
 mod utils;
 pub mod traits;
 
-pub use byte_command::*;
 pub use command::*;
 pub use command_code::*;
 pub use key::*;
