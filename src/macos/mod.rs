@@ -4,6 +4,7 @@ mod info;
 mod keyboard;
 mod mouse;
 
+use std::ffi::c_void;
 use std::collections::hash_map::{HashMap, Entry};
 use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 
@@ -102,10 +103,10 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
             input_source, ffi::kTISPropertyUnicodeKeyLayoutData
         );
         if layout_data == std::ptr::null() {
-            ffi::CFRelease(std::mem::transmute(input_source));
+            ffi::CFRelease(input_source as *mut c_void);
             return Err(Error::new(ffi::kIOReturnError));
         }
-        layout = std::mem::transmute(ffi::CFDataGetBytePtr(layout_data));
+        layout = ffi::CFDataGetBytePtr(layout_data) as *const ffi::UCKeyboardLayout;
     }
     let keyboard_type = unsafe { ffi::LMGetKbdType() };
 
@@ -143,7 +144,7 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
 
             if status != 0 {
                 unsafe {
-                    ffi::CFRelease(std::mem::transmute(input_source));
+                    ffi::CFRelease(input_source as *mut c_void);
                 }
                 return Err(Error::new(ffi::kIOReturnError));
             }
@@ -166,7 +167,7 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
     }
 
     unsafe {
-        ffi::CFRelease(std::mem::transmute(input_source));
+        ffi::CFRelease(input_source as *mut c_void);
     }
 
     // UCKeyTranslate seems to produce a carriage-return instead of a
