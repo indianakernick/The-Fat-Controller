@@ -3,7 +3,6 @@ mod error;
 mod info;
 mod keyboard;
 mod mouse;
-mod unicode_keyboard;
 
 use std::ptr;
 use std::os::raw::{c_int, c_uint};

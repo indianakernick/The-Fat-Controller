@@ -3,7 +3,6 @@ mod error;
 mod info;
 mod keyboard;
 mod mouse;
-mod unicode_keyboard;
 
 pub use error::Error;
 
