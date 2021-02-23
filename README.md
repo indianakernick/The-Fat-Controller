@@ -4,11 +4,27 @@
 [![Docs.rs](https://docs.rs/tfc/badge.svg)](https://docs.rs/tfc)
 ![License](https://img.shields.io/crates/l/tfc)
 
-TFC is a library for simulating mouse and keyboard events. Mouse movement, mouse
-clicking, scrolling and key presses can all be simulated. The library supports
-macOS, Windows and Linux. This library was built for use by
-[TFC-server](https://crates.io/crates/tfc-server), a server that allows for
-remote control of a PC via a mobile app.
+TFC is a library for simulating mouse and keyboard events. This library was
+built for use by [TFC-server](https://crates.io/crates/tfc-server), a server
+that allows for remote control of a PC via a mobile app.
+
+## Features
+
+- Mouse clicks
+- Mouse motion (relative and absolute)
+- Mouse scrolling (smooth scrolling where supported)
+- Key presses
+- Translating Unicode characters to key presses
+- Typing arbitrary Unicode strings
+- Getting the mouse position
+- Getting the size of the screen
+
+## Platforms
+
+- Linux - With X11
+- Linux - Without X11
+- macOS
+- Windows
 
 ## Linux
 
@@ -44,7 +60,7 @@ tfc = "0.3"
 
 ```rust
 use tfc::{Context, Error, traits::*};
-use std::{thread, time::Duration, f64::consts::PI};
+use std::{f64::consts::PI, thread, time::Duration};
 
 fn main() -> Result<(), Error> {
     let mut ctx = Context::new()?;
