@@ -3,7 +3,7 @@ use unicode_segmentation::UnicodeSegmentation;
 use core_graphics::event::{CGEvent, CGEventTapLocation};
 use super::{ffi, Context, Error, KeyInfo, SHIFT_BIT, OPTION_BIT};
 
-// Largely adapted from here
+// The implementation of KeyboardContext is adapted from here:
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
 
 // Some more resources

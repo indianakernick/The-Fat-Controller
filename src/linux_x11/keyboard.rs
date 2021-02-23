@@ -25,7 +25,7 @@ impl crate::KeyboardContext for Context {
     }
 }
 
-// Largely adapted from here
+// The implementation of UnicodeKeyboardContext is adapted from here:
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
 
 // TODO: Maybe make this configurable

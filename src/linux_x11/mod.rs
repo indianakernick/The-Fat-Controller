@@ -9,7 +9,7 @@ use std::os::raw::{c_int, c_uint};
 use crate::linux_common::ScrollAccum;
 use std::collections::hash_map::{HashMap, Entry};
 
-// Largely adapted from here
+// The implementation of Context::new is adapted from here:
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
 
 #[derive(Copy, Clone)]
