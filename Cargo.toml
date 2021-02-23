@@ -2,7 +2,7 @@
 name = "tfc"
 description = "The Fat Controller. A library for simulating mouse and keyboard events."
 keywords = ["keyboard", "mouse", "automation", "control"]
-version = "0.3.0"
+version = "0.4.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/Kerndog73/The-Fat-Controller"

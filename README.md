@@ -53,7 +53,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-tfc = "0.3"
+tfc = "0.4"
 ```
 
 ## Example
