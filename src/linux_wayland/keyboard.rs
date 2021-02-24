@@ -1,5 +1,4 @@
-use crate::Key;
-use crate::linux_common;
+use crate::{Key, linux_common};
 use super::{ffi, Context, Error};
 
 fn key_event(ctx: &Context, key: Key, down: bool) -> Result<(), Error> {

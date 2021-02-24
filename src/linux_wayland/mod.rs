@@ -3,12 +3,11 @@ mod error;
 mod keyboard;
 mod mouse;
 
-use std::mem;
-use crate::Key;
-use std::os::raw::c_int;
-use crate::linux_common::{self, ScrollAccum};
+use std::{mem, os::raw::c_int};
+use crate::{Key, linux_common::{self, ScrollAccum}};
 
-pub use error::Error;
+use error::PlatformError;
+type Error = crate::GenericError<PlatformError>;
 
 // https://www.kernel.org/doc/html/latest/input/uinput.html
 
@@ -28,7 +27,7 @@ impl Context {
         unsafe {
             let file = ffi::open(b"/dev/uinput\0".as_ptr(), ffi::O_WRONLY | ffi::O_NONBLOCK);
             if file == -1 {
-                return Err(Error::errno())
+                return Err(Error::Platform(PlatformError::errno()))
             }
 
             let ctx = Self { file, scroll: ScrollAccum::default() };
@@ -68,7 +67,7 @@ impl Context {
     fn ioctl<T>(&self, request: u32, arg: T) -> Result<(), Error> {
         unsafe {
             if ffi::ioctl(self.file, request, arg) == -1 {
-                Err(Error::errno())
+                Err(Error::Platform(PlatformError::errno()))
             } else {
                 Ok(())
             }
@@ -78,7 +77,7 @@ impl Context {
     fn ioctl_0(&self, request: u32) -> Result<(), Error> {
         unsafe {
             if ffi::ioctl(self.file, request) == -1 {
-                Err(Error::errno())
+                Err(Error::Platform(PlatformError::errno()))
             } else {
                 Ok(())
             }
@@ -99,9 +98,9 @@ impl Context {
             let size = mem::size_of::<ffi::input_event>();
             let written = ffi::write(self.file, mem::transmute(&event), size);
             if written == -1 {
-                Err(Error::errno())
+                Err(Error::Platform(PlatformError::errno()))
             } else if written != size as isize {
-                Err(Error::unknown())
+                Err(Error::Unknown)
             } else {
                 Ok(())
             }

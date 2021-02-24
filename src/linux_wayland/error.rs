@@ -1,32 +1,22 @@
-use super::ffi;
 use std::os::raw::c_int;
+use super::{ffi, Context};
 use std::fmt::{self, Display, Formatter};
+use crate::{FallibleContext, utils::NonZero};
 
-type NonZeroInt = <c_int as crate::utils::NonZero>::Type;
+type NonZeroInt = <c_int as NonZero>::Type;
 
-/// Error type used throughout the library (Linux-Wayland).
-///
-/// The exact type depends on the platform being used. All that can be assumed
-/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
-pub struct Error(NonZeroInt);
+pub struct PlatformError(NonZeroInt);
 
-impl Error {
+impl PlatformError {
     pub(super) fn errno() -> Self {
         unsafe {
             Self(NonZeroInt::new_unchecked(*ffi::__errno_location()))
         }
     }
-
-    pub(super) fn unknown() -> Self {
-        unsafe {
-            // strerror will say "Unknown error 65535"
-            Self(NonZeroInt::new_unchecked(0xFFFF))
-        }
-    }
 }
 
-impl Display for Error {
+impl Display for PlatformError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         unsafe {
             let string = ffi::strerror(self.0.get());
@@ -40,4 +30,8 @@ impl Display for Error {
     }
 }
 
-impl std::error::Error for Error {}
+impl std::error::Error for PlatformError {}
+
+impl FallibleContext for Context {
+    type PlatformError = PlatformError;
+}
