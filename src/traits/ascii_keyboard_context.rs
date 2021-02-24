@@ -25,6 +25,7 @@ use super::{FallibleContext, KeyboardContext};
 /// | `0x1B` (escape)    | `Key::Escape`            |
 /// | `0x7F` (delete)    | `Key::DeleteOrBackspace` |
 pub trait AsciiKeyboardContext: FallibleContext {
+
     /// Generate a key press and release event to type an ASCII character.
     ///
     /// Returns `UnsupportedAscii` if the given character is unsupported.
@@ -195,7 +196,9 @@ impl KeyShift {
     }
 }
 
-fn apply<C: KeyboardContext + FallibleContext>(ctx: &mut C, key_shift: KeyShift) -> Result<(), GenericError<C::PlatformError>> {
+fn apply<C>(ctx: &mut C, key_shift: KeyShift) -> Result<(), GenericError<C::PlatformError>>
+    where C: KeyboardContext + FallibleContext
+{
     if key_shift.shift() {
         ctx.key_down(Key::Shift)?;
         ctx.key_click(key_shift.key())?;

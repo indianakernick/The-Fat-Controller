@@ -23,26 +23,26 @@ use super::FallibleContext;
 /// [`UnicodeKeyboardContext`](UnicodeKeyboardContext) is not implemented when
 /// compiling for `docs.rs`.
 /// ```no_run
-/// use tfc::{Error, Key, KeyboardContext, UnicodeKeyboardContext};
+/// use tfc::{GenericError, Key, traits::*};
 ///
-/// fn select_all<C>(ctx: &mut C) -> Result<(), Error>
-///     where C: KeyboardContext + UnicodeKeyboardContext
+/// fn select_all<C>(ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
+///     where C: KeyboardContext + UnicodeKeyboardContext + FallibleContext
 /// {
 ///     ctx.key_down(Key::ControlOrMeta)?;
-///     ctx.unicode_char('a').unwrap()?;
+///     ctx.unicode_char('a')?;
 ///     ctx.key_up(Key::ControlOrMeta)
 /// }
 /// ```
 ///
 /// However, the next snippet will only do a select-all on Linux-X11.
 /// ```no_run
-/// use tfc::{Context, Error, Key, traits::*};
+/// use tfc::{GenericError, Key, traits::*};
 ///
-/// fn select_all<C>(ctx: &mut C) -> Result<(), Error>
-///     where C: KeyboardContext + UnicodeKeyboardContext
+/// fn select_all<C>(ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
+///     where C: KeyboardContext + UnicodeKeyboardContext + FallibleContext
 /// {
 ///     ctx.key_down(Key::ControlOrMeta)?;
-///     ctx.unicode_string("a").unwrap()?;
+///     ctx.unicode_string("a")?;
 ///     ctx.key_up(Key::ControlOrMeta)
 /// }
 /// ```

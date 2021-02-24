@@ -1,6 +1,6 @@
 use std::fmt::{self, Debug, Display, Formatter};
 
-/// Error type returned by the [`traits`](crate::traits).
+/// Error enum returned by the [`traits`](crate::traits).
 #[derive(Debug)]
 pub enum GenericError<P: std::error::Error> {
     /// Platform-specific error.
