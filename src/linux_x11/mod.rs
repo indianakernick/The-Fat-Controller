@@ -1,8 +1,8 @@
 mod ffi;
 mod error;
-mod info;
 mod keyboard;
 mod mouse;
+mod screen;
 
 // The implementation of Context::new is adapted from here:
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c

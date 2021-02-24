@@ -1,5 +1,5 @@
 use super::{ffi, Context, Error};
-use crate::{MouseButton, InfoContext};
+use crate::{MouseButton, ScreenContext};
 
 // The implementation of MouseContext is adapted from here:
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c

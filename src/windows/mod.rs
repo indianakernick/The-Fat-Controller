@@ -1,8 +1,8 @@
 mod ffi;
 mod error;
-mod info;
 mod keyboard;
 mod mouse;
+mod screen;
 
 use error::PlatformError;
 type Error = crate::GenericError<PlatformError>;

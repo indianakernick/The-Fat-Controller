@@ -1,6 +1,6 @@
 use super::{ffi, Error, PlatformError};
 
-impl crate::InfoContext for super::Context {
+impl crate::ScreenContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let mut point = ffi::POINT { x: 0, y: 0 };

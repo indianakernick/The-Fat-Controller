@@ -1,5 +1,5 @@
 use super::{ffi, Context, Error};
-use crate::{MouseButton, InfoContext};
+use crate::{MouseButton, ScreenContext};
 
 fn button_event(ctx: &Context, button: MouseButton, down: bool) -> Result<(), Error> {
     use MouseButton::*;

@@ -1,6 +1,6 @@
 use super::{ffi, Error};
 
-impl crate::InfoContext for super::Context {
+impl crate::ScreenContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let struct_ptr = self.fb_address as *const ffi::StdFBShmem_t;

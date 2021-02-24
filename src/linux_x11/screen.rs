@@ -1,6 +1,6 @@
 use super::{ffi, Error, PlatformError};
 
-impl crate::InfoContext for super::Context {
+impl crate::ScreenContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
         unsafe {
             let screen = ffi::XScreenOfDisplay(self.display, self.screen_number);

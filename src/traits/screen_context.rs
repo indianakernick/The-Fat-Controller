@@ -1,13 +1,13 @@
 use crate::GenericError;
 use super::FallibleContext;
 
-/// A context that supports fetching device information.
+/// A context that supports getting screen information.
 ///
 /// # Platform Differences
 ///
 /// This trait isn't implemented for the Linux-Wayland context. It is simply not
 /// possible to obtain this information under Wayland.
-pub trait InfoContext: FallibleContext {
+pub trait ScreenContext: FallibleContext {
 
     /// Get the location of the cursor in pixels.
     ///
