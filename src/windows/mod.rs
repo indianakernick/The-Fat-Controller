@@ -4,7 +4,8 @@ mod info;
 mod keyboard;
 mod mouse;
 
-type Error = crate::GenericError<error::PlatformError>;
+use error::PlatformError;
+type Error = crate::GenericError<PlatformError>;
 
 /// The main context used for generating events (Windows).
 ///
@@ -21,7 +22,7 @@ impl Context {
             if ffi::SendInput(1, input, ffi::SIZEOF_INPUT) == 1 {
                 Ok(())
             } else {
-                Err(Error::Platform(error::PlatformError::last()))
+                Err(Error::Platform(PlatformError::last()))
             }
         }
     }

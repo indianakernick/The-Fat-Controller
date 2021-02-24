@@ -41,7 +41,7 @@ impl Display for PlatformError {
             let message = std::slice::from_raw_parts(message_buffer, message_length);
             let result = write!(f, "{}", String::from_utf16_lossy(message));
 
-            ffi::LocalFree(std::mem::transmute(message_buffer));
+            ffi::LocalFree(message_buffer as *mut std::ffi::c_void);
 
             result
         }

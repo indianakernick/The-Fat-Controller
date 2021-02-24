@@ -4,11 +4,8 @@ mod info;
 mod keyboard;
 mod mouse;
 
-use std::ffi::c_void;
-use std::collections::hash_map::{HashMap, Entry};
-use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
-
-type Error = crate::GenericError<error::PlatformError>;
+use error::PlatformError;
+type Error = crate::GenericError<PlatformError>;
 
 const SHIFT_BIT: u32 = 0;
 const OPTION_BIT: u32 = 1;
@@ -26,10 +23,10 @@ pub struct Context {
     hid_connect: ffi::io_connect_t,
     fb_connect: ffi::io_connect_t,
     fb_address: ffi::mach_vm_address_t,
-    event_source: CGEventSource,
+    event_source: core_graphics::event_source::CGEventSource,
     modifiers: ffi::IOOptionBits,
     button_state: u8,
-    key_map: HashMap<char, KeyInfo>,
+    key_map: std::collections::HashMap<char, KeyInfo>,
 }
 
 fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_connect_t, Error> {
@@ -43,7 +40,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
         let mut iterator = ffi::IO_OBJECT_NULL;
         let error_code = ffi::IOServiceGetMatchingServices(ffi::kIOMasterPortDefault, matching, &mut iterator);
         if error_code != ffi::kIOReturnSuccess {
-            return Err(Error::Platform(error::PlatformError::new(error_code)));
+            return Err(Error::Platform(PlatformError::new(error_code)));
         }
 
         let mut found = false;
@@ -79,10 +76,12 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
     }
 }
 
-fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
+fn create_key_map() -> Result<std::collections::HashMap<char, KeyInfo>, Error> {
     // Iterate over all combinations of key codes and modifier states and
     // convert them to characters. Use this to create a mapping from characters
     // to key codes and modifier states.
+    use std::ffi::c_void;
+    use std::collections::hash_map::{HashMap, Entry};
 
     const MAX_STRING_LENGTH: usize = 255;
 
@@ -90,13 +89,13 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
     let layout;
     unsafe {
         input_source = ffi::TISCopyCurrentKeyboardLayoutInputSource();
-        if input_source == std::ptr::null_mut() {
+        if input_source.is_null() {
             return Err(Error::Unknown);
         }
         let layout_data = ffi::TISGetInputSourceProperty(
             input_source, ffi::kTISPropertyUnicodeKeyLayoutData
         );
-        if layout_data == std::ptr::null() {
+        if layout_data.is_null() {
             ffi::CFRelease(input_source as *mut c_void);
             return Err(Error::Unknown);
         }
@@ -178,6 +177,8 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
 
 impl Context {
     pub fn new() -> Result<Self, Error> {
+        use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
+
         let hid_connect = connect_to_service(ffi::kIOHIDSystemClass.as_ptr(), ffi::kIOHIDParamConnectType)?;
 
         let fb_connect = match connect_to_service(ffi::kIOFramebufferClass.as_ptr(), ffi::kIOFBSharedConnectType) {
@@ -209,7 +210,7 @@ impl Context {
             if error_code != ffi::kIOReturnSuccess {
                 ffi::IOServiceClose(fb_connect);
                 ffi::IOServiceClose(hid_connect);
-                return Err(Error::Platform(error::PlatformError::new(error_code)))
+                return Err(Error::Platform(PlatformError::new(error_code)))
             }
         }
 
@@ -261,7 +262,7 @@ impl Context {
         if error_code == ffi::kIOReturnSuccess {
             Ok(())
         } else {
-            Err(Error::Platform(error::PlatformError::new(error_code)))
+            Err(Error::Platform(PlatformError::new(error_code)))
         }
     }
 }

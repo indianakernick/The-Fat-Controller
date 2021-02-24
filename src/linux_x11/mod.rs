@@ -4,11 +4,6 @@ mod info;
 mod keyboard;
 mod mouse;
 
-use std::ptr;
-use std::os::raw::{c_int, c_uint};
-use crate::linux_common::ScrollAccum;
-use std::collections::hash_map::{HashMap, Entry};
-
 // The implementation of Context::new is adapted from here:
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
 
@@ -29,9 +24,9 @@ struct KeyInfo {
 /// The most useful methods are on the [`traits`](crate::traits).
 pub struct Context {
     display: *mut ffi::Display,
-    screen_number: c_int,
-    scroll: ScrollAccum,
-    key_map: HashMap<char, KeyInfo>,
+    screen_number: std::os::raw::c_int,
+    scroll: crate::linux_common::ScrollAccum,
+    key_map: std::collections::HashMap<char, KeyInfo>,
     unused_keycode: ffi::KeyCode,
     modifier_map: *const ffi::XModifierKeymap,
 }
@@ -67,10 +62,10 @@ unsafe fn find_unused_key_code(
     let keysyms = ffi::XGetKeyboardMapping(
         display,
         min_keycode,
-        keycode_count as c_int,
+        keycode_count as std::os::raw::c_int,
         &mut keysyms_per_keycode,
     );
-    if keysyms == std::ptr::null() {
+    if keysyms.is_null() {
         return Err(Error::Platform(PlatformError::XGetKeyboardMapping));
     }
     let keysyms_per_keycode = keysyms_per_keycode as usize;
@@ -97,7 +92,7 @@ unsafe fn create_key_map(
     display: *mut ffi::Display,
     min_keycode: ffi::KeyCode,
     max_keycode: ffi::KeyCode,
-) -> Result<HashMap<char, KeyInfo>, Error> {
+) -> Result<std::collections::HashMap<char, KeyInfo>, Error> {
 
     // Fuck, this library is so inconsistent. Sometimes a keycode is a
     // KeyCode and sometimes it's an int. Sometimes a group is an int
@@ -113,8 +108,11 @@ unsafe fn create_key_map(
     // key state identify a single keysym.
     // See https://tronche.com/gui/x/xlib/input/keyboard-encoding.html
 
+    use std::os::raw::c_uint;
+    use std::collections::hash_map::{HashMap, Entry};
+
     let desc = ffi::XkbGetMap(display, ffi::XkbAllClientInfoMask, ffi::XkbUseCoreKbd);
-    if desc == std::ptr::null() {
+    if desc.is_null() {
         return Err(Error::Platform(PlatformError::XkbGetMap));
     }
 
@@ -170,8 +168,8 @@ unsafe fn create_key_map(
 impl Context {
     pub fn new() -> Result<Self, Error> {
         unsafe {
-            let display = ffi::XOpenDisplay(ptr::null());
-            if display == ptr::null_mut() {
+            let display = ffi::XOpenDisplay(std::ptr::null());
+            if display.is_null() {
                 return Err(Error::Platform(PlatformError::XOpenDisplay));
             }
 
@@ -205,7 +203,7 @@ impl Context {
             };
 
             let modifier_map = ffi::XGetModifierMapping(display);
-            if modifier_map == std::ptr::null() {
+            if modifier_map.is_null() {
                 ffi::XCloseDisplay(display);
                 return Err(Error::Platform(PlatformError::XGetModifierMapping));
             }
@@ -213,7 +211,7 @@ impl Context {
             Ok(Self {
                 display,
                 screen_number: ffi::XDefaultScreen(display),
-                scroll: ScrollAccum::default(),
+                scroll: Default::default(),
                 key_map,
                 unused_keycode,
                 modifier_map,

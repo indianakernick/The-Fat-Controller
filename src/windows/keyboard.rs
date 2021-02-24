@@ -1,5 +1,5 @@
 use crate::Key;
-use super::{ffi, Context, Error, error::PlatformError};
+use super::{ffi, Context, Error, PlatformError};
 
 fn to_key_code(key: Key) -> ffi::WORD {
     use Key::*;

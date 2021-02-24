@@ -47,7 +47,7 @@ fn info_from_char(ctx: &Context, ch: char) -> Option<KeyInfo> {
         // Checking if the keysym is valid.
         // XKeysymToString returns a pointer to a static string so we're not
         // paying for a memory allocation here.
-        if ffi::XKeysymToString(keysym) == std::ptr::null() {
+        if ffi::XKeysymToString(keysym).is_null() {
             return None;
         }
     }

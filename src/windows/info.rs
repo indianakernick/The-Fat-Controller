@@ -1,4 +1,4 @@
-use super::{ffi, Error, error::PlatformError};
+use super::{ffi, Error, PlatformError};
 
 impl crate::InfoContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
