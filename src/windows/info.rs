@@ -1,4 +1,4 @@
-use super::{ffi, Error};
+use super::{ffi, Error, error::PlatformError};
 
 impl crate::InfoContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
@@ -7,7 +7,7 @@ impl crate::InfoContext for super::Context {
             if ffi::GetCursorPos(&mut point) != 0 {
                 Ok((point.x as i32, point.y as i32))
             } else {
-                Err(Error::last())
+                Err(Error::Platform(PlatformError::last()))
             }
         }
     }
@@ -19,7 +19,7 @@ impl crate::InfoContext for super::Context {
             if width != 0 && height != 0 {
                 Ok((width as i32, height as i32))
             } else {
-                Err(Error::unknown())
+                Err(Error::Unknown)
             }
         }
     }

@@ -1,5 +1,5 @@
 use crate::Key;
-use super::{ffi, Context, Error};
+use super::{ffi, Context, Error, error::PlatformError};
 
 fn to_key_code(key: Key) -> ffi::WORD {
     use Key::*;
@@ -183,21 +183,21 @@ fn char_event(ctx: &Context, state: ffi::SHORT) -> Result<(), Error> {
 }
 
 impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
         if ch.len_utf16() == 2 {
-            return None;
+            return Err(Error::UnsupportedUnicode);
         }
         let state = unsafe {
             ffi::VkKeyScanW(ch as ffi::WCHAR)
         };
         if state == -1 {
-            return None;
+            return Err(Error::UnsupportedUnicode);
         }
 
-        Some(char_event(self, state))
+        char_event(self, state)
     }
 
-    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
+    fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
         let mut inputs = s.encode_utf16().map(|code_unit| {
             let mut input = ffi::INPUT::default();
             input.type_ = ffi::INPUT_KEYBOARD;
@@ -209,7 +209,7 @@ impl crate::UnicodeKeyboardContext for Context {
 
         unsafe {
             if ffi::SendInput(count, inputs.as_ptr(), ffi::SIZEOF_INPUT) != count {
-                return Some(Err(Error::last()));
+                return Err(Error::Platform(PlatformError::last()));
             }
         }
 
@@ -219,10 +219,10 @@ impl crate::UnicodeKeyboardContext for Context {
 
         unsafe {
             if ffi::SendInput(count, inputs.as_ptr(), ffi::SIZEOF_INPUT) != count {
-                return Some(Err(Error::last()));
+                return Err(Error::Platform(PlatformError::last()));
             }
         }
 
-        Some(Ok(()))
+        Ok(())
     }
 }

@@ -1,31 +1,21 @@
 use super::ffi;
 use std::fmt::{self, Display, Formatter};
+use crate::{FallibleContext, utils::NonZero};
 
-type NonZeroDWORD = <ffi::DWORD as crate::utils::NonZero>::Type;
+type NonZeroDWORD = <ffi::DWORD as NonZero>::Type;
 
-/// Error type used throughout the library (Windows).
-///
-/// The exact type depends on the platform being used. All that can be assumed
-/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
-pub struct Error(NonZeroDWORD);
+pub struct PlatformError(NonZeroDWORD);
 
-impl Error {
+impl PlatformError {
     pub(super) fn last() -> Self {
         unsafe {
             Self(NonZeroDWORD::new_unchecked(ffi::GetLastError()))
         }
     }
-
-    pub(super) fn unknown() -> Self {
-        unsafe {
-            // The printer is out of paper
-            Self(NonZeroDWORD::new_unchecked(28))
-        }
-    }
 }
 
-impl Display for Error {
+impl Display for PlatformError {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         unsafe {
             let message_buffer: ffi::LPCWSTR = std::ptr::null();
@@ -58,4 +48,8 @@ impl Display for Error {
     }
 }
 
-impl std::error::Error for Error {}
+impl std::error::Error for PlatformError {}
+
+impl FallibleContext for super::Context {
+    type PlatformError = PlatformError;
+}

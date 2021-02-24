@@ -5,14 +5,14 @@ mod key;
 mod mouse_button;
 mod utils;
 
-/// A collection of traits that [`Context`](Context) implements.
-pub mod traits;
-
 pub use command::*;
 pub use command_code::*;
 pub use generic_error::*;
 pub use key::*;
 pub use mouse_button::*;
+
+/// A collection of traits that [`Context`](Context) implements.
+pub mod traits;
 pub use traits::*;
 
 #[cfg(target_os = "linux")]
