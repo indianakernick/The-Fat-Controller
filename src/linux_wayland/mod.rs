@@ -14,7 +14,7 @@ pub use error::Error;
 
 /// The main context used for generating events (Linux-Wayland).
 ///
-/// The most useful methods are on the [traits](crate::traits) however the
+/// The most useful methods are on the [`traits`](crate::traits) however the
 /// Linux-Wayland context doesn't implement [`InfoContext`](crate::InfoContext)
 /// or [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) but the
 /// Linux-X11 context does.

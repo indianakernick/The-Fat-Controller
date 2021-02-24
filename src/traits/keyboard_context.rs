@@ -1,4 +1,5 @@
-use crate::{Key, Error};
+use super::FallibleContext;
+use crate::{Key, GenericError};
 
 /// A context that supports keyboard events.
 ///
@@ -6,21 +7,21 @@ use crate::{Key, Error};
 ///
 /// `Key::Fn` and `Key::NumpadClear` are supported on macOS only. In the future,
 /// they may be named to reflect this or removed entirely.
-pub trait KeyboardContext {
+pub trait KeyboardContext: FallibleContext {
 
     /// Press down a key.
     ///
     /// # Arguments
     ///
     /// * `key` - The key to press down.
-    fn key_down(&mut self, key: Key) -> Result<(), Error>;
+    fn key_down(&mut self, key: Key) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Release a key.
     ///
     /// # Arguments
     ///
     /// * `key` - The key to release.
-    fn key_up(&mut self, key: Key) -> Result<(), Error>;
+    fn key_up(&mut self, key: Key) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Press and release a key.
     ///
@@ -30,7 +31,7 @@ pub trait KeyboardContext {
     /// # Arguments
     ///
     /// * `key` - The key to press and release.
-    fn key_click(&mut self, key: Key) -> Result<(), Error> {
+    fn key_click(&mut self, key: Key) -> Result<(), GenericError<Self::PlatformError>> {
         self.key_down(key)?;
         self.key_up(key)
     }

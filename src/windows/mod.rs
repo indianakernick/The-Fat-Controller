@@ -8,7 +8,7 @@ pub use error::Error;
 
 /// The main context used for generating events (Windows).
 ///
-/// The most useful methods are on the [traits](crate::traits).
+/// The most useful methods are on the [`traits`](crate::traits).
 pub struct Context;
 
 impl Context {

@@ -8,6 +8,8 @@ use std::ffi::c_void;
 use std::collections::hash_map::{HashMap, Entry};
 use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 
+type Error = crate::GenericError<error::PlatformError>;
+
 const SHIFT_BIT: u32 = 0;
 const OPTION_BIT: u32 = 1;
 
@@ -17,11 +19,9 @@ struct KeyInfo {
     modifiers: u8,
 }
 
-pub use error::Error;
-
 /// The main context used for generating events (macOS).
 ///
-/// The most useful methods are on the [traits](crate::traits).
+/// The most useful methods are on the [`traits`](crate::traits).
 pub struct Context {
     hid_connect: ffi::io_connect_t,
     fb_connect: ffi::io_connect_t,
@@ -31,12 +31,6 @@ pub struct Context {
     button_state: u8,
     key_map: HashMap<char, KeyInfo>,
 }
-
-// I don't know if IOHIDPostEvent is thread-safe so I'm going to assume that it
-// isn't. Also, I might need to be on nightly for the below impls to work so
-// yeah...
-// impl !Send for Context {}
-// impl !Sync for Context {}
 
 fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_connect_t, Error> {
     unsafe {
@@ -49,7 +43,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
         let mut iterator = ffi::IO_OBJECT_NULL;
         let error_code = ffi::IOServiceGetMatchingServices(ffi::kIOMasterPortDefault, matching, &mut iterator);
         if error_code != ffi::kIOReturnSuccess {
-            return Err(Error::new(error_code));
+            return Err(Error::Platform(error::PlatformError::new(error_code)));
         }
 
         let mut found = false;
@@ -80,7 +74,7 @@ fn connect_to_service(name: *const u8, connect_type: u32) -> Result<ffi::io_conn
         if found {
             Ok(connect)
         } else {
-            Err(Error::new(ffi::kIOReturnError))
+            Err(Error::Unknown)
         }
     }
 }
@@ -97,14 +91,14 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
     unsafe {
         input_source = ffi::TISCopyCurrentKeyboardLayoutInputSource();
         if input_source == std::ptr::null_mut() {
-            return Err(Error::new(ffi::kIOReturnError));
+            return Err(Error::Unknown);
         }
         let layout_data = ffi::TISGetInputSourceProperty(
             input_source, ffi::kTISPropertyUnicodeKeyLayoutData
         );
         if layout_data == std::ptr::null() {
             ffi::CFRelease(input_source as *mut c_void);
-            return Err(Error::new(ffi::kIOReturnError));
+            return Err(Error::Unknown);
         }
         layout = ffi::CFDataGetBytePtr(layout_data) as *const ffi::UCKeyboardLayout;
     }
@@ -146,7 +140,7 @@ fn create_key_map() -> Result<HashMap<char, KeyInfo>, Error> {
                 unsafe {
                     ffi::CFRelease(input_source as *mut c_void);
                 }
-                return Err(Error::new(ffi::kIOReturnError));
+                return Err(Error::Unknown);
             }
 
             let string_utf16 = &string[..length as usize];
@@ -215,7 +209,7 @@ impl Context {
             if error_code != ffi::kIOReturnSuccess {
                 ffi::IOServiceClose(fb_connect);
                 ffi::IOServiceClose(hid_connect);
-                return Err(Error::new(error_code));
+                return Err(Error::Platform(error::PlatformError::new(error_code)))
             }
         }
 
@@ -232,7 +226,7 @@ impl Context {
 
         let event_source = match CGEventSource::new(CGEventSourceStateID::Private) {
             Ok(s) => s,
-            Err(()) => return Err(Error::new(ffi::kIOReturnError)),
+            Err(()) => return Err(Error::Unknown),
         };
 
         Ok(Self {
@@ -267,7 +261,7 @@ impl Context {
         if error_code == ffi::kIOReturnSuccess {
             Ok(())
         } else {
-            Err(Error::new(error_code))
+            Err(Error::Platform(error::PlatformError::new(error_code)))
         }
     }
 }

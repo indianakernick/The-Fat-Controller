@@ -1,7 +1,7 @@
 use crate::Key;
 use unicode_segmentation::UnicodeSegmentation;
 use core_graphics::event::{CGEvent, CGEventTapLocation};
-use super::{ffi, Context, Error, KeyInfo, SHIFT_BIT, OPTION_BIT};
+use super::{ffi, Context, Error, SHIFT_BIT, OPTION_BIT};
 
 // The implementation of KeyboardContext is adapted from here:
 // https://github.com/ccMSC/ckb/blob/master/src/ckb-daemon/input_mac.c
@@ -237,41 +237,36 @@ impl crate::KeyboardContext for Context {
     }
 }
 
-fn char_event(ctx: &mut Context, info: KeyInfo) -> Result<(), Error> {
-    let mut event = ffi::NXEventData::default();
-
-    if info.modifiers & (1 << SHIFT_BIT) != 0 {
-        modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, true)?;
-    }
-    if info.modifiers & (1 << OPTION_BIT) != 0 {
-        modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, true)?;
-    }
-
-    event.key.keyCode = info.key_code as u16;
-    ctx.post_event(ffi::NX_KEYDOWN, &event, 0, 0)?;
-    ctx.post_event(ffi::NX_KEYUP, &event, 0, 0)?;
-
-    if info.modifiers & (1 << OPTION_BIT) != 0 {
-        modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, false)?;
-    }
-    if info.modifiers & (1 << SHIFT_BIT) != 0 {
-        modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, false)?;
-    }
-
-    Ok(())
-}
-
 impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
-        // self.key_map.get(&ch).map(|info| char_event(self, *info))
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
         let info = match self.key_map.get(&ch) {
             Some(info) => *info,
-            None => return None,
+            None => return Err(Error::UnsupportedUnicode),
         };
-        Some(char_event(self, info))
+        let mut event = ffi::NXEventData::default();
+
+        if info.modifiers & (1 << SHIFT_BIT) != 0 {
+            modifier_key_event(self, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, true)?;
+        }
+        if info.modifiers & (1 << OPTION_BIT) != 0 {
+            modifier_key_event(self, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, true)?;
+        }
+
+        event.key.keyCode = info.key_code as u16;
+        self.post_event(ffi::NX_KEYDOWN, &event, 0, 0)?;
+        self.post_event(ffi::NX_KEYUP, &event, 0, 0)?;
+
+        if info.modifiers & (1 << OPTION_BIT) != 0 {
+            modifier_key_event(self, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, false)?;
+        }
+        if info.modifiers & (1 << SHIFT_BIT) != 0 {
+            modifier_key_event(self, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, false)?;
+        }
+
+        Ok(())
     }
 
-    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
+    fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
         // CGEventKeyboardSetUnicodeString only handles the first 20 UTF-16 code
         // units (in other words, 40 bytes) and ignores the rest so we need to
         // split the string up. Also, special characters like tab, line-feed and
@@ -280,12 +275,13 @@ impl crate::UnicodeKeyboardContext for Context {
 
         let event = match CGEvent::new_keyboard_event(self.event_source.clone(), 0, true) {
             Ok(e) => e,
-            Err(()) => return Some(Err(Error::new(ffi::kIOReturnError))),
+            Err(()) => return Err(Error::Unknown),
         };
         for grapheme in s.graphemes(true) {
             event.set_string(grapheme);
             event.post(CGEventTapLocation::HID);
         }
-        Some(Ok(()))
+
+        Ok(())
     }
 }

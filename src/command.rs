@@ -1,6 +1,6 @@
 use std::{thread, time::Duration};
 use std::fmt::{self, Display, Formatter};
-use crate::{CommandCode, Error, Key, MouseButton, traits::*};
+use crate::{CommandCode, Key, MouseButton, GenericError, traits::*};
 
 /// A future invocation of a method on a [`Context`](crate::Context).
 ///
@@ -187,8 +187,8 @@ impl Command {
 
     /// Execute a [`Command`](Command) by calling the corresponding method on
     /// one of the [`traits`](crate::traits).
-    pub fn execute<C>(&self, ctx: &mut C) -> Result<(), Error>
-        where C: KeyboardContext + MouseContext
+    pub fn execute<C>(&self, ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
+        where C: FallibleContext + KeyboardContext + MouseContext
     {
         use Command::*;
         match *self {

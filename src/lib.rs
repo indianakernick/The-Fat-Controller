@@ -1,5 +1,6 @@
 mod command;
 mod command_code;
+mod error;
 mod key;
 mod mouse_button;
 mod utils;
@@ -7,13 +8,13 @@ pub mod traits;
 
 pub use command::*;
 pub use command_code::*;
+pub use error::*;
 pub use key::*;
 pub use mouse_button::*;
 pub use traits::*;
 
 /// Identifies a backend implementation.
 pub enum Backend {
-    None,
     LinuxWayland,
     LinuxX11,
     MacOS,
@@ -40,7 +41,7 @@ pub const BACKEND: Backend = Backend::LinuxX11;
 #[cfg(target_os = "macos")]
 mod macos;
 #[cfg(target_os = "macos")]
-pub use macos::{Context, Error};
+pub use macos::Context;
 #[cfg(target_os = "macos")]
 pub const BACKEND: Backend = Backend::MacOS;
 
@@ -51,9 +52,5 @@ pub use windows::{Context, Error};
 #[cfg(target_os = "windows")]
 pub const BACKEND: Backend = Backend::Windows;
 
-#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
-pub struct Context;
-#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
-pub struct Error;
-#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
-pub const BACKEND: Backend = Backend::None;
+/// Convenience type alias for [`GenericError`](GenericError).
+pub type Error = GenericError<<Context as FallibleContext>::PlatformError>;

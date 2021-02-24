@@ -1,4 +1,5 @@
-use crate::Error;
+use crate::GenericError;
+use super::FallibleContext;
 
 /// A context that supports layout-independent Unicode keyboard events.
 ///
@@ -56,25 +57,25 @@ use crate::Error;
 /// and are on the current keyboard layout. However,
 /// [`unicode_string`](UnicodeKeyboardContext::unicode_string) doesn't have
 /// these restrictions and can handle any Unicode string.
-pub trait UnicodeKeyboardContext {
+pub trait UnicodeKeyboardContext: FallibleContext {
 
     /// Generate a key press and release event along with the necessary
     /// modifiers to type a unicode character.
     ///
-    /// Returns `None` if the given character is unsupported.
+    /// Returns `UnsupportedUnicode` if the given character is unsupported.
     ///
     /// # Arguments
     ///
     /// * `ch` - The Unicode character to type.
-    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>>;
+    fn unicode_char(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Generate key presses and releases such that a Unicode string is typed.
     ///
-    /// If any of the characters in the string are unsupported, `None` will be
-    /// returned and no key presses will occur.
+    /// If any of the characters in the string are unsupported,
+    /// `UnsupportedUnicode` will be returned and no key presses will occur.
     ///
     /// # Arguments
     ///
     /// * `s` - The Unicode string to type.
-    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>>;
+    fn unicode_string(&mut self, s: &str) -> Result<(), GenericError<Self::PlatformError>>;
 }

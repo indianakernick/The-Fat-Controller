@@ -1,21 +1,23 @@
-use std::{fmt, num::NonZeroU32};
+use super::{Context, ffi};
+use std::fmt::{self, Display, Formatter};
+use crate::{FallibleContext, utils::NonZero};
 
-/// Error type used throughout the library (macOS).
-///
-/// The exact type depends on the platform being used. All that can be assumed
-/// is that this type implements `std::error::Error`.
+type NonZeroKernReturn = <ffi::kern_return_t as NonZero>::Type;
+
 #[derive(Debug)]
-pub struct Error(NonZeroU32);
+pub struct PlatformError(NonZeroKernReturn);
 
-impl Error {
-    pub(super) fn new(error_code: u32) -> Self {
-        Self(NonZeroU32::new(error_code).unwrap())
+impl PlatformError {
+    pub(super) fn new(error_code: ffi::kern_return_t) -> Self {
+        unsafe {
+            Self(NonZeroKernReturn::new_unchecked(error_code))
+        }
     }
 }
 
-impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        use super::ffi::*;
+impl Display for PlatformError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        use ffi::*;
         #[allow(non_upper_case_globals)]
         match self.0.get() {
             kIOReturnError => write!(f, "General error"),
@@ -74,4 +76,8 @@ impl fmt::Display for Error {
     }
 }
 
-impl std::error::Error for Error {}
+impl std::error::Error for PlatformError {}
+
+impl FallibleContext for Context {
+    type PlatformError = PlatformError;
+}

@@ -1,4 +1,5 @@
-use crate::{Error, Key, KeyboardContext};
+use crate::{Key, GenericError};
+use super::{FallibleContext, KeyboardContext};
 
 /// A context that supports layout-dependent ASCII keyboard events.
 ///
@@ -23,25 +24,25 @@ use crate::{Error, Key, KeyboardContext};
 /// | `0x0A` (linefeed)  | `Key::ReturnOrEnter`     |
 /// | `0x1B` (escape)    | `Key::Escape`            |
 /// | `0x7F` (delete)    | `Key::DeleteOrBackspace` |
-pub trait AsciiKeyboardContext {
+pub trait AsciiKeyboardContext: FallibleContext {
     /// Generate a key press and release event to type an ASCII character.
     ///
-    /// Returns `None` if the given character is unsupported.
+    /// Returns `UnsupportedAscii` if the given character is unsupported.
     ///
     /// # Arguments
     ///
     /// * `ch` - The ASCII character to type.
-    fn ascii_char(&mut self, ch: u8) -> Option<Result<(), Error>>;
+    fn ascii_char(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Generate key presses and releases such that an ASCII string is typed.
     ///
-    /// If any of the characters in the string are unsupported, `None` will be
-    /// returned and no key presses will occur.
+    /// If any of the characters in the string are unsupported,
+    /// `UnsupportedAscii` will be returned and no key presses will occur.
     ///
     /// # Arguments
     ///
     /// * `s` - The ASCII string to type.
-    fn ascii_string(&mut self, s: &[u8]) -> Option<Result<(), Error>>;
+    fn ascii_string(&mut self, s: &[u8]) -> Result<(), GenericError<Self::PlatformError>>;
 }
 
 // Essentially an Option<(bool, Key)> packed into a single byte.
@@ -194,7 +195,7 @@ impl KeyShift {
     }
 }
 
-fn apply<C: KeyboardContext>(ctx: &mut C, key_shift: KeyShift) -> Result<(), Error> {
+fn apply<C: KeyboardContext + FallibleContext>(ctx: &mut C, key_shift: KeyShift) -> Result<(), GenericError<C::PlatformError>> {
     if key_shift.shift() {
         ctx.key_down(Key::Shift)?;
         ctx.key_click(key_shift.key())?;
@@ -204,28 +205,26 @@ fn apply<C: KeyboardContext>(ctx: &mut C, key_shift: KeyShift) -> Result<(), Err
     }
 }
 
-impl<C: KeyboardContext> AsciiKeyboardContext for C {
-    fn ascii_char(&mut self, ch: u8) -> Option<Result<(), Error>> {
+impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
+    fn ascii_char(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
         let key_shift = KeyShift::from_ascii(ch);
         if key_shift == KeyShift::NONE {
-            return None;
+            return Err(GenericError::UnsupportedAscii);
         }
-        Some(apply(self, key_shift))
+        apply(self, key_shift)
     }
 
-    fn ascii_string(&mut self, s: &[u8]) -> Option<Result<(), Error>> {
+    fn ascii_string(&mut self, s: &[u8]) -> Result<(), GenericError<Self::PlatformError>> {
         for ch in s.iter() {
             if KeyShift::from_ascii(*ch) == KeyShift::NONE {
-                return None;
+                return Err(GenericError::UnsupportedAscii);
             }
         }
 
         for ch in s.iter() {
-            if let Err(e) = apply(self, KeyShift::from_ascii(*ch)) {
-                return Some(Err(e));
-            }
+            apply(self, KeyShift::from_ascii(*ch))?;
         }
 
-        Some(Ok(()))
+        Ok(())
     }
 }
