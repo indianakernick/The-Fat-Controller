@@ -1,14 +1,16 @@
 mod command;
 mod command_code;
-mod error;
+mod generic_error;
 mod key;
 mod mouse_button;
 mod utils;
+
+/// A collection of traits that [`Context`](Context) implements.
 pub mod traits;
 
 pub use command::*;
 pub use command_code::*;
-pub use error::*;
+pub use generic_error::*;
 pub use key::*;
 pub use mouse_button::*;
 pub use traits::*;

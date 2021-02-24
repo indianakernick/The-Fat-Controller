@@ -41,27 +41,15 @@ pub trait MouseContext: FallibleContext {
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Press down a mouse button.
-    ///
-    /// # Arguments
-    ///
-    /// * `button` - The button to press down.
     fn mouse_down(&mut self, button: MouseButton) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Release a mouse button.
-    ///
-    /// # Arguments
-    ///
-    /// * `button` - The button to release.
     fn mouse_up(&mut self, button: MouseButton) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Press and release a mouse button.
     ///
     /// This is equivalent to calling [`mouse_down`](MouseContext::mouse_down)
     /// followed by [`mouse_up`](MouseContext::mouse_up).
-    ///
-    /// # Arguments
-    ///
-    /// * `button` - The button to press and release.
     fn mouse_click(&mut self, button: MouseButton) -> Result<(), GenericError<Self::PlatformError>> {
         self.mouse_down(button)?;
         self.mouse_up(button)

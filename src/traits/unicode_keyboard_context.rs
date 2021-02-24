@@ -7,14 +7,16 @@ use super::FallibleContext;
 ///
 /// This trait is not implemented for Linux-Wayland.
 /// [`AsciiKeyboardContext`](crate::AsciiKeyboardContext) may be used as an
-/// alternative. On macOS and Windows,
-/// [`unicode_char`](UnicodeKeyboardContext::unicode_char) is not equivalent to
+/// alternative.
+///
+/// On macOS and Windows,
+/// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is not equivalent to
 /// successive calls to
-/// [`unicode_string`](UnicodeKeyboardContext::unicode_string).
+/// [`unicode_char`](UnicodeKeyboardContext::unicode_char).
 /// [`unicode_char`](UnicodeKeyboardContext::unicode_char) is meant to press a
 /// key corresponding to a character which means that modifiers can be applied.
 /// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is meant to type
-/// an arbitrary Unicode string possibily bypassing the keyboard meaning that
+/// an arbitrary Unicode string (possibily bypassing the keyboard) meaning that
 /// modifiers cannot be applied. In short, the two functions serve different
 /// purposes.
 ///
@@ -57,25 +59,25 @@ use super::FallibleContext;
 /// and are on the current keyboard layout. However,
 /// [`unicode_string`](UnicodeKeyboardContext::unicode_string) doesn't have
 /// these restrictions and can handle any Unicode string.
+///
+/// Similarly, on macOS, [`unicode_char`](UnicodeKeyboardContext::unicode_char)
+/// is limited to characters that are on the current keyboard layout (which may
+/// include some fancy characters like  and ©) but again,
+/// [`unicode_string`](UnicodeKeyboardContext::unicode_string) can handle any
+/// Unicode string.
 pub trait UnicodeKeyboardContext: FallibleContext {
 
     /// Generate a key press and release event along with the necessary
     /// modifiers to type a unicode character.
     ///
-    /// Returns `UnsupportedUnicode` if the given character is unsupported.
-    ///
-    /// # Arguments
-    ///
-    /// * `ch` - The Unicode character to type.
+    /// Returns [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) if the
+    /// given character is unsupported.
     fn unicode_char(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Generate key presses and releases such that a Unicode string is typed.
     ///
     /// If any of the characters in the string are unsupported,
-    /// `UnsupportedUnicode` will be returned and no key presses will occur.
-    ///
-    /// # Arguments
-    ///
-    /// * `s` - The Unicode string to type.
+    /// [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) will be
+    /// returned and no key presses will occur.
     fn unicode_string(&mut self, s: &str) -> Result<(), GenericError<Self::PlatformError>>;
 }

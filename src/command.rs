@@ -31,7 +31,7 @@ pub enum Command {
     Delay(u32),
 }
 
-/// Error enum for [`Command::from_bytes`](Command::from_bytes).
+/// Error enum returned by [`Command::from_bytes`](Command::from_bytes).
 #[derive(Debug)]
 pub enum CommandBytesError {
     /// Encountered a byte that isn't a valid [`CommandCode`](CommandCode).

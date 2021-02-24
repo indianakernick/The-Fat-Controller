@@ -28,21 +28,15 @@ pub trait AsciiKeyboardContext: FallibleContext {
 
     /// Generate a key press and release event to type an ASCII character.
     ///
-    /// Returns `UnsupportedAscii` if the given character is unsupported.
-    ///
-    /// # Arguments
-    ///
-    /// * `ch` - The ASCII character to type.
+    /// Returns [`UnsupportedAscii`](GenericError::UnsupportedAscii) if the
+    /// given character is unsupported.
     fn ascii_char(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>>;
 
     /// Generate key presses and releases such that an ASCII string is typed.
     ///
     /// If any of the characters in the string are unsupported,
-    /// `UnsupportedAscii` will be returned and no key presses will occur.
-    ///
-    /// # Arguments
-    ///
-    /// * `s` - The ASCII string to type.
+    /// [`UnsupportedAscii`](GenericError::UnsupportedAscii) will be returned
+    /// and no key presses will occur.
     fn ascii_string(&mut self, s: &[u8]) -> Result<(), GenericError<Self::PlatformError>>;
 }
 

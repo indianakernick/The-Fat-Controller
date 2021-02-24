@@ -5,9 +5,9 @@ use std::fmt::{self, Debug, Display, Formatter};
 pub enum GenericError<P: std::error::Error> {
     /// Platform-specific error.
     ///
-    /// This is likely to be an integer error code. The `Display` implementation
-    /// will provide a description of the error while the `Debug` implementation
-    /// only provides a number.
+    /// This is likely to be an integer error code. The [`Display`](Display)
+    /// implementation will provide a description of the error while the
+    /// [`Debug`](Debug) implementation only provides a number.
     Platform(P),
     /// Unsupported ASCII character.
     ///
