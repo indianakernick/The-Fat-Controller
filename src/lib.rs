@@ -21,12 +21,12 @@ mod linux_common;
 #[cfg(all(target_os = "linux", not(x11)))]
 mod linux_wayland;
 #[cfg(all(target_os = "linux", not(x11)))]
-pub use linux_wayland::{Context, Error};
+pub use linux_wayland::Context;
 
 #[cfg(all(target_os = "linux", x11))]
 mod linux_x11;
 #[cfg(all(target_os = "linux", x11))]
-pub use linux_x11::{Context, Error};
+pub use linux_x11::Context;
 
 #[cfg(target_os = "macos")]
 mod macos;
@@ -36,7 +36,7 @@ pub use macos::Context;
 #[cfg(target_os = "windows")]
 mod windows;
 #[cfg(target_os = "windows")]
-pub use windows::{Context, Error};
+pub use windows::Context;
 
 /// Convenience type alias for [`GenericError`](GenericError).
 pub type Error = GenericError<<Context as FallibleContext>::PlatformError>;

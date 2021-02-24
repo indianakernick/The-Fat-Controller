@@ -1,6 +1,6 @@
 use crate::MouseButton;
-use super::{ffi, Context, Error};
 use std::os::raw::{c_uint, c_int};
+use super::{ffi, Context, Error, PlatformError};
 
 fn to_button(button: MouseButton) -> c_uint {
     match button {
@@ -14,7 +14,7 @@ fn button_event(ctx: &Context, button: c_uint, down: bool) -> Result<(), Error> 
     let press = if down { ffi::True } else { ffi::False };
     unsafe {
         if ffi::XTestFakeButtonEvent(ctx.display, button, press, ffi::CurrentTime) == 0 {
-            return Err(Error::XTestFakeButtonEvent);
+            return Err(Error::Platform(PlatformError::XTestFakeButtonEvent));
         }
         ffi::XSync(ctx.display, ffi::False);
     }
@@ -25,10 +25,10 @@ fn repeat_button_event(ctx: &Context, count: i32, button: c_uint) -> Result<(), 
     unsafe {
         for _ in 0..count {
             if ffi::XTestFakeButtonEvent(ctx.display, button, ffi::True, ffi::CurrentTime) == 0 {
-                return Err(Error::XTestFakeButtonEvent);
+                return Err(Error::Platform(PlatformError::XTestFakeButtonEvent));
             }
             if ffi::XTestFakeButtonEvent(ctx.display, button, ffi::False, ffi::CurrentTime) == 0 {
-                return Err(Error::XTestFakeButtonEvent);
+                return Err(Error::Platform(PlatformError::XTestFakeButtonEvent));
             }
         }
         ffi::XSync(ctx.display, ffi::False);
@@ -42,7 +42,7 @@ impl crate::MouseContext for Context {
             // XTestFakeRelativeMotionEvent seems to only move the mouse
             // vertically. Very odd.
             if ffi::XWarpPointer(self.display, ffi::None, ffi::None, 0, 0, 0, 0, dx as c_int, dy as c_int) == 0 {
-                return Err(Error::XWarpPointer);
+                return Err(Error::Platform(PlatformError::XWarpPointer));
             }
             ffi::XFlush(self.display);
         }
@@ -54,7 +54,7 @@ impl crate::MouseContext for Context {
             // XTestFakeMotionEvent apparently ignores the screen number.
             let window = ffi::XRootWindow(self.display, self.screen_number);
             if ffi::XWarpPointer(self.display, ffi::None, window, 0, 0, 0, 0, x as c_int, y as c_int) == 0 {
-                return Err(Error::XWarpPointer);
+                return Err(Error::Platform(PlatformError::XWarpPointer));
             }
             ffi::XFlush(self.display);
         }

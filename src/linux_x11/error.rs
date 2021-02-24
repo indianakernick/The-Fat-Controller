@@ -1,11 +1,9 @@
+use super::Context;
+use crate::FallibleContext;
 use std::fmt::{self, Display, Formatter};
 
-/// Error type used throughout the library (Linux-X11).
-///
-/// The exact type depends on the platform being used. All that can be assumed
-/// is that this type implements `std::error::Error`.
 #[derive(Debug)]
-pub enum Error {
+pub enum PlatformError {
     XOpenDisplay,
     XQueryPointer,
     XWarpPointer,
@@ -19,9 +17,9 @@ pub enum Error {
     XGetModifierMapping,
 }
 
-impl Display for Error {
+impl Display for PlatformError {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        use Error::*;
+        use PlatformError::*;
         match self {
             XOpenDisplay => write!(f, "Error opening display"),
             XQueryPointer => write!(f, "Cursor is not in main screen"),
@@ -36,4 +34,10 @@ impl Display for Error {
             XGetModifierMapping => write!(f, "Failed to get modifier key mapping"),
         }
     }
+}
+
+impl std::error::Error for PlatformError {}
+
+impl FallibleContext for Context {
+    type PlatformError = PlatformError;
 }

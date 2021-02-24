@@ -1,4 +1,4 @@
-use super::{ffi, Error};
+use super::{ffi, Error, PlatformError};
 
 impl crate::InfoContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
@@ -25,7 +25,7 @@ impl crate::InfoContext for super::Context {
                 &mut win_y_return,
                 &mut mask_return,
             ) == ffi::False {
-                Err(Error::XQueryPointer)
+                Err(Error::Platform(PlatformError::XQueryPointer))
             } else {
                 Ok((win_x_return as i32, win_y_return as i32))
             }

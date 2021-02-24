@@ -12,6 +12,9 @@ use std::collections::hash_map::{HashMap, Entry};
 // The implementation of Context::new is adapted from here:
 // https://github.com/jordansissel/xdotool/blob/master/xdo.c
 
+use error::PlatformError;
+type Error = crate::GenericError<PlatformError>;
+
 #[derive(Copy, Clone)]
 struct KeyInfo {
     keysym: ffi::KeySym,
@@ -20,8 +23,6 @@ struct KeyInfo {
     keycode: ffi::KeyCode,
     default: bool,
 }
-
-pub use error::Error;
 
 /// The main context used for generating events (Linux-X11).
 ///
@@ -70,7 +71,7 @@ unsafe fn find_unused_key_code(
         &mut keysyms_per_keycode,
     );
     if keysyms == std::ptr::null() {
-        return Err(Error::XGetKeyboardMapping);
+        return Err(Error::Platform(PlatformError::XGetKeyboardMapping));
     }
     let keysyms_per_keycode = keysyms_per_keycode as usize;
 
@@ -89,7 +90,7 @@ unsafe fn find_unused_key_code(
     }
 
     ffi::XFree(keysyms);
-    Err(Error::NoUnusedKeyCode)
+    Err(Error::Platform(PlatformError::NoUnusedKeyCode))
 }
 
 unsafe fn create_key_map(
@@ -114,7 +115,7 @@ unsafe fn create_key_map(
 
     let desc = ffi::XkbGetMap(display, ffi::XkbAllClientInfoMask, ffi::XkbUseCoreKbd);
     if desc == std::ptr::null() {
-        return Err(Error::XkbGetMap);
+        return Err(Error::Platform(PlatformError::XkbGetMap));
     }
 
     let mut key_map = HashMap::new();
@@ -144,7 +145,7 @@ unsafe fn create_key_map(
                     Some(c) => c,
                     None => {
                         ffi::XkbFreeClientMap(desc, 0, ffi::True);
-                        return Err(Error::KeySymToUnicode);
+                        return Err(Error::Platform(PlatformError::KeySymToUnicode));
                     }
                 };
 
@@ -171,12 +172,12 @@ impl Context {
         unsafe {
             let display = ffi::XOpenDisplay(ptr::null());
             if display == ptr::null_mut() {
-                return Err(Error::XOpenDisplay);
+                return Err(Error::Platform(PlatformError::XOpenDisplay));
             }
 
             if no_xtest(display) {
                 ffi::XCloseDisplay(display);
-                return Err(Error::XTestQueryExtension);
+                return Err(Error::Platform(PlatformError::XTestQueryExtension));
             }
 
             // Get the full range of keycodes used by X11. This is probably
@@ -206,7 +207,7 @@ impl Context {
             let modifier_map = ffi::XGetModifierMapping(display);
             if modifier_map == std::ptr::null() {
                 ffi::XCloseDisplay(display);
-                return Err(Error::XGetModifierMapping);
+                return Err(Error::Platform(PlatformError::XGetModifierMapping));
             }
 
             Ok(Self {

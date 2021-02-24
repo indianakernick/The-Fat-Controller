@@ -1,6 +1,5 @@
-use crate::Key;
-use crate::linux_common;
-use super::{ffi, Context, Error, KeyInfo};
+use crate::{Key, linux_common};
+use super::{ffi, Context, Error, KeyInfo, PlatformError};
 use std::{thread, time::Duration, os::raw::{c_int, c_uint}};
 
 fn key_event(ctx: &Context, key: Key, down: bool) -> Result<(), Error> {
@@ -8,7 +7,7 @@ fn key_event(ctx: &Context, key: Key, down: bool) -> Result<(), Error> {
         let key_code = (linux_common::to_key_code(key) + 8) as c_uint;
         let press = if down { ffi::True } else { ffi::False };
         if ffi::XTestFakeKeyEvent(ctx.display, key_code, press, ffi::CurrentTime) == 0 {
-            return Err(Error::XTestFakeKeyEvent);
+            return Err(Error::Platform(PlatformError::XTestFakeKeyEvent));
         }
         ffi::XSync(ctx.display, ffi::False);
         Ok(())
@@ -33,14 +32,6 @@ impl crate::KeyboardContext for Context {
 // delay only at the point where the layout changes doesn't work.
 const KEY_DELAY: Duration = Duration::from_millis(25);
 
-fn modifiers_from_char(ch: char) -> u8 {
-    if ch.is_uppercase() {
-        ffi::ShiftMask
-    } else {
-        0
-    }
-}
-
 fn info_from_char(ctx: &Context, ch: char) -> Option<KeyInfo> {
     if let Some(info) = ctx.key_map.get(&ch) {
         return Some(*info);
@@ -61,12 +52,18 @@ fn info_from_char(ctx: &Context, ch: char) -> Option<KeyInfo> {
         }
     }
 
+    let modifiers = if ch.is_uppercase() {
+        ffi::ShiftMask
+    } else {
+        0
+    };
+
     // This key is not on the default keyboard layout. This means that the
     // unused keycode will be remapped to this keysym.
     Some(KeyInfo {
         keysym,
         group: 0,
-        modifiers: modifiers_from_char(ch),
+        modifiers,
         keycode: ctx.unused_keycode,
         default: false,
     })
@@ -87,7 +84,7 @@ unsafe fn modifier_event(ctx: &Context, modifiers: u8, press: ffi::Bool) -> Resu
             let keycode = *(*ctx.modifier_map).modifiermap.add(index);
             if keycode != 0 {
                 if ffi::XTestFakeKeyEvent(ctx.display, keycode as c_uint, press, ffi::CurrentTime) == 0 {
-                    return Err(Error::XTestFakeKeyEvent);
+                    return Err(Error::Platform(PlatformError::XTestFakeKeyEvent));
                 }
                 ffi::XSync(ctx.display, ffi::False);
                 break;
@@ -121,7 +118,7 @@ unsafe fn key_with_mods_event(ctx: &Context, info: &KeyInfo, down: bool) -> Resu
 
     let press = if down { ffi::True } else { ffi::False };
     if ffi::XTestFakeKeyEvent(ctx.display, info.keycode as c_uint, press, ffi::CurrentTime) == 0 {
-        return Err(Error::XTestFakeKeyEvent);
+        return Err(Error::Platform(PlatformError::XTestFakeKeyEvent));
     }
 
     // Release modifiers after.
@@ -140,52 +137,46 @@ unsafe fn key_with_mods_event(ctx: &Context, info: &KeyInfo, down: bool) -> Resu
     Ok(())
 }
 
-unsafe fn char_event(ctx: &Context, info: KeyInfo) -> Result<(), Error> {
-    // If a keysym is not on the default keyboard mapping, we remap the
-    // unused keycode.
-    if !info.default {
-        ffi::XChangeKeyboardMapping(
-            ctx.display,
-            ctx.unused_keycode as c_int,
-            1,
-            &info.keysym,
-            1,
-        );
-        ffi::XSync(ctx.display, ffi::False);
-    }
-
-    key_with_mods_event(ctx, &info, true)?;
-    key_with_mods_event(ctx, &info, false)?;
-
-    if !info.default {
-        ffi::XSync(ctx.display, ffi::False);
-    }
-
-    // The keyboard mapping might have changed by this point but there's no
-    // need to worry about it. It's not going to affect anything other than
-    // this function.
-
-    Ok(())
-}
-
 impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Option<Result<(), Error>> {
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
         let info = match info_from_char(self, ch) {
             Some(info) => info,
-            None => return None,
+            None => return Err(Error::UnsupportedUnicode),
         };
+
         unsafe {
-            Some(char_event(self, info))
+            // If a keysym is not on the default keyboard mapping, we remap the
+            // unused keycode.
+            if !info.default {
+                ffi::XChangeKeyboardMapping(
+                    self.display,
+                    self.unused_keycode as c_int,
+                    1,
+                    &info.keysym,
+                    1,
+                );
+                ffi::XSync(self.display, ffi::False);
+            }
+
+            key_with_mods_event(self, &info, true)?;
+            key_with_mods_event(self, &info, false)?;
+
+            if !info.default {
+                ffi::XSync(self.display, ffi::False);
+            }
+
+            // The keyboard mapping might have changed by this point but there's
+            // no need to worry about it. It's not going to affect anything
+            // other than this function.
         }
+
+        Ok(())
     }
 
-    fn unicode_string(&mut self, s: &str) -> Option<Result<(), Error>> {
+    fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
         for ch in s.chars() {
-            match self.unicode_char(ch) {
-                Some(Ok(_)) => continue,
-                err => return err,
-            }
+            self.unicode_char(ch)?;
         }
-        Some(Ok(()))
+        Ok(())
     }
 }
