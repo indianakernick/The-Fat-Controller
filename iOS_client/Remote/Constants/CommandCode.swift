@@ -2,6 +2,7 @@
 
 enum CommandCode: UInt8, CaseIterable {
     case
+    delay,
     keyDown,
     keyUp,
     keyClick,
@@ -11,12 +12,16 @@ enum CommandCode: UInt8, CaseIterable {
     mouseDown,
     mouseUp,
     mouseClick,
-    delay
+    asciiChar,
+    asciiString,
+    unicodeChar,
+    unicodeString
 }
 
 extension CommandCode: CustomStringConvertible {
     var description: String {
         switch self {
+            case .delay: return "Delay"
             case .keyDown: return "Key down"
             case .keyUp: return "Key up"
             case .keyClick: return "Key click"
@@ -26,7 +31,10 @@ extension CommandCode: CustomStringConvertible {
             case .mouseDown: return "Mouse down"
             case .mouseUp: return "Mouse up"
             case .mouseClick: return "Mouse click"
-            case .delay: return "Delay"
+            case .asciiChar: return "ASCII char"
+            case .asciiString: return "ASCII string"
+            case .unicodeChar: return "Unicode char"
+            case .unicodeString: return "Unicode string"
         }
     }
 }

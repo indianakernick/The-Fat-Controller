@@ -3,6 +3,7 @@
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub enum CommandCode {
+    Delay,
     KeyDown,
     KeyUp,
     KeyClick,
@@ -12,11 +13,14 @@ pub enum CommandCode {
     MouseDown,
     MouseUp,
     MouseClick,
-    Delay,
+    AsciiChar,
+    AsciiString,
+    UnicodeChar,
+    UnicodeString,
 }
 
 impl CommandCode {
-    pub const COUNT: u8 = 10;
+    pub const COUNT: u8 = 14;
 }
 
 impl std::str::FromStr for CommandCode {
@@ -25,6 +29,7 @@ impl std::str::FromStr for CommandCode {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         use CommandCode::*;
         match s {
+            "delay" => Ok(Delay),
             "keydown" => Ok(KeyDown),
             "keyup" => Ok(KeyUp),
             "keyclick" => Ok(KeyClick),
@@ -34,7 +39,10 @@ impl std::str::FromStr for CommandCode {
             "mousedown" => Ok(MouseDown),
             "mouseup" => Ok(MouseUp),
             "mouseclick" => Ok(MouseClick),
-            "delay" => Ok(Delay),
+            "asciichar" => Ok(AsciiChar),
+            "asciistring" => Ok(AsciiString),
+            "unicodechar" => Ok(UnicodeChar),
+            "unicodestring" => Ok(UnicodeString),
             _ => Err(()),
         }
     }

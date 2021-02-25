@@ -1,4 +1,5 @@
-pub const COMMANDS: [&str; 10] = [
+pub const COMMANDS: [&str; 14] = [
+    "Delay",
     "Key down",
     "Key up",
     "Key click",
@@ -8,5 +9,8 @@ pub const COMMANDS: [&str; 10] = [
     "Mouse down",
     "Mouse up",
     "Mouse click",
-    "Delay",
+    "ASCII char",
+    "ASCII string",
+    "Unicode char",
+    "Unicode string",
 ];
