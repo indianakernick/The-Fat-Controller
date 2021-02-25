@@ -18,12 +18,15 @@ impl Context {
     }
 
     fn send_input(&self, input: &ffi::INPUT) -> Result<(), Error> {
-        unsafe {
-            if ffi::SendInput(1, input, ffi::SIZEOF_INPUT) == 1 {
-                Ok(())
-            } else {
-                Err(Error::Platform(PlatformError::last()))
-            }
+        self.send_inputs(std::slice::from_ref(input))
+    }
+
+    fn send_inputs(&self, inputs: &[ffi::INPUT]) -> Result<(), Error> {
+        let len = inputs.len() as ffi::UINT;
+        if unsafe { ffi::SendInput(len, inputs.as_ptr(), ffi::SIZEOF_INPUT) } == len {
+            Ok(())
+        } else {
+            Err(Error::Platform(PlatformError::last()))
         }
     }
 }

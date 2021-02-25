@@ -1,5 +1,5 @@
 use crate::Key;
-use super::{ffi, Context, Error, PlatformError};
+use super::{ffi, Context, Error};
 
 fn to_key_code(key: Key) -> ffi::WORD {
     use Key::*;
@@ -134,6 +134,17 @@ impl crate::KeyboardContext for Context {
     fn key_up(&mut self, key: Key) -> Result<(), Error> {
         key_event(self, key, false)
     }
+
+    fn key_click(&mut self, key: Key) -> Result<(), Error> {
+        let key_code = to_key_code(key);
+        let mut inputs = [ffi::INPUT::default(), ffi::INPUT::default()];
+        inputs[0].type_ = ffi::INPUT_KEYBOARD;
+        inputs[0].u.ki.wVk = key_code;
+        inputs[1].type_ = ffi::INPUT_KEYBOARD;
+        inputs[1].u.ki.wVk = key_code;
+        inputs[1].u.ki.dwFlags = ffi::KEYEVENTF_KEYUP;
+        self.send_inputs(&inputs)
+    }
 }
 
 fn char_event(ctx: &Context, state: ffi::SHORT) -> Result<(), Error> {
@@ -205,24 +216,13 @@ impl crate::UnicodeKeyboardContext for Context {
             input.u.ki.wScan = code_unit;
             input
         }).collect::<Vec<ffi::INPUT>>();
-        let count = inputs.len() as ffi::UINT;
 
-        unsafe {
-            if ffi::SendInput(count, inputs.as_ptr(), ffi::SIZEOF_INPUT) != count {
-                return Err(Error::Platform(PlatformError::last()));
-            }
-        }
+        self.send_inputs(&inputs)?;
 
         for input in inputs.iter_mut() {
             input.u.ki.dwFlags = ffi::KEYEVENTF_UNICODE | ffi::KEYEVENTF_KEYUP;
         }
 
-        unsafe {
-            if ffi::SendInput(count, inputs.as_ptr(), ffi::SIZEOF_INPUT) != count {
-                return Err(Error::Platform(PlatformError::last()));
-            }
-        }
-
-        Ok(())
+        self.send_inputs(&inputs)
     }
 }
