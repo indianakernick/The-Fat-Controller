@@ -65,8 +65,6 @@ the server so that user's don't need to be programmers to use it.
 
 ## Maybe...
 
-- Make it possible to choose between scrolling by pixels and scrolling by lines.
-  I feel like there's a better term for describing that. Quantized?
 - Add another platform. I want this to be the best and most fully featured
   library of its kind of crates.io. I could consider targeting another operating
   system.
