@@ -223,6 +223,14 @@ impl Context {
 impl Drop for Context {
     fn drop(&mut self) {
         unsafe {
+            let zero = 0;
+            ffi::XChangeKeyboardMapping(
+                self.display,
+                self.unused_keycode as std::os::raw::c_int,
+                1,
+                &zero,
+                1,
+            );
             ffi::XFreeModifiermap(self.modifier_map);
             ffi::XCloseDisplay(self.display);
         }

@@ -165,9 +165,7 @@ impl crate::UnicodeKeyboardContext for Context {
                 ffi::XSync(self.display, ffi::False);
             }
 
-            // The keyboard mapping might have changed by this point but there's
-            // no need to worry about it. It's not going to affect anything
-            // other than this function.
+            // The keyboard mapping is reset inside Drop.
         }
 
         Ok(())
