@@ -149,7 +149,7 @@ unsafe fn XkbCMKeyType(map: XkbClientMapPtr, keycode: KeyCode, group: c_int) -> 
 
 // https://www.x.org/releases/X11R7.5/doc/man/man3/XkbKeyType.3.html
 #[allow(non_snake_case)]
-pub unsafe fn XkbKeyKeyType(xkb: XkbDescPtr, keycode: KeyCode, group: c_int, ) -> XkbKeyTypePtr {
+pub unsafe fn XkbKeyKeyType(xkb: XkbDescPtr, keycode: KeyCode, group: c_int) -> XkbKeyTypePtr {
     XkbCMKeyType((*xkb).map, keycode, group)
 }
 

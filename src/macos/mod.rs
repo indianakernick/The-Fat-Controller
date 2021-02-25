@@ -21,8 +21,6 @@ struct KeyInfo {
 /// The most useful methods are on the [`traits`](crate::traits).
 pub struct Context {
     hid_connect: ffi::io_connect_t,
-    fb_connect: ffi::io_connect_t,
-    fb_address: ffi::mach_vm_address_t,
     event_source: core_graphics::event_source::CGEventSource,
     modifiers: ffi::IOOptionBits,
     button_state: u8,
@@ -179,61 +177,17 @@ impl Context {
     pub fn new() -> Result<Self, Error> {
         use core_graphics::event_source::{CGEventSource, CGEventSourceStateID};
 
-        let hid_connect = connect_to_service(ffi::kIOHIDSystemClass.as_ptr(), ffi::kIOHIDParamConnectType)?;
-
-        let fb_connect = match connect_to_service(ffi::kIOFramebufferClass.as_ptr(), ffi::kIOFBSharedConnectType) {
-            Ok(connect) => connect,
-            Err(e) => {
-                unsafe {
-                    ffi::IOServiceClose(hid_connect);
-                }
-                return Err(e);
-            },
-        };
-
-        // Memory mapping IOFramebuffer to get StdFBShmem_t won't work on Apple
-        // Silicon. Instead, the properties of IOMobileFramebuffer need to be
-        // inspected.
-        // Maybe we should just use Core Graphics
-
-        let mut fb_address = 0;
-        unsafe {
-            let mut size = 0;
-            let error_code = ffi::IOConnectMapMemory64(
-                fb_connect,
-                ffi::kIOFBCursorMemory,
-                ffi::mach_task_self_,
-                &mut fb_address,
-                &mut size,
-                ffi::kIOMapAnywhere
-            );
-            if error_code != ffi::kIOReturnSuccess {
-                ffi::IOServiceClose(fb_connect);
-                ffi::IOServiceClose(hid_connect);
-                return Err(Error::Platform(PlatformError::new(error_code)))
-            }
-        }
-
-        let key_map = match create_key_map() {
-            Ok(map) => map,
-            Err(e) => {
-                unsafe {
-                    ffi::IOServiceClose(fb_connect);
-                    ffi::IOServiceClose(hid_connect);
-                }
-                return Err(e);
-            }
-        };
+        let key_map = create_key_map()?;
 
         let event_source = match CGEventSource::new(CGEventSourceStateID::Private) {
             Ok(s) => s,
             Err(()) => return Err(Error::Unknown),
         };
 
+        let hid_connect = connect_to_service(ffi::kIOHIDSystemClass.as_ptr(), ffi::kIOHIDParamConnectType)?;
+
         Ok(Self {
             hid_connect,
-            fb_connect,
-            fb_address,
             event_source,
             modifiers: 0,
             button_state: 0,
@@ -270,13 +224,6 @@ impl Context {
 impl Drop for Context {
     fn drop(&mut self) {
         unsafe {
-            ffi::IOConnectUnmapMemory64(
-                self.fb_connect,
-                ffi::kIOFBCursorMemory,
-                ffi::mach_task_self_,
-                self.fb_address
-            );
-            ffi::IOServiceClose(self.fb_connect);
             ffi::IOServiceClose(self.hid_connect);
         }
     }

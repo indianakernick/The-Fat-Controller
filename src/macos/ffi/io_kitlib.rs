@@ -27,24 +27,6 @@ extern {
     pub fn IOServiceClose(connect: io_connect_t) -> kern_return_t;
 
     #[allow(non_snake_case)]
-    pub fn IOConnectMapMemory64(
-        connect: io_connect_t,
-        memoryType: u32,
-        intoTask: task_port_t,
-        atAddress: *mut mach_vm_address_t,
-        ofSize: *mut mach_vm_size_t,
-        options: IOOptionBits
-    ) -> kern_return_t;
-
-    #[allow(non_snake_case)]
-    pub fn IOConnectUnmapMemory64(
-        connect: io_connect_t,
-        memoryType: u32,
-        fromTask: task_port_t,
-        atAddress: mach_vm_address_t
-    ) -> kern_return_t;
-
-    #[allow(non_snake_case)]
     pub fn IOServiceGetMatchingServices(
         masterPort: mach_port_t,
         matching: CGDictionaryRef,

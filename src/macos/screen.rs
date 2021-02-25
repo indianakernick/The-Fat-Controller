@@ -1,21 +1,18 @@
-use super::{ffi, Error};
+use super::Error;
+use core_graphics::{display::CGDisplay, event::CGEvent};
 
 impl crate::ScreenContext for super::Context {
     fn cursor_location(&self) -> Result<(i32, i32), Error> {
-        unsafe {
-            let struct_ptr = self.fb_address as *const ffi::StdFBShmem_t;
-            let loc_ptr: *const ffi::IOGPoint = &(*struct_ptr).cursorLoc;
-            let loc = std::ptr::read_volatile(loc_ptr);
-            Ok((loc.x as i32, loc.y as i32))
-        }
+        let event = match CGEvent::new(self.event_source.clone()) {
+            Ok(e) => e,
+            Err(()) => return Err(Error::Unknown),
+        };
+        let loc = event.location();
+        Ok((loc.x as i32, loc.y as i32))
     }
 
     fn screen_size(&self) -> Result<(i32, i32), Error> {
-        unsafe {
-            let struct_ptr = self.fb_address as *const ffi::StdFBShmem_t;
-            let bounds_ptr: *const ffi::IOGBounds = &(*struct_ptr).screenBounds;
-            let bounds = std::ptr::read_volatile(bounds_ptr);
-            Ok(((bounds.maxx - bounds.minx) as i32, (bounds.maxy - bounds.miny) as i32))
-        }
+        let display = CGDisplay::main();
+        Ok((display.pixels_wide() as i32, display.pixels_high() as i32))
     }
 }
