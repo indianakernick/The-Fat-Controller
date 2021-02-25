@@ -15,3 +15,26 @@ impl crate::KeyboardContext for Context {
         key_event(self, key, false)
     }
 }
+
+#[cfg(feature = "ascii-fallback")]
+use crate::{GenericError, FallibleContext, AsciiKeyboardContext};
+
+#[cfg(feature = "ascii-fallback")]
+impl crate::UnicodeKeyboardContext for Context {
+    fn unicode_char(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>> {
+        if !ch.is_ascii() {
+            return Err(Error::UnsupportedUnicode);
+        }
+        match self.ascii_char(ch as u8) {
+            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            other => other,
+        }
+    }
+
+    fn unicode_string(&mut self, s: &str) -> Result<(), GenericError<Self::PlatformError>> {
+        match self.ascii_string(s.as_bytes()) {
+            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            other => other,
+        }
+    }
+}

@@ -163,7 +163,7 @@ impl Command {
     /// let bytes = &[
     ///     CommandCode::MouseMoveRel as u8, 255, 214, 0, 64,
     ///     CommandCode::KeyClick as u8, Key::K as u8,
-    ///     CommandCode::UnicodeString as u8, 0, 4, 0xF0, 0x9F, 0xA4, 0xAB,
+    ///     CommandCode::UnicodeString as u8, 0, 4, 0xF0, 0x9F, 0xA4, 0xAA,
     /// ];
     ///
     /// let (command, len) = Command::from_bytes(bytes).unwrap();
@@ -253,7 +253,11 @@ impl Command {
 
     /// Execute a [`Command`](Command) by calling the corresponding method on
     /// one of the [`traits`](crate::traits).
-    #[cfg(not(all(target_os = "linux", not(x11))))]
+    #[cfg(not(all(
+        not(feature = "ascii-fallback"),
+        target_os = "linux",
+        not(x11)
+    )))]
     pub fn execute<C>(&self, ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
         where C: FallibleContext + KeyboardContext + MouseContext + AsciiKeyboardContext + UnicodeKeyboardContext
     {
@@ -278,7 +282,11 @@ impl Command {
 
     /// Execute a [`Command`](Command) by calling the corresponding method on
     /// one of the [`traits`](crate::traits).
-    #[cfg(all(target_os = "linux", not(x11)))]
+    #[cfg(all(
+        not(feature = "ascii-fallback"),
+        target_os = "linux",
+        not(x11)
+    ))]
     pub fn execute<C>(&self, ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
         where C: FallibleContext + KeyboardContext + MouseContext + AsciiKeyboardContext
     {

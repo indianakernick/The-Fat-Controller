@@ -12,6 +12,9 @@ categories = ["os::linux-apis", "os::macos-apis", "os::windows-apis"]
 license = "MIT OR Apache-2.0"
 exclude = [".gitignore", ".idea", "docs", "iOS_client"]
 
+[features]
+ascii-fallback = []
+
 [target.'cfg(target_os = "macos")'.dependencies]
 # Both of these are required for UnicodeKeyboardContext::unicode_string
 unicode-segmentation = "1.7"

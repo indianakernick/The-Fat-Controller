@@ -7,7 +7,9 @@ use super::FallibleContext;
 ///
 /// This trait is not implemented for Linux-Wayland.
 /// [`AsciiKeyboardContext`](crate::AsciiKeyboardContext) may be used as an
-/// alternative.
+/// alternative. For convenience, the `"ascii-fallback"` feature may be enabled
+/// to provide an implementation of `UnicodeKeyboardContext` that uses
+/// [`AsciiKeyboardContext`](crate::AsciiKeyboardContext).
 ///
 /// On macOS and Windows,
 /// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is not equivalent to
