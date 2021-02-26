@@ -33,6 +33,8 @@ only on the Linux kernel. The implementation that doesn't use X11 is missing
 some features. It is intended for Wayland but Wayland is a bit more locked down
 compared to X11, hence the missing features.
 
+### With X11
+
 Before using the X11 implementation, the X11, XTest and xkbcommon development
 libraries need to be installed. Using `apt`, the following snippet can be used.
 
@@ -40,11 +42,34 @@ libraries need to be installed. Using `apt`, the following snippet can be used.
 sudo apt install libx11-dev libxtst-dev libxkbcommon-dev
 ```
 
-The non-X11 implementation uses `/dev/uinput`. Before this can be used,
-permissions need to be granted. The following snippet can be used.
+### Without X11
+
+The non-X11 implementation (called Wayland within the code base) uses
+`/dev/uinput`. Before this can be used, TFC needs permission to write to the
+device. To grant permissions temporarily (until the next reboot), use the
+following snippet.
 
 ```shell
-sudo sh -c 'echo -e "KERNEL==\"uinput\", MODE=\"0666\"" >> /etc/udev/rules.d/50-uinput.rules'
+chmod +0666 /dev/uinput
+```
+
+To grant permissions permanently, use the following snippet.
+
+```shell
+# Create a group
+sudo groupadd -r uinput
+# Add yourself to the group
+sudo usermod -aG uinput $USER
+# Give the group permissions to use the uinput kernel module
+echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"' \
+| sudo tee /etc/udev/rules.d/60-tfc.rules
+```
+
+Reboot for this to take effect. To revoke permissions, use the following
+snippet.
+
+```shell
+sudo rm /etc/udev/rules.d/60-tfc.rules
 ```
 
 ## Usage
