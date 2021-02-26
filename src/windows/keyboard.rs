@@ -149,13 +149,13 @@ impl crate::KeyboardContext for Context {
 
 fn char_event(ctx: &Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
     if ch.len_utf16() == 2 {
-        return Err(Error::UnsupportedUnicode);
+        return Err(Error::UnsupportedUnicode(ch));
     }
     let state = unsafe {
         ffi::VkKeyScanW(ch as ffi::WCHAR)
     };
     if state == -1 {
-        return Err(Error::UnsupportedUnicode);
+        return Err(Error::UnsupportedUnicode(ch));
     }
 
     let key = (state & 0xFF) as ffi::WORD;

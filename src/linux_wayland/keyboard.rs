@@ -23,37 +23,37 @@ use crate::{GenericError, FallibleContext, AsciiKeyboardContext};
 impl crate::UnicodeKeyboardContext for Context {
     fn unicode_char_down(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>> {
         if !ch.is_ascii() {
-            return Err(Error::UnsupportedUnicode);
+            return Err(Error::UnsupportedUnicode(ch));
         }
         match self.ascii_char_down(ch as u8) {
-            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            Err(Error::UnsupportedAscii(c)) => Err(Error::UnsupportedUnicode(c as char)),
             other => other,
         }
     }
 
     fn unicode_char_up(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>> {
         if !ch.is_ascii() {
-            return Err(Error::UnsupportedUnicode);
+            return Err(Error::UnsupportedUnicode(ch));
         }
         match self.ascii_char_up(ch as u8) {
-            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            Err(Error::UnsupportedAscii(c)) => Err(Error::UnsupportedUnicode(c as char)),
             other => other,
         }
     }
 
     fn unicode_char(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>> {
         if !ch.is_ascii() {
-            return Err(Error::UnsupportedUnicode);
+            return Err(Error::UnsupportedUnicode(ch));
         }
         match self.ascii_char(ch as u8) {
-            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            Err(Error::UnsupportedAscii(c)) => Err(Error::UnsupportedUnicode(c as char)),
             other => other,
         }
     }
 
     fn unicode_string(&mut self, s: &str) -> Result<(), GenericError<Self::PlatformError>> {
         match self.ascii_string(s.as_bytes()) {
-            Err(Error::UnsupportedAscii) => Err(Error::UnsupportedUnicode),
+            Err(Error::UnsupportedAscii(c)) => Err(Error::UnsupportedUnicode(c as char)),
             other => other,
         }
     }

@@ -233,7 +233,7 @@ impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
     fn ascii_char_down(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
         let key_shift = KeyShift::from_ascii(ch);
         if key_shift == KeyShift::NONE {
-            return Err(GenericError::UnsupportedAscii);
+            return Err(GenericError::UnsupportedAscii(ch));
         }
         if key_shift.shift() {
             self.key_down(Key::Shift)?;
@@ -244,7 +244,7 @@ impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
     fn ascii_char_up(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
         let key_shift = KeyShift::from_ascii(ch);
         if key_shift == KeyShift::NONE {
-            return Err(GenericError::UnsupportedAscii);
+            return Err(GenericError::UnsupportedAscii(ch));
         }
         self.key_up(key_shift.key())?;
         if key_shift.shift() {
@@ -257,7 +257,7 @@ impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
     fn ascii_char(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
         let key_shift = KeyShift::from_ascii(ch);
         if key_shift == KeyShift::NONE {
-            return Err(GenericError::UnsupportedAscii);
+            return Err(GenericError::UnsupportedAscii(ch));
         }
         apply(self, key_shift)
     }
@@ -265,7 +265,7 @@ impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
     fn ascii_string(&mut self, s: &[u8]) -> Result<(), GenericError<Self::PlatformError>> {
         for ch in s.iter() {
             if KeyShift::from_ascii(*ch) == KeyShift::NONE {
-                return Err(GenericError::UnsupportedAscii);
+                return Err(GenericError::UnsupportedAscii(*ch));
             }
         }
 

@@ -140,7 +140,7 @@ unsafe fn key_with_mods_event(ctx: &Context, info: &KeyInfo, down: bool) -> Resu
 fn char_event(ctx: &Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
     let info = match info_from_char(ctx, ch) {
         Some(info) => info,
-        None => return Err(Error::UnsupportedUnicode),
+        None => return Err(Error::UnsupportedUnicode(ch)),
     };
 
     unsafe {
@@ -190,7 +190,7 @@ impl crate::UnicodeKeyboardContext for Context {
     fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
         for ch in s.chars() {
             if info_from_char(self, ch).is_none() {
-                return Err(Error::UnsupportedUnicode);
+                return Err(Error::UnsupportedUnicode(ch));
             }
         }
         for ch in s.chars() {

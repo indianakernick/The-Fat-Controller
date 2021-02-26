@@ -240,7 +240,7 @@ impl crate::KeyboardContext for Context {
 fn char_event(ctx: &mut Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
     let info = match ctx.key_map.get(&ch) {
         Some(info) => *info,
-        None => return Err(Error::UnsupportedUnicode),
+        None => return Err(Error::UnsupportedUnicode(ch)),
     };
     let mut event = ffi::NXEventData::default();
 

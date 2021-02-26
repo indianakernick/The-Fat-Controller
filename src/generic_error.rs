@@ -14,13 +14,13 @@ pub enum GenericError<P: std::error::Error> {
     /// This is returned by
     /// [`AsciiKeyboardContext`](crate::AsciiKeyboardContext) when an
     /// unsupported or invalid character is given.
-    UnsupportedAscii,
+    UnsupportedAscii(u8),
     /// Unsupported Unicode character.
     ///
     /// This is returned by
     /// [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) when an
     /// unsupported or invalid character is given.
-    UnsupportedUnicode,
+    UnsupportedUnicode(char),
     /// Unknown error.
     ///
     /// This is returned when an underlying function doesn't return an error
@@ -34,8 +34,8 @@ impl<P: std::error::Error> Display for GenericError<P> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         match self {
             GenericError::Platform(p) => write!(f, "Platform-specific error: {}", p),
-            GenericError::UnsupportedAscii => write!(f, "Unsupported ASCII character"),
-            GenericError::UnsupportedUnicode => write!(f, "Unsupported Unicode character"),
+            GenericError::UnsupportedAscii(ch) => write!(f, "Unsupported ASCII character ({:#04X})", ch),
+            GenericError::UnsupportedUnicode(ch) => write!(f, "Unsupported Unicode character ('{}')", ch),
             GenericError::Unknown => write!(f, "Unknown error"),
         }
     }
