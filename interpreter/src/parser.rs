@@ -75,6 +75,7 @@ pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>
         };
 
         commands.push(match command_token.parse::<CommandCode>() {
+            Ok(Delay) => Command::Delay(parse(&mut tokens)?),
             Ok(KeyDown) => Command::KeyDown(parse(&mut tokens)?),
             Ok(KeyUp) => Command::KeyUp(parse(&mut tokens)?),
             Ok(KeyClick) => Command::KeyClick(parse(&mut tokens)?),
@@ -84,8 +85,8 @@ pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>
             Ok(MouseDown) => Command::MouseDown(parse(&mut tokens)?),
             Ok(MouseUp) => Command::MouseUp(parse(&mut tokens)?),
             Ok(MouseClick) => Command::MouseClick(parse(&mut tokens)?),
-            Ok(Delay) => Command::Delay(parse(&mut tokens)?),
-            Err(_) => return Err(InvalidCommand(command_token)),
+            // TODO: Extend this to handle the ASCII and Unicode commands
+            Ok(_) | Err(_) => return Err(InvalidCommand(command_token)),
         });
     }
 
