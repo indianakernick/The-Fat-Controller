@@ -147,7 +147,17 @@ impl crate::KeyboardContext for Context {
     }
 }
 
-fn char_event(ctx: &Context, state: ffi::SHORT) -> Result<(), Error> {
+fn char_event(ctx: &Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
+    if ch.len_utf16() == 2 {
+        return Err(Error::UnsupportedUnicode);
+    }
+    let state = unsafe {
+        ffi::VkKeyScanW(ch as ffi::WCHAR)
+    };
+    if state == -1 {
+        return Err(Error::UnsupportedUnicode);
+    }
+
     let key = (state & 0xFF) as ffi::WORD;
     let shift = state & (1 << 8) != 0;
     let control = state & (1 << 9) != 0;
@@ -159,53 +169,57 @@ fn char_event(ctx: &Context, state: ffi::SHORT) -> Result<(), Error> {
     let mut input = ffi::INPUT::default();
     input.type_ = ffi::INPUT_KEYBOARD;
 
-    if shift {
-        input.u.ki.wVk = ffi::VK_LSHIFT;
-        ctx.send_input(&input)?;
-    }
-    if control {
-        input.u.ki.wVk = ffi::VK_LCONTROL;
-        ctx.send_input(&input)?;
-    }
-    if alt {
-        input.u.ki.wVk = ffi::VK_LMENU;
+    if down {
+        if shift {
+            input.u.ki.wVk = ffi::VK_LSHIFT;
+            ctx.send_input(&input)?;
+        }
+        if control {
+            input.u.ki.wVk = ffi::VK_LCONTROL;
+            ctx.send_input(&input)?;
+        }
+        if alt {
+            input.u.ki.wVk = ffi::VK_LMENU;
+            ctx.send_input(&input)?;
+        }
+
+        input.u.ki.wVk = key;
         ctx.send_input(&input)?;
     }
 
-    input.u.ki.wVk = key;
-    ctx.send_input(&input)?;
-    input.u.ki.dwFlags = ffi::KEYEVENTF_KEYUP;
-    ctx.send_input(&input)?;
+    if up {
+        input.u.ki.dwFlags = ffi::KEYEVENTF_KEYUP;
+        input.u.ki.wVk = key;
+        ctx.send_input(&input)?;
 
-    if alt {
-        input.u.ki.wVk = ffi::VK_LMENU;
-        ctx.send_input(&input)?;
-    }
-    if control {
-        input.u.ki.wVk = ffi::VK_LCONTROL;
-        ctx.send_input(&input)?;
-    }
-    if shift {
-        input.u.ki.wVk = ffi::VK_LSHIFT;
-        ctx.send_input(&input)?;
+        if alt {
+            input.u.ki.wVk = ffi::VK_LMENU;
+            ctx.send_input(&input)?;
+        }
+        if control {
+            input.u.ki.wVk = ffi::VK_LCONTROL;
+            ctx.send_input(&input)?;
+        }
+        if shift {
+            input.u.ki.wVk = ffi::VK_LSHIFT;
+            ctx.send_input(&input)?;
+        }
     }
 
     Ok(())
 }
 
 impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
-        if ch.len_utf16() == 2 {
-            return Err(Error::UnsupportedUnicode);
-        }
-        let state = unsafe {
-            ffi::VkKeyScanW(ch as ffi::WCHAR)
-        };
-        if state == -1 {
-            return Err(Error::UnsupportedUnicode);
-        }
+    fn unicode_char_down(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, false)
+    }
 
-        char_event(self, state)
+    fn unicode_char_up(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, false, true)
+    }
+
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, true)
     }
 
     fn unicode_string(&mut self, s: &str) -> Result<(), Error> {

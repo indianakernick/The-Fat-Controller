@@ -137,41 +137,62 @@ unsafe fn key_with_mods_event(ctx: &Context, info: &KeyInfo, down: bool) -> Resu
     Ok(())
 }
 
-impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
-        let info = match info_from_char(self, ch) {
-            Some(info) => info,
-            None => return Err(Error::UnsupportedUnicode),
-        };
+fn char_event(ctx: &Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
+    let info = match info_from_char(ctx, ch) {
+        Some(info) => info,
+        None => return Err(Error::UnsupportedUnicode),
+    };
 
-        unsafe {
-            // If a keysym is not on the default keyboard mapping, we remap the
-            // unused keycode.
-            if !info.default {
-                ffi::XChangeKeyboardMapping(
-                    self.display,
-                    self.unused_keycode as c_int,
-                    1,
-                    &info.keysym,
-                    1,
-                );
-                ffi::XSync(self.display, ffi::False);
-            }
-
-            key_with_mods_event(self, &info, true)?;
-            key_with_mods_event(self, &info, false)?;
-
-            if !info.default {
-                ffi::XSync(self.display, ffi::False);
-            }
-
-            // The keyboard mapping is reset inside Drop.
+    unsafe {
+        // If a keysym is not on the default keyboard mapping, we remap the
+        // unused keycode.
+        if !info.default {
+            ffi::XChangeKeyboardMapping(
+                ctx.display,
+                ctx.unused_keycode as c_int,
+                1,
+                &info.keysym,
+                1,
+            );
+            ffi::XSync(ctx.display, ffi::False);
         }
 
-        Ok(())
+        if down {
+            key_with_mods_event(ctx, &info, true)?;
+        }
+        if up {
+            key_with_mods_event(ctx, &info, false)?;
+        }
+
+        if !info.default {
+            ffi::XSync(ctx.display, ffi::False);
+        }
+
+        // The keyboard mapping is reset inside Drop.
+    }
+
+    Ok(())
+}
+
+impl crate::UnicodeKeyboardContext for Context {
+    fn unicode_char_down(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, false)
+    }
+
+    fn unicode_char_up(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, false, true)
+    }
+
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, true)
     }
 
     fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
+        for ch in s.chars() {
+            if info_from_char(self, ch).is_none() {
+                return Err(Error::UnsupportedUnicode);
+            }
+        }
         for ch in s.chars() {
             self.unicode_char(ch)?;
         }

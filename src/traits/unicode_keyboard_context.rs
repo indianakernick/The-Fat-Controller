@@ -69,8 +69,32 @@ use super::FallibleContext;
 /// Unicode string.
 pub trait UnicodeKeyboardContext: FallibleContext {
 
+    /// Generate a key press event (possibly including modifiers) for a Unicode
+    /// character.
+    ///
+    /// If modifiers are necessary to type the character, then the modifiers
+    /// will be pressed.
+    ///
+    /// Returns [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) if the
+    /// given character is unsupported.
+    fn unicode_char_down(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>>;
+
+    /// Generate a key release event (possibly including modifiers) for a
+    /// Unicode character.
+    ///
+    /// If modifiers are necessary to type the character, then the modifiers
+    /// will be released.
+    ///
+    /// Returns [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) if the
+    /// given character is unsupported.
+    fn unicode_char_up(&mut self, ch: char) -> Result<(), GenericError<Self::PlatformError>>;
+
     /// Generate a key press and release event along with the necessary
     /// modifiers to type a unicode character.
+    ///
+    /// This is equivalent to calling
+    /// [`unicode_char_down`](UnicodeKeyboardContext::unicode_char_down) followed by
+    /// [`unicode_char_up`](UnicodeKeyboardContext::unicode_char_up).
     ///
     /// Returns [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) if the
     /// given character is unsupported.

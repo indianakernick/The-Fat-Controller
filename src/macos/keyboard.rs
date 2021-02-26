@@ -237,33 +237,51 @@ impl crate::KeyboardContext for Context {
     }
 }
 
-impl crate::UnicodeKeyboardContext for Context {
-    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
-        let info = match self.key_map.get(&ch) {
-            Some(info) => *info,
-            None => return Err(Error::UnsupportedUnicode),
-        };
-        let mut event = ffi::NXEventData::default();
+fn char_event(ctx: &mut Context, ch: char, down: bool, up: bool) -> Result<(), Error> {
+    let info = match ctx.key_map.get(&ch) {
+        Some(info) => *info,
+        None => return Err(Error::UnsupportedUnicode),
+    };
+    let mut event = ffi::NXEventData::default();
 
+    if down {
         if info.modifiers & (1 << SHIFT_BIT) != 0 {
-            modifier_key_event(self, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, true)?;
+            modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, true)?;
         }
         if info.modifiers & (1 << OPTION_BIT) != 0 {
-            modifier_key_event(self, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, true)?;
+            modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, true)?;
         }
 
         event.key.keyCode = info.key_code as u16;
-        self.post_event(ffi::NX_KEYDOWN, &event, 0, 0)?;
-        self.post_event(ffi::NX_KEYUP, &event, 0, 0)?;
+        ctx.post_event(ffi::NX_KEYDOWN, &event, 0, 0)?;
+    }
+
+    if up {
+        event.key.keyCode = info.key_code as u16;
+        ctx.post_event(ffi::NX_KEYUP, &event, 0, 0)?;
 
         if info.modifiers & (1 << OPTION_BIT) != 0 {
-            modifier_key_event(self, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, false)?;
+            modifier_key_event(ctx, &mut event, ffi::kVK_Option, ffi::NX_DEVICELALTKEYMASK, false)?;
         }
         if info.modifiers & (1 << SHIFT_BIT) != 0 {
-            modifier_key_event(self, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, false)?;
+            modifier_key_event(ctx, &mut event, ffi::kVK_Shift, ffi::NX_DEVICELSHIFTKEYMASK, false)?;
         }
+    }
 
-        Ok(())
+    Ok(())
+}
+
+impl crate::UnicodeKeyboardContext for Context {
+    fn unicode_char_down(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, false)
+    }
+
+    fn unicode_char_up(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, false, true)
+    }
+
+    fn unicode_char(&mut self, ch: char) -> Result<(), Error> {
+        char_event(self, ch, true, true)
     }
 
     fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
