@@ -3,9 +3,10 @@ use super::{FallibleContext, KeyboardContext};
 
 /// A context that supports layout-dependent ASCII keyboard events.
 ///
-/// Internally, this will map ASCII characters to [`Key`](Key)s which means that
-/// a **standard US keyboard layout** is assumed. Using this with other keyboard
-/// layouts is unlikely to produce the desired results.
+/// Internally, this will map ASCII characters to [`Key`](Key)s and use
+/// [`KeyboardContext`](KeyboardContext) which means that a **standard US
+/// keyboard layout** is assumed. Using this with other keyboard layouts is
+/// unlikely to produce the desired results.
 ///
 /// This is meant to be a fallback for platforms that don't have
 /// [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) (i.e.
@@ -26,7 +27,33 @@ use super::{FallibleContext, KeyboardContext};
 /// | `0x7F` (delete)    | `Key::DeleteOrBackspace` |
 pub trait AsciiKeyboardContext: FallibleContext {
 
+    /// Generate a key press event (possibly including shift) for an ASCII
+    /// character.
+    ///
+    /// If the shift key is necessary to type the character, then the shift key
+    /// will be pressed. For example, `ascii_down(b'A')` is equivalent to
+    /// `key_down(Key::Shift)` followed by `key_down(Key::A)`.
+    ///
+    /// Returns [`UnsupportedAscii`](GenericError::UnsupportedAscii) if the
+    /// given character is unsupported.
+    fn ascii_char_down(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>>;
+
+    /// Generate a key release event (possibly including shift) for an ASCII
+    /// character.
+    ///
+    /// If the shift key is necessary to type the character, then the shift key
+    /// will be released. For example, `ascii_up(b'A')` is equivalent to
+    /// `key_up(Key::A)` followed by `key_up(Key::Shift)`.
+    ///
+    /// Returns [`UnsupportedAscii`](GenericError::UnsupportedAscii) if the
+    /// given character is unsupported.
+    fn ascii_char_up(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>>;
+
     /// Generate a key press and release event to type an ASCII character.
+    ///
+    /// This is equivalent to calling
+    /// [`ascii_char_down`](AsciiKeyboardContext::ascii_char_down) followed by
+    /// [`ascii_char_up`](AsciiKeyboardContext::ascii_char_up).
     ///
     /// Returns [`UnsupportedAscii`](GenericError::UnsupportedAscii) if the
     /// given character is unsupported.
@@ -203,6 +230,30 @@ fn apply<C>(ctx: &mut C, key_shift: KeyShift) -> Result<(), GenericError<C::Plat
 }
 
 impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
+    fn ascii_char_down(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
+        let key_shift = KeyShift::from_ascii(ch);
+        if key_shift == KeyShift::NONE {
+            return Err(GenericError::UnsupportedAscii);
+        }
+        if key_shift.shift() {
+            self.key_down(Key::Shift)?;
+        }
+        self.key_down(key_shift.key())
+    }
+
+    fn ascii_char_up(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
+        let key_shift = KeyShift::from_ascii(ch);
+        if key_shift == KeyShift::NONE {
+            return Err(GenericError::UnsupportedAscii);
+        }
+        self.key_up(key_shift.key())?;
+        if key_shift.shift() {
+            self.key_up(Key::Shift)
+        } else {
+            Ok(())
+        }
+    }
+
     fn ascii_char(&mut self, ch: u8) -> Result<(), GenericError<Self::PlatformError>> {
         let key_shift = KeyShift::from_ascii(ch);
         if key_shift == KeyShift::NONE {

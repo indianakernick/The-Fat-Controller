@@ -18,7 +18,8 @@ pub trait KeyboardContext: FallibleContext {
     /// Press and release a key.
     ///
     /// This is equivalent to calling [`key_down`](KeyboardContext::key_down)
-    /// followed by [`key_up`](KeyboardContext::key_up).
+    /// followed by [`key_up`](KeyboardContext::key_up). Although, some
+    /// platforms may optimize this.
     fn key_click(&mut self, key: Key) -> Result<(), GenericError<Self::PlatformError>> {
         self.key_down(key)?;
         self.key_up(key)
