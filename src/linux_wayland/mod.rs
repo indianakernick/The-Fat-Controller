@@ -12,9 +12,10 @@ type Error = crate::GenericError<PlatformError>;
 /// The main context used for generating events (Linux-Wayland).
 ///
 /// The most useful methods are on the [`traits`](crate::traits) however the
-/// Linux-Wayland context doesn't implement [`InfoContext`](crate::InfoContext)
-/// or [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) but the
-/// Linux-X11 context does.
+/// Linux-Wayland context doesn't implement
+/// [`ScreenContext`](crate::ScreenContext) or
+/// [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) but the Linux-X11
+/// context does.
 pub struct Context {
     file: std::os::raw::c_int,
     scroll: crate::linux_common::ScrollAccum,
