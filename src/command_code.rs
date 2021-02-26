@@ -13,14 +13,18 @@ pub enum CommandCode {
     MouseDown,
     MouseUp,
     MouseClick,
+    AsciiCharDown,
+    AsciiCharUp,
     AsciiChar,
     AsciiString,
+    UnicodeCharDown,
+    UnicodeCharUp,
     UnicodeChar,
     UnicodeString,
 }
 
 impl CommandCode {
-    pub const COUNT: u8 = 14;
+    pub const COUNT: u8 = 18;
 }
 
 impl std::str::FromStr for CommandCode {
@@ -39,8 +43,12 @@ impl std::str::FromStr for CommandCode {
             "mousedown" => Ok(MouseDown),
             "mouseup" => Ok(MouseUp),
             "mouseclick" => Ok(MouseClick),
+            "asciichardown" => Ok(AsciiCharDown),
+            "asciicharup" => Ok(AsciiCharUp),
             "asciichar" => Ok(AsciiChar),
             "asciistring" => Ok(AsciiString),
+            "unicodechardown" => Ok(UnicodeCharDown),
+            "unicodecharup" => Ok(UnicodeCharUp),
             "unicodechar" => Ok(UnicodeChar),
             "unicodestring" => Ok(UnicodeString),
             _ => Err(()),

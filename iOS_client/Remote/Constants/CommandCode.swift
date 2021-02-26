@@ -12,8 +12,12 @@ enum CommandCode: UInt8, CaseIterable {
     mouseDown,
     mouseUp,
     mouseClick,
+    asciiCharDown,
+    asciiCharUp,
     asciiChar,
     asciiString,
+    unicodeCharDown,
+    unicodeCharUp,
     unicodeChar,
     unicodeString
 }
@@ -31,8 +35,12 @@ extension CommandCode: CustomStringConvertible {
             case .mouseDown: return "Mouse down"
             case .mouseUp: return "Mouse up"
             case .mouseClick: return "Mouse click"
+            case .asciiCharDown: return "ASCII char down"
+            case .asciiCharUp: return "ASCII char up"
             case .asciiChar: return "ASCII char"
             case .asciiString: return "ASCII string"
+            case .unicodeCharDown: return "Unicode char down"
+            case .unicodeCharUp: return "Unicode char up"
             case .unicodeChar: return "Unicode char"
             case .unicodeString: return "Unicode string"
         }

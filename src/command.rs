@@ -29,10 +29,18 @@ pub enum Command {
     MouseUp(MouseButton),
     /// Corresponds to [`mouse_click`](MouseContext::mouse_click)
     MouseClick(MouseButton),
+    /// Corresponds to [`ascii_char_down`](AsciiKeyboardContext::ascii_char_down)
+    AsciiCharDown(u8),
+    /// Corresponds to [`ascii_char_up`](AsciiKeyboardContext::ascii_char_up)
+    AsciiCharUp(u8),
     /// Corresponds to [`ascii_char`](AsciiKeyboardContext::ascii_char)
     AsciiChar(u8),
     /// Corresponds to [`ascii_string`](AsciiKeyboardContext::ascii_string)
     AsciiString(Vec<u8>),
+    /// Corresponds to [`unicode_char_down`](UnicodeKeyboardContext::unicode_char_down)
+    UnicodeCharDown(char),
+    /// Corresponds to [`unicode_char_up`](UnicodeKeyboardContext::unicode_char_up)
+    UnicodeCharUp(char),
     /// Corresponds to [`unicode_char`](UnicodeKeyboardContext::unicode_char)
     UnicodeChar(char),
     /// Corresponds to [`unicode_string`](UnicodeKeyboardContext::unicode_string)
@@ -190,6 +198,7 @@ impl Command {
                 check_buffer_length(buf, 3)?;
                 Ok((Command::Delay(parse_uint(buf[1], buf[2])), 3))
             }
+
             CommandCode::KeyDown => {
                 check_buffer_length(buf, 2)?;
                 Ok((Command::KeyDown(parse_key(buf[1])?), 2))
@@ -202,6 +211,7 @@ impl Command {
                 check_buffer_length(buf, 2)?;
                 Ok((Command::KeyClick(parse_key(buf[1])?), 2))
             }
+
             CommandCode::MouseMoveRel => {
                 check_buffer_length(buf, 5)?;
                 Ok((Command::MouseMoveRel(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
@@ -226,16 +236,33 @@ impl Command {
                 check_buffer_length(buf, 2)?;
                 Ok((Command::MouseClick(parse_mouse_button(buf[1])?), 2))
             }
+
+            CommandCode::AsciiCharDown => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::AsciiCharDown(buf[1]), 2))
+            }
+            CommandCode::AsciiCharUp => {
+                check_buffer_length(buf, 2)?;
+                Ok((Command::AsciiCharUp(buf[1]), 2))
+            }
             CommandCode::AsciiChar => {
                 check_buffer_length(buf, 2)?;
                 Ok((Command::AsciiChar(buf[1]), 2))
             }
             CommandCode::AsciiString => {
                 check_buffer_length(buf, 3)?;
-                let string_len = parse_uint(buf[1], buf[2]);
-                let full_len = 3 + string_len as usize;
-                check_buffer_length(buf, full_len)?;
-                Ok((Command::AsciiString(buf[3..full_len].to_owned()), full_len))
+                let len = 3 + parse_uint(buf[1], buf[2]) as usize;
+                check_buffer_length(buf, len)?;
+                Ok((Command::AsciiString(buf[3..len].to_owned()), len))
+            }
+
+            CommandCode::UnicodeCharDown => {
+                check_buffer_length(buf, 5)?;
+                Ok((Command::UnicodeCharDown(parse_char(buf[1], buf[2], buf[3], buf[4])?), 5))
+            }
+            CommandCode::UnicodeCharUp => {
+                check_buffer_length(buf, 5)?;
+                Ok((Command::UnicodeCharUp(parse_char(buf[1], buf[2], buf[3], buf[4])?), 5))
             }
             CommandCode::UnicodeChar => {
                 check_buffer_length(buf, 5)?;
@@ -243,10 +270,9 @@ impl Command {
             }
             CommandCode::UnicodeString => {
                 check_buffer_length(buf, 3)?;
-                let string_len = parse_uint(buf[1], buf[2]);
-                let full_len = 3 + string_len as usize;
-                check_buffer_length(buf, full_len)?;
-                Ok((Command::UnicodeString(parse_string(&buf[3..full_len])?), full_len))
+                let len = 3 + parse_uint(buf[1], buf[2]) as usize;
+                check_buffer_length(buf, len)?;
+                Ok((Command::UnicodeString(parse_string(&buf[3..len])?), len))
             }
         }
     }
@@ -273,8 +299,12 @@ impl Command {
             MouseDown(button) => ctx.mouse_down(*button),
             MouseUp(button) => ctx.mouse_up(*button),
             MouseClick(button) => ctx.mouse_click(*button),
+            AsciiCharDown(ch) => ctx.ascii_char_down(*ch),
+            AsciiCharUp(ch) => ctx.ascii_char_up(*ch),
             AsciiChar(ch) => ctx.ascii_char(*ch),
             AsciiString(s) => ctx.ascii_string(s.as_slice()),
+            UnicodeCharDown(ch) => ctx.unicode_char_down(*ch),
+            UnicodeCharUp(ch) => ctx.unicode_char_up(*ch),
             UnicodeChar(ch) => ctx.unicode_char(*ch),
             UnicodeString(s) => ctx.unicode_string(s.as_str()),
         }
@@ -302,8 +332,12 @@ impl Command {
             MouseDown(button) => ctx.mouse_down(*button),
             MouseUp(button) => ctx.mouse_up(*button),
             MouseClick(button) => ctx.mouse_click(*button),
+            AsciiCharDown(ch) => ctx.ascii_char_down(*ch),
+            AsciiCharUp(ch) => ctx.ascii_char_up(*ch),
             AsciiChar(ch) => ctx.ascii_char(*ch),
             AsciiString(s) => ctx.ascii_string(s.as_slice()),
+            UnicodeCharDown(_) => panic!("UnicodeKeyboardContext is not implemented"),
+            UnicodeCharUp(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeChar(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeString(_) => panic!("UnicodeKeyboardContext is not implemented"),
         }
