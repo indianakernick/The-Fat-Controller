@@ -1,90 +1,82 @@
-use std::sync::Arc;
-use log::{debug, error};
-use tokio::sync::{RwLock, mpsc};
-use futures::{FutureExt, StreamExt};
-use warp::ws::{Ws, WebSocket, Message};
-use tokio_stream::wrappers::UnboundedReceiverStream;
+use tokio::sync::mpsc;
+use tokio::net::TcpStream;
+use tokio::io::AsyncReadExt;
+use tfc::{Command, CommandBytesError};
+use std::fmt::{self, Display, Formatter};
 
-type Sender = mpsc::UnboundedSender<Result<Message, warp::Error>>;
-
-pub async fn socket_upgrade(ws: Ws, ctx: SocketContext) -> Result<Box<dyn warp::Reply>, warp::Rejection> {
-    ctx.upgrade(ws).await
+pub enum SocketError {
+    Network(tokio::io::Error),
+    Data(CommandBytesError),
 }
 
-#[derive(Clone)]
+impl Display for SocketError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        match self {
+            SocketError::Network(e) => write!(f, "{}", e),
+            SocketError::Data(e) => write!(f, "{}", e),
+        }
+    }
+}
+
 pub struct SocketContext {
-    ch_tx: Arc<RwLock<Option<Sender>>>,
-    event: mpsc::UnboundedSender<tfc::Command>,
+    command_sender: mpsc::UnboundedSender<Command>,
 }
+
+const NULL_COMMAND_CODE: u8 = 255;
+const _: [u8; 1] = [0; (tfc::CommandCode::COUNT < NULL_COMMAND_CODE) as usize];
 
 impl SocketContext {
-    pub fn new(event: mpsc::UnboundedSender<tfc::Command>) -> Self {
-        Self {
-            ch_tx: Default::default(),
-            event,
-        }
+    pub fn new(command_sender: mpsc::UnboundedSender<Command>) -> Self {
+        Self { command_sender }
     }
 
-    async fn upgrade(self, ws: Ws) -> Result<Box<dyn warp::Reply>, warp::Rejection> {
-        // TODO: Fix this
-        // Sometimes we end up in a state where we are disconnected but
-        // self.ch_tx is Some.
-        // https://github.com/seanmonstar/warp/issues/798
-        if self.ch_tx.read().await.is_some() {
-             return Ok(Box::new(warp::http::StatusCode::FORBIDDEN));
-        }
+    pub async fn handle_stream(&self, mut stream: TcpStream) -> Result<(), SocketError> {
+        let mut buf = vec![0; 1024];
+        let mut required_len = 1;
+        let mut filled_len = 0;
 
-        Ok(Box::new(ws.on_upgrade(move |socket: WebSocket| {
-            self.connect(socket)
-        })))
-    }
-
-    async fn connect(self, ws: WebSocket) {
-        let (ws_tx, mut ws_rx) = ws.split::<Message>();
-        let (ch_tx, ch_rx) = mpsc::unbounded_channel::<Result<Message, warp::Error>>();
-        let ch_rx = UnboundedReceiverStream::new(ch_rx);
-
-        *self.ch_tx.write().await = Some(ch_tx);
-
-        tokio::task::spawn(ch_rx.forward(ws_tx).map(move |result: Result<(), warp::Error>| {
-            if let Err(e) = result {
-                error!("Error sending over socket: {}", e);
+        loop {
+            let read_len = match stream.read(&mut buf[filled_len..required_len]).await {
+                Ok(l) => l,
+                Err(e) => return Err(SocketError::Network(e)),
+            };
+            if read_len == 0 {
+                return Ok(())
             }
-        }));
+            filled_len += read_len;
 
-        while let Some(result) = ws_rx.next().await {
-            match result {
-                Ok(message) => self.receive(message),
-                Err(e) => {
-                    error!("Error receiving from socket: {}", e);
-                    break;
+            if filled_len < required_len {
+                continue;
+            }
+
+            if required_len == 1 && buf[0] == NULL_COMMAND_CODE {
+                filled_len = 0;
+                continue;
+            }
+
+            match Command::from_bytes(&buf[..required_len]) {
+                Ok((command, consumed_len)) => {
+                    self.command_sender.send(command).unwrap();
+                    assert_eq!(filled_len, required_len);
+                    assert_eq!(required_len, consumed_len);
+                    required_len = 1;
+                    filled_len = 0;
                 }
-            }
-        }
 
-        *self.ch_tx.write().await = None;
-    }
+                Err(CommandBytesError::BufferTooShort(expected_len)) => {
+                    required_len = expected_len;
+                    if required_len > buf.len() {
+                        // The buffer will not grow larger than 65535 + 3 bytes
+                        buf.resize(required_len, 0);
+                    }
+                }
 
-    fn receive(&self, message: Message) {
-        if message.is_binary() {
-            let mut bytes = message.as_bytes();
-            if bytes.is_empty() {
-                return;
-            }
-            loop {
-                let (command, len) = match tfc::Command::from_bytes(bytes) {
-                    Ok(pair) => pair,
-                    Err(e) => {
-                        error!("{}", e);
-                        break;
-                    },
-                };
-                debug!("{:?}", command);
-                if self.event.send(command).is_err() {}
-                if len < bytes.len() {
-                    bytes = &bytes[len..];
-                } else {
-                    break;
+                // TODO: Perhaps try to recover from some errors.
+                // An invalid command code is fatal but for the others, we can
+                // print an error message and skip over the invalid bytes to
+                // continue processing.
+                Err(e) => {
+                    return Err(SocketError::Data(e));
                 }
             }
         }

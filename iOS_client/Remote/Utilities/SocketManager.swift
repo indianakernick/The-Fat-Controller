@@ -6,60 +6,35 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
+import Network
 import Foundation
-import Starscream
 
 protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool)
 }
 
-class SocketManager: WebSocketDelegate {
+class SocketManager {
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
-    private static let emptyData = Data()
+    private static let tickData = Data([255])
     
-    private var socket: WebSocket!
+    private var connection: NWConnection!
+    private let queue = DispatchQueue(label: "Queue")
+    private var onlineStatus = false
     private var tickTimer: Timer?
     private var tickCount = 0
-    private var onlineStatus = false
     
     weak var delegate: SocketManagerDelegate?
     
     func connectTo(host: String) {
         updateOnlineStatus(online: false)
         stopTicking()
-        if let url = URL(string: "ws://" + host + ":80/socket") {
-            socket = WebSocket(url: url)
-            socket.delegate = self
-            socket.connect()
-        }
+        connectTo(host: NWEndpoint.Host(host))
     }
-    
-    func reconnect() {
-        socket.connect()
-    }
-    
-    func websocketDidConnect(socket: WebSocketClient) {
-        updateOnlineStatus(online: true)
-        tickCount = 0
-        startTicking()
-    }
-    
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        updateOnlineStatus(online: false)
-        stopTicking()
-        DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            self.reconnect()
-        }
-    }
-    
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
-    
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
     
     func send(_ data: Data) {
-        socket.write(data: data)
+        sendToConnection(data)
         tickCount = 0
         if tickTimer == nil {
             startTicking()
@@ -68,6 +43,74 @@ class SocketManager: WebSocketDelegate {
     
     func send(_ data: [UInt8]) {
         send(Data(data))
+    }
+    
+    private func connectTo(host: NWEndpoint.Host) {
+        connection = NWConnection(
+            host: host,
+            port: NWEndpoint.Port(80), // maybe don't use port 80
+            using: .tcp
+        )
+        connection.stateUpdateHandler = stateChanged
+        receive()
+        connection.start(queue: queue)
+    }
+    
+    private func connected() {
+        DispatchQueue.main.async {
+            self.updateOnlineStatus(online: true)
+            self.tickCount = 0
+            self.startTicking()
+        }
+    }
+    
+    private func disconnected() {
+        DispatchQueue.main.async {
+            self.updateOnlineStatus(online: false)
+            self.stopTicking()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
+            if case let NWEndpoint.hostPort(host, _) = self.connection.endpoint {
+                self.connectTo(host: host)
+            }
+        }
+    }
+    
+    private func stateChanged(to: NWConnection.State) {
+        switch to {
+        case .setup:
+            break
+        case .preparing:
+            break
+        case .ready:
+            connected()
+        case .waiting(_):
+            fallthrough
+        case .failed(_):
+            disconnected()
+        case .cancelled:
+            fallthrough
+        @unknown default:
+            break
+        }
+    }
+    
+    private func updateOnlineStatus(online: Bool) {
+        if online != self.onlineStatus {
+            self.onlineStatus = online
+            self.delegate?.onlineStatusChanged(online: self.onlineStatus)
+        }
+    }
+    
+    private func receive() {
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
+            (_, _, isComplete, error) in
+            if isComplete || error != nil {
+                self.disconnected()
+            } else {
+                self.receive()
+            }
+        }
     }
     
     private func startTicking() {
@@ -86,17 +129,18 @@ class SocketManager: WebSocketDelegate {
     }
     
     @objc private func sendTick() {
-        socket.write(data: SocketManager.emptyData)
+        sendToConnection(SocketManager.tickData)
         tickCount += 1
         if tickCount > SocketManager.maxTickCount {
             stopTicking()
         }
     }
     
-    private func updateOnlineStatus(online: Bool) {
-        if online != onlineStatus {
-            onlineStatus = online
-            delegate?.onlineStatusChanged(online: onlineStatus)
-        }
+    private func sendToConnection(_ data: Data) {
+        connection.send(content: data, completion: .contentProcessed({ error in
+            if let error = error {
+                print(error)
+            }
+        }))
     }
 }
