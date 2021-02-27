@@ -60,8 +60,7 @@ pub enum CommandBytesError {
     InvalidUnicodeScalar(u32),
     /// Encountered a byte sequence that isn't a valid UTF-8 string
     InvalidUTF8,
-    /// Expected the buffer to be longer based upon the
-    /// [`CommandCode`](CommandCode) byte.
+    /// Expected the buffer to be longer. Stores the expected length.
     BufferTooShort(usize),
 }
 
@@ -75,7 +74,7 @@ impl Display for CommandBytesError {
             InvalidMouseButton(byte) => write!(f, "Invalid mouse button byte ({})", byte),
             InvalidUnicodeScalar(ucs) => write!(f, "Invalid Unicode scalar ({:#010X})", ucs),
             InvalidUTF8 => write!(f, "Invalid UTF-8 string"),
-            BufferTooShort(len) => write!(f, "Buffer length ({}) is too short", len),
+            BufferTooShort(len) => write!(f, "Expected buffer to be at least {} bytes in length", len),
         }
     }
 }
@@ -133,8 +132,7 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), CommandBytesError> 
     if buf.len() >= len {
         Ok(())
     } else {
-        // Should we put expected, actual, or both?
-        Err(BufferTooShort(buf.len()))
+        Err(BufferTooShort(len))
     }
 }
 
@@ -190,7 +188,7 @@ impl Command {
     /// ```
     pub fn from_bytes(buf: &[u8]) -> Result<(Command, usize), CommandBytesError> {
         if buf.is_empty() {
-            return Err(BufferTooShort(0));
+            return Err(BufferTooShort(1));
         }
 
         match parse_command_code(buf[0])? {
