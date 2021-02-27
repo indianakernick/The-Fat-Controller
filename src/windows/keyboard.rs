@@ -223,18 +223,31 @@ impl crate::UnicodeKeyboardContext for Context {
     }
 
     fn unicode_string(&mut self, s: &str) -> Result<(), Error> {
-        let mut inputs = s.encode_utf16().map(|code_unit| {
-            let mut input = ffi::INPUT::default();
-            input.type_ = ffi::INPUT_KEYBOARD;
-            input.u.ki.dwFlags = ffi::KEYEVENTF_UNICODE;
-            input.u.ki.wScan = code_unit;
-            input
-        }).collect::<Vec<ffi::INPUT>>();
+        let mut key_down = ffi::INPUT::default();
+        key_down.type_ = ffi::INPUT_KEYBOARD;
+        key_down.u.ki.dwFlags = ffi::KEYEVENTF_UNICODE;
+        let mut key_up = key_down;
+        key_up.u.ki.dwFlags = ffi::KEYEVENTF_UNICODE | ffi::KEYEVENTF_KEYUP;
 
-        self.send_inputs(&inputs)?;
+        let mut inputs = Vec::with_capacity(2 * s.len());
+        let mut pair = [0; 2];
 
-        for input in inputs.iter_mut() {
-            input.u.ki.dwFlags = ffi::KEYEVENTF_UNICODE | ffi::KEYEVENTF_KEYUP;
+        for ch in s.chars() {
+            if ch.encode_utf16(&mut pair).len() == 1 {
+                key_down.u.ki.wScan = pair[0];
+                inputs.push(key_down);
+                key_up.u.ki.wScan = pair[0];
+                inputs.push(key_up);
+            } else {
+                key_down.u.ki.wScan = pair[0];
+                inputs.push(key_down);
+                key_down.u.ki.wScan = pair[1];
+                inputs.push(key_down);
+                key_up.u.ki.wScan = pair[0];
+                inputs.push(key_up);
+                key_up.u.ki.wScan = pair[1];
+                inputs.push(key_up);
+            }
         }
 
         self.send_inputs(&inputs)
