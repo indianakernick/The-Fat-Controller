@@ -66,6 +66,24 @@ fn handle_stream(ctx: &mut Context, mut stream: TcpStream) -> Disconnection {
 }
 
 fn main() {
+    let port = {
+        let args = std::env::args().collect::<Vec<_>>();
+        if args.len() == 1 {
+            2048
+        } else if args.len() == 2 {
+            match args[1].parse() {
+                Ok(p) => p,
+                Err(_) => {
+                    println!("Invalid port number: {}", args[1]);
+                    return;
+                }
+            }
+        } else {
+            println!("  tfc-server\n  tfc-server <port>");
+            return;
+        }
+    };
+
     let mut ctx = match Context::new() {
         Ok(c) => c,
         Err(e) => {
@@ -74,13 +92,12 @@ fn main() {
         }
     };
 
-    let port = 2048;
     let listener = match TcpListener::bind((Ipv4Addr::new(0, 0, 0, 0), port)) {
         Ok(l) => l,
         Err(e) => {
             println!("Bind: {}", e);
             return;
-        },
+        }
     };
     println!("Listening on port {}", port);
 
@@ -92,7 +109,6 @@ fn main() {
                 continue;
             }
         };
-
         println!("Connected to {}", addr);
         match handle_stream(&mut ctx, stream) {
             Disconnection::Normal => println!("Disconnected"),
