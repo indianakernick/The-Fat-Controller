@@ -1,10 +1,10 @@
-use tokio::net::TcpStream;
-use tokio::io::AsyncReadExt;
-use tfc::{Command, CommandBytesError};
+use std::io::Read;
+use std::net::TcpStream;
 use std::fmt::{self, Display, Formatter};
+use tfc::{Command, CommandBytesError, CommandCode, Context};
 
 pub enum SocketError {
-    Network(tokio::io::Error),
+    Network(std::io::Error),
     Data(CommandBytesError),
 }
 
@@ -18,24 +18,24 @@ impl Display for SocketError {
 }
 
 pub struct SocketContext {
-    ctx: tfc::Context,
+    ctx: Context,
 }
 
 const NULL_COMMAND_CODE: u8 = 255;
-const _: [u8; 1] = [0; (tfc::CommandCode::COUNT < NULL_COMMAND_CODE) as usize];
+const _: [u8; 1] = [0; (CommandCode::COUNT < NULL_COMMAND_CODE) as usize];
 
 impl SocketContext {
-    pub fn new(ctx: tfc::Context) -> Self {
+    pub fn new(ctx: Context) -> Self {
         Self { ctx }
     }
 
-    pub async fn handle_stream(&mut self, mut stream: TcpStream) -> Result<(), SocketError> {
+    pub fn handle_stream(&mut self, mut stream: TcpStream) -> Result<(), SocketError> {
         let mut buf = vec![0; 1024];
         let mut required_len = 1;
         let mut filled_len = 0;
 
         loop {
-            let read_len = match stream.read(&mut buf[filled_len..required_len]).await {
+            let read_len = match stream.read(&mut buf[filled_len..required_len]) {
                 Ok(l) => l,
                 Err(e) => return Err(SocketError::Network(e)),
             };
