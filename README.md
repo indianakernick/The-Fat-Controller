@@ -26,6 +26,15 @@ that allows for remote control of a PC via a mobile app.
 - macOS
 - Windows
 
+## Usage
+
+Add the following to your `Cargo.toml`:
+
+```toml
+[dependencies]
+tfc = "0.5"
+```
+
 ## Linux
 
 There are two implementations for Linux, one that uses X11, and one that depends
@@ -65,20 +74,17 @@ echo 'KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinpu
 | sudo tee /etc/udev/rules.d/60-tfc.rules
 ```
 
-Reboot for this to take effect. To revoke permissions, use the following
-snippet.
+Use the following snippet if this doesn't take effect immediately. If all else
+fails, reboot.
+
+```shell
+udevadm control --reload-rules && udevadm trigger
+```
+
+To revoke permissions, use the following snippet.
 
 ```shell
 sudo rm /etc/udev/rules.d/60-tfc.rules
-```
-
-## Usage
-
-Add the following to your `Cargo.toml`:
-
-```toml
-[dependencies]
-tfc = "0.5"
 ```
 
 ## Example
