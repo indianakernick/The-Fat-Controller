@@ -74,7 +74,7 @@ fn main() {
         }
     };
 
-    let port = 80;
+    let port = 2048;
     let listener = match TcpListener::bind((Ipv4Addr::new(0, 0, 0, 0), port)) {
         Ok(l) => l,
         Err(e) => {

@@ -14,6 +14,7 @@ protocol SocketManagerDelegate: class {
 }
 
 class SocketManager {
+    private static let port: UInt16 = 2048;
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
@@ -48,7 +49,7 @@ class SocketManager {
     private func connectTo(host: NWEndpoint.Host) {
         connection = NWConnection(
             host: host,
-            port: NWEndpoint.Port(80), // maybe don't use port 80
+            port: NWEndpoint.Port(integerLiteral: SocketManager.port),
             using: .tcp
         )
         connection.stateUpdateHandler = stateChanged
