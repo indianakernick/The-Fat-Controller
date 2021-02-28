@@ -1,4 +1,3 @@
-use tokio::sync::mpsc;
 use tokio::net::TcpStream;
 use tokio::io::AsyncReadExt;
 use tfc::{Command, CommandBytesError};
@@ -19,18 +18,18 @@ impl Display for SocketError {
 }
 
 pub struct SocketContext {
-    command_sender: mpsc::UnboundedSender<Command>,
+    ctx: tfc::Context,
 }
 
 const NULL_COMMAND_CODE: u8 = 255;
 const _: [u8; 1] = [0; (tfc::CommandCode::COUNT < NULL_COMMAND_CODE) as usize];
 
 impl SocketContext {
-    pub fn new(command_sender: mpsc::UnboundedSender<Command>) -> Self {
-        Self { command_sender }
+    pub fn new(ctx: tfc::Context) -> Self {
+        Self { ctx }
     }
 
-    pub async fn handle_stream(&self, mut stream: TcpStream) -> Result<(), SocketError> {
+    pub async fn handle_stream(&mut self, mut stream: TcpStream) -> Result<(), SocketError> {
         let mut buf = vec![0; 1024];
         let mut required_len = 1;
         let mut filled_len = 0;
@@ -56,11 +55,13 @@ impl SocketContext {
 
             match Command::from_bytes(&buf[..required_len]) {
                 Ok((command, consumed_len)) => {
-                    self.command_sender.send(command).unwrap();
                     assert_eq!(filled_len, required_len);
                     assert_eq!(required_len, consumed_len);
                     required_len = 1;
                     filled_len = 0;
+                    if let Err(e) = command.execute(&mut self.ctx) {
+                        println!("Execute: {}", e);
+                    }
                 }
 
                 Err(CommandBytesError::BufferTooShort(expected_len)) => {
