@@ -23,7 +23,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, SocketMa
             (controller as? TakeSocket)?.takeSocket(socket)
         }
         socket.delegate = self
-        socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "")
+        let host = UserDefaults.standard.string(forKey: StorageKeys.hostAddress)
+        let port = UInt16(UserDefaults.standard.integer(forKey: StorageKeys.hostPort))
+        socket.connectTo(host: host ?? "", port: port == 0 ? StorageDefaults.hostPort : port)
     }
     
     // The currently selected index should probably be stored in NSUserActivity

@@ -1,5 +1,5 @@
 //
-//  NewButtonInput.swift
+//  ButtonInput.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 5/2/21.
@@ -8,7 +8,8 @@
 
 import UIKit
 
-class NewButtonInput: UIButton {
+// Rename this to ButtonInput
+class ButtonInput: UIButton {
     static private let downColor = Colors.gray500
     static private let upColor = Colors.gray700
     
@@ -23,7 +24,7 @@ class NewButtonInput: UIButton {
         initialized = true
         layer.masksToBounds = true
         layer.cornerRadius = 8
-        layer.backgroundColor = NewButtonInput.upColor
+        layer.backgroundColor = ButtonInput.upColor
         addTarget(self, action: #selector(touchDown), for: .touchDown)
         addTarget(self, action: #selector(touchUp), for: .touchUpInside)
         addTarget(self, action: #selector(touchUp), for: .touchUpOutside)
@@ -31,10 +32,10 @@ class NewButtonInput: UIButton {
     }
     
     @objc private func touchDown() {
-        layer.backgroundColor = NewButtonInput.downColor
+        layer.backgroundColor = ButtonInput.downColor
     }
     
     @objc private func touchUp() {
-        layer.backgroundColor = NewButtonInput.upColor
+        layer.backgroundColor = ButtonInput.upColor
     }
 }

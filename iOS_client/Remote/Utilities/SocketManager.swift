@@ -14,7 +14,6 @@ protocol SocketManagerDelegate: class {
 }
 
 class SocketManager {
-    private static let port: UInt16 = 2048;
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
@@ -28,10 +27,12 @@ class SocketManager {
     
     weak var delegate: SocketManagerDelegate?
     
-    func connectTo(host: String) {
+    func connectTo(host: String, port: UInt16) {
         updateOnlineStatus(online: false)
         stopTicking()
-        connectTo(host: NWEndpoint.Host(host))
+        if !host.isEmpty {
+            connectTo(host: NWEndpoint.Host(host), port: NWEndpoint.Port(integerLiteral: port))
+        }
     }
     
     func send(_ data: Data) {
@@ -46,12 +47,8 @@ class SocketManager {
         send(Data(data))
     }
     
-    private func connectTo(host: NWEndpoint.Host) {
-        connection = NWConnection(
-            host: host,
-            port: NWEndpoint.Port(integerLiteral: SocketManager.port),
-            using: .tcp
-        )
+    private func connectTo(host: NWEndpoint.Host, port: NWEndpoint.Port) {
+        connection = NWConnection(host: host, port: port, using: .tcp)
         connection.stateUpdateHandler = stateChanged
         receive()
         connection.start(queue: queue)
@@ -71,8 +68,8 @@ class SocketManager {
             self.stopTicking()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            if case let NWEndpoint.hostPort(host, _) = self.connection.endpoint {
-                self.connectTo(host: host)
+            if case let NWEndpoint.hostPort(host, port) = self.connection.endpoint {
+                self.connectTo(host: host, port: port)
             }
         }
     }

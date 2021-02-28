@@ -7,40 +7,40 @@
 //
 
 class NumberPadViewController: BasicViewController {
-    @IBOutlet weak var cutBtn: ButtonInput!
-    @IBOutlet weak var copyBtn: ButtonInput!
-    @IBOutlet weak var pasteBtn: ButtonInput!
-    @IBOutlet weak var equalBtn: ButtonInput!
-    @IBOutlet weak var divideBtn: ButtonInput!
-    @IBOutlet weak var multiplyBtn: ButtonInput!
-    @IBOutlet weak var deleteBtn: ButtonInput!
-    @IBOutlet weak var lparenBtn: ButtonInput!
-    @IBOutlet weak var upBtn: ButtonInput!
-    @IBOutlet weak var rparenBtn: ButtonInput!
-    @IBOutlet weak var sevenBtn: ButtonInput!
-    @IBOutlet weak var eightBtn: ButtonInput!
-    @IBOutlet weak var nineBtn: ButtonInput!
-    @IBOutlet weak var subtractBtn: ButtonInput!
-    @IBOutlet weak var leftBtn: ButtonInput!
-    @IBOutlet weak var dollarBtn: ButtonInput!
-    @IBOutlet weak var rightBtn: ButtonInput!
-    @IBOutlet weak var fourBtn: ButtonInput!
-    @IBOutlet weak var fiveBtn: ButtonInput!
-    @IBOutlet weak var sixBtn: ButtonInput!
-    @IBOutlet weak var addBtn: ButtonInput!
-    @IBOutlet weak var lessBtn: ButtonInput!
-    @IBOutlet weak var downBtn: ButtonInput!
-    @IBOutlet weak var greaterBtn: ButtonInput!
-    @IBOutlet weak var oneBtn: ButtonInput!
-    @IBOutlet weak var twoBtn: ButtonInput!
-    @IBOutlet weak var threeBtn: ButtonInput!
-    @IBOutlet weak var returnBtn: ButtonInput!
-    @IBOutlet weak var shiftBtn: ButtonInput!
-    @IBOutlet weak var caretBtn: ButtonInput!
-    @IBOutlet weak var percentBtn: ButtonInput!
-    @IBOutlet weak var commaBtn: ButtonInput!
-    @IBOutlet weak var zeroBtn: ButtonInput!
-    @IBOutlet weak var periodBtn: ButtonInput!
+    @IBOutlet weak var cutBtn: LabelButtonInput!
+    @IBOutlet weak var copyBtn: LabelButtonInput!
+    @IBOutlet weak var pasteBtn: LabelButtonInput!
+    @IBOutlet weak var equalBtn: LabelButtonInput!
+    @IBOutlet weak var divideBtn: LabelButtonInput!
+    @IBOutlet weak var multiplyBtn: LabelButtonInput!
+    @IBOutlet weak var deleteBtn: LabelButtonInput!
+    @IBOutlet weak var lparenBtn: LabelButtonInput!
+    @IBOutlet weak var upBtn: LabelButtonInput!
+    @IBOutlet weak var rparenBtn: LabelButtonInput!
+    @IBOutlet weak var sevenBtn: LabelButtonInput!
+    @IBOutlet weak var eightBtn: LabelButtonInput!
+    @IBOutlet weak var nineBtn: LabelButtonInput!
+    @IBOutlet weak var subtractBtn: LabelButtonInput!
+    @IBOutlet weak var leftBtn: LabelButtonInput!
+    @IBOutlet weak var dollarBtn: LabelButtonInput!
+    @IBOutlet weak var rightBtn: LabelButtonInput!
+    @IBOutlet weak var fourBtn: LabelButtonInput!
+    @IBOutlet weak var fiveBtn: LabelButtonInput!
+    @IBOutlet weak var sixBtn: LabelButtonInput!
+    @IBOutlet weak var addBtn: LabelButtonInput!
+    @IBOutlet weak var lessBtn: LabelButtonInput!
+    @IBOutlet weak var downBtn: LabelButtonInput!
+    @IBOutlet weak var greaterBtn: LabelButtonInput!
+    @IBOutlet weak var oneBtn: LabelButtonInput!
+    @IBOutlet weak var twoBtn: LabelButtonInput!
+    @IBOutlet weak var threeBtn: LabelButtonInput!
+    @IBOutlet weak var returnBtn: LabelButtonInput!
+    @IBOutlet weak var shiftBtn: LabelButtonInput!
+    @IBOutlet weak var caretBtn: LabelButtonInput!
+    @IBOutlet weak var percentBtn: LabelButtonInput!
+    @IBOutlet weak var commaBtn: LabelButtonInput!
+    @IBOutlet weak var zeroBtn: LabelButtonInput!
+    @IBOutlet weak var periodBtn: LabelButtonInput!
     
     private var pressShift = {}
     private var releaseShift = {}

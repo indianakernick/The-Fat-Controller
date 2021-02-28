@@ -9,6 +9,11 @@
 enum StorageKeys {
     static let tapUpCommandList = "TapCommandListUp"
     static let tapDownCommandList = "TapCommandListDown"
-    static let hostName = "HostName"
+    static let hostAddress = "HostAddress"
+    static let hostPort = "HostPort"
     static let selectedTabIndex = "TabBarSelectedIndex"
+}
+
+enum StorageDefaults {
+    static let hostPort: UInt16 = 2048
 }

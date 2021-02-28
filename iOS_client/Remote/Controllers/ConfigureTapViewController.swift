@@ -132,8 +132,8 @@ class ConfigureTapViewController: UIViewController {
     @IBOutlet weak var downCommands: UITableView!
     @IBOutlet weak var upCommands: UITableView!
     @IBOutlet weak var commandPicker: UIPickerView!
-    @IBOutlet weak var appendDown: ButtonInput!
-    @IBOutlet weak var appendUp: ButtonInput!
+    @IBOutlet weak var appendDown: LabelButtonInput!
+    @IBOutlet weak var appendUp: LabelButtonInput!
     
     private var commandPickerDelegate = CommandPickerDelegate()
     private var downCommandsDelegate = CommandListDelegate()

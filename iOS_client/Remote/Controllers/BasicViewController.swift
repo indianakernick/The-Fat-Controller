@@ -27,7 +27,7 @@ class BasicViewController: UIViewController, SocketManagerDelegate, TakeSocket {
         }
     }
     
-    func setPressListener(for button: ButtonInput, with data: Data) {
+    func setPressListener(for button: LabelButtonInput, with data: Data) {
         button.pressed = makeListener(with: data)
     }
     
