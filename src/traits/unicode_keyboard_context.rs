@@ -52,7 +52,7 @@ use super::FallibleContext;
 /// ```
 ///
 /// Care must be taken when using
-/// [`unicode_char`](UnicodeKeyboardContext::unicode_char) in this mannor. If an
+/// [`unicode_char`](UnicodeKeyboardContext::unicode_char) in this manner. If an
 /// uppercase `'A'` was used, the shift key would have been pressed which may
 /// not have had the desired effect.
 ///
