@@ -60,7 +60,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == hostAddressField, let text = hostAddressField.text {
             UserDefaults.standard.set(text, forKey: StorageKeys.hostAddress)
-            socket.connectTo(host: text, port: port)
+            socket.connect(host: text, port: port)
         }
         view.endEditing(true)
         return true
@@ -71,7 +71,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
             if let int = UInt16(text), int != 0 {
                 port = int
                 UserDefaults.standard.set(port, forKey: StorageKeys.hostPort)
-                socket.connectTo(host: hostAddressField.text ?? "", port: port)
+                socket.connect(host: hostAddressField.text ?? "", port: port)
             } else {
                 hostPortField.text = "\(port)"
             }

@@ -13,30 +13,35 @@ protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool)
 }
 
-class SocketManager {
+class SocketManager : ConnectionDelegate {
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
     private static let tickData = Data([255])
     
-    private var connection: NWConnection!
-    private let queue = DispatchQueue(label: "Queue")
+    private var connection = Connection()
     private var onlineStatus = false
     private var tickTimer: Timer?
     private var tickCount = 0
     
     weak var delegate: SocketManagerDelegate?
     
-    func connectTo(host: String, port: UInt16) {
+    init() {
+        connection.delegate = self
+    }
+    
+    func connect(host: String, port: UInt16) {
         updateOnlineStatus(online: false)
         stopTicking()
+        // We get an empty host string when there is no host stored in
+        // UserDefaults. NW doesn't like empty host strings.
         if !host.isEmpty {
-            connectTo(host: NWEndpoint.Host(host), port: NWEndpoint.Port(integerLiteral: port))
+            connection.connect(host: host, port: port)
         }
     }
     
     func send(_ data: Data) {
-        sendToConnection(data)
+        connection.send(data)
         tickCount = 0
         if tickTimer == nil {
             startTicking()
@@ -47,14 +52,7 @@ class SocketManager {
         send(Data(data))
     }
     
-    private func connectTo(host: NWEndpoint.Host, port: NWEndpoint.Port) {
-        connection = NWConnection(host: host, port: port, using: .tcp)
-        connection.stateUpdateHandler = stateChanged
-        receive()
-        connection.start(queue: queue)
-    }
-    
-    private func connected() {
+    func connectionGained() {
         DispatchQueue.main.async {
             self.updateOnlineStatus(online: true)
             self.tickCount = 0
@@ -62,52 +60,26 @@ class SocketManager {
         }
     }
     
-    private func disconnected() {
+    func connectionLost() {
         DispatchQueue.main.async {
             self.updateOnlineStatus(online: false)
             self.stopTicking()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            if case let NWEndpoint.hostPort(host, port) = self.connection.endpoint {
-                self.connectTo(host: host, port: port)
+            // When we reconnect, the old connection will close and the new
+            // connection open. Then we will reach this point after successfully
+            // connecting and try to reconnect even though we're already
+            // connected.
+            if self.connection.isDisconnected() {
+                self.connection.connect()
             }
-        }
-    }
-    
-    private func stateChanged(to: NWConnection.State) {
-        switch to {
-        case .setup:
-            break
-        case .preparing:
-            break
-        case .ready:
-            connected()
-        case .waiting(_):
-            fallthrough
-        case .failed(_):
-            disconnected()
-        case .cancelled:
-            fallthrough
-        @unknown default:
-            break
         }
     }
     
     private func updateOnlineStatus(online: Bool) {
-        if online != self.onlineStatus {
-            self.onlineStatus = online
-            self.delegate?.onlineStatusChanged(online: self.onlineStatus)
-        }
-    }
-    
-    private func receive() {
-        connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) {
-            (_, _, isComplete, error) in
-            if isComplete || error != nil {
-                self.disconnected()
-            } else {
-                self.receive()
-            }
+        if online != onlineStatus {
+            onlineStatus = online
+            delegate?.onlineStatusChanged(online: onlineStatus)
         }
     }
     
@@ -127,18 +99,10 @@ class SocketManager {
     }
     
     @objc private func sendTick() {
-        sendToConnection(SocketManager.tickData)
+        connection.send(SocketManager.tickData)
         tickCount += 1
         if tickCount > SocketManager.maxTickCount {
             stopTicking()
         }
-    }
-    
-    private func sendToConnection(_ data: Data) {
-        connection.send(content: data, completion: .contentProcessed({ error in
-            if let error = error {
-                print(error)
-            }
-        }))
     }
 }
