@@ -9,15 +9,11 @@
 import UIKit
 
 class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManagerDelegate, TakeSocket {
-    static let transitionDuration = 0.25
-    
-    @IBOutlet weak var hostAddressField: UITextField!
-    @IBOutlet weak var hostPortField: UITextField!
+    @IBOutlet weak var hostNameField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
     
     private var socket: SocketManager!
     private var online = false
-    private var port: UInt16 = 0
     
     func takeSocket(_ socket: SocketManager) {
         self.socket = socket
@@ -29,55 +25,31 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
         statusLabel.layer.masksToBounds = true
         statusLabel.layer.cornerRadius = 8
         
-        initField(hostAddressField)
-        initField(hostPortField)
+        hostNameField.delegate = self
+        hostNameField.layer.masksToBounds = true
+        hostNameField.layer.cornerRadius = 8
+        hostNameField.overrideUserInterfaceStyle = .dark
         
-        let rect = CGRect(x: 0, y: 0, width: 8, height: hostAddressField.frame.size.height)
-        
-        let leftView = UIView(frame: rect)
-        leftView.backgroundColor = hostAddressField.backgroundColor
-        hostAddressField.leftView = leftView
-        hostAddressField.leftViewMode = .always
-        
-        let rightView = UIView(frame: rect)
-        rightView.backgroundColor = hostPortField.backgroundColor
-        hostPortField.rightView = rightView
-        hostPortField.rightViewMode = .always
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(
-            target: self, action: #selector(self.hideKeyboard)
-        ))
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: hostNameField.frame.size.height))
+        leftView.backgroundColor = hostNameField.backgroundColor
+        hostNameField.leftView = leftView
+        hostNameField.leftViewMode = .always
     }
     
     override func viewWillAppear(_ animated: Bool) {
         onlineStatusChanged(online: online)
-        hostAddressField.text = UserDefaults.standard.string(forKey: StorageKeys.hostAddress)
-        let port = UInt16(UserDefaults.standard.integer(forKey: StorageKeys.hostPort))
-        self.port = port == 0 ? StorageDefaults.hostPort : port
-        hostPortField.text = "\(self.port)"
+        hostNameField.text = UserDefaults.standard.string(forKey: StorageKeys.hostName)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == hostAddressField, let text = hostAddressField.text {
-            UserDefaults.standard.set(text, forKey: StorageKeys.hostAddress)
-            socket.connect(host: text, port: port)
+        if let text = hostNameField.text {
+            UserDefaults.standard.set(text, forKey: StorageKeys.hostName)
+            socket.connectTo(host: text)
         }
         view.endEditing(true)
         return true
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == hostPortField, let text = hostPortField.text {
-            if let int = UInt16(text), int != 0 {
-                port = int
-                UserDefaults.standard.set(port, forKey: StorageKeys.hostPort)
-                socket.connect(host: hostAddressField.text ?? "", port: port)
-            } else {
-                hostPortField.text = "\(port)"
-            }
-        }
-    }
-    
+
     func onlineStatusChanged(online: Bool) {
         self.online = online
         if statusLabel == nil {
@@ -85,26 +57,14 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
         }
         if online {
             statusLabel.text = "Connected"
-            UIView.animate(withDuration: SettingsViewController.transitionDuration, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 self.statusLabel.layer.backgroundColor = Colors.green
             })
         } else {
             statusLabel.text = "Disconnected"
-            UIView.animate(withDuration: SettingsViewController.transitionDuration, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 self.statusLabel.layer.backgroundColor = Colors.red
             })
         }
-    }
-    
-    private func initField(_ field: UITextField) {
-        field.delegate = self
-        field.layer.masksToBounds = true
-        field.layer.cornerRadius = 8
-        field.overrideUserInterfaceStyle = .dark
-    }
-    
-    @objc private func hideKeyboard() {
-        hostAddressField.resignFirstResponder()
-        hostPortField.resignFirstResponder()
     }
 }

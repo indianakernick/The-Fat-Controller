@@ -875,14 +875,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
-                                <rect key="frame" x="12" y="12" width="267" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
+                                <rect key="frame" x="12" y="12" width="351" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-computer.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OcR-Tr-PYw">
-                                <rect key="frame" x="12" y="45" width="267" height="32"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-mac.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OcR-Tr-PYw">
+                                <rect key="frame" x="12" y="45" width="351" height="32"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="pww-gb-9p5"/>
@@ -901,55 +901,30 @@
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="McD-Oc-JPS">
-                                <rect key="frame" x="291" y="45" width="72" height="32"/>
-                                <color key="backgroundColor" name="gray700"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="akD-eu-FbJ"/>
-                                    <constraint firstAttribute="width" constant="72" id="ooG-mq-MTw"/>
-                                </constraints>
-                                <color key="textColor" name="gray200"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZcB-RE-aNw">
-                                <rect key="frame" x="291" y="12" width="72" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="gray200"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
-                            <constraint firstItem="ZcB-RE-aNw" firstAttribute="leading" secondItem="WbM-mz-2TT" secondAttribute="trailing" constant="12" id="2ic-OK-SX4"/>
-                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="ZcB-RE-aNw" secondAttribute="trailing" constant="12" id="3pu-jV-9ZI"/>
                             <constraint firstItem="WbM-mz-2TT" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="4hF-E1-I1M"/>
-                            <constraint firstItem="WbM-mz-2TT" firstAttribute="width" secondItem="OcR-Tr-PYw" secondAttribute="width" id="4j4-36-pbS"/>
-                            <constraint firstItem="ZcB-RE-aNw" firstAttribute="top" secondItem="Tdh-7S-rD6" secondAttribute="top" constant="12" id="HzJ-XZ-Wsi"/>
-                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="McD-Oc-JPS" secondAttribute="trailing" constant="12" id="PPK-Q4-li5"/>
-                            <constraint firstItem="ZcB-RE-aNw" firstAttribute="width" secondItem="McD-Oc-JPS" secondAttribute="width" id="U0w-jg-WIL"/>
-                            <constraint firstItem="McD-Oc-JPS" firstAttribute="top" secondItem="ZcB-RE-aNw" secondAttribute="bottom" constant="12" id="Vd8-ms-VfD"/>
+                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="OcR-Tr-PYw" secondAttribute="trailing" constant="12" id="8LR-NM-eJp"/>
+                            <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="WbM-mz-2TT" secondAttribute="trailing" constant="12" id="BDE-VJ-ut9"/>
                             <constraint firstItem="0Rl-pk-ait" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="fwm-qz-nat"/>
                             <constraint firstItem="0Rl-pk-ait" firstAttribute="top" secondItem="OcR-Tr-PYw" secondAttribute="bottom" constant="12" id="hIA-l0-UTa"/>
                             <constraint firstItem="OcR-Tr-PYw" firstAttribute="top" secondItem="WbM-mz-2TT" secondAttribute="bottom" constant="12" id="hgC-J5-1OW"/>
                             <constraint firstItem="WbM-mz-2TT" firstAttribute="top" secondItem="Tdh-7S-rD6" secondAttribute="top" constant="12" id="jb3-Hn-NPn"/>
                             <constraint firstItem="OcR-Tr-PYw" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="lca-3o-Gex"/>
-                            <constraint firstItem="0Rl-pk-ait" firstAttribute="top" secondItem="McD-Oc-JPS" secondAttribute="bottom" constant="12" id="mZX-kN-naB"/>
                             <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="0Rl-pk-ait" secondAttribute="trailing" constant="12" id="pHp-L2-Ig4"/>
-                            <constraint firstItem="McD-Oc-JPS" firstAttribute="leading" secondItem="OcR-Tr-PYw" secondAttribute="trailing" constant="12" id="xdR-RX-V31"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Tdh-7S-rD6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="OuB-HQ-FAm"/>
                     <connections>
-                        <outlet property="hostAddressField" destination="OcR-Tr-PYw" id="CjH-VT-Pu8"/>
-                        <outlet property="hostPortField" destination="McD-Oc-JPS" id="Qjb-pZ-fpq"/>
+                        <outlet property="hostNameField" destination="OcR-Tr-PYw" id="CjH-VT-Pu8"/>
                         <outlet property="statusLabel" destination="0Rl-pk-ait" id="h6I-JO-6ws"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BRJ-i5-hx8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="200.80000000000001" y="3261.3193403298355"/>
+            <point key="canvasLocation" x="201" y="3262"/>
         </scene>
         <!--Video-->
         <scene sceneID="14y-Sg-KWv">

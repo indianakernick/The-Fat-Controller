@@ -6,42 +6,60 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
-import Network
 import Foundation
+import Starscream
 
 protocol SocketManagerDelegate: class {
     func onlineStatusChanged(online: Bool)
 }
 
-class SocketManager : ConnectionDelegate {
+class SocketManager: WebSocketDelegate {
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
-    private static let tickData = Data([255])
+    private static let emptyData = Data()
     
-    private var connection = Connection()
-    private var onlineStatus = false
+    private var socket: WebSocket!
     private var tickTimer: Timer?
     private var tickCount = 0
-    
+    private var onlineStatus = false
+
     weak var delegate: SocketManagerDelegate?
     
-    init() {
-        connection.delegate = self
-    }
-    
-    func connect(host: String, port: UInt16) {
+    func connectTo(host: String) {
         updateOnlineStatus(online: false)
         stopTicking()
-        // We get an empty host string when there is no host stored in
-        // UserDefaults. NW doesn't like empty host strings.
-        if !host.isEmpty {
-            connection.connect(host: host, port: port)
+        if let url = URL(string: "ws://" + host + ":80/socket") {
+            socket = WebSocket(url: url)
+            socket.delegate = self
+            socket.connect()
         }
     }
-    
+
+    func reconnect() {
+        socket.connect()
+    }
+
+    func websocketDidConnect(socket: WebSocketClient) {
+        updateOnlineStatus(online: true)
+        tickCount = 0
+        startTicking()
+    }
+
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        updateOnlineStatus(online: false)
+        stopTicking()
+        DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
+            self.reconnect()
+        }
+    }
+
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
+
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
+
     func send(_ data: Data) {
-        connection.send(data)
+        socket.write(data: data)
         tickCount = 0
         if tickTimer == nil {
             startTicking()
@@ -51,40 +69,7 @@ class SocketManager : ConnectionDelegate {
     func send(_ data: [UInt8]) {
         send(Data(data))
     }
-    
-    func connectionGained() {
-        NSLog("Gained")
-        DispatchQueue.main.async {
-            self.updateOnlineStatus(online: true)
-            self.tickCount = 0
-            self.startTicking()
-        }
-    }
-    
-    func connectionLost() {
-        NSLog("Lost")
-        DispatchQueue.main.async {
-            self.updateOnlineStatus(online: false)
-            self.stopTicking()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            // When we reconnect, the old connection will close and the new
-            // connection open. Then we will reach this point after successfully
-            // connecting and try to reconnect even though we're already
-            // connected.
-            if self.connection.isDisconnected() {
-                self.connection.connect()
-            }
-        }
-    }
-    
-    private func updateOnlineStatus(online: Bool) {
-        if online != onlineStatus {
-            onlineStatus = online
-            delegate?.onlineStatusChanged(online: onlineStatus)
-        }
-    }
-    
+
     private func startTicking() {
         tickTimer = Timer.scheduledTimer(
             timeInterval: SocketManager.tickDelay,
@@ -101,10 +86,17 @@ class SocketManager : ConnectionDelegate {
     }
     
     @objc private func sendTick() {
-        connection.send(SocketManager.tickData)
+        socket.write(data: SocketManager.emptyData)
         tickCount += 1
         if tickCount > SocketManager.maxTickCount {
             stopTicking()
+        }
+    }
+    
+    private func updateOnlineStatus(online: Bool) {
+        if online != onlineStatus {
+            onlineStatus = online
+            delegate?.onlineStatusChanged(online: onlineStatus)
         }
     }
 }
