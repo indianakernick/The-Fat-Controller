@@ -29,7 +29,7 @@ class SocketManager: WebSocketDelegate {
     func connectTo(host: String) {
         updateOnlineStatus(online: false)
         stopTicking()
-        if let url = URL(string: "ws://" + host + ":80/socket") {
+        if let url = URL(string: "ws://" + host + ":80") {
             socket = WebSocket(url: url)
             socket.delegate = self
             socket.connect()

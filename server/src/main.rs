@@ -11,7 +11,7 @@ async fn main() {
 
     pretty_env_logger::init();
 
-    let routes = warp::path!("socket")
+    let routes = warp::path::end()
         .and(warp::ws())
         .and(warp::any().map(move || sock_ctx.clone()))
         .and_then(socket::socket_upgrade);
