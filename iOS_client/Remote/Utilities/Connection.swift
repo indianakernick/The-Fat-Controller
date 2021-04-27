@@ -31,11 +31,13 @@ class Connection {
         connect()
     }
     
+    // connectionLost is called even when the connection has already been lost.
+    
     func connect() {
         // Need to ensure that the old connection is closed. If we don't do
         // this, the FIN packet won't be sent and the server won't know that
         // we've disconnected.
-        if handle != nil {
+        if handle != nil && handle.state != .cancelled {
             handle.cancel()
         }
         handle = NWConnection(host: currHost, port: currPort, using: .tcp)
@@ -68,9 +70,9 @@ class Connection {
         case .waiting(_):
             fallthrough
         case .failed(_):
-            delegate?.connectionLost()
+            fallthrough
         case .cancelled:
-            break
+            delegate?.connectionLost()
         @unknown default:
             break
         }
@@ -91,7 +93,9 @@ class Connection {
             }
             // isComplete means that the connection has closed normally.
             if isComplete || error != nil {
-                self.handle.cancel()
+                if self.handle.state != .cancelled {
+                    self.handle.cancel()
+                }
                 self.delegate?.connectionLost()
             } else {
                 // handle.receive pushes the lambda onto the dispatch queue.

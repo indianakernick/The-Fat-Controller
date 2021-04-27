@@ -53,6 +53,7 @@ class SocketManager : ConnectionDelegate {
     }
     
     func connectionGained() {
+        NSLog("Gained")
         DispatchQueue.main.async {
             self.updateOnlineStatus(online: true)
             self.tickCount = 0
@@ -61,6 +62,7 @@ class SocketManager : ConnectionDelegate {
     }
     
     func connectionLost() {
+        NSLog("Lost")
         DispatchQueue.main.async {
             self.updateOnlineStatus(online: false)
             self.stopTicking()

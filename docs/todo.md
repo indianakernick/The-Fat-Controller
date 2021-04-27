@@ -1,11 +1,3 @@
-## TCP
-
-It might make sense to use TCP directly rather than using web sockets. This
-would involve dropping a lot of working code. It may improve performance
-slightly.
-
-[Using `NWFramework`](https://rderik.com/blog/building-a-server-client-aplication-using-apple-s-network-framework/)
-
 ## Security
 
 Currently, the only form of security is only allowing one client to connect to
