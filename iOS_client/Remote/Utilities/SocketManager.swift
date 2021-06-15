@@ -23,21 +23,30 @@ class SocketManager: WebSocketDelegate {
     private var tickTimer: Timer?
     private var tickCount = 0
     private var onlineStatus = false
+    private var dummyMode = false
 
     weak var delegate: SocketManagerDelegate?
     
     func connectTo(host: String) {
         updateOnlineStatus(online: false)
         stopTicking()
-        if let url = URL(string: "ws://" + host + ":80") {
-            socket = WebSocket(url: url)
-            socket.delegate = self
-            socket.connect()
+        if host == "dummy" {
+            dummyMode = true
+            updateOnlineStatus(online: true)
+        } else {
+            dummyMode = false
+            if let url = URL(string: "ws://" + host + ":80") {
+                socket = WebSocket(url: url)
+                socket.delegate = self
+                socket.connect()
+            }
         }
     }
 
     func reconnect() {
-        socket.connect()
+        if !dummyMode {
+            socket.connect()
+        }
     }
 
     func websocketDidConnect(socket: WebSocketClient) {
@@ -59,6 +68,7 @@ class SocketManager: WebSocketDelegate {
     func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
 
     func send(_ data: Data) {
+        if dummyMode { return }
         socket.write(data: data)
         tickCount = 0
         if tickTimer == nil {
@@ -68,6 +78,10 @@ class SocketManager: WebSocketDelegate {
     
     func send(_ data: [UInt8]) {
         send(Data(data))
+    }
+    
+    func getOnlineStatus() -> Bool {
+        onlineStatus
     }
 
     private func startTicking() {
@@ -86,6 +100,7 @@ class SocketManager: WebSocketDelegate {
     }
     
     @objc private func sendTick() {
+        if dummyMode { return }
         socket.write(data: SocketManager.emptyData)
         tickCount += 1
         if tickCount > SocketManager.maxTickCount {
