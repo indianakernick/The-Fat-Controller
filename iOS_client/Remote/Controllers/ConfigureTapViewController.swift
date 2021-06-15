@@ -88,9 +88,6 @@ class CommandListDelegate: NSObject, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath)
         cell.textLabel!.textColor = UIColor(cgColor: Colors.gray200)
-        // Sets color of reorder control.
-        // Might want to consider setting this for the whole app.
-        cell.overrideUserInterfaceStyle = .dark
         cell.textLabel!.text = rows[indexPath.row].display
         return cell
     }

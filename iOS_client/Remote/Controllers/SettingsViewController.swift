@@ -8,16 +8,12 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManagerDelegate, TakeSocket {
+class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var hostNameField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
     
     private var socket: SocketManager!
     private var online = false
-    
-    func takeSocket(_ socket: SocketManager) {
-        self.socket = socket
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +24,19 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
         hostNameField.delegate = self
         hostNameField.layer.masksToBounds = true
         hostNameField.layer.cornerRadius = 8
-        hostNameField.overrideUserInterfaceStyle = .dark
         
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: hostNameField.frame.size.height))
         leftView.backgroundColor = hostNameField.backgroundColor
         hostNameField.leftView = leftView
         hostNameField.leftViewMode = .always
+        
+        if online {
+            statusLabel.text = "Connected"
+            statusLabel.layer.backgroundColor = Colors.green
+        } else {
+            statusLabel.text = "Disconnected"
+            statusLabel.layer.backgroundColor = Colors.red
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,14 +60,22 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, SocketManag
         }
         if online {
             statusLabel.text = "Connected"
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: Config.fadeAnimationDuration, animations: {
                 self.statusLabel.layer.backgroundColor = Colors.green
             })
         } else {
             statusLabel.text = "Disconnected"
-            UIView.animate(withDuration: 0.25, animations: {
+            UIView.animate(withDuration: Config.fadeAnimationDuration, animations: {
                 self.statusLabel.layer.backgroundColor = Colors.red
             })
         }
+    }
+    
+    func onlineStatusInitial(online: Bool) {
+        self.online = online
+    }
+    
+    func takeSocket(_ socket: SocketManager) {
+        self.socket = socket
     }
 }

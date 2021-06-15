@@ -8,22 +8,20 @@
 
 import UIKit
 
-protocol TakeSocket {
+protocol NavigationChild: SocketManagerDelegate {
+    func onlineStatusInitial(online: Bool)
     func takeSocket(_ socket: SocketManager)
 }
 
 class NavigationController: UINavigationController, SocketManagerDelegate {
     private var socket = SocketManager()
-    private var previouslySelected: UIViewController?
+    private var navChildren = [NavigationChild]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //delegate = self
-        for controller in viewControllers {
-            (controller as? TakeSocket)?.takeSocket(socket)
-        }
         socket.delegate = self
         socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "")
+        (children[0] as! ControllersViewController).setNav(self)
     }
     
     // Not sure if this is necessary or how it would be done with a navigation
@@ -43,9 +41,19 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
     }
     */
     
+    func addNavChild(_ vc: UIViewController) {
+        if let child = vc as? NavigationChild {
+            if !navChildren.contains(where: { navChild in navChild === child }) {
+                navChildren.append(child)
+                child.takeSocket(socket)
+                child.onlineStatusInitial(online: socket.getOnlineStatus())
+            }
+        }
+    }
+    
     func onlineStatusChanged(online: Bool) {
-        for controller in viewControllers {
-            (controller as? SocketManagerDelegate)?.onlineStatusChanged(online: online)
+        for child in navChildren {
+            child.onlineStatusChanged(online: online)
         }
     }
 }
