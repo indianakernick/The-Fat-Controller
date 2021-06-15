@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T3d-2L-CyJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T3d-2L-CyJ">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,7 +14,7 @@
             <objects>
                 <viewController restorationIdentifier="NumberPadViewController" id="DVQ-GD-KRS" userLabel="NumberPad" customClass="NumberPadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lvK-jl-YbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-lh-LCS" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
@@ -259,6 +260,7 @@
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="rEa-gu-D7a"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="iUu-LN-uqb" firstAttribute="height" secondItem="ksO-pE-xBV" secondAttribute="height" id="057-fH-e2m"/>
@@ -407,7 +409,6 @@
                             <constraint firstItem="rEa-gu-D7a" firstAttribute="bottom" secondItem="0Le-WM-OrI" secondAttribute="bottom" constant="12" id="z5y-sG-gFU"/>
                             <constraint firstItem="OTV-kj-YK9" firstAttribute="height" secondItem="Y9n-gR-cgr" secondAttribute="height" id="zWl-ea-C2o"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="rEa-gu-D7a"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="BXO-ux-cHa"/>
@@ -480,7 +481,7 @@
             <objects>
                 <viewController restorationIdentifier="SlideViewController" id="uZg-7D-ijb" userLabel="Slide" customClass="SlideViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS1-3P-GlG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E56-vD-b58" userLabel="Last" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
@@ -532,6 +533,7 @@
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MLd-kz-pFo"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="pSZ-fI-5qa" secondAttribute="bottom" constant="12" id="16m-CP-dB2"/>
@@ -567,7 +569,6 @@
                             <constraint firstItem="MLd-kz-pFo" firstAttribute="bottom" secondItem="E56-vD-b58" secondAttribute="bottom" constant="12" id="wjf-4G-yCH"/>
                             <constraint firstItem="x7X-SR-YRF" firstAttribute="width" secondItem="Rtz-YR-bbR" secondAttribute="width" id="xUU-m1-tHy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MLd-kz-pFo"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="4NY-DP-tRt"/>
@@ -627,7 +628,7 @@
             <objects>
                 <viewController restorationIdentifier="TrackpadViewController" id="9YC-yz-z0H" userLabel="Trackpad" customClass="TrackpadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TiK-68-nKN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7D5-Je-jU9" userLabel="Trackpad" customClass="TrackpadInput" customModule="Remote" customModuleProvider="target">
@@ -639,6 +640,7 @@
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="9Z8-eW-e1Y"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="3DT-hd-qSN" firstAttribute="top" secondItem="9Z8-eW-e1Y" secondAttribute="top" id="8WL-pw-O9q"/>
@@ -650,7 +652,6 @@
                             <constraint firstItem="7D5-Je-jU9" firstAttribute="top" secondItem="9Z8-eW-e1Y" secondAttribute="top" id="qQb-qJ-Uzq"/>
                             <constraint firstItem="3DT-hd-qSN" firstAttribute="leading" secondItem="9Z8-eW-e1Y" secondAttribute="leading" id="wH2-ts-Gq1"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="9Z8-eW-e1Y"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trackpad" image="hand.draw.fill" catalog="system" id="OAm-4f-C9D"/>
                     <connections>
@@ -667,7 +668,7 @@
             <objects>
                 <viewController restorationIdentifier="TapViewController" id="DwP-Ry-g0R" userLabel="Tap" customClass="TapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O8S-3F-Jip">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-Lu-zZc" userLabel="Tap" customClass="TapInput" customModule="Remote" customModuleProvider="target">
@@ -679,6 +680,7 @@
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="C21-AP-Mwg"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="C21-AP-Mwg" firstAttribute="bottom" secondItem="EW7-k6-Cbg" secondAttribute="bottom" id="1Bh-C5-lPa"/>
@@ -690,9 +692,8 @@
                             <constraint firstItem="C21-AP-Mwg" firstAttribute="bottom" secondItem="Xkg-Lu-zZc" secondAttribute="bottom" id="lS1-9Y-ACY"/>
                             <constraint firstItem="EW7-k6-Cbg" firstAttribute="leading" secondItem="C21-AP-Mwg" secondAttribute="leading" id="vCx-RJ-Fp4"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="C21-AP-Mwg"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Tap" image="cursor.rays" catalog="system" id="yEr-yx-oGE"/>
+                    <tabBarItem key="tabBarItem" title="Tap" image="cursorarrow.rays" catalog="system" id="yEr-yx-oGE"/>
                     <connections>
                         <outlet property="offlineCover" destination="EW7-k6-Cbg" id="Btv-6Z-ncT"/>
                         <outlet property="tap" destination="Xkg-Lu-zZc" id="to0-le-hM3"/>
@@ -708,7 +709,7 @@
             <objects>
                 <viewController restorationIdentifier="ConfigureTapViewController" id="Lx9-cm-gsY" userLabel="Configure Tap" customClass="ConfigureTapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ujn-Je-2wn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ZL-hG-Iwq" userLabel="Background">
@@ -731,7 +732,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CommandCell" id="jWD-E0-wUa">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jWD-E0-wUa" id="huU-L7-UaJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -757,7 +758,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" showsReorderControl="YES" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="CommandCell" id="Di3-2p-GQm">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Di3-2p-GQm" id="yUm-SV-GKB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -790,6 +791,7 @@
                                 <color key="backgroundColor" name="gray700"/>
                             </pickerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="EzH-uK-JdF"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FIe-kL-kWh" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="1Re-OA-gts"/>
@@ -822,7 +824,6 @@
                             <constraint firstItem="8ZL-hG-Iwq" firstAttribute="leading" secondItem="EzH-uK-JdF" secondAttribute="leading" id="urG-K5-mzB"/>
                             <constraint firstItem="AQC-iN-xUV" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="zpo-d8-c23"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="EzH-uK-JdF"/>
                     </view>
                     <connections>
                         <outlet property="appendDown" destination="AQC-iN-xUV" id="l7U-e4-Ia2"/>
@@ -865,14 +866,14 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-oF-B4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2452" y="2230"/>
+            <point key="canvasLocation" x="-1681" y="2235"/>
         </scene>
         <!--Settings-->
         <scene sceneID="Xx9-Dc-B4M">
             <objects>
                 <viewController id="1Oh-A8-Ql5" customClass="SettingsViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh0-8C-lXw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
@@ -902,6 +903,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Tdh-7S-rD6"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="WbM-mz-2TT" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="4hF-E1-I1M"/>
@@ -914,7 +916,6 @@
                             <constraint firstItem="OcR-Tr-PYw" firstAttribute="leading" secondItem="Tdh-7S-rD6" secondAttribute="leading" constant="12" id="lca-3o-Gex"/>
                             <constraint firstItem="Tdh-7S-rD6" firstAttribute="trailing" secondItem="0Rl-pk-ait" secondAttribute="trailing" constant="12" id="pHp-L2-Ig4"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Tdh-7S-rD6"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="OuB-HQ-FAm"/>
                     <connections>
@@ -931,7 +932,7 @@
             <objects>
                 <viewController id="KBK-PH-etv" customClass="VideoViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uvm-yL-nX9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkk-ja-kge" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
@@ -947,7 +948,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-zx-aJn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="133" y="142.5" width="109" height="77.5"/>
                                 <color key="tintColor" name="gray200"/>
-                                <state key="normal" image="speaker.1.fill" catalog="system">
+                                <state key="normal" image="speaker.wave.1.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                 </state>
                                 <connections>
@@ -957,7 +958,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OrV-c8-5Sf" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
                                 <rect key="frame" x="254" y="142.5" width="109" height="77.5"/>
                                 <color key="tintColor" name="gray200"/>
-                                <state key="normal" image="speaker.3.fill" catalog="system">
+                                <state key="normal" image="speaker.wave.3.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                 </state>
                                 <connections>
@@ -1010,6 +1011,7 @@
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="X2S-z8-iXS"/>
                         <color key="backgroundColor" name="gray800"/>
                         <constraints>
                             <constraint firstItem="ckp-rb-Lhg" firstAttribute="leading" secondItem="X2S-z8-iXS" secondAttribute="leading" constant="12" id="3V0-VM-gPI"/>
@@ -1047,7 +1049,6 @@
                             <constraint firstItem="fk3-d7-qdd" firstAttribute="height" secondItem="Xbh-zx-aJn" secondAttribute="height" multiplier="2" id="x4Q-hr-KXA"/>
                             <constraint firstItem="MXk-We-woO" firstAttribute="bottom" secondItem="X2S-z8-iXS" secondAttribute="bottom" id="xIE-Yv-Oxr"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="X2S-z8-iXS"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="AZF-Px-rVE"/>
@@ -1076,19 +1077,19 @@
         <image name="arrowtriangle.right.fill" catalog="system" width="128" height="113"/>
         <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
-        <image name="cursor.rays" catalog="system" width="128" height="119"/>
+        <image name="cursorarrow.rays" catalog="system" width="128" height="116"/>
         <image name="forward.end.fill" catalog="system" width="128" height="102"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
         <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="hand.draw.fill" catalog="system" width="128" height="107"/>
+        <image name="hand.draw.fill" catalog="system" width="128" height="109"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="number.square.fill" catalog="system" width="128" height="114"/>
         <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
-        <image name="playpause.fill" catalog="system" width="128" height="73"/>
-        <image name="speaker.1.fill" catalog="system" width="128" height="117"/>
-        <image name="speaker.3.fill" catalog="system" width="128" height="90"/>
-        <image name="speaker.slash.fill" catalog="system" width="128" height="124"/>
-        <image name="tv.fill" catalog="system" width="128" height="93"/>
+        <image name="playpause.fill" catalog="system" width="128" height="70"/>
+        <image name="speaker.slash.fill" catalog="system" width="124" height="128"/>
+        <image name="speaker.wave.1.fill" catalog="system" width="128" height="108"/>
+        <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
+        <image name="tv.fill" catalog="system" width="128" height="97"/>
         <namedColor name="blue">
             <color red="0.0" green="0.4823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -9,7 +9,7 @@
 import Foundation
 import Starscream
 
-protocol SocketManagerDelegate: class {
+protocol SocketManagerDelegate: AnyObject {
     func onlineStatusChanged(online: Bool)
 }
 

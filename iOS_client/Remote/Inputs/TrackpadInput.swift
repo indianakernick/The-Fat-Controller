@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TrackpadInputDelegate: class {
+protocol TrackpadInputDelegate: AnyObject {
     func mouseClick()
     func mouseDoubleClick()
     func mouseTripleClick()
