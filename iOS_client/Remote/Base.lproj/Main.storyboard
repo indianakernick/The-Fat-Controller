@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="T3d-2L-CyJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3vO-Nw-xYl">
     <device id="retina4_7" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,249 +13,249 @@
             <objects>
                 <viewController restorationIdentifier="NumberPadViewController" id="DVQ-GD-KRS" userLabel="NumberPad" customClass="NumberPadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lvK-jl-YbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pF-lh-LCS" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="12" width="79" height="109"/>
+                                <rect key="frame" x="-260.5" y="12" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhV-6n-FCx" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="12" width="78.5" height="109"/>
+                                <rect key="frame" x="-169.5" y="12" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ZD-tL-lff" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="12" width="79" height="109"/>
+                                <rect key="frame" x="-79" y="12" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="=" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FL-S5-Lu2" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="12" width="79" height="109"/>
+                                <rect key="frame" x="12" y="12" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="of8-Bw-uVU" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="12" width="78.5" height="109"/>
+                                <rect key="frame" x="103" y="12" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdU-Gd-bX7" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="12" width="79" height="109"/>
+                                <rect key="frame" x="193.5" y="12" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⌫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sCY-oW-Itp" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="12" width="78.5" height="109"/>
+                                <rect key="frame" x="284.5" y="12" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2G-SD-ldO" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="133" width="79" height="109.5"/>
+                                <rect key="frame" x="-260.5" y="134" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↑" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ksO-pE-xBV" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="133" width="78.5" height="109.5"/>
+                                <rect key="frame" x="-169.5" y="134" width="78.5" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=")" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="91Q-wq-PYa" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="133" width="79" height="109.5"/>
+                                <rect key="frame" x="-79" y="134" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4WH-dw-j7n" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="133" width="79" height="109.5"/>
+                                <rect key="frame" x="12" y="134" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tz3-Xy-QDx" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="133" width="78.5" height="109.5"/>
+                                <rect key="frame" x="103" y="134" width="78.5" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTV-kj-YK9" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="133" width="79" height="109.5"/>
+                                <rect key="frame" x="193.5" y="134" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-me-ov6" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="133" width="78.5" height="109.5"/>
+                                <rect key="frame" x="284.5" y="134" width="78.5" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="←" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHf-Dw-KW6" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="254.5" width="79" height="109"/>
+                                <rect key="frame" x="-260.5" y="256.5" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUu-LN-uqb" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="254.5" width="78.5" height="109"/>
+                                <rect key="frame" x="-169.5" y="256.5" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="→" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmk-ez-mME" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="254.5" width="79" height="109"/>
+                                <rect key="frame" x="-79" y="256.5" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mye-a1-3sO" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="254.5" width="79" height="109"/>
+                                <rect key="frame" x="12" y="256.5" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YB4-5e-tFh" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="254.5" width="78.5" height="109"/>
+                                <rect key="frame" x="103" y="256.5" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9n-gR-cgr" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="254.5" width="79" height="109"/>
+                                <rect key="frame" x="193.5" y="256.5" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gG3-9e-RTw" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="254.5" width="78.5" height="109"/>
+                                <rect key="frame" x="284.5" y="256.5" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHu-7j-XZ3" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="375.5" width="79" height="109.5"/>
+                                <rect key="frame" x="-260.5" y="378.5" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↓" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZn-v3-6LC" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="375.5" width="78.5" height="109.5"/>
+                                <rect key="frame" x="-169.5" y="378.5" width="78.5" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmF-Xp-Cb3" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="375.5" width="79" height="109.5"/>
+                                <rect key="frame" x="-79" y="378.5" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zFT-ae-LhP" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="375.5" width="79" height="109.5"/>
+                                <rect key="frame" x="12" y="378.5" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCY-NY-sl0" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="375.5" width="78.5" height="109.5"/>
+                                <rect key="frame" x="103" y="378.5" width="78.5" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alK-CQ-irM" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="375.5" width="79" height="109.5"/>
+                                <rect key="frame" x="193.5" y="378.5" width="79" height="110.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⮐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aev-Ly-rZG" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="284.5" y="375.5" width="78.5" height="230.5"/>
+                                <rect key="frame" x="284.5" y="378.5" width="78.5" height="232.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⇧" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMZ-ur-a5f" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-260.5" y="497" width="79" height="109"/>
+                                <rect key="frame" x="-260.5" y="501" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="^" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ytx-mj-7p0" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-169.5" y="497" width="78.5" height="109"/>
+                                <rect key="frame" x="-169.5" y="501" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vm-gl-Pgx" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="-79" y="497" width="79" height="109"/>
+                                <rect key="frame" x="-79" y="501" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="," textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-QX-TjF" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="497" width="79" height="109"/>
+                                <rect key="frame" x="12" y="501" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Le-WM-OrI" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="103" y="497" width="78.5" height="109"/>
+                                <rect key="frame" x="103" y="501" width="78.5" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZV-6r-6G9" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="497" width="79" height="109"/>
+                                <rect key="frame" x="193.5" y="501" width="79" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" name="gray200"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-g1-k1g" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
@@ -434,6 +433,7 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Number pad" image="number.square.fill" catalog="system" id="6vc-NY-Uro"/>
+                    <navigationItem key="navigationItem" title="Number Pad" id="aRr-RO-rkI"/>
                     <connections>
                         <outlet property="addBtn" destination="gG3-9e-RTw" id="o8P-8F-Qcb"/>
                         <outlet property="caretBtn" destination="Ytx-mj-7p0" id="S5D-r1-jwD"/>
@@ -474,18 +474,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TZd-fQ-2bn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3423" y="3263"/>
+            <point key="canvasLocation" x="-3428" y="3260"/>
         </scene>
         <!--Slide-->
         <scene sceneID="seD-f1-qnY">
             <objects>
                 <viewController restorationIdentifier="SlideViewController" id="uZg-7D-ijb" userLabel="Slide" customClass="SlideViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iS1-3P-GlG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E56-vD-b58" userLabel="Last" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="12" width="351" height="56"/>
+                                <rect key="frame" x="12" y="12" width="351" height="56.5"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="forward.end.fill" catalog="system">
                                     <color key="titleColor" name="gray200"/>
@@ -496,7 +496,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7X-SR-YRF" userLabel="Previous" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="315" width="351" height="223"/>
+                                <rect key="frame" x="12" y="317.5" width="351" height="225"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="arrowtriangle.left.fill" catalog="system">
                                     <color key="titleColor" name="gray200"/>
@@ -507,7 +507,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pSZ-fI-5qa" userLabel="First" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="550" width="351" height="56"/>
+                                <rect key="frame" x="12" y="554.5" width="351" height="56.5"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="backward.end.fill" catalog="system">
                                     <color key="titleColor" name="gray200"/>
@@ -518,7 +518,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-YR-bbR" userLabel="Next" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="80" width="351" height="223"/>
+                                <rect key="frame" x="12" y="80.5" width="351" height="225"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="arrowtriangle.right.fill" catalog="system">
                                     <color key="titleColor" name="gray200"/>
@@ -529,7 +529,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MZt-eJ-LSO" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
@@ -615,6 +615,7 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Slideshow" image="play.rectangle.fill" catalog="system" id="5ly-qV-yvA"/>
+                    <navigationItem key="navigationItem" title="Slideshow" id="rpo-bk-QDk"/>
                     <connections>
                         <outlet property="offlineCover" destination="MZt-eJ-LSO" id="fJ2-K2-hyf"/>
                     </connections>
@@ -628,15 +629,15 @@
             <objects>
                 <viewController restorationIdentifier="TrackpadViewController" id="9YC-yz-z0H" userLabel="Trackpad" customClass="TrackpadViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TiK-68-nKN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7D5-Je-jU9" userLabel="Trackpad" customClass="TrackpadInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3DT-hd-qSN" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
@@ -654,6 +655,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trackpad" image="hand.draw.fill" catalog="system" id="OAm-4f-C9D"/>
+                    <navigationItem key="navigationItem" title="Trackpad" id="eWW-4O-jBy"/>
                     <connections>
                         <outlet property="offlineCover" destination="3DT-hd-qSN" id="1AQ-kW-y8d"/>
                         <outlet property="trackpad" destination="7D5-Je-jU9" id="cMh-U4-mKU"/>
@@ -668,15 +670,15 @@
             <objects>
                 <viewController restorationIdentifier="TapViewController" id="DwP-Ry-g0R" userLabel="Tap" customClass="TapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O8S-3F-Jip">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-Lu-zZc" userLabel="Tap" customClass="TapInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EW7-k6-Cbg" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
@@ -694,10 +696,16 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tap" image="cursorarrow.rays" catalog="system" id="yEr-yx-oGE"/>
+                    <navigationItem key="navigationItem" title="Tap" id="68b-hw-aOP">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis.circle" catalog="system" id="KWI-L9-3LU">
+                            <connections>
+                                <segue destination="Lx9-cm-gsY" kind="show" id="8Tx-H5-XTQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="offlineCover" destination="EW7-k6-Cbg" id="Btv-6Z-ncT"/>
                         <outlet property="tap" destination="Xkg-Lu-zZc" id="to0-le-hM3"/>
-                        <segue destination="Lx9-cm-gsY" kind="show" identifier="tapConfig" id="xb9-6u-FCB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKN-XT-E3c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -709,11 +717,11 @@
             <objects>
                 <viewController restorationIdentifier="ConfigureTapViewController" id="Lx9-cm-gsY" userLabel="Configure Tap" customClass="ConfigureTapViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ujn-Je-2wn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ZL-hG-Iwq" userLabel="Background">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="gray800"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Down commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ai-81-2lD" userLabel="Down Commands Label">
@@ -726,7 +734,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j8r-mM-n4a" userLabel="Down Commands">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="154.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="147"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -743,7 +751,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Up commands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5b-tK-OzU" userLabel="Up Commands Label">
-                                <rect key="frame" x="12" y="211" width="351" height="20.5"/>
+                                <rect key="frame" x="12" y="203.5" width="351" height="20.5"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="l54-ZR-Cnr"/>
                                 </constraints>
@@ -752,7 +760,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Stc-FY-csz" userLabel="Up Commands">
-                                <rect key="frame" x="0.0" y="243.5" width="375" height="154.5"/>
+                                <rect key="frame" x="0.0" y="236" width="375" height="147"/>
                                 <color key="backgroundColor" name="gray700"/>
                                 <color key="separatorColor" name="gray500"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -769,7 +777,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to down" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQC-iN-xUV" userLabel="Append Down Button" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="410" width="169.5" height="32"/>
+                                <rect key="frame" x="12" y="395" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="6Is-6g-nn5"/>
                                 </constraints>
@@ -778,7 +786,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Append to up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIe-kL-kWh" userLabel="Append Up Button" customClass="LabelButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="193.5" y="410" width="169.5" height="32"/>
+                                <rect key="frame" x="193.5" y="395" width="169.5" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="H7n-px-hVt"/>
                                 </constraints>
@@ -787,7 +795,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I56-KI-2m6" userLabel="Command Picker">
-                                <rect key="frame" x="0.0" y="454" width="375" height="193"/>
+                                <rect key="frame" x="0.0" y="439" width="375" height="184"/>
                                 <color key="backgroundColor" name="gray700"/>
                             </pickerView>
                         </subviews>
@@ -825,6 +833,7 @@
                             <constraint firstItem="AQC-iN-xUV" firstAttribute="top" secondItem="Stc-FY-csz" secondAttribute="bottom" constant="12" id="zpo-d8-c23"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Configure Tap" id="9hi-fn-8UK"/>
                     <connections>
                         <outlet property="appendDown" destination="AQC-iN-xUV" id="l7U-e4-Ia2"/>
                         <outlet property="appendUp" destination="FIe-kL-kWh" id="Bmi-Vb-6er"/>
@@ -837,43 +846,12 @@
             </objects>
             <point key="canvasLocation" x="-1290" y="4066"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="YR3-Zh-dAR">
-            <objects>
-                <tabBarController restorationIdentifier="TabBarViewController" id="T3d-2L-CyJ" customClass="TabBarController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="RQs-9c-Sqc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" name="gray900"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                <color key="value" name="blue"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
-                                <color key="value" name="gray600"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBar>
-                    <connections>
-                        <segue destination="DVQ-GD-KRS" kind="relationship" relationship="viewControllers" id="2Uy-fa-NBw"/>
-                        <segue destination="uZg-7D-ijb" kind="relationship" relationship="viewControllers" id="h8C-cL-w4L"/>
-                        <segue destination="9YC-yz-z0H" kind="relationship" relationship="viewControllers" id="42I-W8-fvg"/>
-                        <segue destination="DwP-Ry-g0R" kind="relationship" relationship="viewControllers" id="BsV-P3-Ges"/>
-                        <segue destination="KBK-PH-etv" kind="relationship" relationship="viewControllers" id="Tx0-DG-a03"/>
-                        <segue destination="1Oh-A8-Ql5" kind="relationship" relationship="viewControllers" id="ZdL-1E-OHp"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-oF-B4N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1681" y="2235"/>
-        </scene>
         <!--Settings-->
         <scene sceneID="Xx9-Dc-B4M">
             <objects>
                 <viewController id="1Oh-A8-Ql5" customClass="SettingsViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh0-8C-lXw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WbM-mz-2TT">
@@ -918,6 +896,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="OuB-HQ-FAm"/>
+                    <navigationItem key="navigationItem" title="Settings" id="35D-Qh-xbL"/>
                     <connections>
                         <outlet property="hostNameField" destination="OcR-Tr-PYw" id="CjH-VT-Pu8"/>
                         <outlet property="statusLabel" destination="0Rl-pk-ait" id="h6I-JO-6ws"/>
@@ -932,11 +911,11 @@
             <objects>
                 <viewController id="KBK-PH-etv" customClass="VideoViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uvm-yL-nX9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkk-ja-kge" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="142.5" width="109" height="77.5"/>
+                                <rect key="frame" x="12" y="144" width="109" height="77.5"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="speaker.slash.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -946,7 +925,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbh-zx-aJn" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="133" y="142.5" width="109" height="77.5"/>
+                                <rect key="frame" x="133" y="144" width="109" height="77.5"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="speaker.wave.1.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -956,7 +935,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OrV-c8-5Sf" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="254" y="142.5" width="109" height="77.5"/>
+                                <rect key="frame" x="254" y="144" width="109" height="77.5"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="speaker.wave.3.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -966,7 +945,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fk3-d7-qdd" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="232" width="351" height="154.5"/>
+                                <rect key="frame" x="12" y="233.5" width="351" height="156"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="playpause.fill" catalog="system">
@@ -977,7 +956,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ckp-rb-Lhg" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="12" y="398.5" width="109" height="77"/>
+                                <rect key="frame" x="12" y="401.5" width="109" height="78"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="backward.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -987,7 +966,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdA-HZ-7Q4" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="133" y="398.5" width="109" height="77"/>
+                                <rect key="frame" x="133" y="401.5" width="109" height="78"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="info.circle" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -997,7 +976,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJO-3X-Tdq" customClass="ButtonInput" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="254" y="398.5" width="109" height="77"/>
+                                <rect key="frame" x="254" y="401.5" width="109" height="78"/>
                                 <color key="tintColor" name="gray200"/>
                                 <state key="normal" image="forward.fill" catalog="system">
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
@@ -1007,7 +986,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MXk-We-woO" userLabel="OfflineCover">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" name="red"/>
                             </view>
                         </subviews>
@@ -1063,6 +1042,7 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Video" image="tv.fill" catalog="system" id="rXU-By-HJk"/>
+                    <navigationItem key="navigationItem" title="Video" id="rfT-MP-C5J"/>
                     <connections>
                         <outlet property="offlineCover" destination="MXk-We-woO" id="Dwx-Yp-Ufh"/>
                     </connections>
@@ -1071,6 +1051,203 @@
             </objects>
             <point key="canvasLocation" x="-556" y="3260"/>
         </scene>
+        <!--Controllers-->
+        <scene sceneID="0mf-tn-Efz">
+            <objects>
+                <tableViewController id="6uU-SC-rqd" customClass="ControllersViewController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="KFs-lt-vIY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="gray800"/>
+                        <sections>
+                            <tableViewSection id="3yA-oP-sFf">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NumberPad" textLabel="JCo-Ap-NIT" imageView="uLe-TL-tQ2" style="IBUITableViewCellStyleDefault" id="z2a-L5-aGR">
+                                        <rect key="frame" x="0.0" y="18" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z2a-L5-aGR" id="TvH-sq-9M2">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Number Pad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JCo-Ap-NIT">
+                                                    <rect key="frame" x="51.5" y="0.0" width="290" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="number.square.fill" catalog="system" id="uLe-TL-tQ2">
+                                                    <rect key="frame" x="16.5" y="12.5" width="19.5" height="17.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="DVQ-GD-KRS" kind="show" id="7nM-tt-9mF"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Slideshow" textLabel="iXI-ya-iG2" imageView="DEO-cU-gad" style="IBUITableViewCellStyleDefault" id="Mem-ED-PIR">
+                                        <rect key="frame" x="0.0" y="61.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mem-ED-PIR" id="UEi-52-YFa">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Slideshow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iXI-ya-iG2">
+                                                    <rect key="frame" x="53.25" y="0.0" width="288.25" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="play.rectangle.fill" catalog="system" id="DEO-cU-gad">
+                                                    <rect key="frame" x="14.25" y="12.5" width="24" height="17.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="uZg-7D-ijb" kind="show" id="WKj-yM-vh9"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Trackpad" textLabel="gNs-lO-Qeo" imageView="ZOc-xK-gfa" style="IBUITableViewCellStyleDefault" id="7Zf-Cd-Dvf">
+                                        <rect key="frame" x="0.0" y="105" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Zf-Cd-Dvf" id="wjF-59-Heq">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Trackpad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gNs-lO-Qeo">
+                                                    <rect key="frame" x="51.75" y="0.0" width="289.75" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="hand.draw.fill" catalog="system" id="ZOc-xK-gfa">
+                                                    <rect key="frame" x="15.75" y="13" width="21" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="9YC-yz-z0H" kind="show" id="FeC-ii-niY"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Tap" textLabel="6rl-dS-ALX" imageView="5bH-a4-3Ez" style="IBUITableViewCellStyleDefault" id="U66-S4-1Nt">
+                                        <rect key="frame" x="0.0" y="148.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U66-S4-1Nt" id="9QK-5v-zBl">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Tap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6rl-dS-ALX">
+                                                    <rect key="frame" x="52" y="0.0" width="289.5" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="cursorarrow.rays" catalog="system" id="5bH-a4-3Ez">
+                                                    <rect key="frame" x="15.5" y="12" width="21.5" height="19.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="DwP-Ry-g0R" kind="show" id="cGW-G6-E49"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Video" textLabel="N3p-Hr-RNS" imageView="UYt-FD-jyF" style="IBUITableViewCellStyleDefault" id="S1J-R9-meQ">
+                                        <rect key="frame" x="0.0" y="192.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="S1J-R9-meQ" id="Y7Q-Hq-PV1">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Video" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N3p-Hr-RNS">
+                                                    <rect key="frame" x="53.75" y="0.0" width="287.75" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="tv.fill" catalog="system" id="UYt-FD-jyF">
+                                                    <rect key="frame" x="13.75" y="12.5" width="25" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="KBK-PH-etv" kind="show" id="n7L-y6-8Tn"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="G74-ez-FY4">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Settings" textLabel="OLd-Rl-k0U" imageView="Hw2-cs-8Gd" style="IBUITableViewCellStyleDefault" id="qe6-1M-Qx7">
+                                        <rect key="frame" x="0.0" y="272.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qe6-1M-Qx7" id="1BF-ol-1Rl">
+                                            <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OLd-Rl-k0U">
+                                                    <rect key="frame" x="52.25" y="0.0" width="289.25" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="gear" catalog="system" id="Hw2-cs-8Gd">
+                                                    <rect key="frame" x="15.25" y="12" width="22" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                        <connections>
+                                            <segue destination="1Oh-A8-Ql5" kind="show" id="gdB-ia-yiL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="6uU-SC-rqd" id="qd7-NN-tzC"/>
+                            <outlet property="delegate" destination="6uU-SC-rqd" id="PJY-i9-VJw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Controllers" id="c7S-wF-gtS"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mjx-2s-bdR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1290" y="2235"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ru0-y4-J7O">
+            <objects>
+                <navigationController hidesBarsWhenVerticallyCompact="YES" id="3vO-Nw-xYl" customClass="NavigationController" customModule="Remote" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="262-Wz-Q9m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="gray900"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6uU-SC-rqd" kind="relationship" relationship="rootViewController" id="zX4-iQ-yfE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="57i-5f-RGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2034" y="2235"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arrowtriangle.left.fill" catalog="system" width="128" height="113"/>
@@ -1078,6 +1255,7 @@
         <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
         <image name="cursorarrow.rays" catalog="system" width="128" height="116"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="forward.end.fill" catalog="system" width="128" height="102"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
         <image name="gear" catalog="system" width="128" height="119"/>
@@ -1090,17 +1268,11 @@
         <image name="speaker.wave.1.fill" catalog="system" width="128" height="108"/>
         <image name="speaker.wave.3.fill" catalog="system" width="128" height="86"/>
         <image name="tv.fill" catalog="system" width="128" height="97"/>
-        <namedColor name="blue">
-            <color red="0.0" green="0.4823529411764706" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="gray200">
             <color red="0.9137254901960784" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="gray500">
             <color red="0.67843137254901964" green="0.70980392156862748" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="gray600">
-            <color red="0.42352941176470588" green="0.45882352941176469" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="gray700">
             <color red="0.28627450980392155" green="0.31372549019607843" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

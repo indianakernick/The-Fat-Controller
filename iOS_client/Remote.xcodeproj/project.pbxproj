@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
-		452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26425CA44AF003B1E1D /* TabBarController.swift */; };
+		452CE26525CA44AF003B1E1D /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26425CA44AF003B1E1D /* NavigationController.swift */; };
 		452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26825CA61A7003B1E1D /* StorageKeys.swift */; };
 		4546521725D217250094FDFE /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546521625D217250094FDFE /* Command.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
-		452CE26425CA44AF003B1E1D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		452CE26425CA44AF003B1E1D /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		452CE26825CA61A7003B1E1D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
 		4546521625D217250094FDFE /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		458490E825C677E20063404D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				452CE26425CA44AF003B1E1D /* TabBarController.swift */,
+				452CE26425CA44AF003B1E1D /* NavigationController.swift */,
 				4597534D25C797B700BEED00 /* BasicViewController.swift */,
 				458490E925C677F90063404D /* NumberPadViewController.swift */,
 				4597534B25C794AD00BEED00 /* SlideViewController.swift */,
@@ -262,7 +262,7 @@
 				452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
-				452CE26525CA44AF003B1E1D /* TabBarController.swift in Sources */,
+				452CE26525CA44AF003B1E1D /* NavigationController.swift in Sources */,
 				45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */,
 				457F8B1225CCFD6600CC6148 /* VideoViewController.swift in Sources */,
 				4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */,
