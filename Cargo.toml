@@ -20,5 +20,8 @@ ascii-fallback = []
 unicode-segmentation = "1.7"
 core-graphics = "0.22"
 
+[dependencies]
+tokio = { optional = true, version = "1", features = ["time"] }
+
 [profile.release]
 lto = true

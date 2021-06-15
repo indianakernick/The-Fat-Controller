@@ -58,6 +58,6 @@ the server so that user's don't need to be programmers to use it.
 ## Maybe...
 
 - Add another platform. I want this to be the best and most fully featured
-  library of its kind of crates.io. I could consider targeting another operating
+  library of its kind on crates.io. I could consider targeting another operating
   system.
 - Expand `ScreenContext` to handle multiple monitors.
