@@ -1,28 +1,39 @@
 mod socket;
 
-use warp::Filter;
-use tokio::sync::mpsc;
+use tokio::{sync::mpsc, net::TcpListener};
 
 #[tokio::main(flavor="current_thread")]
 async fn main() {
-    let mut tfc_ctx = tfc::Context::new().unwrap();
+    let mut tfc_ctx = match tfc::Context::new() {
+        Ok(c) => c,
+        Err(e) => {
+            eprintln!("{}", e);
+            return;
+        }
+    };
     let (ch_tx, mut ch_rx) = mpsc::unbounded_channel::<tfc::Command>();
     let sock_ctx = socket::SocketContext::new(ch_tx);
 
-    pretty_env_logger::init();
+    tokio::spawn(async move {
+        let listener = match TcpListener::bind("0.0.0.0:80").await {
+            Ok(l) => l,
+            Err(e) => {
+                eprintln!("{}", e);
+                return;
+            }
+        };
 
-    let routes = warp::path::end()
-        .and(warp::ws())
-        .and(warp::any().map(move || sock_ctx.clone()))
-        .and_then(socket::socket_upgrade);
-
-    tokio::spawn(async {
-        warp::serve(routes.with(warp::log("tfc")))
-            .run(([0, 0, 0, 0], 80))
-            .await;
+        while let Ok((stream, addr)) = listener.accept().await {
+            let ctx = sock_ctx.clone();
+            tokio::spawn(async move {
+                ctx.connect(stream, addr).await
+            });
+        }
     });
 
     while let Some(command) = ch_rx.recv().await {
-        command.execute_async(&mut tfc_ctx).await.unwrap();
+        if let Err(e) = command.execute_async(&mut tfc_ctx).await {
+            eprintln!("{}", e);
+        }
     }
 }

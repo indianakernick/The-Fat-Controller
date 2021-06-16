@@ -1,91 +1,87 @@
-use std::sync::Arc;
-use log::{debug, error};
-use tokio::sync::{RwLock, mpsc};
-use futures::{FutureExt, StreamExt};
-use warp::ws::{Ws, WebSocket, Message};
-use tokio_stream::wrappers::UnboundedReceiverStream;
-
-type Sender = mpsc::UnboundedSender<Result<Message, warp::Error>>;
-
-pub async fn socket_upgrade(ws: Ws, ctx: SocketContext) -> Result<Box<dyn warp::Reply>, warp::Rejection> {
-    ctx.upgrade(ws).await
-}
+use futures::StreamExt;
+use tokio::{sync::mpsc, net::TcpStream};
+use tokio_tungstenite::tungstenite::Message;
+use std::{
+    net::SocketAddr,
+    sync::{Arc, atomic::{AtomicBool, Ordering}}
+};
 
 #[derive(Clone)]
 pub struct SocketContext {
-    ch_tx: Arc<RwLock<Option<Sender>>>,
     event: mpsc::UnboundedSender<tfc::Command>,
+    connected: Arc<AtomicBool>,
 }
 
 impl SocketContext {
     pub fn new(event: mpsc::UnboundedSender<tfc::Command>) -> Self {
         Self {
-            ch_tx: Default::default(),
             event,
+            connected: Arc::new(AtomicBool::new(false))
         }
     }
 
-    async fn upgrade(self, ws: Ws) -> Result<Box<dyn warp::Reply>, warp::Rejection> {
-        // TODO: Fix this
-        // Sometimes we end up in a state where we are disconnected but
-        // self.ch_tx is Some.
+    pub async fn connect(&self, stream: TcpStream, addr: SocketAddr) {
+        // TODO: Not sure if this is still an issue
+        // I think we need to manually send pings or something
         // https://github.com/seanmonstar/warp/issues/798
-        if self.ch_tx.read().await.is_some() {
-             return Ok(Box::new(warp::http::StatusCode::FORBIDDEN));
+
+        if self.connected.fetch_or(true, Ordering::Acquire) {
+            println!("Refused connection from: {}", addr);
+            return;
         }
 
-        Ok(Box::new(ws.on_upgrade(move |socket: WebSocket| {
-            self.connect(socket)
-        })))
-    }
-
-    async fn connect(self, ws: WebSocket) {
-        let (ws_tx, mut ws_rx) = ws.split::<Message>();
-        let (ch_tx, ch_rx) = mpsc::unbounded_channel::<Result<Message, warp::Error>>();
-        let ch_rx = UnboundedReceiverStream::new(ch_rx);
-
-        *self.ch_tx.write().await = Some(ch_tx);
-
-        tokio::task::spawn(ch_rx.forward(ws_tx).map(move |result: Result<(), warp::Error>| {
-            if let Err(e) = result {
-                error!("Error sending over socket: {}", e);
+        let ws_stream = match tokio_tungstenite::accept_async(stream).await {
+            Ok(s) => s,
+            Err(e) => {
+                self.connected.store(false, Ordering::Release);
+                eprintln!("{}", e);
+                return;
             }
-        }));
+        };
+        let (_, mut ws_rx) = ws_stream.split();
+
+        println!("Connected to: {}", addr);
 
         while let Some(result) = ws_rx.next().await {
             match result {
                 Ok(message) => self.receive(message),
                 Err(e) => {
-                    error!("Error receiving from socket: {}", e);
+                    eprintln!("{}", e);
                     break;
                 }
             }
         }
 
-        *self.ch_tx.write().await = None;
+        println!("Disconnected from: {}", addr);
+
+        self.connected.store(false, Ordering::Release);
     }
 
     fn receive(&self, message: Message) {
-        if message.is_binary() {
-            let mut bytes = message.as_bytes();
-            if bytes.is_empty() {
-                return;
-            }
-            loop {
-                let (command, len) = match tfc::Command::from_bytes(bytes) {
-                    Ok(pair) => pair,
-                    Err(e) => {
-                        error!("{}", e);
-                        break;
-                    },
-                };
-                debug!("{:?}", command);
-                if self.event.send(command).is_err() {}
-                if len < bytes.len() {
-                    bytes = &bytes[len..];
-                } else {
+        if !message.is_binary() {
+            return;
+        }
+
+        let bytes = message.into_data();
+        let mut bytes = bytes.as_slice();
+        if bytes.is_empty() {
+            return;
+        }
+
+        loop {
+            let (command, len) = match tfc::Command::from_bytes(bytes) {
+                Ok(pair) => pair,
+                Err(e) => {
+                    eprintln!("{}", e);
                     break;
                 }
+            };
+
+            if self.event.send(command).is_err() {}
+            if len < bytes.len() {
+                bytes = &bytes[len..];
+            } else {
+                break;
             }
         }
     }
