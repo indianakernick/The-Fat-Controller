@@ -24,6 +24,10 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
         (children[0] as! ControllersViewController).setNav(self)
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        topViewController?.supportedInterfaceOrientations ?? .allButUpsideDown
+    }
+    
     // Not sure if this is necessary or how it would be done with a navigation
     // controller.
     

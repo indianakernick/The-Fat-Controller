@@ -6,6 +6,8 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
+import UIKit
+
 class NumberPadViewController: BasicViewController {
     @IBOutlet weak var cutBtn: LabelButtonInput!
     @IBOutlet weak var copyBtn: LabelButtonInput!
@@ -44,6 +46,7 @@ class NumberPadViewController: BasicViewController {
     
     private var pressShift = {}
     private var releaseShift = {}
+    private var landscapeButtons = [LabelButtonInput]()
     
     private func shiftPressed() {
         eightBtn.text = "↑"
@@ -74,6 +77,16 @@ class NumberPadViewController: BasicViewController {
         
         pressShift = makeListener(with: Command.keyDown(Key.shift))
         releaseShift = makeListener(with: Command.keyUp(Key.shift))
+        landscapeButtons = [
+            cutBtn, copyBtn, pasteBtn,
+            lparenBtn, upBtn, rparenBtn,
+            leftBtn, dollarBtn, rightBtn,
+            lessBtn, downBtn, greaterBtn,
+            shiftBtn, caretBtn, percentBtn
+        ]
+        
+        let size = view.frame.size
+        setLandscapeButtons(hidden: size.width < size.height)
         
         setPressListener(for: cutBtn, with: Command.keyClick(Key.x, with: Key.controlOrMeta))
         setPressListener(for: copyBtn, with: Command.keyClick(Key.c, with: Key.controlOrMeta))
@@ -115,5 +128,25 @@ class NumberPadViewController: BasicViewController {
         
         shiftBtn.pressed = shiftPressed
         shiftBtn.released = shiftReleased
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        if size.width < size.height {
+            // Need to hide the landscape buttons after the transition has
+            // completed
+            coordinator.animate(alongsideTransition: nil) { _ in
+                self.setLandscapeButtons(hidden: true)
+            }
+        } else {
+            self.setLandscapeButtons(hidden: false)
+        }
+    }
+    
+    private func setLandscapeButtons(hidden: Bool) {
+        for btn in landscapeButtons {
+            btn.isHidden = hidden
+        }
     }
 }

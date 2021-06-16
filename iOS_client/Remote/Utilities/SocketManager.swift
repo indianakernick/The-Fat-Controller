@@ -28,8 +28,8 @@ class SocketManager: WebSocketDelegate {
     weak var delegate: SocketManagerDelegate?
     
     func connectTo(host: String) {
-        updateOnlineStatus(online: false)
         stopTicking()
+        updateOnlineStatus(online: false)
         if host == "dummy" {
             dummyMode = true
             updateOnlineStatus(online: true)
@@ -56,8 +56,8 @@ class SocketManager: WebSocketDelegate {
     }
 
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        updateOnlineStatus(online: false)
         stopTicking()
+        updateOnlineStatus(online: false)
         DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
             self.reconnect()
         }
@@ -100,7 +100,7 @@ class SocketManager: WebSocketDelegate {
     }
     
     @objc private func sendTick() {
-        if dummyMode { return }
+        if dummyMode || tickTimer == nil { return }
         socket.write(data: SocketManager.emptyData)
         tickCount += 1
         if tickCount > SocketManager.maxTickCount {

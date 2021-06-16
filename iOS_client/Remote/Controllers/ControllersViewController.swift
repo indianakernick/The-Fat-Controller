@@ -18,4 +18,8 @@ class ControllersViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         nav.addNavChild(segue.destination)
     }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 }

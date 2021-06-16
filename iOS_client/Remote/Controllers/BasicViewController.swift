@@ -14,7 +14,8 @@ class BasicViewController: UIViewController, NavigationChild {
     
     @IBOutlet weak var offlineCover: UIView!
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         if online {
             for view in view.subviews {
                 view.isHidden = false
