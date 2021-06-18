@@ -74,7 +74,7 @@ class BasicVC: UIViewController, NavigationChild {
         self.online = online
     }
     
-    func takeSocket(_ socket: SocketManager) {
+    func setSocket(_ socket: SocketManager) {
         self.socket = socket
     }
 }

@@ -24,12 +24,15 @@ class SocketManager: WebSocketDelegate {
     private var tickCount = 0
     private var onlineStatus = false
     private var dummyMode = false
+    private var host = ""
 
     weak var delegate: SocketManagerDelegate?
     
     func connectTo(host: String) {
+        self.host = host
         stopTicking()
         updateOnlineStatus(online: false)
+        
         if host == "dummy" {
             dummyMode = true
             updateOnlineStatus(online: true)
@@ -82,6 +85,10 @@ class SocketManager: WebSocketDelegate {
     
     func getOnlineStatus() -> Bool {
         onlineStatus
+    }
+    
+    func getOnlineHost() -> String? {
+        onlineStatus ? host : nil
     }
 
     private func startTicking() {

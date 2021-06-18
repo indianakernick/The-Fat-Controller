@@ -10,7 +10,9 @@ import UIKit
 
 class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var hostNameField: UITextField!
-    //@IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var statusCell: UITableViewCell!
+    @IBOutlet var statusIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var statusLabel: UILabel!
     
     private var socket: SocketManager!
     private var online = false
@@ -29,16 +31,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
         hostNameField.leftViewMode = .always
         hostNameField.delegate = self
         
-        /*statusLabel.layer.masksToBounds = true
-        statusLabel.layer.cornerRadius = 8
-        
-        if online {
-            statusLabel.text = "Connected"
-            statusLabel.layer.backgroundColor = Colors.green
-        } else {
-            statusLabel.text = "Disconnected"
-            statusLabel.layer.backgroundColor = Colors.red
-        }*/
+        onlineStatusChanged(online: online)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,28 +49,26 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     }
 
     func onlineStatusChanged(online: Bool) {
-        /*self.online = online
-        if statusLabel == nil {
+        self.online = online
+        if statusCell == nil {
             return
         }
         if online {
-            statusLabel.text = "Connected"
-            UIView.animate(withDuration: Config.fadeAnimationDuration, animations: {
-                self.statusLabel.layer.backgroundColor = Colors.green
-            })
+            statusLabel.text = "Yes"
+            statusIndicator.stopAnimating()
+            statusCell.accessoryView = nil
         } else {
-            statusLabel.text = "Disconnected"
-            UIView.animate(withDuration: Config.fadeAnimationDuration, animations: {
-                self.statusLabel.layer.backgroundColor = Colors.red
-            })
-        }*/
+            statusLabel.text = ""
+            statusIndicator.startAnimating()
+            statusCell.accessoryView = statusIndicator
+        }
     }
     
     func onlineStatusInitial(online: Bool) {
         self.online = online
     }
     
-    func takeSocket(_ socket: SocketManager) {
+    func setSocket(_ socket: SocketManager) {
         self.socket = socket
     }
 }

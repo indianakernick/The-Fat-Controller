@@ -10,7 +10,7 @@ import UIKit
 
 protocol NavigationChild: SocketManagerDelegate {
     func onlineStatusInitial(online: Bool)
-    func takeSocket(_ socket: SocketManager)
+    func setSocket(_ socket: SocketManager)
 }
 
 class NavigationController: UINavigationController, SocketManagerDelegate {
@@ -49,7 +49,7 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
         if let child = vc as? NavigationChild {
             if !navChildren.contains(where: { navChild in navChild === child }) {
                 navChildren.append(child)
-                child.takeSocket(socket)
+                child.setSocket(socket)
                 child.onlineStatusInitial(online: socket.getOnlineStatus())
             }
         }

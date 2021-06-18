@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ControllersVC: UITableViewController {
-    private var nav: NavigationController!
+class ControllersVC: UITableViewController, NavigationChild {
+    @IBOutlet weak var settingsStatus: UILabel!
     
-    func setNav(_ nav: NavigationController) {
-        self.nav = nav
+    private var nav: NavigationController!
+    private var socket: SocketManager!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        nav.addNavChild(self)
+        update()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -21,5 +26,27 @@ class ControllersVC: UITableViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    func setNav(_ nav: NavigationController) {
+        self.nav = nav
+    }
+    
+    private func update() {
+        if settingsStatus != nil {
+            settingsStatus.text = socket.getOnlineHost() ?? "Not Connected"
+        }
+    }
+    
+    func onlineStatusChanged(online: Bool) {
+        update()
+    }
+    
+    func onlineStatusInitial(online: Bool) {
+        update()
+    }
+    
+    func setSocket(_ socket: SocketManager) {
+        self.socket = socket
     }
 }
