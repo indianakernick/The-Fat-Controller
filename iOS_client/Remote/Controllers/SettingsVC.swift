@@ -37,13 +37,13 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     
     override func viewWillAppear(_ animated: Bool) {
         onlineStatusChanged(online: online)
-        hostNameField.text = StorageKeys.getHostName()
-        lowLatencySwitch.isOn = StorageKeys.getLowLatencyMode()
+        hostNameField.text = Storage.getHostName()
+        lowLatencySwitch.isOn = Storage.getLowLatencyMode()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = hostNameField.text {
-            StorageKeys.setHostName(text)
+            Storage.setHostName(text)
             socket.connectTo(host: text)
         }
         view.endEditing(true)
@@ -51,7 +51,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     }
     
     @IBAction func lowLatencyToggled() {
-        StorageKeys.setLowLatencyMode(lowLatencySwitch.isOn)
+        Storage.setLowLatencyMode(lowLatencySwitch.isOn)
         socket.setLowLatencyMode(enabled: lowLatencySwitch.isOn)
     }
 

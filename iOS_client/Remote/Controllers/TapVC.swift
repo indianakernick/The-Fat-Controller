@@ -42,8 +42,8 @@ class TapVC: BasicVC {
     }
     
     func updateData() {
-        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList)
-        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList)
+        let downRows = Storage.getTapDownCommandList()
+        let upRows = Storage.getTapUpCommandList()
         if downRows != nil && upRows != nil {
             downData = dataFromPlist(plist: downRows!)
             upData = dataFromPlist(plist: upRows!)

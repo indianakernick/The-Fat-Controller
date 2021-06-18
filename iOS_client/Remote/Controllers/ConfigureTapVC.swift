@@ -160,8 +160,8 @@ class ConfigureTapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let downRows = UserDefaults.standard.array(forKey: StorageKeys.tapDownCommandList)
-        let upRows = UserDefaults.standard.array(forKey: StorageKeys.tapUpCommandList)
+        let downRows = Storage.getTapDownCommandList()
+        let upRows = Storage.getTapUpCommandList()
         if downRows != nil && upRows != nil {
             downCommandsDelegate.rows = rowsFromPlist(plist: downRows!)
             upCommandsDelegate.rows = rowsFromPlist(plist: upRows!)
@@ -172,10 +172,8 @@ class ConfigureTapVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let downRows = rowsToPlist(rows: downCommandsDelegate.rows)
-        let upRows = rowsToPlist(rows: upCommandsDelegate.rows)
-        UserDefaults.standard.set(downRows, forKey: StorageKeys.tapDownCommandList)
-        UserDefaults.standard.set(upRows, forKey: StorageKeys.tapUpCommandList)
+        Storage.setTapDownCommandList(rowsToPlist(rows: downCommandsDelegate.rows))
+        Storage.setTapUpCommandList(rowsToPlist(rows: upCommandsDelegate.rows))
         TapVC.instance?.updateData()
     }
     

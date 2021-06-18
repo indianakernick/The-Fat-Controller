@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		4522697625C2B49900F08645 /* Haptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4522697525C2B49900F08645 /* Haptic.swift */; };
 		452CE26525CA44AF003B1E1D /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26425CA44AF003B1E1D /* NavigationController.swift */; };
-		452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26825CA61A7003B1E1D /* StorageKeys.swift */; };
+		452CE26925CA61A7003B1E1D /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452CE26825CA61A7003B1E1D /* Storage.swift */; };
 		4546521725D217250094FDFE /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4546521625D217250094FDFE /* Command.swift */; };
 		4572C3E425C2C42F00E5AE57 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E025C2C42F00E5AE57 /* CommandCode.swift */; };
 		4572C3E625C2C42F00E5AE57 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4572C3E225C2C42F00E5AE57 /* Key.swift */; };
@@ -41,7 +41,7 @@
 /* Begin PBXFileReference section */
 		4522697525C2B49900F08645 /* Haptic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptic.swift; sourceTree = "<group>"; };
 		452CE26425CA44AF003B1E1D /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		452CE26825CA61A7003B1E1D /* StorageKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageKeys.swift; sourceTree = "<group>"; };
+		452CE26825CA61A7003B1E1D /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		4546521625D217250094FDFE /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		4572C3E025C2C42F00E5AE57 /* CommandCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
 		4572C3E225C2C42F00E5AE57 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
@@ -92,7 +92,6 @@
 				4572C3E325C2C42F00E5AE57 /* MouseButton.swift */,
 				45A5DB7A25C3A5B700796DA3 /* Colors.swift */,
 				4546521625D217250094FDFE /* Command.swift */,
-				452CE26825CA61A7003B1E1D /* StorageKeys.swift */,
 				C983AB182678872300437B0C /* Config.swift */,
 			);
 			path = Constants;
@@ -113,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				4522697525C2B49900F08645 /* Haptic.swift */,
+				452CE26825CA61A7003B1E1D /* Storage.swift */,
 				45A83F4C25E9DA0300EBC3A8 /* SocketManager.swift */,
 			);
 			path = Utilities;
@@ -265,7 +265,7 @@
 				45E31FAE25C8D69D00A4E59D /* TapVC.swift in Sources */,
 				458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */,
 				458490EA25C677FA0063404D /* NumberPadVC.swift in Sources */,
-				452CE26925CA61A7003B1E1D /* StorageKeys.swift in Sources */,
+				452CE26925CA61A7003B1E1D /* Storage.swift in Sources */,
 				C983AB192678872300437B0C /* Config.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
