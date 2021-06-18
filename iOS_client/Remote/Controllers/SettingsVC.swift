@@ -13,6 +13,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var statusCell: UITableViewCell!
     @IBOutlet var statusIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet var lowLatencySwitch: UISwitch!
     
     private var socket: SocketManager!
     private var online = false
@@ -36,16 +37,22 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     
     override func viewWillAppear(_ animated: Bool) {
         onlineStatusChanged(online: online)
-        hostNameField.text = UserDefaults.standard.string(forKey: StorageKeys.hostName)
+        hostNameField.text = StorageKeys.getHostName()
+        lowLatencySwitch.isOn = StorageKeys.getLowLatencyMode()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = hostNameField.text {
-            UserDefaults.standard.set(text, forKey: StorageKeys.hostName)
+            StorageKeys.setHostName(text)
             socket.connectTo(host: text)
         }
         view.endEditing(true)
         return true
+    }
+    
+    @IBAction func lowLatencyToggled() {
+        StorageKeys.setLowLatencyMode(lowLatencySwitch.isOn)
+        socket.setLowLatencyMode(enabled: lowLatencySwitch.isOn)
     }
 
     func onlineStatusChanged(online: Bool) {

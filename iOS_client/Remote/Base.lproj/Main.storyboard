@@ -863,7 +863,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-mac.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="NRW-yO-cSh">
-                                                    <rect key="frame" x="0.0" y="2.5" width="373" height="40"/>
+                                                    <rect key="frame" x="0.0" y="3.5" width="373" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
@@ -933,6 +933,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="a9p-dW-br2"/>
                     <connections>
                         <outlet property="hostNameField" destination="NRW-yO-cSh" id="fxL-FY-5LR"/>
+                        <outlet property="lowLatencySwitch" destination="iQZ-SM-uKe" id="oYv-Ua-rBD"/>
                         <outlet property="statusCell" destination="xfd-Gj-5Jt" id="KIi-dH-8II"/>
                         <outlet property="statusIndicator" destination="Tkt-9v-Owe" id="tzW-oQ-oTz"/>
                         <outlet property="statusLabel" destination="MNj-gc-zhA" id="GdY-8e-pmK"/>
@@ -946,6 +947,9 @@
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="iQZ-SM-uKe">
                     <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="lowLatencyToggled" destination="j49-KV-Sac" eventType="valueChanged" id="Ly0-MK-pC0"/>
+                    </connections>
                 </switch>
             </objects>
             <point key="canvasLocation" x="220" y="3260"/>

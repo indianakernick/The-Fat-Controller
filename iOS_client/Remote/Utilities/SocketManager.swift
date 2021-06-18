@@ -25,6 +25,7 @@ class SocketManager: WebSocketDelegate {
     private var onlineStatus = false
     private var dummyMode = false
     private var host = ""
+    private var lowLatencyMode = true
 
     weak var delegate: SocketManagerDelegate?
     
@@ -90,15 +91,26 @@ class SocketManager: WebSocketDelegate {
     func getOnlineHost() -> String? {
         onlineStatus ? host : nil
     }
+    
+    func setLowLatencyMode(enabled: Bool) {
+        lowLatencyMode = enabled
+        if lowLatencyMode {
+            startTicking()
+        } else {
+            stopTicking()
+        }
+    }
 
     private func startTicking() {
-        tickTimer = Timer.scheduledTimer(
-            timeInterval: SocketManager.tickDelay,
-            target: self,
-            selector: #selector(self.sendTick),
-            userInfo: nil,
-            repeats: true
-        )
+        if lowLatencyMode {
+            tickTimer = Timer.scheduledTimer(
+                timeInterval: SocketManager.tickDelay,
+                target: self,
+                selector: #selector(self.sendTick),
+                userInfo: nil,
+                repeats: true
+            )
+        }
     }
     
     private func stopTicking() {

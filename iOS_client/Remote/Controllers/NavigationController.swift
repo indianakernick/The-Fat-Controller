@@ -20,7 +20,8 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         socket.delegate = self
-        socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "")
+        socket.setLowLatencyMode(enabled: StorageKeys.getLowLatencyMode())
+        socket.connectTo(host: StorageKeys.getHostName())
         (children[0] as! ControllersVC).setNav(self)
     }
     

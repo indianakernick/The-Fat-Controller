@@ -92,6 +92,7 @@
 				4572C3E325C2C42F00E5AE57 /* MouseButton.swift */,
 				45A5DB7A25C3A5B700796DA3 /* Colors.swift */,
 				4546521625D217250094FDFE /* Command.swift */,
+				452CE26825CA61A7003B1E1D /* StorageKeys.swift */,
 				C983AB182678872300437B0C /* Config.swift */,
 			);
 			path = Constants;
@@ -112,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				4522697525C2B49900F08645 /* Haptic.swift */,
-				452CE26825CA61A7003B1E1D /* StorageKeys.swift */,
 				45A83F4C25E9DA0300EBC3A8 /* SocketManager.swift */,
 			);
 			path = Utilities;
