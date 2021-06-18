@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationChild {
+class SettingsViewController: UITableViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var hostNameField: UITextField!
-    @IBOutlet weak var statusLabel: UILabel!
+    //@IBOutlet weak var statusLabel: UILabel!
     
     private var socket: SocketManager!
     private var online = false
@@ -18,17 +18,19 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        statusLabel.layer.masksToBounds = true
-        statusLabel.layer.cornerRadius = 8
+        let tableView = view as! UITableView
         
-        hostNameField.delegate = self
-        hostNameField.layer.masksToBounds = true
-        hostNameField.layer.cornerRadius = 8
-        
-        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: hostNameField.frame.size.height))
+        let leftView = UIView(frame: CGRect(
+            x: 0, y: 0,
+            width: tableView.separatorInset.left, height: hostNameField.frame.size.height
+        ))
         leftView.backgroundColor = hostNameField.backgroundColor
         hostNameField.leftView = leftView
         hostNameField.leftViewMode = .always
+        hostNameField.delegate = self
+        
+        /*statusLabel.layer.masksToBounds = true
+        statusLabel.layer.cornerRadius = 8
         
         if online {
             statusLabel.text = "Connected"
@@ -36,7 +38,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationC
         } else {
             statusLabel.text = "Disconnected"
             statusLabel.layer.backgroundColor = Colors.red
-        }
+        }*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +56,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationC
     }
 
     func onlineStatusChanged(online: Bool) {
-        self.online = online
+        /*self.online = online
         if statusLabel == nil {
             return
         }
@@ -68,7 +70,7 @@ class SettingsViewController: UIViewController, UITextFieldDelegate, NavigationC
             UIView.animate(withDuration: Config.fadeAnimationDuration, animations: {
                 self.statusLabel.layer.backgroundColor = Colors.red
             })
-        }
+        }*/
     }
     
     func onlineStatusInitial(online: Bool) {
