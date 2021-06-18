@@ -1,5 +1,5 @@
 //
-//  TapViewController.swift
+//  TapVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 2/2/21.
@@ -17,17 +17,17 @@ fileprivate func dataFromPlist(plist: [Any]) -> Data {
     return Data(bytes)
 }
 
-class TapViewController: BasicViewController {
+class TapVC: BasicVC {
     @IBOutlet weak var tap: TapInput!
     
     private var downData = Command.mouseDown(MouseButton.left)
     private var upData = Command.mouseUp(MouseButton.left)
     
-    static weak var instance: TapViewController?
+    static weak var instance: TapVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TapViewController.instance = self
+        TapVC.instance = self
         tap.pressed = { [weak self] in
             self!.send(self!.downData)
         }

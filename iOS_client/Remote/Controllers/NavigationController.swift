@@ -21,7 +21,7 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
         super.viewDidLoad()
         socket.delegate = self
         socket.connectTo(host: UserDefaults.standard.string(forKey: StorageKeys.hostName) ?? "")
-        (children[0] as! ControllersViewController).setNav(self)
+        (children[0] as! ControllersVC).setNav(self)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

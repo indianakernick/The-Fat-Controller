@@ -1,5 +1,5 @@
 //
-//  SettingsViewController.swift
+//  SettingsVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 4/2/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsViewController: UITableViewController, UITextFieldDelegate, NavigationChild {
+class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var hostNameField: UITextField!
     //@IBOutlet weak var statusLabel: UILabel!
     

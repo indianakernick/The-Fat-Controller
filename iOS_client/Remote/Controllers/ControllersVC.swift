@@ -1,5 +1,5 @@
 //
-//  ControllersViewController.swift
+//  ControllersVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 15/6/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ControllersViewController: UITableViewController {
+class ControllersVC: UITableViewController {
     private var nav: NavigationController!
     
     func setNav(_ nav: NavigationController) {

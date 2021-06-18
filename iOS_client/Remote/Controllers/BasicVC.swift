@@ -1,5 +1,5 @@
 //
-//  BasicViewController.swift
+//  BasicVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 1/2/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BasicViewController: UIViewController, NavigationChild {
+class BasicVC: UIViewController, NavigationChild {
     private var socket: SocketManager!
     private var online = false
     

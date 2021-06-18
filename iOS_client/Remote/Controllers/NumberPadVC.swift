@@ -1,5 +1,5 @@
 //
-//  NumberPadViewController.swift
+//  NumberPadVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 31/1/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NumberPadViewController: BasicViewController {
+class NumberPadVC: BasicVC {
     @IBOutlet weak var cutBtn: LabelButtonInput!
     @IBOutlet weak var copyBtn: LabelButtonInput!
     @IBOutlet weak var pasteBtn: LabelButtonInput!

@@ -1,5 +1,5 @@
 //
-//  TrackpadViewController.swift
+//  TrackpadVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 1/2/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TrackpadViewController: BasicViewController, TrackpadInputDelegate {
+class TrackpadVC: BasicVC, TrackpadInputDelegate {
     @IBOutlet weak var trackpad: TrackpadInput!
     
     private var clickData = Command.mouseClick(MouseButton.left)

@@ -1,5 +1,5 @@
 //
-//  ConfigureTapViewController.swift
+//  ConfigureTapVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 2/2/21.
@@ -125,7 +125,7 @@ fileprivate func rowsToPlist(rows: [CommandRow]) -> [Any] {
     return plist
 }
 
-class ConfigureTapViewController: UIViewController {
+class ConfigureTapVC: UIViewController {
     @IBOutlet weak var downCommands: UITableView!
     @IBOutlet weak var upCommands: UITableView!
     @IBOutlet weak var commandPicker: UIPickerView!
@@ -176,7 +176,7 @@ class ConfigureTapViewController: UIViewController {
         let upRows = rowsToPlist(rows: upCommandsDelegate.rows)
         UserDefaults.standard.set(downRows, forKey: StorageKeys.tapDownCommandList)
         UserDefaults.standard.set(upRows, forKey: StorageKeys.tapUpCommandList)
-        TapViewController.instance?.updateData()
+        TapVC.instance?.updateData()
     }
     
     private func appendTo(tableView: UITableView) {

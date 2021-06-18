@@ -1,5 +1,5 @@
 //
-//  VideoViewController.swift
+//  VideoVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 5/2/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class VideoViewController: BasicViewController {
+class VideoVC: BasicVC {
     private let muteData = Command.keyClick(Key.mute)
     private let volumeDownData = Command.keyClick(Key.volumeDown)
     private let volumeUpData = Command.keyClick(Key.volumeUp)

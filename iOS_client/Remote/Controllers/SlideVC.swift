@@ -1,5 +1,5 @@
 //
-//  SlideViewController.swift
+//  SlideVC.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 1/2/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SlideViewController: BasicViewController {
+class SlideVC: BasicVC {
     private let lastData = Command.keyClick(Key.end)
     private let nextData = Command.keyClick(Key.rightArrow)
     private let previousData = Command.keyClick(Key.leftArrow)
