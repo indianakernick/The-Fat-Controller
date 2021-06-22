@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/keyboard.iml" filepath="$PROJECT_DIR$/.idea/keyboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tfc.iml" filepath="$PROJECT_DIR$/.idea/tfc.iml" />
     </modules>
   </component>
 </project>
