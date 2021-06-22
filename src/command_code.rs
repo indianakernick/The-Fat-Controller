@@ -1,4 +1,4 @@
-enumeration!(CommandCode, [
+enumeration!(CommandCode, "The discriminant of [`Command`](crate::Command) (useful for serialization).", [
     (Delay, "Delay"),
     (KeyDown, "Key Down"),
     (KeyUp, "Key Up"),

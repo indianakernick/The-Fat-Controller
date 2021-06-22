@@ -1,4 +1,4 @@
-use crate::{Key, GenericError, Enumeration};
+use crate::{Key, GenericError, Enum};
 use super::{FallibleContext, KeyboardContext};
 
 /// A context that supports layout-dependent ASCII keyboard events.

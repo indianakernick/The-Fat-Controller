@@ -1,6 +1,6 @@
 use lazy_static::lazy_static;
+use tfc::{Command, CommandCode, Key, MouseButton, Enum};
 use std::{fmt::{self, Display, Formatter}, iter::Iterator};
-use tfc::{Command, CommandCode, Key, MouseButton, Enumeration};
 
 #[derive(Debug)]
 pub enum ParseError<'a> {
@@ -31,7 +31,7 @@ impl<'a> Display for ParseError<'a> {
 
 impl<'a> std::error::Error for ParseError<'a> {}
 
-fn get_lowercase_strings<E: Enumeration>() -> Vec<String> {
+fn get_lowercase_strings<E: Enum>() -> Vec<String> {
     let mut strings = Vec::new();
     strings.extend(E::iter().map(|v| v.identifier_name().to_ascii_lowercase()));
     strings

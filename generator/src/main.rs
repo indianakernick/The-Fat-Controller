@@ -1,11 +1,11 @@
 use std::{fs::File, io::Write};
 
-fn swift_identifier_name<E: tfc::Enumeration>(var: E) -> String {
+fn swift_identifier_name<E: tfc::Enum>(var: E) -> String {
     let mut chars = var.identifier_name().chars();
     String::from(chars.next().unwrap().to_ascii_lowercase()) + chars.as_str()
 }
 
-fn generate_swift_enum<E: tfc::Enumeration>() -> std::io::Result<()> {
+fn generate_swift_enum<E: tfc::Enum>() -> std::io::Result<()> {
     let mut file = File::create(format!("../iOS_client/Remote/Constants/{}.swift", E::NAME))?;
 
     file.write_all(b"// This file was generated automatically\n\nenum ")?;

@@ -1,4 +1,4 @@
-enumeration!(Key, [
+enumeration!(Key, "A keyboard key used by the [`KeyboardContext`](crate::KeyboardContext) trait.", [
     // Modifier keys
     (CapsLock, "Caps Lock"),
     (Shift, "Shift"),

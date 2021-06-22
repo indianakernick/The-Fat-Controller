@@ -1,12 +1,20 @@
 use std::{iter::Iterator, marker::PhantomData, fmt::{Display, Debug}};
 
-/// An iterator for the variants of an [`Enumeration`].
-pub struct EnumerationIterator<E: Enumeration> {
+/// An iterator for the variants of an [`Enum`].
+///
+/// ```
+/// use tfc::{CommandCode, Enum};
+///
+/// for var in CommandCode::iter() {
+///    println!("{}", var.display_name());
+/// }
+/// ```
+pub struct EnumIterator<E: Enum> {
     index: u8,
     phantom: PhantomData<E>,
 }
 
-impl<E: Enumeration> Iterator for EnumerationIterator<E> {
+impl<E: Enum> Iterator for EnumIterator<E> {
     type Item = E;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -23,25 +31,50 @@ impl<E: Enumeration> Iterator for EnumerationIterator<E> {
     }
 }
 
-pub trait Enumeration: Copy + Clone + Eq + PartialEq + Display + Debug {
-    /// The name of the enumeration
+/// An enum with limited reflection capabilities.
+///
+/// The name of the enum itself and its variants is available. An iterator over
+/// the variants is also provided. The three enums that implement this trait
+/// are:
+///  - [`CommandCode`](crate::CommandCode)
+///  - [`Key`](crate::Key)
+///  - [`MouseButton`](crate::MouseButton)
+///
+/// ```
+/// use tfc::{Key, Enum};
+///
+/// assert_eq!(Key::NAME, "Key");
+/// assert_eq!(Key::PlayPause.identifier_name(), "PlayPause");
+/// assert_eq!(Key::PlayPause.display_name(), "Play/Pause");
+/// ```
+pub trait Enum: Copy + Clone + Eq + PartialEq + Display + Debug {
+    /// The name of the enum.
     const NAME: &'static str;
 
-    /// The number of variants in the enumeration
+    /// The number of variants in the enum.
     const COUNT: u8;
 
-    /// Get the display name of this enumeration
+    /// The display name of this enum variant.
+    ///
+    /// This is the name that is appropriate for showing to end users. It may
+    /// contain spaces or other symbols and is in Title Case. It is used by the
+    /// [`Display`] implementation.
     fn display_name(&self) -> &'static str;
 
-    /// Get the identifier name of this enumeration
+    /// The identifier name of this enum variant.
+    ///
+    /// This is the raw identifier name of the enum variant in PascalCase. It is
+    /// used by the [`Debug`] implementation.
     fn identifier_name(&self) -> &'static str;
 
-    /// Create an instance of the enumeration from a `u8`
+    /// Create an instance of the enum from a `u8`.
+    ///
+    /// `None` is returned if the given byte is out of range (i.e. `>= COUNT`).
     fn from_u8(byte: u8) -> Option<Self>;
 
-    /// Get an iterator over each variant of the enumeration
-    fn iter() -> EnumerationIterator<Self> {
-        EnumerationIterator::<Self> {
+    /// Get an iterator over the variants of the enum.
+    fn iter() -> EnumIterator<Self> {
+        EnumIterator::<Self> {
             index: 0, phantom: PhantomData
         }
     }
@@ -53,9 +86,16 @@ macro_rules! count {
 }
 
 macro_rules! enumeration {
-    ($name:ident, [$(($identifier_name:ident, $display_name:literal)),+$(,)?]) => {
-        use crate::Enumeration;
+    (
+        $name:ident,
+        $description:literal,
+        [$(($identifier_name:ident, $display_name:literal)),+$(,)?]
+    ) => {
+        use crate::Enum;
 
+        #[doc = $description]
+        ///
+        /// This implements the [`Enum`] trait.
         #[repr(u8)]
         #[derive(Copy, Clone, Eq, PartialEq)]
         pub enum $name {
@@ -72,7 +112,7 @@ macro_rules! enumeration {
             ];
         }
 
-        impl Enumeration for $name {
+        impl Enum for $name {
             const NAME: &'static str = stringify!($name);
             const COUNT: u8 = count!($($identifier_name)*);
 

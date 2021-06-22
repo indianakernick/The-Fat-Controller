@@ -1,6 +1,6 @@
 use std::{thread, time::Duration};
 use std::fmt::{self, Display, Formatter};
-use crate::{CommandCode, Key, MouseButton, GenericError, Enumeration, traits::*};
+use crate::{CommandCode, Key, MouseButton, GenericError, Enum, traits::*};
 
 /// A future invocation of a method on a [`Context`](crate::Context).
 ///

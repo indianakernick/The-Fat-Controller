@@ -1,6 +1,6 @@
 mod command;
 #[macro_use]
-mod enumeration;
+mod r#enum;
 mod command_code;
 mod generic_error;
 mod key;
@@ -8,7 +8,7 @@ mod mouse_button;
 mod utils;
 
 pub use command::*;
-pub use enumeration::*;
+pub use r#enum::*;
 pub use command_code::*;
 pub use generic_error::*;
 pub use key::*;
