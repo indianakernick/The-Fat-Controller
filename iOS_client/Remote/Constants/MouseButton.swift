@@ -1,10 +1,9 @@
 // This file was generated automatically
 
 enum MouseButton: UInt8, CaseIterable {
-    case
-    left,
-    right,
-    middle
+    case left
+    case right
+    case middle
 }
 
 extension MouseButton: CustomStringConvertible {

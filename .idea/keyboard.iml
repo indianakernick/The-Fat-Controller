@@ -7,10 +7,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/interpreter/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/macros/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/macros/target/debug/build/proc-macro2-c3c1b6ec4a309b2b/out" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/macros/target/debug/build/syn-8e49ac4da6dd14d5/out" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/server/target" />
       <excludeFolder url="file://$MODULE_DIR$/generator/target" />
       <excludeFolder url="file://$MODULE_DIR$/interpreter/target" />
+      <excludeFolder url="file://$MODULE_DIR$/macros/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

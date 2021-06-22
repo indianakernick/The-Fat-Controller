@@ -1,116 +1,115 @@
 // This file was generated automatically
 
 enum Key: UInt8, CaseIterable {
-    case
-    capsLock,
-    shift,
-    control,
-    alt,
-    meta,
-    controlOrMeta,
-    rightShift,
-    rightControl,
-    rightAlt,
-    rightMeta,
-    rightControlOrMeta,
-    fn,
-    returnOrEnter,
-    escape,
-    deleteOrBackspace,
-    forwardDelete,
-    tab,
-    space,
-    minus,
-    equal,
-    leftBracket,
-    rightBracket,
-    backslash,
-    semicolon,
-    quote,
-    grave,
-    comma,
-    period,
-    slash,
-    upArrow,
-    rightArrow,
-    downArrow,
-    leftArrow,
-    pageUp,
-    pageDown,
-    home,
-    end,
-    a,
-    b,
-    c,
-    d,
-    e,
-    f,
-    g,
-    h,
-    i,
-    j,
-    k,
-    l,
-    m,
-    n,
-    o,
-    p,
-    q,
-    r,
-    s,
-    t,
-    u,
-    v,
-    w,
-    x,
-    y,
-    z,
-    n0,
-    n1,
-    n2,
-    n3,
-    n4,
-    n5,
-    n6,
-    n7,
-    n8,
-    n9,
-    numpad0,
-    numpad1,
-    numpad2,
-    numpad3,
-    numpad4,
-    numpad5,
-    numpad6,
-    numpad7,
-    numpad8,
-    numpad9,
-    numpadClear,
-    numpadEquals,
-    numpadDivide,
-    numpadMultiply,
-    numpadMinus,
-    numpadPlus,
-    numpadEnter,
-    numpadDecimal,
-    f1,
-    f2,
-    f3,
-    f4,
-    f5,
-    f6,
-    f7,
-    f8,
-    f9,
-    f10,
-    f11,
-    f12,
-    fastForward,
-    rewind,
-    playPause,
-    volumeUp,
-    volumeDown,
-    mute
+    case capsLock
+    case shift
+    case control
+    case alt
+    case meta
+    case controlOrMeta
+    case rightShift
+    case rightControl
+    case rightAlt
+    case rightMeta
+    case rightControlOrMeta
+    case fn
+    case returnOrEnter
+    case escape
+    case deleteOrBackspace
+    case forwardDelete
+    case tab
+    case space
+    case minus
+    case equal
+    case leftBracket
+    case rightBracket
+    case backslash
+    case semicolon
+    case quote
+    case grave
+    case comma
+    case period
+    case slash
+    case upArrow
+    case rightArrow
+    case downArrow
+    case leftArrow
+    case pageUp
+    case pageDown
+    case home
+    case end
+    case a
+    case b
+    case c
+    case d
+    case e
+    case f
+    case g
+    case h
+    case i
+    case j
+    case k
+    case l
+    case m
+    case n
+    case o
+    case p
+    case q
+    case r
+    case s
+    case t
+    case u
+    case v
+    case w
+    case x
+    case y
+    case z
+    case n0
+    case n1
+    case n2
+    case n3
+    case n4
+    case n5
+    case n6
+    case n7
+    case n8
+    case n9
+    case numpad0
+    case numpad1
+    case numpad2
+    case numpad3
+    case numpad4
+    case numpad5
+    case numpad6
+    case numpad7
+    case numpad8
+    case numpad9
+    case numpadClear
+    case numpadEquals
+    case numpadDivide
+    case numpadMultiply
+    case numpadMinus
+    case numpadPlus
+    case numpadEnter
+    case numpadDecimal
+    case f1
+    case f2
+    case f3
+    case f4
+    case f5
+    case f6
+    case f7
+    case f8
+    case f9
+    case f10
+    case f11
+    case f12
+    case fastForward
+    case rewind
+    case playPause
+    case volumeUp
+    case volumeDown
+    case mute
 }
 
 extension Key: CustomStringConvertible {

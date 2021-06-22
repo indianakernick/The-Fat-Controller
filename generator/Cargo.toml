@@ -5,4 +5,4 @@ authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-heck = "0.3"
+tfc = { version = "0.5", path = "../" }

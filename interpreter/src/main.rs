@@ -25,7 +25,7 @@ fn main() {
         Err(e) => {
             println!("Error parsing commands: {}", e);
             return;
-        },
+        }
     };
 
     if let Err(e) = execute(commands) {

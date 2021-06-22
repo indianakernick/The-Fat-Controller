@@ -1,5 +1,6 @@
-use tfc::{Command, CommandCode, Key, MouseButton};
+use lazy_static::lazy_static;
 use std::{fmt::{self, Display, Formatter}, iter::Iterator};
+use tfc::{Command, CommandCode, Key, MouseButton, Enumeration};
 
 #[derive(Debug)]
 pub enum ParseError<'a> {
@@ -30,35 +31,75 @@ impl<'a> Display for ParseError<'a> {
 
 impl<'a> std::error::Error for ParseError<'a> {}
 
-trait Parsable<'a>: std::str::FromStr {
-    const MISSING: ParseError<'a> = MissingInteger;
-    fn invalid(s: &'a str) -> ParseError<'a> {
-        InvalidInteger(s)
+fn get_lowercase_strings<E: Enumeration>() -> Vec<String> {
+    let mut strings = Vec::new();
+    strings.extend(E::iter().map(|v| v.identifier_name().to_ascii_lowercase()));
+    strings
+}
+
+lazy_static! {
+    static ref COMMAND_STRINGS: Vec<String> = get_lowercase_strings::<CommandCode>();
+    static ref KEY_STRINGS: Vec<String> = get_lowercase_strings::<Key>();
+    static ref MOUSE_BUTTON_STRINGS: Vec<String> = get_lowercase_strings::<MouseButton>();
+}
+
+trait Parsable<'a>: Sized {
+    const MISSING: ParseError<'a>;
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>>;
+}
+
+impl<'a> Parsable<'a> for CommandCode {
+    // this MISSING constant is unused
+    const MISSING: ParseError<'a> = MissingKey;
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>> {
+        match COMMAND_STRINGS.iter().position(|st| s == st) {
+            Some(idx) => Ok(Self::from_u8(idx as u8).unwrap()),
+            None => Err(InvalidCommand(s))
+        }
     }
 }
 
 impl<'a> Parsable<'a> for Key {
     const MISSING: ParseError<'a> = MissingKey;
-    fn invalid(s: &'a str) -> ParseError<'a> {
-        InvalidKey(s)
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>> {
+        match KEY_STRINGS.iter().position(|st| s == st) {
+            Some(idx) => Ok(Self::from_u8(idx as u8).unwrap()),
+            None => Err(InvalidKey(s))
+        }
     }
 }
 
 impl<'a> Parsable<'a> for MouseButton {
     const MISSING: ParseError<'a> = MissingMouseButton;
-    fn invalid(s: &'a str) -> ParseError<'a> {
-        InvalidMouseButton(s)
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>> {
+        match KEY_STRINGS.iter().position(|st| s == st) {
+            Some(idx) => Ok(Self::from_u8(idx as u8).unwrap()),
+            None => Err(InvalidMouseButton(s))
+        }
     }
 }
 
-impl<'a> Parsable<'a> for i32 {}
-impl<'a> Parsable<'a> for u32 {}
+impl<'a> Parsable<'a> for i32 {
+    const MISSING: ParseError<'a> = MissingInteger;
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>> {
+        s.parse::<Self>().map_err(|_| InvalidInteger(s))
+    }
+}
+
+impl<'a> Parsable<'a> for u32 {
+    const MISSING: ParseError<'a> = MissingInteger;
+    fn parse(s: &'a str) -> Result<Self, ParseError<'a>> {
+        s.parse::<Self>().map_err(|_| InvalidInteger(s))
+    }
+}
 
 fn parse<'a, T, I>(tokens: &mut I) -> Result<T, ParseError<'a>>
     where T: Parsable<'a>, I: Iterator<Item = &'a str>
 {
-    let token = tokens.next().ok_or(T::MISSING)?;
-    token.parse::<T>().map_err(|_| T::invalid(token))
+    match tokens.next() {
+        Some(t) => T::parse(t),
+        None => T::parse("")
+    }
 }
 
 pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>>
@@ -74,19 +115,19 @@ pub fn parse_tokens<'a, I>(mut tokens: I) -> Result<Vec<Command>, ParseError<'a>
             None => break,
         };
 
-        commands.push(match command_token.parse::<CommandCode>() {
-            Ok(Delay) => Command::Delay(parse(&mut tokens)?),
-            Ok(KeyDown) => Command::KeyDown(parse(&mut tokens)?),
-            Ok(KeyUp) => Command::KeyUp(parse(&mut tokens)?),
-            Ok(KeyClick) => Command::KeyClick(parse(&mut tokens)?),
-            Ok(MouseMoveRel) => Command::MouseMoveRel(parse(&mut tokens)?, parse(&mut tokens)?),
-            Ok(MouseMoveAbs) => Command::MouseMoveAbs(parse(&mut tokens)?, parse(&mut tokens)?),
-            Ok(MouseScroll) => Command::MouseScroll(parse(&mut tokens)?, parse(&mut tokens)?),
-            Ok(MouseDown) => Command::MouseDown(parse(&mut tokens)?),
-            Ok(MouseUp) => Command::MouseUp(parse(&mut tokens)?),
-            Ok(MouseClick) => Command::MouseClick(parse(&mut tokens)?),
+        commands.push(match CommandCode::parse(command_token)? {
+            Delay => Command::Delay(parse(&mut tokens)?),
+            KeyDown => Command::KeyDown(parse(&mut tokens)?),
+            KeyUp => Command::KeyUp(parse(&mut tokens)?),
+            KeyClick => Command::KeyClick(parse(&mut tokens)?),
+            MouseMoveRel => Command::MouseMoveRel(parse(&mut tokens)?, parse(&mut tokens)?),
+            MouseMoveAbs => Command::MouseMoveAbs(parse(&mut tokens)?, parse(&mut tokens)?),
+            MouseScroll => Command::MouseScroll(parse(&mut tokens)?, parse(&mut tokens)?),
+            MouseDown => Command::MouseDown(parse(&mut tokens)?),
+            MouseUp => Command::MouseUp(parse(&mut tokens)?),
+            MouseClick => Command::MouseClick(parse(&mut tokens)?),
             // TODO: Extend this to handle the ASCII and Unicode commands
-            Ok(_) | Err(_) => return Err(InvalidCommand(command_token)),
+            _ => return Err(InvalidCommand(command_token)),
         });
     }
 

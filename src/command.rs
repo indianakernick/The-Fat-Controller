@@ -1,6 +1,6 @@
 use std::{thread, time::Duration};
 use std::fmt::{self, Display, Formatter};
-use crate::{CommandCode, Key, MouseButton, GenericError, traits::*};
+use crate::{CommandCode, Key, MouseButton, GenericError, Enumeration, traits::*};
 
 /// A future invocation of a method on a [`Context`](crate::Context).
 ///
@@ -105,27 +105,15 @@ fn parse_string(buf: &[u8]) -> Result<String, CommandBytesError> {
 }
 
 fn parse_command_code(byte: u8) -> Result<CommandCode, CommandBytesError> {
-    if byte < CommandCode::COUNT {
-        unsafe { Ok(std::mem::transmute(byte)) }
-    } else {
-        Err(InvalidCommandCode(byte))
-    }
+    CommandCode::from_u8(byte).ok_or(InvalidCommandCode(byte))
 }
 
 fn parse_key(byte: u8) -> Result<Key, CommandBytesError> {
-    if byte < Key::COUNT {
-        unsafe { Ok(std::mem::transmute(byte)) }
-    } else {
-        Err(InvalidKey(byte))
-    }
+    Key::from_u8(byte).ok_or(InvalidKey(byte))
 }
 
 fn parse_mouse_button(byte: u8) -> Result<MouseButton, CommandBytesError> {
-    if byte < MouseButton::COUNT {
-        unsafe { Ok(std::mem::transmute(byte)) }
-    } else {
-        Err(InvalidMouseButton(byte))
-    }
+    MouseButton::from_u8(byte).ok_or(InvalidMouseButton(byte))
 }
 
 fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), CommandBytesError> {
