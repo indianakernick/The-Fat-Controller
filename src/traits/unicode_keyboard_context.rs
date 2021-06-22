@@ -12,13 +12,13 @@ use super::FallibleContext;
 /// [`AsciiKeyboardContext`](crate::AsciiKeyboardContext).
 ///
 /// On macOS and Windows,
-/// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is not equivalent to
-/// successive calls to
+/// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is not equivalent
+/// to successive calls to
 /// [`unicode_char`](UnicodeKeyboardContext::unicode_char).
 /// [`unicode_char`](UnicodeKeyboardContext::unicode_char) is meant to press a
 /// key corresponding to a character which means that modifiers can be applied.
 /// [`unicode_string`](UnicodeKeyboardContext::unicode_string) is meant to type
-/// an arbitrary Unicode string (possibily bypassing the keyboard) meaning that
+/// an arbitrary Unicode string (possibly bypassing the keyboard) meaning that
 /// modifiers cannot be applied. In short, the two functions serve different
 /// purposes.
 ///
@@ -93,7 +93,8 @@ pub trait UnicodeKeyboardContext: FallibleContext {
     /// modifiers to type a unicode character.
     ///
     /// This is equivalent to calling
-    /// [`unicode_char_down`](UnicodeKeyboardContext::unicode_char_down) followed by
+    /// [`unicode_char_down`](UnicodeKeyboardContext::unicode_char_down)
+    /// followed by
     /// [`unicode_char_up`](UnicodeKeyboardContext::unicode_char_up).
     ///
     /// Returns [`UnsupportedUnicode`](GenericError::UnsupportedUnicode) if the

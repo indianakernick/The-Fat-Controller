@@ -5,9 +5,9 @@ use std::fmt::{self, Debug, Display, Formatter};
 pub enum GenericError<P: std::error::Error> {
     /// Platform-specific error.
     ///
-    /// This is likely to be an integer error code. The [`Display`](Display)
+    /// This is likely to be an integer error code. The [`Display`]
     /// implementation will provide a description of the error while the
-    /// [`Debug`](Debug) implementation only provides a number.
+    /// [`Debug`] implementation will only provide a number.
     Platform(P),
     /// Unsupported ASCII character.
     ///
@@ -32,11 +32,12 @@ pub enum GenericError<P: std::error::Error> {
 
 impl<P: std::error::Error> Display for GenericError<P> {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        use GenericError::*;
         match self {
-            GenericError::Platform(p) => write!(f, "Platform-specific error: {}", p),
-            GenericError::UnsupportedAscii(ch) => write!(f, "Unsupported ASCII character ({:#04X})", ch),
-            GenericError::UnsupportedUnicode(ch) => write!(f, "Unsupported Unicode character ('{}')", ch),
-            GenericError::Unknown => write!(f, "Unknown error"),
+            Platform(p) => write!(f, "Platform-specific error: {}", p),
+            UnsupportedAscii(ch) => write!(f, "Unsupported ASCII character ({:#04X})", ch),
+            UnsupportedUnicode(ch) => write!(f, "Unsupported Unicode character ('{}')", ch),
+            Unknown => write!(f, "Unknown error"),
         }
     }
 }

@@ -3,10 +3,10 @@ use super::{FallibleContext, KeyboardContext};
 
 /// A context that supports layout-dependent ASCII keyboard events.
 ///
-/// Internally, this will map ASCII characters to [`Key`](Key)s and use
-/// [`KeyboardContext`](KeyboardContext) which means that a **standard US
-/// keyboard layout** is assumed. Using this with other keyboard layouts is
-/// unlikely to produce the desired results.
+/// Internally, this will map ASCII characters to [`Key`]s and use
+/// [`KeyboardContext`] which means that a **standard US keyboard layout** is
+/// assumed. Using this with other keyboard layouts is unlikely to produce the
+/// desired results.
 ///
 /// This is meant to be a fallback for platforms that don't have
 /// [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext) (i.e.

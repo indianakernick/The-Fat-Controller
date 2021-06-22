@@ -47,14 +47,14 @@ pub enum Command {
     UnicodeString(String),
 }
 
-/// Error enum returned by [`Command::from_bytes`](Command::from_bytes).
+/// Error enum returned by [`Command::from_bytes`].
 #[derive(Debug)]
 pub enum CommandBytesError {
-    /// Encountered a byte that isn't a valid [`CommandCode`](CommandCode).
+    /// Encountered a byte that isn't a valid [`CommandCode`].
     InvalidCommandCode(u8),
-    /// Encountered a byte that isn't a valid [`Key`](Key).
+    /// Encountered a byte that isn't a valid [`Key`].
     InvalidKey(u8),
-    /// Encountered a byte that isn't a valid [`MouseButton`](MouseButton).
+    /// Encountered a byte that isn't a valid [`MouseButton`].
     InvalidMouseButton(u8),
     /// Encountered a byte sequence that isn't a valid Unicode scalar
     InvalidUnicodeScalar(u32),
@@ -125,14 +125,13 @@ fn check_buffer_length(buf: &[u8], len: usize) -> Result<(), CommandBytesError> 
 }
 
 impl Command {
-    /// Construct a [`Command`](Command) from a sequence of bytes.
+    /// Construct a [`Command`] from a sequence of bytes.
     ///
-    /// The first byte in the buffer must be a [`CommandCode`](CommandCode).
-    /// This identifies the command and its arguments. Following the command
-    /// identifier is a sequence of bytes that encode the arguments of the
-    /// command. [`Key`](Key) and [`MouseButton`](MouseButton) are single bytes.
-    /// For integer arguments (used for moving the mouse and scrolling), signed
-    /// 16-bit big-endian integers are used.
+    /// The first byte in the buffer must be a [`CommandCode`]. This identifies
+    /// the command and its arguments. Following the command identifier is a
+    /// sequence of bytes that encode the arguments of the command. [`Key`] and
+    /// [`MouseButton`] are single bytes. For integer arguments (used for moving
+    /// the mouse and scrolling), signed 16-bit big-endian integers are used.
     ///
     /// Since a negative delay is impossible, the millisecond parameter for the
     /// `Delay` command is unsigned.
@@ -149,7 +148,7 @@ impl Command {
     /// The function returns the command and the number of bytes that were read
     /// from the buffer.
     ///
-    /// # Examples
+    /// # Example
     ///
     /// ```
     /// use tfc::{Command, CommandCode, Key};

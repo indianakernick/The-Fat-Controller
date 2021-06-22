@@ -14,7 +14,7 @@ pub use generic_error::*;
 pub use key::*;
 pub use mouse_button::*;
 
-/// A collection of traits that [`Context`](Context) implements.
+/// A collection of traits that [`Context`] implements.
 pub mod traits;
 pub use traits::*;
 
@@ -41,5 +41,5 @@ mod windows;
 #[cfg(target_os = "windows")]
 pub use windows::Context;
 
-/// Convenience type alias for [`GenericError`](GenericError).
+/// Convenience type alias for [`GenericError`].
 pub type Error = GenericError<<Context as FallibleContext>::PlatformError>;
