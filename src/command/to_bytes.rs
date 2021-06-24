@@ -54,7 +54,7 @@ impl Command {
     ///     Command::UnicodeString("🤪".to_owned()),
     /// ];
     ///
-    /// let total_size = commands.iter().fold(0, |s, c| s + c.to_bytes_size());
+    /// let total_size = commands.iter().fold(0, |s, c| s + c.bytes_len());
     /// let mut byte_vec = vec![0; total_size];
     /// let mut byte_slice = byte_vec.as_mut_slice();
     ///
@@ -238,7 +238,7 @@ impl Command {
     /// [`to_bytes`](`Self::to_bytes`).
     ///
     /// This simply calls [`to_bytes`](`Self::to_bytes`) with an empty slice.
-    pub fn to_bytes_size(&self) -> usize {
+    pub fn bytes_len(&self) -> usize {
         self.to_bytes(&mut []).unwrap_err()
     }
 }
