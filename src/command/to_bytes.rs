@@ -1,45 +1,128 @@
 use super::Command;
-use crate::CommandCode;
+use crate::{CommandCode, Enum};
 
-fn write_int(buf: &mut [u8], val: i32) {
-    let val = val as i16;
-    buf[0] = (val >> 8) as u8;
-    buf[1] = val as u8;
+trait ToBytes {
+    fn byte_size(&self) -> usize;
+    fn write_bytes(self, buf: &mut [u8]);
 }
 
-fn write_uint(buf: &mut [u8], val: u32) {
-    let val = val as u16;
-    buf[0] = (val >> 8) as u8;
-    buf[1] = val as u8;
+impl<T: Enum> ToBytes for T {
+    fn byte_size(&self) -> usize {
+        1
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        buf[0] = self.into_u8()
+    }
 }
 
-fn write_char(buf: &mut [u8], val: char) {
-    let val = val as u32;
-    buf[0] = (val >> 24) as u8;
-    buf[1] = (val >> 16) as u8;
-    buf[2] = (val >> 8) as u8;
-    buf[3] = val as u8;
+impl ToBytes for u8 {
+    fn byte_size(&self) -> usize {
+        1
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        buf[0] = self;
+    }
 }
 
-fn write_string(buf: &mut [u8], val: &[u8]) {
-    write_uint(buf, val.len() as u32);
-    buf[2..2 + val.len()].copy_from_slice(val);
+impl ToBytes for i32 {
+    fn byte_size(&self) -> usize {
+        2
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        assert!(i16::MIN as i32 <= self && self <= i16::MAX as i32);
+        let val = self as i16;
+        buf[0] = (val >> 8) as u8;
+        buf[1] = val as u8;
+    }
 }
 
-fn check_buffer_length(buf: &mut [u8], len: usize) -> Result<(), usize> {
-    if buf.len() >= len {
-        Ok(())
-    } else {
-        Err(len)
+impl ToBytes for u32 {
+    fn byte_size(&self) -> usize {
+        2
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        assert!(self <= u16::MAX as u32);
+        let val = self as u16;
+        buf[0] = (val >> 8) as u8;
+        buf[1] = val as u8;
+    }
+}
+
+impl ToBytes for char {
+    fn byte_size(&self) -> usize {
+        4
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        let val = self as u32;
+        buf[0] = (val >> 24) as u8;
+        buf[1] = (val >> 16) as u8;
+        buf[2] = (val >> 8) as u8;
+        buf[3] = val as u8;
+    }
+}
+
+impl ToBytes for &[u8] {
+    fn byte_size(&self) -> usize {
+        (self.len() as u32).byte_size() + self.len()
+    }
+
+    fn write_bytes(self, buf: &mut [u8]) {
+        let self_len = self.len() as u32;
+        let size = self_len.byte_size();
+        self_len.write_bytes(buf);
+        buf[size..size + self.len()].copy_from_slice(self);
+    }
+}
+
+// I'm not sure why the base case has to be one expression instead of zero
+// expressions. I think it might have something to do with commas.
+
+macro_rules! byte_size_sum {
+    ($first:expr) => {
+        $first.byte_size()
+    };
+    ($first:expr, $($rest:expr),+) => {
+        $first.byte_size() + byte_size_sum!($($rest),*)
+    }
+}
+
+macro_rules! write_bytes {
+    ($buf:ident, $offset:expr, $first:expr) => {
+        $first.write_bytes(&mut $buf[$offset..]);
+    };
+    ($buf:ident, $offset:expr, $first:expr, $($rest:expr),+) => {
+        let new_offset = $offset + $first.byte_size();
+        $first.write_bytes(&mut $buf[$offset..]);
+        write_bytes!($buf, new_offset, $($rest),*);
+    }
+}
+
+macro_rules! write_command {
+    ($buf:ident, $command_code:tt, $($values:expr),+) => {
+        {
+            let len = 1 + byte_size_sum!($($values),+);
+            if $buf.len() < len {
+                return Err(len);
+            }
+            $buf[0] = CommandCode::$command_code as u8;
+            write_bytes!($buf, 1, $($values),+);
+            Ok(len)
+        }
     }
 }
 
 impl Command {
     /// Fill a byte array with the command.
     ///
-    /// On success, this will return `Ok` with the number of bytes written. If
-    /// the given slice is too small, this will return `Err` with the number of
-    /// bytes necessary.
+    /// See [`from_bytes`](Self::from_bytes) for a description of the byte
+    /// format. On success, this will return `Ok` with the number of bytes
+    /// written. If the given slice is too small, this will return `Err` with
+    /// the number of bytes necessary.
     ///
     /// # Examples
     ///
@@ -89,148 +172,27 @@ impl Command {
         // bit faster.
 
         match self {
-            Command::Delay(delay) => {
-                assert!(*delay <= u16::MAX as u32);
-                let len = 3;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::Delay as u8;
-                write_uint(&mut buf[1..], *delay);
-                Ok(len)
-            }
+            Command::Delay(delay) => write_command!(buf, Delay, *delay),
+            Command::KeyDown(key) => write_command!(buf, KeyDown, *key),
+            Command::KeyUp(key) => write_command!(buf, KeyUp, *key),
+            Command::KeyClick(key) => write_command!(buf, KeyClick, *key),
 
-            Command::KeyDown(key) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::KeyDown as u8;
-                buf[1] = *key as u8;
-                Ok(len)
-            }
-            Command::KeyUp(key) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::KeyUp as u8;
-                buf[1] = *key as u8;
-                Ok(len)
-            }
-            Command::KeyClick(key) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::KeyClick as u8;
-                buf[1] = *key as u8;
-                Ok(len)
-            }
+            Command::MouseMoveRel(x, y) => write_command!(buf, MouseMoveRel, *x, *y),
+            Command::MouseMoveAbs(x, y) => write_command!(buf, MouseMoveAbs, *x, *y),
+            Command::MouseScroll(x, y) => write_command!(buf, MouseScroll, *x, *y),
+            Command::MouseDown(button) => write_command!(buf, MouseDown, *button),
+            Command::MouseUp(button) => write_command!(buf, MouseUp, *button),
+            Command::MouseClick(button) => write_command!(buf, MouseClick, *button),
 
-            Command::MouseMoveRel(x, y) => {
-                assert!(i16::MIN as i32 <= *x && *x <= i32::MAX);
-                assert!(i16::MIN as i32 <= *y && *y <= i32::MAX);
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseMoveRel as u8;
-                write_int(&mut buf[1..], *x);
-                write_int(&mut buf[3..], *y);
-                Ok(len)
-            }
-            Command::MouseMoveAbs(x, y) => {
-                assert!(i16::MIN as i32 <= *x && *x <= i32::MAX);
-                assert!(i16::MIN as i32 <= *y && *y <= i32::MAX);
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseMoveAbs as u8;
-                write_int(&mut buf[1..], *x);
-                write_int(&mut buf[3..], *y);
-                Ok(len)
-            }
-            Command::MouseScroll(x, y) => {
-                assert!(i16::MIN as i32 <= *x && *x <= i32::MAX);
-                assert!(i16::MIN as i32 <= *y && *y <= i32::MAX);
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseScroll as u8;
-                write_int(&mut buf[1..], *x);
-                write_int(&mut buf[3..], *y);
-                Ok(len)
-            }
-            Command::MouseDown(button) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseDown as u8;
-                buf[1] = *button as u8;
-                Ok(len)
-            }
-            Command::MouseUp(button) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseDown as u8;
-                buf[1] = *button as u8;
-                Ok(len)
-            }
-            Command::MouseClick(button) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::MouseDown as u8;
-                buf[1] = *button as u8;
-                Ok(len)
-            }
+            Command::AsciiCharDown(ch) => write_command!(buf, AsciiCharDown, *ch),
+            Command::AsciiCharUp(ch) => write_command!(buf, AsciiCharUp, *ch),
+            Command::AsciiChar(ch) => write_command!(buf, AsciiChar, *ch),
+            Command::AsciiString(string) => write_command!(buf, AsciiString, string.as_slice()),
 
-            Command::AsciiCharDown(ch) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::AsciiCharDown as u8;
-                buf[1] = *ch;
-                Ok(len)
-            }
-            Command::AsciiCharUp(ch) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::AsciiCharUp as u8;
-                buf[1] = *ch;
-                Ok(len)
-            }
-            Command::AsciiChar(ch) => {
-                let len = 2;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::AsciiChar as u8;
-                buf[1] = *ch;
-                Ok(len)
-            }
-            Command::AsciiString(string) => {
-                assert!(string.len() <= u16::MAX as usize);
-                let len = 3 + string.len();
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::AsciiString as u8;
-                write_string(&mut buf[1..], string.as_slice());
-                Ok(len)
-            }
-
-            Command::UnicodeCharDown(ch) => {
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::UnicodeCharDown as u8;
-                write_char(&mut buf[1..], *ch);
-                Ok(len)
-            }
-            Command::UnicodeCharUp(ch) => {
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::UnicodeCharUp as u8;
-                write_char(&mut buf[1..], *ch);
-                Ok(len)
-            }
-            Command::UnicodeChar(ch) => {
-                let len = 5;
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::UnicodeChar as u8;
-                write_char(&mut buf[1..], *ch);
-                Ok(len)
-            }
-            Command::UnicodeString(string) => {
-                assert!(string.len() <= u16::MAX as usize);
-                let len = 3 + string.len();
-                check_buffer_length(buf, len)?;
-                buf[0] = CommandCode::UnicodeString as u8;
-                write_string(&mut buf[1..], string.as_bytes());
-                Ok(len)
-            }
+            Command::UnicodeCharDown(ch) => write_command!(buf, UnicodeCharDown, *ch),
+            Command::UnicodeCharUp(ch) => write_command!(buf, UnicodeCharUp, *ch),
+            Command::UnicodeChar(ch) => write_command!(buf, UnicodeChar, *ch),
+            Command::UnicodeString(string) => write_command!(buf, UnicodeString, string.as_bytes()),
         }
     }
 

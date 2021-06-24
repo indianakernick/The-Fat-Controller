@@ -76,6 +76,11 @@ pub trait Enum: Copy + Clone + Eq + PartialEq + Display + Debug {
     /// `None` is returned if the given byte is out of range (i.e. `>= COUNT`).
     fn from_u8(byte: u8) -> Option<Self>;
 
+    /// Convert this enum variant to a `u8`.
+    ///
+    /// This is useful when casting a generic `T: Enum` to a `u8`.
+    fn into_u8(self) -> u8;
+
     /// Get an iterator over the variants of the enum.
     fn iter() -> EnumIterator<Self> {
         EnumIterator::<Self> {
@@ -133,6 +138,10 @@ macro_rules! enumeration {
                     $(b if b == Self::$identifier_name as u8 => Some(Self::$identifier_name)),*,
                     _ => None,
                 }
+            }
+
+            fn into_u8(self) -> u8 {
+                self as u8
             }
         }
 
