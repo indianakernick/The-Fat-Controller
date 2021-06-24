@@ -103,7 +103,7 @@ impl Command {
     /// The function returns the command and the number of bytes that were read
     /// from the buffer.
     ///
-    /// # Example
+    /// # Examples
     ///
     /// ```
     /// use tfc::{Command, CommandCode, Key};

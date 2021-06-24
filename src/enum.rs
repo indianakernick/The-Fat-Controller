@@ -2,7 +2,7 @@ use std::{iter::Iterator, marker::PhantomData, fmt::{Display, Debug}};
 
 /// An iterator for the variants of an [`Enum`].
 ///
-/// # Example
+/// # Examples
 ///
 /// ```
 /// use tfc::{CommandCode, Enum};
@@ -42,7 +42,7 @@ impl<E: Enum> Iterator for EnumIterator<E> {
 ///  - [`Key`](crate::Key)
 ///  - [`MouseButton`](crate::MouseButton)
 ///
-/// # Example
+/// # Examples
 ///
 /// ```
 /// use tfc::{Key, Enum};

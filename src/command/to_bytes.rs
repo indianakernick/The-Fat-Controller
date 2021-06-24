@@ -41,7 +41,7 @@ impl Command {
     /// the given slice is too small, this will return `Err` with the number of
     /// bytes necessary.
     ///
-    /// # Example
+    /// # Examples
     ///
     /// ```
     /// use tfc::{Command, CommandCode, Key};
