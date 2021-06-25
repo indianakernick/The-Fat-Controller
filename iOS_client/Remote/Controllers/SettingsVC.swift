@@ -41,6 +41,10 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
         lowLatencySwitch.isOn = Storage.getLowLatencyMode()
     }
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = hostNameField.text {
             Storage.setHostName(text)
@@ -61,7 +65,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
             return
         }
         if online {
-            statusLabel.text = "Yes"
+            statusLabel.text = "Connected"
             statusIndicator.stopAnimating()
             statusCell.accessoryView = nil
         } else {
