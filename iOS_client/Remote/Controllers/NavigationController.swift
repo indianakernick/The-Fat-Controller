@@ -37,7 +37,7 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
     // is store an integer.
     
     /*
-     override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         selectedIndex = UserDefaults.standard.integer(forKey: StorageKeys.selectedTabIndex)
     }
     
@@ -59,6 +59,15 @@ class NavigationController: UINavigationController, SocketManagerDelegate {
     func onlineStatusChanged(online: Bool) {
         for child in navChildren {
             child.onlineStatusChanged(online: online)
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator);
+        if size.width < size.height {
+            setNavigationBarHidden(false, animated: true);
+        } else {
+            setNavigationBarHidden(true, animated: true);
         }
     }
 }
