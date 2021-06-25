@@ -11,11 +11,11 @@ pub enum CommandBytesError {
     InvalidKey(u8),
     /// Encountered a byte that isn't a valid [`MouseButton`].
     InvalidMouseButton(u8),
-    /// Encountered a byte sequence that isn't a valid Unicode scalar
+    /// Encountered a byte sequence that isn't a valid Unicode scalar.
     InvalidUnicodeScalar(u32),
-    /// Encountered a byte sequence that isn't a valid UTF-8 string
+    /// Encountered a byte sequence that isn't a valid UTF-8 string.
     InvalidUTF8,
-    /// Expected the buffer to be longer. Stores the expected length.
+    /// Expected the buffer to be at least this many bytes in length.
     BufferTooShort(usize),
 }
 
@@ -46,17 +46,11 @@ fn parse_uint(b_0: u8, b_1: u8) -> u32 {
 
 fn parse_char(b_0: u8, b_1: u8, b_2: u8, b_3: u8) -> Result<char, CommandBytesError> {
     let ch = ((b_0 as u32) << 24) | ((b_1 as u32) << 16) | ((b_2 as u32) << 8) | (b_3 as u32);
-    match std::char::from_u32(ch) {
-        Some(c) => Ok(c),
-        None => Err(InvalidUnicodeScalar(ch)),
-    }
+    std::char::from_u32(ch).ok_or(InvalidUnicodeScalar(ch))
 }
 
 fn parse_string(buf: &[u8]) -> Result<String, CommandBytesError> {
-    match String::from_utf8(buf.to_owned()) {
-        Ok(s) => Ok(s),
-        Err(_) => Err(InvalidUTF8),
-    }
+    String::from_utf8(buf.to_owned()).map_err(|_| InvalidUTF8)
 }
 
 fn parse_command_code(byte: u8) -> Result<CommandCode, CommandBytesError> {

@@ -79,9 +79,6 @@ impl ToBytes for &[u8] {
     }
 }
 
-// I'm not sure why the base case has to be one expression instead of zero
-// expressions. I think it might have something to do with commas.
-
 macro_rules! byte_size_sum {
     ($first:expr) => {
         $first.byte_size()
@@ -96,9 +93,8 @@ macro_rules! write_bytes {
         $first.write_bytes(&mut $buf[$offset..]);
     };
     ($buf:ident, $offset:expr, $first:expr, $($rest:expr),+) => {
-        let new_offset = $offset + $first.byte_size();
         $first.write_bytes(&mut $buf[$offset..]);
-        write_bytes!($buf, new_offset, $($rest),*);
+        write_bytes!($buf, $offset + $first.byte_size(), $($rest),*);
     }
 }
 
