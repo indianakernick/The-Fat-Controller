@@ -36,11 +36,11 @@ impl Display for CommandBytesError {
 
 impl std::error::Error for CommandBytesError {}
 
-fn parse_int(b_0: u8, b_1: u8) -> i32 {
+fn parse_i32(b_0: u8, b_1: u8) -> i32 {
     (((b_0 as i16) << 8) | (b_1 as i16)) as i32
 }
 
-fn parse_uint(b_0: u8, b_1: u8) -> u32 {
+fn parse_u32(b_0: u8, b_1: u8) -> u32 {
     (((b_0 as u16) << 8) | (b_1 as u16)) as u32
 }
 
@@ -130,7 +130,7 @@ impl Command {
         match parse_command_code(buf[0])? {
             CommandCode::Delay => {
                 check_buffer_length(buf, 3)?;
-                Ok((Command::Delay(parse_uint(buf[1], buf[2])), 3))
+                Ok((Command::Delay(parse_u32(buf[1], buf[2])), 3))
             }
 
             CommandCode::KeyDown => {
@@ -148,15 +148,15 @@ impl Command {
 
             CommandCode::MouseMoveRel => {
                 check_buffer_length(buf, 5)?;
-                Ok((Command::MouseMoveRel(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+                Ok((Command::MouseMoveRel(parse_i32(buf[1], buf[2]), parse_i32(buf[3], buf[4])), 5))
             }
             CommandCode::MouseMoveAbs => {
                 check_buffer_length(buf, 5)?;
-                Ok((Command::MouseMoveAbs(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+                Ok((Command::MouseMoveAbs(parse_i32(buf[1], buf[2]), parse_i32(buf[3], buf[4])), 5))
             }
             CommandCode::MouseScroll => {
                 check_buffer_length(buf, 5)?;
-                Ok((Command::MouseScroll(parse_int(buf[1], buf[2]), parse_int(buf[3], buf[4])), 5))
+                Ok((Command::MouseScroll(parse_i32(buf[1], buf[2]), parse_i32(buf[3], buf[4])), 5))
             }
             CommandCode::MouseDown => {
                 check_buffer_length(buf, 2)?;
@@ -185,7 +185,7 @@ impl Command {
             }
             CommandCode::AsciiString => {
                 check_buffer_length(buf, 3)?;
-                let len = 3 + parse_uint(buf[1], buf[2]) as usize;
+                let len = 3 + parse_u32(buf[1], buf[2]) as usize;
                 check_buffer_length(buf, len)?;
                 Ok((Command::AsciiString(buf[3..len].to_owned()), len))
             }
@@ -204,7 +204,7 @@ impl Command {
             }
             CommandCode::UnicodeString => {
                 check_buffer_length(buf, 3)?;
-                let len = 3 + parse_uint(buf[1], buf[2]) as usize;
+                let len = 3 + parse_u32(buf[1], buf[2]) as usize;
                 check_buffer_length(buf, len)?;
                 Ok((Command::UnicodeString(parse_string(&buf[3..len])?), len))
             }
