@@ -9,7 +9,7 @@
 import UIKit
 
 fileprivate enum ParameterType {
-    case uint, int
+    case uint, int, key, mouseButton
 }
 
 fileprivate struct Parameter {
@@ -18,11 +18,22 @@ fileprivate struct Parameter {
 }
 
 fileprivate let parameters: [[Parameter]] = [
-    [Parameter(name: "DELAY (MILLISECONDS)", type: .uint)]
+    [Parameter(name: "DELAY (MILLISECONDS)", type: .uint)],
+    [Parameter(name: nil, type: .key)],
+    [Parameter(name: nil, type: .key)],
+    [Parameter(name: nil, type: .key)],
+    [Parameter(name: "X (PIXELS)", type: .int), Parameter(name: "Y (PIXELS)", type: .int)],
+    [Parameter(name: "X (PIXELS)", type: .int), Parameter(name: "Y (PIXELS)", type: .int)],
+    [Parameter(name: "X (PIXELS)", type: .int), Parameter(name: "Y (PIXELS)", type: .int)],
+    [Parameter(name: nil, type: .mouseButton)],
+    [Parameter(name: nil, type: .mouseButton)],
+    [Parameter(name: nil, type: .mouseButton)],
 ]
 
 class EditCommandVC: UITableViewController, PickerDelegate {
     private var commandCode = CommandCode.mouseClick
+    private var key = Key.space
+    private var mouseButton = MouseButton.left
     
     func setCommandCode(_ code: CommandCode) {
         commandCode = code
@@ -37,8 +48,16 @@ class EditCommandVC: UITableViewController, PickerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if let dest = segue.destination as? PickerVC {
-            dest.setValue(commandCode)
             dest.setDelegate(self)
+            if let cell = sender as? UITableViewCell {
+                if cell.reuseIdentifier == "Command" {
+                    dest.initialize(value: commandCode, id: 0, name: "Command")
+                } else if cell.reuseIdentifier == "Key" {
+                    dest.initialize(value: key, id: 1, name: "Key")
+                } else if cell.reuseIdentifier == "MouseButton" {
+                    dest.initialize(value: mouseButton, id: 2, name: "Mouse Button")
+                }
+            }
         }
     }
     
@@ -65,10 +84,22 @@ class EditCommandVC: UITableViewController, PickerDelegate {
             cell.detailTextLabel!.text = commandCode.description
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NumberInputCell", for: indexPath) as! NumberInputCell
-            cell.numberInput.setIndent(tableView.separatorInset.left)
-            // getParameter(index: indexPath.section - 1).type
-            return cell
+            switch getParameter(index: indexPath.section - 1).type {
+            case .int:
+                fallthrough
+            case .uint:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NumberInput", for: indexPath) as! NumberInputCell
+                cell.numberInput.setIndent(tableView.separatorInset.left)
+                return cell
+            case .key:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Key", for: indexPath)
+                cell.detailTextLabel!.text = key.description
+                return cell
+            case .mouseButton:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MouseButton", for: indexPath)
+                cell.detailTextLabel!.text = mouseButton.description
+                return cell
+            }
         }
     }
     
@@ -78,7 +109,13 @@ class EditCommandVC: UITableViewController, PickerDelegate {
     
     // --- PickerDelegate --- //
     
-    func didUpdate(value: UInt8) {
-        commandCode = CommandCode(rawValue: value)!
+    func didUpdate(value: UInt8, id: Int) {
+        if id == 0 {
+            commandCode = CommandCode(rawValue: value)!
+        } else if id == 1 {
+            key = Key(rawValue: value)!
+        } else if id == 2 {
+            mouseButton = MouseButton(rawValue: value)!
+        }
     }
 }

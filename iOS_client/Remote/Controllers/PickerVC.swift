@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PickerDelegate: AnyObject {
-    func didUpdate(value: UInt8)
+    func didUpdate(value: UInt8, id: Int)
 }
 
 class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -17,12 +17,16 @@ class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     private var value: UInt8! = nil
     private var cases: [String]! = nil
+    private var id: Int! = nil
     private weak var delegate: PickerDelegate? = nil
     
     // --- PickerVC --- //
     
-    func setValue<E: Enum>(_ value: E) {
+    func initialize<E: Enum>(value: E, id: Int, name: String) {
         self.value = value.rawValue
+        self.id = id
+        title = name
+        
         if cases == nil {
             cases = []
         }
@@ -48,7 +52,7 @@ class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParent {
-            delegate?.didUpdate(value: value)
+            delegate?.didUpdate(value: value, id: id)
         }
     }
     
