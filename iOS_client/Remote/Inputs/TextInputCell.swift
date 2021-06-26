@@ -1,5 +1,5 @@
 //
-//  NumberInputCell.swift
+//  TextInputCell.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 26/6/21.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class NumberInputCell: UITableViewCell {
-    @IBOutlet weak var numberInput: NumberInput!
+class TextInputCell: UITableViewCell {
+    @IBOutlet weak var textInput: TextInput!
 }

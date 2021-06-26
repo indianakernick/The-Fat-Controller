@@ -9,13 +9,17 @@
 import UIKit
 
 fileprivate enum ParameterType {
-    case uint, int, key, mouseButton
+    case uint, int, key, mouseButton, char, string
 }
 
 fileprivate struct Parameter {
     let name: String?
     let type: ParameterType
 }
+
+// ASCII probably doesn't make much sense
+// Should just use the Unicode commands
+// That's going to be a real hassle
 
 fileprivate let parameters: [[Parameter]] = [
     [Parameter(name: "DELAY (MILLISECONDS)", type: .uint)],
@@ -28,6 +32,14 @@ fileprivate let parameters: [[Parameter]] = [
     [Parameter(name: nil, type: .mouseButton)],
     [Parameter(name: nil, type: .mouseButton)],
     [Parameter(name: nil, type: .mouseButton)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "STRING", type: .string)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "CHARACTER", type: .char)],
+    [Parameter(name: "STRING", type: .string)]
 ]
 
 class EditCommandVC: UITableViewController, PickerDelegate {
@@ -88,8 +100,10 @@ class EditCommandVC: UITableViewController, PickerDelegate {
             case .int:
                 fallthrough
             case .uint:
-                let cell = tableView.dequeueReusableCell(withIdentifier: "NumberInput", for: indexPath) as! NumberInputCell
-                cell.numberInput.setIndent(tableView.separatorInset.left)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextInput", for: indexPath) as! TextInputCell
+                cell.textInput.setIndent(tableView.separatorInset.left)
+                // might do something really sneaky and use the decimal point as a +/- button!
+                cell.textInput.keyboardType = .decimalPad
                 return cell
             case .key:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Key", for: indexPath)
@@ -98,6 +112,13 @@ class EditCommandVC: UITableViewController, PickerDelegate {
             case .mouseButton:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "MouseButton", for: indexPath)
                 cell.detailTextLabel!.text = mouseButton.description
+                return cell
+            case .char:
+                fallthrough
+            case .string:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextInput", for: indexPath) as! TextInputCell
+                cell.textInput.setIndent(tableView.separatorInset.left)
+                cell.textInput.keyboardType = .default
                 return cell
             }
         }

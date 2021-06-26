@@ -851,7 +851,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="CommandCell" textLabel="HWF-p7-2iH" detailTextLabel="XNw-0V-dPY" rowHeight="43.5" style="IBUITableViewCellStyleValue1" id="qNY-qW-qeg" customClass="NewConfigureTapVC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="CommandCell" textLabel="HWF-p7-2iH" detailTextLabel="XNw-0V-dPY" rowHeight="43.5" style="IBUITableViewCellStyleValue1" id="qNY-qW-qeg">
                                 <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qNY-qW-qeg" id="Yqj-EO-jpF">
@@ -932,27 +932,8 @@
                                     <segue destination="2Ff-e1-qxN" kind="show" id="iTX-Cc-Fk5"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NumberInput" id="1LY-a3-DTv" customClass="NumberInputCell" customModule="Remote" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Key" textLabel="MYf-jq-fBo" detailTextLabel="qtM-j8-Jde" style="IBUITableViewCellStyleValue1" id="OQh-WA-F8U">
                                 <rect key="frame" x="0.0" y="93.5" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1LY-a3-DTv" id="Cz7-1u-IYp">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u2U-gW-rEe" customClass="NumberInput" customModule="Remote" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                        </textField>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="numberInput" destination="u2U-gW-rEe" id="Ix8-rP-tYM"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Key" textLabel="MYf-jq-fBo" detailTextLabel="qtM-j8-Jde" style="IBUITableViewCellStyleValue1" id="OQh-WA-F8U" customClass="NumberInputCell" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="137.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OQh-WA-F8U" id="1WX-a9-pJy">
                                     <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
@@ -978,8 +959,8 @@
                                     <segue destination="2Ff-e1-qxN" kind="show" id="U1k-CM-BcR"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MouseButton" textLabel="mjM-xd-ldX" detailTextLabel="UPr-HS-GbD" style="IBUITableViewCellStyleValue1" id="QAF-2m-ShD" customClass="NumberInputCell" customModule="Remote" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="181.5" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MouseButton" textLabel="mjM-xd-ldX" detailTextLabel="UPr-HS-GbD" style="IBUITableViewCellStyleValue1" id="QAF-2m-ShD">
+                                <rect key="frame" x="0.0" y="137.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QAF-2m-ShD" id="93b-kS-yN2">
                                     <rect key="frame" x="0.0" y="0.0" width="349.5" height="44"/>
@@ -1003,6 +984,25 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="2Ff-e1-qxN" kind="show" id="OWc-C4-YmE"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInput" id="1LY-a3-DTv" customClass="TextInputCell" customModule="Remote" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="181.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1LY-a3-DTv" id="Cz7-1u-IYp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u2U-gW-rEe" customClass="TextInput" customModule="Remote" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textInput" destination="u2U-gW-rEe" id="i4V-nI-VMb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1068,7 +1068,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-mac.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="NRW-yO-cSh">
-                                                    <rect key="frame" x="-1" y="4.5" width="376" height="39"/>
+                                                    <rect key="frame" x="-3" y="6.5" width="378" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>

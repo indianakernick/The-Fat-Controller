@@ -1,5 +1,5 @@
 //
-//  NumberInput.swift
+//  TextInput.swift
 //  Remote
 //
 //  Created by Indiana Kernick on 26/6/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NumberInput: UITextField {
+class TextInput: UITextField {
     func setIndent(_ indent: CGFloat) {
         let left = UIView(frame: CGRect(
             x: 0, y: 0,

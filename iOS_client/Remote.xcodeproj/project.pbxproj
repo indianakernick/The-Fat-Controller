@@ -38,8 +38,8 @@
 		C94D64142685B11000382806 /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64132685B11000382806 /* PickerVC.swift */; };
 		C94D64162685B4D400382806 /* EditCommandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64152685B4D400382806 /* EditCommandVC.swift */; };
 		C94D64182686CBBF00382806 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64172686CBBF00382806 /* Enum.swift */; };
-		C94D641A2686CEAA00382806 /* NumberInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64192686CEAA00382806 /* NumberInput.swift */; };
-		C94D641C2686D24B00382806 /* NumberInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D641B2686D24B00382806 /* NumberInputCell.swift */; };
+		C94D641A2686CEAA00382806 /* TextInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64192686CEAA00382806 /* TextInput.swift */; };
+		C94D641C2686D24B00382806 /* TextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D641B2686D24B00382806 /* TextInputCell.swift */; };
 		C983AB17267876B900437B0C /* ControllersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983AB16267876B900437B0C /* ControllersVC.swift */; };
 		C983AB192678872300437B0C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983AB182678872300437B0C /* Config.swift */; };
 /* End PBXBuildFile section */
@@ -78,8 +78,8 @@
 		C94D64132685B11000382806 /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
 		C94D64152685B4D400382806 /* EditCommandVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommandVC.swift; sourceTree = "<group>"; };
 		C94D64172686CBBF00382806 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
-		C94D64192686CEAA00382806 /* NumberInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInput.swift; sourceTree = "<group>"; };
-		C94D641B2686D24B00382806 /* NumberInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberInputCell.swift; sourceTree = "<group>"; };
+		C94D64192686CEAA00382806 /* TextInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInput.swift; sourceTree = "<group>"; };
+		C94D641B2686D24B00382806 /* TextInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputCell.swift; sourceTree = "<group>"; };
 		C983AB16267876B900437B0C /* ControllersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllersVC.swift; sourceTree = "<group>"; };
 		C983AB182678872300437B0C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,8 +117,8 @@
 				458490DA25C4EF2A0063404D /* ButtonInput.swift */,
 				4597535525C7C3A000BEED00 /* TrackpadInput.swift */,
 				45E31FAB25C8D65500A4E59D /* TapInput.swift */,
-				C94D64192686CEAA00382806 /* NumberInput.swift */,
-				C94D641B2686D24B00382806 /* NumberInputCell.swift */,
+				C94D64192686CEAA00382806 /* TextInput.swift */,
+				C94D641B2686D24B00382806 /* TextInputCell.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -291,10 +291,10 @@
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
 				C983AB17267876B900437B0C /* ControllersVC.swift in Sources */,
-				C94D641A2686CEAA00382806 /* NumberInput.swift in Sources */,
+				C94D641A2686CEAA00382806 /* TextInput.swift in Sources */,
 				452CE26525CA44AF003B1E1D /* NavigationController.swift in Sources */,
 				45A5DB7B25C3A5B700796DA3 /* Colors.swift in Sources */,
-				C94D641C2686D24B00382806 /* NumberInputCell.swift in Sources */,
+				C94D641C2686D24B00382806 /* TextInputCell.swift in Sources */,
 				C94D64162685B4D400382806 /* EditCommandVC.swift in Sources */,
 				457F8B1225CCFD6600CC6148 /* VideoVC.swift in Sources */,
 				4572C3E725C2C42F00E5AE57 /* MouseButton.swift in Sources */,
