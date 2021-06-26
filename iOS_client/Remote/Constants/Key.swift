@@ -227,3 +227,5 @@ extension Key: CustomStringConvertible {
         }
     }
 }
+
+extension Key: Enum {}

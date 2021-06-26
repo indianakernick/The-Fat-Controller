@@ -8,13 +8,33 @@
 
 import UIKit
 
-class CommandVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+protocol PickerDelegate: AnyObject {
+    func didUpdate(value: UInt8)
+}
+
+class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var picker: UIPickerView!
     
-    private var commandCode: CommandCode! = nil
+    private var value: UInt8! = nil
+    private var cases: [String]! = nil
+    private weak var delegate: PickerDelegate? = nil
     
-    func setCommandCode(_ code: CommandCode) {
-        commandCode = code
+    // --- PickerVC --- //
+    
+    func setValue<E: Enum>(_ value: E) {
+        self.value = value.rawValue
+        if cases == nil {
+            cases = []
+        }
+        cases.removeAll()
+        cases.reserveCapacity(E.allCases.count)
+        for e in E.allCases {
+            cases.append(e.description)
+        }
+    }
+    
+    func setDelegate(_ delegate: PickerDelegate) {
+        self.delegate = delegate
     }
     
     // --- UIViewController --- //
@@ -28,19 +48,13 @@ class CommandVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParent {
-            // Having to pass things back and forth like this is really awful.
-            // Vue makes things like this so much simpler.
-            let last = (parent as! NavigationController).viewControllers.last
-            if let dest = last as? EditCommandVC {
-                let row = picker.selectedRow(inComponent: 0)
-                dest.setCommandCode(CommandCode.init(rawValue: UInt8(row))!)
-            }
+            delegate?.didUpdate(value: value)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        picker.selectRow(Int(commandCode.rawValue), inComponent: 0, animated: false)
+        picker.selectRow(Int(value), inComponent: 0, animated: false)
     }
     
     // --- UIPickerViewDataSource --- //
@@ -50,12 +64,16 @@ class CommandVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate 
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        CommandCode.allCases.count
+        cases.count
     }
     
     // --- UIPickerViewDelegate --- //
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        CommandCode.allCases[row].description
+        cases[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        value = UInt8(row)
     }
 }

@@ -30,7 +30,9 @@ fn generate_swift_enum<E: tfc::Enum>() -> std::io::Result<()> {
         file.write_all(b"\"\n")?;
     }
 
-    file.write_all(b"        }\n    }\n}\n")?;
+    file.write_all(b"        }\n    }\n}\n\nextension ")?;
+    file.write_all(E::NAME.as_bytes())?;
+    file.write_all(b": Enum {}\n")?;
 
     Ok(())
 }

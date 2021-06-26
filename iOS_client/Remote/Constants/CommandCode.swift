@@ -45,3 +45,5 @@ extension CommandCode: CustomStringConvertible {
         }
     }
 }
+
+extension CommandCode: Enum {}

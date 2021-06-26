@@ -15,3 +15,5 @@ extension MouseButton: CustomStringConvertible {
         }
     }
 }
+
+extension MouseButton: Enum {}
