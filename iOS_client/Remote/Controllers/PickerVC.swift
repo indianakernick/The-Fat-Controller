@@ -44,37 +44,20 @@
 
 import UIKit
 
-protocol PickerDelegate: AnyObject {
-    func didUpdate(value: UInt8, id: Int)
-}
-
 class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var picker: UIPickerView!
     
     private var value: UInt8! = nil
     private var cases: [String]! = nil
-    private var id: Int! = nil
-    private weak var delegate: PickerDelegate? = nil
     
     // --- PickerVC --- //
     
-    func initialize<E: Enum>(value: E, id: Int, name: String) {
-        self.value = value.rawValue
-        self.id = id
-        title = name
-        
-        if cases == nil {
-            cases = []
-        }
-        cases.removeAll()
-        cases.reserveCapacity(E.allCases.count)
-        for e in E.allCases {
-            cases.append(e.description)
-        }
-    }
+    var updated: (UInt8) -> Void = { value in }
     
-    func setDelegate(_ delegate: PickerDelegate) {
-        self.delegate = delegate
+    func initialize(name: String, value: UInt8, cases: [String]) {
+        title = name
+        self.value = value
+        self.cases = cases
     }
     
     // --- UIViewController --- //
@@ -88,7 +71,7 @@ class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if isMovingFromParent {
-            delegate?.didUpdate(value: value, id: id)
+            updated(value)
         }
     }
     

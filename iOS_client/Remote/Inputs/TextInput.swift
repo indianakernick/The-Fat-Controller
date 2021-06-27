@@ -13,6 +13,8 @@ class TextInput: UITextField, UITextFieldDelegate {
     
     // --- TextInput --- //
     
+    var textChanged: (String) -> Void = { text in }
+    
     enum Mode {
         case int, uint, char, string
     }
@@ -51,6 +53,10 @@ class TextInput: UITextField, UITextFieldDelegate {
         // the change to the string and then check if the resulting string is
         // valid. Trying to be "smart" about it will just result in messy code.
         
+        // maybe call textChanged in here
+        // it would solve the problem of textFieldDidEndEditing being called too
+        // late for EditCommandVC
+        
         let isDigit: (Character) -> Bool = { char in
             char.isASCII && char.isWholeNumber
         }
@@ -71,5 +77,9 @@ class TextInput: UITextField, UITextFieldDelegate {
         case .string:
             return true
         }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textChanged(text ?? "")
     }
 }
