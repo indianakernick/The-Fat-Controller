@@ -47,14 +47,14 @@ import UIKit
 class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var picker: UIPickerView!
     
-    private var value: UInt8! = nil
+    private var value: Int! = nil
     private var cases: [String]! = nil
     
     // --- PickerVC --- //
     
-    var updated: (UInt8) -> Void = { value in }
+    var updated: (Int) -> Void = { value in }
     
-    func initialize(name: String, value: UInt8, cases: [String]) {
+    func initialize(name: String, value: Int, cases: [String]) {
         title = name
         self.value = value
         self.cases = cases
@@ -97,6 +97,6 @@ class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        value = UInt8(row)
+        value = row
     }
 }
