@@ -11,6 +11,13 @@ import UIKit
 class TextInput: UITextField, UITextFieldDelegate {
     private var mode = Mode.string
     
+    private func getReplacedText(range: NSRange, string: String) -> String {
+        var newString = text ?? ""
+        let stringRange = Range<String.Index>(range, in: newString)!
+        newString.replaceSubrange(stringRange, with: string)
+        return newString
+    }
+    
     // --- TextInput --- //
     
     var textChanged: (String) -> Void = { text in }
@@ -39,9 +46,7 @@ class TextInput: UITextField, UITextFieldDelegate {
         case .uint:
             keyboardType = .numberPad
             break
-        case .char:
-            fallthrough
-        case .string:
+        case .char, .string:
             keyboardType = .default
         }
     }
@@ -49,37 +54,56 @@ class TextInput: UITextField, UITextFieldDelegate {
     // --- UITextFieldDelegate --- //
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // To handle int and uint properly, it will probably be easier to apply
-        // the change to the string and then check if the resulting string is
-        // valid. Trying to be "smart" about it will just result in messy code.
-        
-        // maybe call textChanged in here
-        // it would solve the problem of textFieldDidEndEditing being called too
-        // late for EditCommandVC
-        
         let isDigit: (Character) -> Bool = { char in
             char.isASCII && char.isWholeNumber
         }
         
         switch mode {
-        case .int:
-            return string.allSatisfy(isDigit)
-        case .uint:
-            return string.allSatisfy(isDigit)
-        case .char:
-            if string.count > 1 || string.unicodeScalars.count > 1 {
+        case .int, .uint:
+            if !string.allSatisfy(isDigit) {
                 return false
             }
-            if string.count == 0 {
+            let newString = getReplacedText(range: range, string: string)
+            if newString.count == 0 {
+                textChanged("0")
                 return true
             }
-            return range.length == (text?.count ?? 0)
+            guard let value = Int(newString) else {
+                return false
+            }
+            if String(value) != newString {
+                return false
+            }
+            if mode == .int && (value < Int16.min || value > Int16.max) {
+                return false
+            }
+            if mode == .uint && value > UInt16.max {
+                return false
+            }
+            textChanged(newString)
+            return true
+            
+        case .char:
+            // Whenever a single unicode scalar is typed, that single scalar
+            // will replace the contents of the text field. This might seem a
+            // little odd to the user but this ensures that there is always
+            // exactly one unicode scalar in the text field.
+            if string.count != 1 || string.unicodeScalars.count > 1 {
+                return false
+            }
+            text = string
+            textChanged(string)
+            return false
+            
         case .string:
+            textChanged(getReplacedText(range: range, string: string))
             return true
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textChanged(text ?? "")
+        if (mode == .int || mode == .uint) && text?.isEmpty ?? true {
+            text = "0"
+        }
     }
 }

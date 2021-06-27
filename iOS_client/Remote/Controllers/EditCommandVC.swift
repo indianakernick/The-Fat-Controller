@@ -106,11 +106,9 @@ class EditCommandVC: UITableViewController {
     }
     
     // --- UITableViewController --- //
-    
-    // Need to use viewDidDisappear to run after textFieldDidEndEditing.
-    // That seems problematic though
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         if isMovingFromParent {
             print(command)
             updated(command)
