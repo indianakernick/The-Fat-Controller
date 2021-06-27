@@ -59,19 +59,42 @@ class TextInput: UITextField, UITextFieldDelegate {
         }
         
         switch mode {
-        case .int, .uint:
+        case .int:
+            if string == "." {
+                guard let t = text else { return false }
+                guard let f = t.first else { return false }
+                if f == "-" {
+                    text!.removeFirst()
+                    // Int16.min (-32768) is larger in magnitude than
+                    // Int16.max (32767) so we need to make an adjustment to
+                    // ensure that the text is valid.
+                    if t == "-32768" {
+                        text = "32767"
+                    }
+                } else if f != "0" {
+                    text = "-" + t
+                }
+                return false
+            }
+            fallthrough
+            
+        case .uint:
             if !string.allSatisfy(isDigit) {
                 return false
             }
             let newString = getReplacedText(range: range, string: string)
-            if newString.count == 0 {
+            if newString.isEmpty {
                 textChanged("0")
                 return true
             }
-            guard let value = Int(newString) else {
-                return false
-            }
-            if String(value) != newString {
+            guard let value = Int(newString), String(value) == newString else {
+                // If deleting part of the string makes it invalid, clear the
+                // whole thing. If text field contains "-5000" and the user
+                // deletes the "5", then we clear the whole thing.
+                if string.isEmpty {
+                    textChanged("0")
+                    text = ""
+                }
                 return false
             }
             if mode == .int && (value < Int16.min || value > Int16.max) {
