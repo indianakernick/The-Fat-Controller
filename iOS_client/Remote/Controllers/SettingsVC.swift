@@ -20,22 +20,12 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tableView = view as! UITableView
-        
-        let leftView = UIView(frame: CGRect(
-            x: 0, y: 0,
-            width: tableView.separatorInset.left, height: hostNameField.frame.size.height
-        ))
-        leftView.backgroundColor = hostNameField.backgroundColor
-        hostNameField.leftView = leftView
-        hostNameField.leftViewMode = .always
         hostNameField.delegate = self
-        
         onlineStatusChanged(online: online)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         onlineStatusChanged(online: online)
         hostNameField.text = Storage.getHostName()
         lowLatencySwitch.isOn = Storage.getLowLatencyMode()
