@@ -78,6 +78,12 @@ class PickerVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         picker.selectRow(Int(value), inComponent: 0, animated: false)
+        // Setting the color of the box that appears over the selected row
+        if picker.subviews.count > 1 {
+            let selection = picker.subviews[1]
+            selection.backgroundColor = UIColor(cgColor: Colors.gray300)
+                .withAlphaComponent(selection.backgroundColor!.cgColor.alpha)
+        }
     }
     
     // --- UIPickerViewDataSource --- //
