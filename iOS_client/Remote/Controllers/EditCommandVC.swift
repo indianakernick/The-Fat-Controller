@@ -90,10 +90,9 @@ class EditCommandVC: UITableViewController {
         command.code = commandCodes[index]
     }
     
-    private func getTextInputCell(mode: TextInput.Mode, indexPath: IndexPath) -> TextInputCell {
+    private func getTextInputCell(mode: TextInputCell.Mode, indexPath: IndexPath) -> TextInputCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextInput", for: indexPath) as! TextInputCell
-        cell.textInput.setIndent(tableView.separatorInset.left)
-        cell.textInput.setMode(mode)
+        cell.setMode(mode)
         return cell
     }
     
@@ -178,7 +177,7 @@ class EditCommandVC: UITableViewController {
             assert(index == 0)
             let cell = getTextInputCell(mode: .uint, indexPath: indexPath)
             cell.textInput.text = String(command.delay)
-            cell.textInput.textChanged = { [weak self] text in
+            cell.textChanged = { [weak self] text in
                 self!.command.delay = UInt16(text)!
             }
             return cell
@@ -193,7 +192,7 @@ class EditCommandVC: UITableViewController {
             assert(index == 0 || index == 1)
             let cell = getTextInputCell(mode: .int, indexPath: indexPath)
             cell.textInput.text = String(index == 0 ? command.x : command.y)
-            cell.textInput.textChanged = { [weak self] text in
+            cell.textChanged = { [weak self] text in
                 if index == 0 {
                     self!.command.x = Int16(text)!
                 } else {
@@ -212,7 +211,7 @@ class EditCommandVC: UITableViewController {
             assert(index == 0)
             let cell = getTextInputCell(mode: .char, indexPath: indexPath)
             cell.textInput.text = String(command.char)
-            cell.textInput.textChanged = { [weak self] text in
+            cell.textChanged = { [weak self] text in
                 let scalars = text.unicodeScalars
                 assert(scalars.count == 1)
                 self!.command.char = scalars.first!
@@ -221,9 +220,9 @@ class EditCommandVC: UITableViewController {
             
         case .unicodeString:
             assert(index == 0)
-            let cell = getTextInputCell(mode: .string, indexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MultilineTextInput", for: indexPath) as! MultilineTextInputCell
             cell.textInput.text = command.string
-            cell.textInput.textChanged = { [weak self] text in
+            cell.textChanged = { [weak self] text in
                 self!.command.string = text
             }
             return cell
