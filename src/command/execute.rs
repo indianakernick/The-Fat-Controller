@@ -114,7 +114,7 @@ impl Command {
     pub async fn execute_async<C>(&self, ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
         where C: FallibleContext + KeyboardContext + MouseContext + AsciiKeyboardContext + UnicodeKeyboardContext
     {
-        if self.execute_core(ctx)? {
+        if self.execute_unicode(ctx)? {
             return Ok(());
         }
 

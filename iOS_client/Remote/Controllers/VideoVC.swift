@@ -9,13 +9,13 @@
 import Foundation
 
 class VideoVC: BasicVC {
-    private let muteData = Command.keyClick(Key.mute)
-    private let volumeDownData = Command.keyClick(Key.volumeDown)
-    private let volumeUpData = Command.keyClick(Key.volumeUp)
-    private let playPauseData = Command.keyClick(Key.space)
-    private let backwardData = Command.keyClick(Key.leftArrow)
-    private let timeData = Command.mouseMoveRel()
-    private let forwardData = Command.keyClick(Key.rightArrow)
+    private let muteData = CommandData.keyClick(Key.mute)
+    private let volumeDownData = CommandData.keyClick(Key.volumeDown)
+    private let volumeUpData = CommandData.keyClick(Key.volumeUp)
+    private let playPauseData = CommandData.keyClick(Key.space)
+    private let backwardData = CommandData.keyClick(Key.leftArrow)
+    private let timeData = CommandData.mouseMoveRel()
+    private let forwardData = CommandData.keyClick(Key.rightArrow)
     
     @IBAction func mutePressed() {
         send(muteData)

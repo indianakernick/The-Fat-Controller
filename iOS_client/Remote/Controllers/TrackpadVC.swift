@@ -11,14 +11,14 @@ import Foundation
 class TrackpadVC: BasicVC, TrackpadInputDelegate {
     @IBOutlet weak var trackpad: TrackpadInput!
     
-    private var clickData = Command.mouseClick(MouseButton.left)
-    private var rightClickData = Command.mouseClick(MouseButton.right)
-    private var moveData = Command.mouseMoveRel()
-    private var scrollData = Command.mouseScroll()
-    private var downData = Command.mouseDown(MouseButton.left)
-    private var upData = Command.mouseUp(MouseButton.left)
-    private var spaceLeftData = Command.keyClick(Key.leftArrow, with: Key.control)
-    private var spaceRightData = Command.keyClick(Key.rightArrow, with: Key.control)
+    private var clickData = CommandData.mouseClick(MouseButton.left)
+    private var rightClickData = CommandData.mouseClick(MouseButton.right)
+    private var moveData = CommandData.mouseMoveRel()
+    private var scrollData = CommandData.mouseScroll()
+    private var downData = CommandData.mouseDown(MouseButton.left)
+    private var upData = CommandData.mouseUp(MouseButton.left)
+    private var spaceLeftData = CommandData.keyClick(Key.leftArrow, with: Key.control)
+    private var spaceRightData = CommandData.keyClick(Key.rightArrow, with: Key.control)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +49,14 @@ class TrackpadVC: BasicVC, TrackpadInputDelegate {
     
     func mouseMove(dx: Int32, dy: Int32) {
         if dx != 0 || dy != 0 {
-            Command.setMouseParams(&moveData, x: Int16(dx), y: Int16(dy));
+            CommandData.setMouseParams(&moveData, x: Int16(dx), y: Int16(dy));
             send(moveData)
         }
     }
     
     func mouseScroll(dx: Int32, dy: Int32) {
         if dx != 0 || dy != 0 {
-            Command.setMouseParams(&scrollData, x: Int16(-dx), y: Int16(-dy));
+            CommandData.setMouseParams(&scrollData, x: Int16(-dx), y: Int16(-dy));
             send(scrollData)
         }
     }

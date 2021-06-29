@@ -9,10 +9,10 @@
 import Foundation
 
 class SlideVC: BasicVC {
-    private let lastData = Command.keyClick(Key.end)
-    private let nextData = Command.keyClick(Key.rightArrow)
-    private let previousData = Command.keyClick(Key.leftArrow)
-    private let firstData = Command.keyClick(Key.home)
+    private let lastData = CommandData.keyClick(Key.end)
+    private let nextData = CommandData.keyClick(Key.rightArrow)
+    private let previousData = CommandData.keyClick(Key.leftArrow)
+    private let firstData = CommandData.keyClick(Key.home)
     
     @IBAction func lastPressed() {
         send(lastData)

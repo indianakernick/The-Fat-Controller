@@ -53,10 +53,10 @@ class NumberPadVC: BasicVC {
         sixBtn.text = "→"
         twoBtn.text = "↓"
         fourBtn.text = "←"
-        setPressListener(for: eightBtn, with: Command.keyClick(Key.upArrow, with: Key.shift))
-        setPressListener(for: sixBtn, with: Command.keyClick(Key.rightArrow, with: Key.shift))
-        setPressListener(for: twoBtn, with: Command.keyClick(Key.downArrow, with: Key.shift))
-        setPressListener(for: fourBtn, with: Command.keyClick(Key.leftArrow, with: Key.shift))
+        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.upArrow, with: Key.shift))
+        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.rightArrow, with: Key.shift))
+        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.downArrow, with: Key.shift))
+        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.leftArrow, with: Key.shift))
         pressShift()
     }
     
@@ -65,18 +65,18 @@ class NumberPadVC: BasicVC {
         sixBtn.text = "6"
         twoBtn.text = "2"
         fourBtn.text = "4"
-        setPressListener(for: eightBtn, with: Command.keyClick(Key.n8))
-        setPressListener(for: sixBtn, with: Command.keyClick(Key.n6))
-        setPressListener(for: twoBtn, with: Command.keyClick(Key.n2))
-        setPressListener(for: fourBtn, with: Command.keyClick(Key.n4))
+        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.n8))
+        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.n6))
+        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.n2))
+        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.n4))
         releaseShift()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pressShift = makeListener(with: Command.keyDown(Key.shift))
-        releaseShift = makeListener(with: Command.keyUp(Key.shift))
+        pressShift = makeListener(with: CommandData.keyDown(Key.shift))
+        releaseShift = makeListener(with: CommandData.keyUp(Key.shift))
         landscapeButtons = [
             cutBtn, copyBtn, pasteBtn,
             lparenBtn, upBtn, rparenBtn,
@@ -88,43 +88,43 @@ class NumberPadVC: BasicVC {
         let size = view.frame.size
         setLandscapeButtons(hidden: size.width < size.height)
         
-        setPressListener(for: cutBtn, with: Command.keyClick(Key.x, with: Key.controlOrMeta))
-        setPressListener(for: copyBtn, with: Command.keyClick(Key.c, with: Key.controlOrMeta))
-        setPressListener(for: pasteBtn, with: Command.keyClick(Key.v, with: Key.controlOrMeta))
-        setPressListener(for: equalBtn, with: Command.keyClick(Key.equal))
-        setPressListener(for: divideBtn, with: Command.keyClick(Key.slash))
-        setPressListener(for: multiplyBtn, with: Command.keyClick(Key.n8, with: Key.shift))
-        setPressListener(for: deleteBtn, with: Command.keyClick(Key.deleteOrBackspace))
+        setPressListener(for: cutBtn, with: CommandData.keyClick(Key.x, with: Key.controlOrMeta))
+        setPressListener(for: copyBtn, with: CommandData.keyClick(Key.c, with: Key.controlOrMeta))
+        setPressListener(for: pasteBtn, with: CommandData.keyClick(Key.v, with: Key.controlOrMeta))
+        setPressListener(for: equalBtn, with: CommandData.keyClick(Key.equal))
+        setPressListener(for: divideBtn, with: CommandData.keyClick(Key.slash))
+        setPressListener(for: multiplyBtn, with: CommandData.keyClick(Key.n8, with: Key.shift))
+        setPressListener(for: deleteBtn, with: CommandData.keyClick(Key.deleteOrBackspace))
         
-        setPressListener(for: lparenBtn, with: Command.keyClick(Key.n9, with: Key.shift))
-        setPressListener(for: upBtn, with: Command.keyClick(Key.upArrow))
-        setPressListener(for: rparenBtn, with: Command.keyClick(Key.n0, with: Key.shift))
-        setPressListener(for: sevenBtn, with: Command.keyClick(Key.n7))
-        setPressListener(for: eightBtn, with: Command.keyClick(Key.n8))
-        setPressListener(for: nineBtn, with: Command.keyClick(Key.n9))
-        setPressListener(for: subtractBtn, with: Command.keyClick(Key.minus))
+        setPressListener(for: lparenBtn, with: CommandData.keyClick(Key.n9, with: Key.shift))
+        setPressListener(for: upBtn, with: CommandData.keyClick(Key.upArrow))
+        setPressListener(for: rparenBtn, with: CommandData.keyClick(Key.n0, with: Key.shift))
+        setPressListener(for: sevenBtn, with: CommandData.keyClick(Key.n7))
+        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.n8))
+        setPressListener(for: nineBtn, with: CommandData.keyClick(Key.n9))
+        setPressListener(for: subtractBtn, with: CommandData.keyClick(Key.minus))
         
-        setPressListener(for: leftBtn, with: Command.keyClick(Key.leftArrow))
-        setPressListener(for: dollarBtn, with: Command.keyClick(Key.n4, with: Key.shift))
-        setPressListener(for: rightBtn, with: Command.keyClick(Key.rightArrow))
-        setPressListener(for: fourBtn, with: Command.keyClick(Key.n4))
-        setPressListener(for: fiveBtn, with: Command.keyClick(Key.n5))
-        setPressListener(for: sixBtn, with: Command.keyClick(Key.n6))
-        setPressListener(for: addBtn, with: Command.keyClick(Key.equal, with: Key.shift))
+        setPressListener(for: leftBtn, with: CommandData.keyClick(Key.leftArrow))
+        setPressListener(for: dollarBtn, with: CommandData.keyClick(Key.n4, with: Key.shift))
+        setPressListener(for: rightBtn, with: CommandData.keyClick(Key.rightArrow))
+        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.n4))
+        setPressListener(for: fiveBtn, with: CommandData.keyClick(Key.n5))
+        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.n6))
+        setPressListener(for: addBtn, with: CommandData.keyClick(Key.equal, with: Key.shift))
         
-        setPressListener(for: lessBtn, with: Command.keyClick(Key.comma, with: Key.shift))
-        setPressListener(for: downBtn, with: Command.keyClick(Key.downArrow))
-        setPressListener(for: greaterBtn, with: Command.keyClick(Key.period, with: Key.shift))
-        setPressListener(for: oneBtn, with: Command.keyClick(Key.n1))
-        setPressListener(for: twoBtn, with: Command.keyClick(Key.n2))
-        setPressListener(for: threeBtn, with: Command.keyClick(Key.n3))
-        setPressListener(for: returnBtn, with: Command.keyClick(Key.returnOrEnter))
+        setPressListener(for: lessBtn, with: CommandData.keyClick(Key.comma, with: Key.shift))
+        setPressListener(for: downBtn, with: CommandData.keyClick(Key.downArrow))
+        setPressListener(for: greaterBtn, with: CommandData.keyClick(Key.period, with: Key.shift))
+        setPressListener(for: oneBtn, with: CommandData.keyClick(Key.n1))
+        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.n2))
+        setPressListener(for: threeBtn, with: CommandData.keyClick(Key.n3))
+        setPressListener(for: returnBtn, with: CommandData.keyClick(Key.returnOrEnter))
         
-        setPressListener(for: caretBtn, with: Command.keyClick(Key.n6, with: Key.shift))
-        setPressListener(for: percentBtn, with: Command.keyClick(Key.n5, with: Key.shift))
-        setPressListener(for: commaBtn, with: Command.keyClick(Key.comma))
-        setPressListener(for: zeroBtn, with: Command.keyClick(Key.n0))
-        setPressListener(for: periodBtn, with: Command.keyClick(Key.period))
+        setPressListener(for: caretBtn, with: CommandData.keyClick(Key.n6, with: Key.shift))
+        setPressListener(for: percentBtn, with: CommandData.keyClick(Key.n5, with: Key.shift))
+        setPressListener(for: commaBtn, with: CommandData.keyClick(Key.comma))
+        setPressListener(for: zeroBtn, with: CommandData.keyClick(Key.n0))
+        setPressListener(for: periodBtn, with: CommandData.keyClick(Key.period))
         
         shiftBtn.pressed = shiftPressed
         shiftBtn.released = shiftReleased

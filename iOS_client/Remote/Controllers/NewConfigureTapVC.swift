@@ -8,9 +8,76 @@
 
 import UIKit
 
+fileprivate func commandsFromPlist(_ plist: [Any]) -> [CommandStruct]? {
+    var commands: [CommandStruct] = []
+    
+    // Maybe it would be easier to just store the bytes (CommandData)
+    
+    for item in plist {
+        guard let dict = item as? [String: Any] else { return nil }
+        guard let rawCode = dict["command"] as? UInt8 else { return nil }
+        guard let code = CommandCode(rawValue: rawCode) else { return nil }
+        guard let rawKey = dict["key"] as? UInt8 else { return nil }
+        guard let key = Key(rawValue: rawKey) else { return nil }
+        guard let rawButton = dict["mouseButton"] as? UInt8 else { return nil }
+        guard let button = MouseButton(rawValue: rawButton) else { return nil }
+        guard let delay = dict["delay"] as? UInt16 else { return nil }
+        guard let x = dict["x"] as? Int16 else { return nil }
+        guard let y = dict["y"] as? Int16 else { return nil }
+        guard let rawChar = dict["char"] as? UInt32 else { return nil }
+        guard let char = Unicode.Scalar(rawChar) else { return nil }
+        guard let string = dict["string"] as? String else { return nil }
+        
+        var command = CommandStruct()
+        command.code = code
+        command.key = key
+        command.button = button
+        command.delay = delay
+        command.x = x
+        command.y = y
+        command.char = char
+        command.string = string
+        command.normalize()
+        commands.append(command)
+    }
+    
+    return commands
+}
+
+fileprivate func commandsToPlist(_ commands: [CommandStruct]) -> [Any] {
+    var plist: [[String: Any]] = []
+    
+    for command in commands {
+        var dict: [String: Any] = [:]
+        dict["command"] = command.code.rawValue
+        dict["key"] = command.key.rawValue
+        dict["mouseButton"] = command.button.rawValue
+        dict["delay"] = command.delay
+        dict["x"] = command.x
+        dict["y"] = command.y
+        dict["char"] = command.char.value
+        dict["string"] = command.string
+        dict["data"] = command.data
+        plist.append(dict)
+    }
+    
+    return plist
+}
+
 class NewConfigureTapVC: UITableViewController {
-    private var downCommands: [CommandStruct] = [CommandStruct()]
-    private var upCommands: [CommandStruct] = [CommandStruct()]
+    private static let defaultDown: CommandStruct = {
+        var command = CommandStruct()
+        command.code = .mouseDown
+        return command
+    }()
+    private static let defaultUp: CommandStruct = {
+        var command = CommandStruct()
+        command.code = .mouseUp
+        return command
+    }()
+    
+    private var downCommands: [CommandStruct] = []
+    private var upCommands: [CommandStruct] = []
     
     @objc private func addButtonPressed() {
         performSegue(withIdentifier: "CreateCommand", sender: self)
@@ -32,6 +99,28 @@ class NewConfigureTapVC: UITableViewController {
         }
     }
     
+    private func load() {
+        if
+            let downPlist = Storage.getTapDownCommandList(),
+            let upPlist = Storage.getTapUpCommandList(),
+            let downCommands = commandsFromPlist(downPlist),
+            let upCommands = commandsFromPlist(upPlist)
+        {
+            self.downCommands = downCommands
+            self.upCommands = upCommands
+        } else {
+            downCommands = [NewConfigureTapVC.defaultDown]
+            upCommands = [NewConfigureTapVC.defaultUp]
+        }
+        save()
+        tableView.reloadData()
+    }
+    
+    private func save() {
+        Storage.setTapDownCommandList(commandsToPlist(downCommands))
+        Storage.setTapUpCommandList(commandsToPlist(upCommands))
+    }
+    
     // --- UIViewController --- //
     
     override func viewDidLoad() {
@@ -49,11 +138,15 @@ class NewConfigureTapVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = false
+        load()
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.isToolbarHidden = true
+        save()
+        TapVC.instance?.updateData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,6 +158,7 @@ class NewConfigureTapVC: UITableViewController {
             edit.updated = { [weak self] command in
                 self!.upCommands.append(command)
                 self!.tableView.reloadData()
+                self!.save()
             }
         } else if let edit = segue.destination as? EditCommandVC {
             let index = tableView.indexPath(for: sender as! UITableViewCell)!
@@ -72,6 +166,7 @@ class NewConfigureTapVC: UITableViewController {
             edit.updated = { [weak self] command in
                 self!.select(index: index) { $0 = command }
                 self!.tableView.reloadData()
+                self!.save()
             }
         }
     }

@@ -8,20 +8,21 @@
 
 import Foundation
 
-fileprivate func dataFromPlist(plist: [Any]) -> Data {
-    var bytes: [UInt8] = []
-    for element in plist {
-        let dict = element as! [String : Any]
-        bytes += dict["data"] as! [UInt8]
+fileprivate func dataFromPlist(_ plist: [Any]) -> Data? {
+    var buf = Data()
+    for item in plist {
+        guard let dict = item as? [String: Any] else { return nil }
+        guard let data = dict["data"] as? Data else { return nil }
+        buf.append(data)
     }
-    return Data(bytes)
+    return buf
 }
 
 class TapVC: BasicVC {
     @IBOutlet weak var tap: TapInput!
     
-    private var downData = Command.mouseDown(MouseButton.left)
-    private var upData = Command.mouseUp(MouseButton.left)
+    private var downData = CommandData.mouseDown(MouseButton.left)
+    private var upData = CommandData.mouseUp(MouseButton.left)
     
     static weak var instance: TapVC?
     
@@ -42,11 +43,14 @@ class TapVC: BasicVC {
     }
     
     func updateData() {
-        let downRows = Storage.getTapDownCommandList()
-        let upRows = Storage.getTapUpCommandList()
-        if downRows != nil && upRows != nil {
-            downData = dataFromPlist(plist: downRows!)
-            upData = dataFromPlist(plist: upRows!)
+        if
+            let downPlist = Storage.getTapDownCommandList(),
+            let upPlist = Storage.getTapUpCommandList(),
+            let downData = dataFromPlist(downPlist),
+            let upData = dataFromPlist(upPlist)
+        {
+            self.downData = downData
+            self.upData = upData
         }
     }
 }
