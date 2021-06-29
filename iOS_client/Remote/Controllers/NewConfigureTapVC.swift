@@ -9,13 +9,35 @@
 import UIKit
 
 class NewConfigureTapVC: UITableViewController {
-    @IBAction func editPressed(_ sender: Any) {
-        isEditing = true
+    @objc private func addButtonPressed() {
+        performSegue(withIdentifier: "CreateCommand", sender: self)
     }
+    
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = editButtonItem
+        setToolbarItems([
+            UIBarButtonItem.flexibleSpace(),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed)),
+            UIBarButtonItem.flexibleSpace()
+        ], animated: true)
+        navigationController?.toolbar.isTranslucent = false
+        navigationController?.toolbar.barTintColor = UIColor(cgColor: Colors.gray900)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.isToolbarHidden = true
+    }
+    
+    // --- UITableViewController --- //
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         2
@@ -27,6 +49,10 @@ class NewConfigureTapVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         ["Down Commands", "Up Commands"][section]
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor(cgColor: Colors.gray800)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

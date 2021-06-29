@@ -850,6 +850,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ETi-xF-PwP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="gray800"/>
+                        <color key="separatorColor" name="gray700"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" accessoryType="disclosureIndicator" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="CommandCell" textLabel="HWF-p7-2iH" detailTextLabel="XNw-0V-dPY" rowHeight="43.5" style="IBUITableViewCellStyleValue1" id="qNY-qW-qeg">
                                 <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
@@ -874,8 +876,10 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="gray900"/>
                                 <connections>
-                                    <segue destination="OJb-gR-1KY" kind="show" id="CIl-NG-2hK"/>
+                                    <outlet property="selectedBackgroundView" destination="KpI-mJ-PJp" id="GGo-zT-xag"/>
+                                    <segue destination="OJb-gR-1KY" kind="show" id="D6z-Mh-6iA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -884,15 +888,18 @@
                             <outlet property="delegate" destination="Xbd-h7-OfJ" id="Ufi-Nr-IRU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Configure Tap" id="KnQ-Tv-IJx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="NTR-Oh-DOf">
-                            <connections>
-                                <action selector="editPressed:" destination="Xbd-h7-OfJ" id="qnK-Tg-dnp"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Configure Tap" id="KnQ-Tv-IJx"/>
+                    <connections>
+                        <segue destination="UR9-yp-Utj" kind="presentation" identifier="CreateCommand" id="VVK-po-GcT"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifo-eE-EWR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="KpI-mJ-PJp" userLabel="Selection background">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="bnk-5S-e0R"/>
+                    <color key="backgroundColor" name="gray700"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="-548" y="4068"/>
         </scene>
@@ -1051,7 +1058,18 @@
                             <outlet property="delegate" destination="OJb-gR-1KY" id="ye7-fP-5Xj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit Command" id="Pi2-je-VVz"/>
+                    <navigationItem key="navigationItem" title="Edit Command" id="Pi2-je-VVz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Hay-X0-AzT">
+                            <connections>
+                                <action selector="cancelPressed:" destination="OJb-gR-1KY" id="Tsz-0Q-KoM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nrF-VP-Rat">
+                            <connections>
+                                <action selector="donePressed:" destination="OJb-gR-1KY" id="SMU-2e-439"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zKy-6H-hPI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <view contentMode="scaleToFill" id="5Ae-P4-b7a" userLabel="Selection background">
@@ -1061,7 +1079,7 @@
                     <color key="backgroundColor" name="gray700"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="142" y="4066"/>
+            <point key="canvasLocation" x="1080.8" y="4065.5172413793107"/>
         </scene>
         <!--PickerVC-->
         <scene sceneID="DUs-8g-GAf">
@@ -1092,7 +1110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nh1-A4-fQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="932" y="4066"/>
+            <point key="canvasLocation" x="1871.2" y="4065.5172413793107"/>
         </scene>
         <!--Settings-->
         <scene sceneID="tGy-QG-zDm">
@@ -1114,7 +1132,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my-mac.local" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="NRW-yO-cSh">
-                                                    <rect key="frame" x="16" y="10.5" width="343" height="22"/>
+                                                    <rect key="frame" x="16" y="11" width="343" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="url"/>
                                                 </textField>
@@ -1580,9 +1598,30 @@
             </objects>
             <point key="canvasLocation" x="-2034" y="2235"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="HsN-UN-Wcx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UR9-yp-Utj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Z4F-bh-nXj"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="M44-Yo-rbE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="gray900"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="OJb-gR-1KY" kind="relationship" relationship="rootViewController" id="xZI-dn-oba"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uuj-bG-pSb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="281" y="4067"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="U1k-CM-BcR"/>
+        <segue reference="D6z-Mh-6iA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrowtriangle.left.fill" catalog="system" width="128" height="113"/>

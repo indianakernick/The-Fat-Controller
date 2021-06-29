@@ -80,7 +80,26 @@ fileprivate let parameterNames: [[String?]] = [
 ]
 
 class EditCommandVC: UITableViewController {
+    @IBAction func cancelPressed(_ sender: Any) {
+        if createMode {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @IBAction func donePressed(_ sender: Any) {
+        updated(command)
+        print(command)
+        if createMode {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     private var command = CommandStruct()
+    private var createMode = false
     
     private func getIndex() -> Int {
         commandCodes.firstIndex(of: command.code)!
@@ -104,14 +123,20 @@ class EditCommandVC: UITableViewController {
         self.command = command
     }
     
-    // --- UITableViewController --- //
+    // --- UIViewController --- //
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if isMovingFromParent {
-            print(command)
-            updated(command)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Not sure where else to put this...
+        assert(commandCodes.count == parameterNames.count)
+        if navigationController?.isBeingPresented ?? false {
+            title = "Create Command"
+            createMode = true
+        } else {
+            title = "Edit Command"
+            createMode = false
         }
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -148,12 +173,7 @@ class EditCommandVC: UITableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        // Not sure where else to put this...
-        assert(commandCodes.count == parameterNames.count)
-        tableView.reloadData()
-    }
+    // --- UITableViewController --- //
     
     override func numberOfSections(in: UITableView) -> Int {
         1 + parameterNames[Int(getIndex())].count
