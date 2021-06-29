@@ -9,8 +9,27 @@
 import UIKit
 
 class NewConfigureTapVC: UITableViewController {
+    private var downCommands: [CommandStruct] = [CommandStruct()]
+    private var upCommands: [CommandStruct] = [CommandStruct()]
+    
     @objc private func addButtonPressed() {
         performSegue(withIdentifier: "CreateCommand", sender: self)
+    }
+
+    private func select<R>(index: IndexPath, get: (inout CommandStruct) -> R) -> R {
+        if index.section == 0 {
+            return get(&downCommands[index.row])
+        } else {
+            return get(&upCommands[index.row])
+        }
+    }
+
+    private func selectList(section: Int, get: (inout [CommandStruct]) -> Void) {
+        if section == 0 {
+            get(&downCommands)
+        } else {
+            get(&upCommands)
+        }
     }
     
     // --- UIViewController --- //
@@ -37,6 +56,26 @@ class NewConfigureTapVC: UITableViewController {
         navigationController?.isToolbarHidden = true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let nav = segue.destination as? UINavigationController {
+            let edit = nav.topViewController! as! EditCommandVC
+            edit.initialize(command: nil)
+            edit.updated = { [weak self] command in
+                self!.upCommands.append(command)
+                self!.tableView.reloadData()
+            }
+        } else if let edit = segue.destination as? EditCommandVC {
+            let index = tableView.indexPath(for: sender as! UITableViewCell)!
+            edit.initialize(command: select(index: index) { $0 })
+            edit.updated = { [weak self] command in
+                self!.select(index: index) { $0 = command }
+                self!.tableView.reloadData()
+            }
+        }
+    }
+    
     // --- UITableViewController --- //
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -44,7 +83,7 @@ class NewConfigureTapVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        section == 0 ? downCommands.count : upCommands.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -57,21 +96,31 @@ class NewConfigureTapVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath)
-        cell.textLabel!.text = "Mouse Move Relative" // rows[indexPath.row].display
-        cell.detailTextLabel!.text = "-32000, -32000"
+        let command = select(index: indexPath) { $0 }
+        cell.textLabel!.text = command.code.description
+        cell.detailTextLabel!.text = command.parameterDescription
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // rows.remove(at: indexPath.row)
+            selectList(section: indexPath.section) {
+                $0.remove(at: indexPath.row)
+            }
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        //let item = rows[sourceIndexPath.row]
-        //rows.remove(at: sourceIndexPath.row)
-        //rows.insert(item, at: destinationIndexPath.row)
+        var command: CommandStruct! = nil
+        
+        selectList(section: sourceIndexPath.section) {
+            command = $0[sourceIndexPath.row]
+            $0.remove(at: sourceIndexPath.row)
+        }
+        
+        selectList(section: destinationIndexPath.section) {
+            $0.insert(command, at: destinationIndexPath.row)
+        }
     }
 }

@@ -36,6 +36,97 @@ struct CommandStruct {
         char = "a"
         string = ""
     }
+    
+    mutating func normalize() {
+        let key = self.key
+        let button = self.button
+        let delay = self.delay
+        let x = self.x
+        let y = self.y
+        let char = self.char
+        let string = self.string
+        
+        self.key = .space
+        self.button = .left
+        self.delay = 0
+        self.x = 0
+        self.y = 0
+        self.char = "a"
+        self.string = ""
+        
+        switch code {
+        case .delay:
+            self.delay = delay
+        case .keyDown:
+            self.key = key
+        case .keyUp:
+            self.key = key
+        case .keyClick:
+            self.key = key
+        case .mouseMoveRel:
+            self.x = x
+            self.y = y
+        case .mouseMoveAbs:
+            self.x = x
+            self.y = y
+        case .mouseScroll:
+            self.x = x
+            self.y = y
+        case .mouseDown:
+            self.button = button
+        case .mouseUp:
+            self.button = button
+        case .mouseClick:
+            self.button = button
+        case .unicodeCharDown:
+            self.char = char
+        case .unicodeCharUp:
+            self.char = char
+        case .unicodeChar:
+            self.char = char
+        case .unicodeString:
+            self.string = string
+        default:
+            assert(false)
+        }
+    }
+    
+    var parameterDescription: String {
+        get {
+            switch code {
+            case .delay:
+                return String(delay)
+            case .keyDown:
+                return key.description
+            case .keyUp:
+                return key.description
+            case .keyClick:
+                return key.description
+            case .mouseMoveRel:
+                return "\(x), \(y)"
+            case .mouseMoveAbs:
+                return "\(x), \(y)"
+            case .mouseScroll:
+                return "\(x), \(y)"
+            case .mouseDown:
+                return button.description
+            case .mouseUp:
+                return button.description
+            case .mouseClick:
+                return button.description
+            case .unicodeCharDown:
+                return String(char)
+            case .unicodeCharUp:
+                return String(char)
+            case .unicodeChar:
+                return String(char)
+            case .unicodeString:
+                return string
+            default:
+                assert(false)
+            }
+        }
+    }
 }
 
 // Using a subset of the available command codes. The ASCII commands aren't
@@ -89,8 +180,8 @@ class EditCommandVC: UITableViewController {
     }
     
     @IBAction func donePressed(_ sender: Any) {
+        command.normalize()
         updated(command)
-        print(command)
         if createMode {
             dismiss(animated: true, completion: nil)
         } else {
@@ -119,23 +210,24 @@ class EditCommandVC: UITableViewController {
     
     var updated: (CommandStruct) -> Void = { command in }
     
-    func initialize(command: CommandStruct) {
-        self.command = command
+    func initialize(command: CommandStruct?) {
+        if command == nil {
+            self.command = CommandStruct()
+            createMode = true
+            title = "Create Command"
+        } else {
+            self.command = command!
+            createMode = false
+            title = "Edit Command"
+        }
     }
     
     // --- UIViewController --- //
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Not sure where else to put this...
+        // Not sure where else to put this assertion...
         assert(commandCodes.count == parameterNames.count)
-        if navigationController?.isBeingPresented ?? false {
-            title = "Create Command"
-            createMode = true
-        } else {
-            title = "Edit Command"
-            createMode = false
-        }
         tableView.reloadData()
     }
     
@@ -160,14 +252,12 @@ class EditCommandVC: UITableViewController {
             dest.updated = { [weak self] value in
                 self!.command.key = Key(rawValue: UInt8(value))!
             }
-            break
         case .mouseDown, .mouseUp, .mouseClick:
             assert(cell.reuseIdentifier == "MouseButton")
             dest.initialize(name: "Mouse Button", value: Int(command.button.rawValue), cases: mouseButtonNames)
             dest.updated = { [weak self] value in
                 self!.command.button = MouseButton(rawValue: UInt8(value))!
             }
-            break
         default:
             assert(false)
         }

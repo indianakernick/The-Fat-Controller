@@ -71,8 +71,10 @@ class TextInputCell: UITableViewCell, UITextFieldDelegate {
                     if t == "-32768" {
                         textField.text = "32767"
                     }
+                    textChanged(textField.text!)
                 } else if f != "0" {
                     textField.text = "-" + t
+                    textChanged(textField.text!)
                 }
                 return false
             }
