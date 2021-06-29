@@ -31,10 +31,10 @@
 		45A83F4D25E9DA0300EBC3A8 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A83F4C25E9DA0300EBC3A8 /* SocketManager.swift */; };
 		45E31FAC25C8D65500A4E59D /* TapInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FAB25C8D65500A4E59D /* TapInput.swift */; };
 		45E31FAE25C8D69D00A4E59D /* TapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FAD25C8D69D00A4E59D /* TapVC.swift */; };
-		45E31FB325C8DF2400A4E59D /* ConfigureTapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E31FB225C8DF2400A4E59D /* ConfigureTapVC.swift */; };
 		45E532CF2637B7790008C492 /* LabelButtonInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E532CE2637B7790008C492 /* LabelButtonInput.swift */; };
 		45E532D22637BD730008C492 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 45E532D12637BD730008C492 /* Starscream */; };
-		C94D64122685A87700382806 /* NewConfigureTapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64112685A87700382806 /* NewConfigureTapVC.swift */; };
+		C932EB6A268B00FB0020CCCF /* CommandStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = C932EB69268B00FB0020CCCF /* CommandStruct.swift */; };
+		C94D64122685A87700382806 /* ConfigureTapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64112685A87700382806 /* ConfigureTapVC.swift */; };
 		C94D64142685B11000382806 /* PickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64132685B11000382806 /* PickerVC.swift */; };
 		C94D64162685B4D400382806 /* EditCommandVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64152685B4D400382806 /* EditCommandVC.swift */; };
 		C94D64182686CBBF00382806 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94D64172686CBBF00382806 /* Enum.swift */; };
@@ -72,9 +72,9 @@
 		45A83F4F25E9DA6A00EBC3A8 /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = System/Library/Frameworks/Network.framework; sourceTree = SDKROOT; };
 		45E31FAB25C8D65500A4E59D /* TapInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapInput.swift; sourceTree = "<group>"; };
 		45E31FAD25C8D69D00A4E59D /* TapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapVC.swift; sourceTree = "<group>"; };
-		45E31FB225C8DF2400A4E59D /* ConfigureTapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTapVC.swift; sourceTree = "<group>"; };
 		45E532CE2637B7790008C492 /* LabelButtonInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelButtonInput.swift; sourceTree = "<group>"; };
-		C94D64112685A87700382806 /* NewConfigureTapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConfigureTapVC.swift; sourceTree = "<group>"; };
+		C932EB69268B00FB0020CCCF /* CommandStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandStruct.swift; sourceTree = "<group>"; };
+		C94D64112685A87700382806 /* ConfigureTapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigureTapVC.swift; sourceTree = "<group>"; };
 		C94D64132685B11000382806 /* PickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerVC.swift; sourceTree = "<group>"; };
 		C94D64152685B4D400382806 /* EditCommandVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommandVC.swift; sourceTree = "<group>"; };
 		C94D64172686CBBF00382806 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
@@ -106,6 +106,7 @@
 				45A5DB7A25C3A5B700796DA3 /* Colors.swift */,
 				4546521625D217250094FDFE /* CommandData.swift */,
 				C983AB182678872300437B0C /* Config.swift */,
+				C932EB69268B00FB0020CCCF /* CommandStruct.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -143,10 +144,9 @@
 				4597534B25C794AD00BEED00 /* SlideVC.swift */,
 				4597535325C7C20300BEED00 /* TrackpadVC.swift */,
 				45E31FAD25C8D69D00A4E59D /* TapVC.swift */,
-				45E31FB225C8DF2400A4E59D /* ConfigureTapVC.swift */,
 				457F8B1125CCFD6600CC6148 /* VideoVC.swift */,
 				4578F15A25CBC79500800056 /* SettingsVC.swift */,
-				C94D64112685A87700382806 /* NewConfigureTapVC.swift */,
+				C94D64112685A87700382806 /* ConfigureTapVC.swift */,
 				C94D64152685B4D400382806 /* EditCommandVC.swift */,
 				C94D64132685B11000382806 /* PickerVC.swift */,
 			);
@@ -272,12 +272,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C94D64122685A87700382806 /* NewConfigureTapVC.swift in Sources */,
+				C94D64122685A87700382806 /* ConfigureTapVC.swift in Sources */,
 				4597535425C7C20300BEED00 /* TrackpadVC.swift in Sources */,
 				C94D64142685B11000382806 /* PickerVC.swift in Sources */,
 				4522697625C2B49900F08645 /* Haptic.swift in Sources */,
 				4578F15B25CBC79500800056 /* SettingsVC.swift in Sources */,
-				45E31FB325C8DF2400A4E59D /* ConfigureTapVC.swift in Sources */,
 				4597535625C7C3A000BEED00 /* TrackpadInput.swift in Sources */,
 				4597534E25C797B700BEED00 /* BasicVC.swift in Sources */,
 				45E31FAC25C8D65500A4E59D /* TapInput.swift in Sources */,
@@ -290,6 +289,7 @@
 				C983AB192678872300437B0C /* Config.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,
 				C9B09FE12689762700944243 /* MultilineTextInputCell.swift in Sources */,
+				C932EB6A268B00FB0020CCCF /* CommandStruct.swift in Sources */,
 				45A3608025C22C1200DFE76A /* SceneDelegate.swift in Sources */,
 				C983AB17267876B900437B0C /* ControllersVC.swift in Sources */,
 				452CE26525CA44AF003B1E1D /* NavigationController.swift in Sources */,

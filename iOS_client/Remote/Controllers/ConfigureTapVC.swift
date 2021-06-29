@@ -2,202 +2,221 @@
 //  ConfigureTapVC.swift
 //  Remote
 //
-//  Created by Indiana Kernick on 2/2/21.
+//  Created by Indiana Kernick on 25/6/21.
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let commandCodeRows = [
-    (code: CommandCode.mouseDown, name: "Mouse down"),
-    (code: CommandCode.mouseUp, name: "Mouse up"),
-    (code: CommandCode.mouseClick, name: "Mouse click"),
-    (code: CommandCode.keyDown, name: "Key down"),
-    (code: CommandCode.keyUp, name: "Key up"),
-    (code: CommandCode.keyClick, name: "Key click"),
-]
-
-fileprivate struct CommandRow {
-    var display: String
-    var data: [UInt8]
+fileprivate func commandsFromPlist(_ plist: [Any]) -> [CommandStruct]? {
+    var commands: [CommandStruct] = []
+    
+    // Maybe it would be easier to just store the bytes (CommandData)? Although,
+    // the current approach is pretty simple and the error checking is easy.
+    
+    for item in plist {
+        guard let dict = item as? [String: Any] else { return nil }
+        guard let rawCode = dict["command"] as? UInt8 else { return nil }
+        guard let code = CommandCode(rawValue: rawCode) else { return nil }
+        guard let rawKey = dict["key"] as? UInt8 else { return nil }
+        guard let key = Key(rawValue: rawKey) else { return nil }
+        guard let rawButton = dict["mouseButton"] as? UInt8 else { return nil }
+        guard let button = MouseButton(rawValue: rawButton) else { return nil }
+        guard let delay = dict["delay"] as? UInt16 else { return nil }
+        guard let x = dict["x"] as? Int16 else { return nil }
+        guard let y = dict["y"] as? Int16 else { return nil }
+        guard let rawChar = dict["char"] as? UInt32 else { return nil }
+        guard let char = Unicode.Scalar(rawChar) else { return nil }
+        guard let string = dict["string"] as? String else { return nil }
+        
+        var command = CommandStruct()
+        command.code = code
+        command.key = key
+        command.button = button
+        command.delay = delay
+        command.x = x
+        command.y = y
+        command.char = char
+        command.string = string
+        command.normalize()
+        commands.append(command)
+    }
+    
+    return commands
 }
 
-class CommandPickerDelegate: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    private var mouseCommand = true
+fileprivate func commandsToPlist(_ commands: [CommandStruct]) -> [Any] {
+    var plist: [[String: Any]] = []
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return commandCodeRows.count
-        } else if component == 1 {
-            if mouseCommand {
-                return MouseButton.allCases.count
-            } else {
-                return Key.allCases.count
-            }
-        } else {
-            return 0
-        }
+    for command in commands {
+        var dict: [String: Any] = [:]
+        dict["command"] = command.code.rawValue
+        dict["key"] = command.key.rawValue
+        dict["mouseButton"] = command.button.rawValue
+        dict["delay"] = command.delay
+        dict["x"] = command.x
+        dict["y"] = command.y
+        dict["char"] = command.char.value
+        dict["string"] = command.string
+        dict["data"] = command.data
+        plist.append(dict)
     }
     
-    private func makeWhiteString(string: String) -> NSAttributedString {
-        return NSAttributedString(
-            string: string,
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor(cgColor: Colors.gray200)]
-        )
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        if component == 0 {
-            return makeWhiteString(string: commandCodeRows[row].name)
-        } else if component == 1 {
-            if mouseCommand {
-                return makeWhiteString(string: MouseButton(rawValue: UInt8(row))!.description)
-            } else {
-                return makeWhiteString(string: Key(rawValue: UInt8(row))!.description)
-            }
-        } else {
-            return nil
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
-            if (row < 3 && !mouseCommand) || (row >= 3 && mouseCommand) {
-                mouseCommand = !mouseCommand
-                pickerView.reloadComponent(1)
-                pickerView.selectRow(0, inComponent: 1, animated: false)
-            }
-        }
-    }
-}
-
-class CommandListDelegate: NSObject, UITableViewDataSource {
-    fileprivate var rows: [CommandRow] = [CommandRow(
-        display: "\(CommandCode.mouseDown), \(MouseButton.left)",
-        data: [CommandCode.mouseDown.rawValue, MouseButton.left.rawValue]
-    )]
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return rows.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath)
-        cell.textLabel!.textColor = UIColor(cgColor: Colors.gray200)
-        cell.textLabel!.text = rows[indexPath.row].display
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            rows.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let item = rows[sourceIndexPath.row]
-        rows.remove(at: sourceIndexPath.row)
-        rows.insert(item, at: destinationIndexPath.row)
-    }
-}
-
-fileprivate func rowsFromPlist(plist: [Any]) -> [CommandRow] {
-    var rows: [CommandRow] = []
-    for element in plist {
-        let dict = element as! [String : Any]
-        let display = dict["display"] as! String
-        let data = dict["data"] as! [UInt8]
-        rows.append(CommandRow(display: display, data: data))
-    }
-    return rows
-}
-
-fileprivate func rowsToPlist(rows: [CommandRow]) -> [Any] {
-    var plist: [[String : Any]] = []
-    for row in rows {
-        plist.append(["display": row.display, "data": row.data])
-    }
     return plist
 }
 
-class ConfigureTapVC: UIViewController {
-    @IBOutlet weak var downCommands: UITableView!
-    @IBOutlet weak var upCommands: UITableView!
-    @IBOutlet weak var commandPicker: UIPickerView!
-    @IBOutlet weak var appendDown: LabelButtonInput!
-    @IBOutlet weak var appendUp: LabelButtonInput!
+class ConfigureTapVC: UITableViewController {
+    static let defaultDown: CommandStruct = {
+        var command = CommandStruct()
+        command.code = .mouseDown
+        return command
+    }()
+    static let defaultUp: CommandStruct = {
+        var command = CommandStruct()
+        command.code = .mouseUp
+        return command
+    }()
     
-    private var commandPickerDelegate = CommandPickerDelegate()
-    private var downCommandsDelegate = CommandListDelegate()
-    private var upCommandsDelegate = CommandListDelegate()
+    private var downCommands: [CommandStruct] = []
+    private var upCommands: [CommandStruct] = []
+    
+    @objc private func addButtonPressed() {
+        performSegue(withIdentifier: "CreateCommand", sender: self)
+    }
 
+    private func select<R>(index: IndexPath, get: (inout CommandStruct) -> R) -> R {
+        if index.section == 0 {
+            return get(&downCommands[index.row])
+        } else {
+            return get(&upCommands[index.row])
+        }
+    }
+
+    private func selectList(section: Int, get: (inout [CommandStruct]) -> Void) {
+        if section == 0 {
+            get(&downCommands)
+        } else {
+            get(&upCommands)
+        }
+    }
+    
+    private func load() {
+        if
+            let downPlist = Storage.getTapDownCommandList(),
+            let upPlist = Storage.getTapUpCommandList(),
+            let downCommands = commandsFromPlist(downPlist),
+            let upCommands = commandsFromPlist(upPlist)
+        {
+            self.downCommands = downCommands
+            self.upCommands = upCommands
+        } else {
+            downCommands = [ConfigureTapVC.defaultDown]
+            upCommands = [ConfigureTapVC.defaultUp]
+        }
+        save()
+        tableView.reloadData()
+    }
+    
+    private func save() {
+        Storage.setTapDownCommandList(commandsToPlist(downCommands))
+        Storage.setTapUpCommandList(commandsToPlist(upCommands))
+    }
+    
+    // --- UIViewController --- //
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        commandPicker.dataSource = commandPickerDelegate
-        commandPicker.delegate = commandPickerDelegate
-        commandPicker.reloadAllComponents()
-
-        downCommands.dataSource = downCommandsDelegate
-        downCommands.isEditing = true
-        
-        upCommands.dataSource = upCommandsDelegate
-        upCommands.isEditing = true
-        
-        appendDown.pressed = { [weak self] in
-            self!.appendTo(tableView: self!.downCommands)
-        }
-        
-        appendUp.pressed = { [weak self] in
-            self!.appendTo(tableView: self!.upCommands)
-        }
+        navigationItem.rightBarButtonItem = editButtonItem
+        setToolbarItems([
+            UIBarButtonItem.flexibleSpace(),
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonPressed)),
+            UIBarButtonItem.flexibleSpace()
+        ], animated: true)
+        navigationController?.toolbar.isTranslucent = false
+        navigationController?.toolbar.barTintColor = UIColor(cgColor: Colors.gray900)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let downRows = Storage.getTapDownCommandList()
-        let upRows = Storage.getTapUpCommandList()
-        if downRows != nil && upRows != nil {
-            downCommandsDelegate.rows = rowsFromPlist(plist: downRows!)
-            upCommandsDelegate.rows = rowsFromPlist(plist: upRows!)
-        }
-        downCommands.reloadData()
-        upCommands.reloadData()
+        navigationController?.isToolbarHidden = false
+        load()
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Storage.setTapDownCommandList(rowsToPlist(rows: downCommandsDelegate.rows))
-        Storage.setTapUpCommandList(rowsToPlist(rows: upCommandsDelegate.rows))
+        navigationController?.isToolbarHidden = true
+        save()
         TapVC.instance?.updateData()
     }
     
-    private func appendTo(tableView: UITableView) {
-        let column0 = commandPicker.selectedRow(inComponent: 0)
-        let column1 = commandPicker.selectedRow(inComponent: 1)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        let commandName = commandCodeRows[column0].name
-        let commandByte = commandCodeRows[column0].code.rawValue
-        let argumentName: String
-        let argumentByte: UInt8
-        if column0 < 3 {
-            argumentName = MouseButton(rawValue: UInt8(column1))!.description
-            argumentByte = UInt8(column1)
-        } else {
-            argumentName = Key(rawValue: UInt8(column1))!.description
-            argumentByte = UInt8(column1)
+        if let nav = segue.destination as? UINavigationController {
+            let edit = nav.topViewController! as! EditCommandVC
+            edit.initialize(command: nil)
+            edit.updated = { [weak self] command in
+                self!.upCommands.append(command)
+                self!.tableView.reloadData()
+                self!.save()
+            }
+        } else if let edit = segue.destination as? EditCommandVC {
+            let index = tableView.indexPath(for: sender as! UITableViewCell)!
+            edit.initialize(command: select(index: index) { $0 })
+            edit.updated = { [weak self] command in
+                self!.select(index: index) { $0 = command }
+                self!.tableView.reloadData()
+                self!.save()
+            }
+        }
+    }
+    
+    // --- UITableViewController --- //
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        section == 0 ? downCommands.count : upCommands.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        ["Down Commands", "Up Commands"][section]
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor(cgColor: Colors.gray800)
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommandCell", for: indexPath)
+        let command = select(index: indexPath) { $0 }
+        cell.textLabel!.text = command.code.description
+        cell.detailTextLabel!.text = command.parameterDescription
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            selectList(section: indexPath.section) {
+                $0.remove(at: indexPath.row)
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        var command: CommandStruct! = nil
+        
+        selectList(section: sourceIndexPath.section) {
+            command = $0[sourceIndexPath.row]
+            $0.remove(at: sourceIndexPath.row)
         }
         
-        let display = commandName + ", " + argumentName
-        let data = [commandByte, argumentByte]
-        let listDelegate = tableView.dataSource as! CommandListDelegate
-        listDelegate.rows.append(CommandRow(display: display, data: data))
-        let count = listDelegate.rows.count
-        tableView.insertRows(at: [IndexPath(row: count - 1, section: 0)], with: .fade)
+        selectList(section: destinationIndexPath.section) {
+            $0.insert(command, at: destinationIndexPath.row)
+        }
     }
 }

@@ -21,8 +21,8 @@ fileprivate func dataFromPlist(_ plist: [Any]) -> Data? {
 class TapVC: BasicVC {
     @IBOutlet weak var tap: TapInput!
     
-    private var downData = CommandData.mouseDown(MouseButton.left)
-    private var upData = CommandData.mouseUp(MouseButton.left)
+    private var downData = ConfigureTapVC.defaultDown.data
+    private var upData =  ConfigureTapVC.defaultUp.data
     
     static weak var instance: TapVC?
     
