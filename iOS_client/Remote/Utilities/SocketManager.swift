@@ -22,85 +22,12 @@ class SocketManager: WebSocketDelegate {
     private var socket: WebSocket!
     private var tickTimer: Timer?
     private var tickCount = 0
+    private var retrying = false
     private var onlineStatus = false
-    private var dummyMode = false
     private var host = ""
+    private var dummyMode = false
     private var lowLatencyMode = true
-
-    weak var delegate: SocketManagerDelegate?
     
-    func connectTo(host: String) {
-        self.host = host
-        stopTicking()
-        updateOnlineStatus(online: false)
-        
-        if host == "dummy" {
-            dummyMode = true
-            updateOnlineStatus(online: true)
-        } else {
-            dummyMode = false
-            if let url = URL(string: "ws://" + host + ":80") {
-                socket = WebSocket(url: url)
-                socket.delegate = self
-                socket.connect()
-            }
-        }
-    }
-
-    func reconnect() {
-        if !dummyMode {
-            socket.connect()
-        }
-    }
-
-    func websocketDidConnect(socket: WebSocketClient) {
-        updateOnlineStatus(online: true)
-        tickCount = 0
-        startTicking()
-    }
-
-    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-        stopTicking()
-        updateOnlineStatus(online: false)
-        DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
-            self.reconnect()
-        }
-    }
-
-    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
-
-    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
-
-    func send(_ data: Data) {
-        if dummyMode { return }
-        socket.write(data: data)
-        tickCount = 0
-        if tickTimer == nil {
-            startTicking()
-        }
-    }
-    
-    func send(_ data: [UInt8]) {
-        send(Data(data))
-    }
-    
-    func getOnlineStatus() -> Bool {
-        onlineStatus
-    }
-    
-    func getOnlineHost() -> String? {
-        onlineStatus ? host : nil
-    }
-    
-    func setLowLatencyMode(enabled: Bool) {
-        lowLatencyMode = enabled
-        if lowLatencyMode {
-            startTicking()
-        } else {
-            stopTicking()
-        }
-    }
-
     private func startTicking() {
         if lowLatencyMode {
             tickTimer = Timer.scheduledTimer(
@@ -133,4 +60,86 @@ class SocketManager: WebSocketDelegate {
             delegate?.onlineStatusChanged(online: onlineStatus)
         }
     }
+    
+    // --- SocketManager --- //
+
+    weak var delegate: SocketManagerDelegate?
+    
+    func connectTo(host: String) {
+        self.host = host
+        stopTicking()
+        updateOnlineStatus(online: false)
+        
+        if host == "dummy" {
+            dummyMode = true
+            updateOnlineStatus(online: true)
+        } else {
+            dummyMode = false
+            if let url = URL(string: "ws://" + host + ":80") {
+                socket = WebSocket(url: url)
+                socket.delegate = self
+                socket.connect()
+            }
+        }
+    }
+
+    func reconnect() {
+        if !dummyMode {
+            socket.connect()
+        }
+    }
+
+    func send(_ data: Data) {
+        if dummyMode { return }
+        socket.write(data: data)
+        tickCount = 0
+        if tickTimer == nil {
+            startTicking()
+        }
+    }
+    
+    func send(_ data: [UInt8]) {
+        send(Data(data))
+    }
+    
+    func getOnlineStatus() -> Bool {
+        onlineStatus
+    }
+    
+    func getOnlineHost() -> String? {
+        onlineStatus ? host : nil
+    }
+    
+    func setLowLatencyMode(enabled: Bool) {
+        lowLatencyMode = enabled
+        if lowLatencyMode {
+            startTicking()
+        } else {
+            stopTicking()
+        }
+    }
+    
+    // --- WebSocketDelegate --- //
+    
+    func websocketDidConnect(socket: WebSocketClient) {
+        updateOnlineStatus(online: true)
+        tickCount = 0
+        startTicking()
+    }
+
+    func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+        stopTicking()
+        updateOnlineStatus(online: false)
+        if !retrying {
+            retrying = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {
+                self.retrying = false
+                self.reconnect()
+            }
+        }
+    }
+
+    func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {}
+
+    func websocketDidReceiveData(socket: WebSocketClient, data: Data) {}
 }
