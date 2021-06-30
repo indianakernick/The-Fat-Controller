@@ -15,8 +15,15 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet var lowLatencySwitch: UISwitch!
     
+    @IBAction func lowLatencyToggled() {
+        Storage.setLowLatencyMode(lowLatencySwitch.isOn)
+        socket.setLowLatencyMode(enabled: lowLatencySwitch.isOn)
+    }
+    
     private var socket: SocketManager!
     private var online = false
+    
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +42,8 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
         return .portrait
     }
     
+    // --- UITextFieldDelegate --- //
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = hostNameField.text {
             Storage.setHostName(text)
@@ -43,12 +52,9 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
         view.endEditing(true)
         return true
     }
-    
-    @IBAction func lowLatencyToggled() {
-        Storage.setLowLatencyMode(lowLatencySwitch.isOn)
-        socket.setLowLatencyMode(enabled: lowLatencySwitch.isOn)
-    }
 
+    // --- NavigationChild --- //
+    
     func onlineStatusChanged(online: Bool) {
         self.online = online
         if statusCell == nil {

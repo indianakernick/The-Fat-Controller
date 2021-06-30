@@ -8,6 +8,7 @@
 
 import Foundation
 import Starscream
+import CryptoKit
 
 protocol SocketManagerDelegate: AnyObject {
     func onlineStatusChanged(online: Bool)
@@ -18,6 +19,8 @@ class SocketManager: WebSocketDelegate {
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
     private static let emptyData = Data()
+    private static let encryptionEnabledData = Data([1])
+    private static let encryptionDisabledData = Data([0])
     
     private var socket: WebSocket!
     private var tickTimer: Timer?
@@ -27,6 +30,8 @@ class SocketManager: WebSocketDelegate {
     private var host = ""
     private var dummyMode = false
     private var lowLatencyMode = true
+    private var secureMode = true
+    private var secureKey: SymmetricKey? = SymmetricKey(data: Data([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
     
     private func startTicking() {
         if lowLatencyMode {
@@ -65,6 +70,8 @@ class SocketManager: WebSocketDelegate {
 
     weak var delegate: SocketManagerDelegate?
     
+    // Connecting
+    
     func connectTo(host: String) {
         self.host = host
         stopTicking()
@@ -88,10 +95,30 @@ class SocketManager: WebSocketDelegate {
             socket.connect()
         }
     }
-
+    
+    // Sending
+    
     func send(_ data: Data) {
         if dummyMode { return }
-        socket.write(data: data)
+        
+        if secureMode {
+            if secureKey == nil { return }
+            if data.count == 0 {
+                socket.write(data: data)
+            } else {
+                let nonce = AES.GCM.Nonce.init()
+                do {
+                    let sealedBox = try AES.GCM.seal(data, using: secureKey!, nonce: nonce)
+                    socket.write(data: sealedBox.combined!)
+                } catch {
+                    print(error)
+                    return
+                }
+            }
+        } else {
+            socket.write(data: data)
+        }
+        
         tickCount = 0
         if tickTimer == nil {
             startTicking()
@@ -102,6 +129,8 @@ class SocketManager: WebSocketDelegate {
         send(Data(data))
     }
     
+    // Introspection
+    
     func getOnlineStatus() -> Bool {
         onlineStatus
     }
@@ -109,6 +138,8 @@ class SocketManager: WebSocketDelegate {
     func getOnlineHost() -> String? {
         onlineStatus ? host : nil
     }
+    
+    // Configuration
     
     func setLowLatencyMode(enabled: Bool) {
         lowLatencyMode = enabled
@@ -119,9 +150,31 @@ class SocketManager: WebSocketDelegate {
         }
     }
     
+    func setSecureMode(enabled: Bool) {
+        secureMode = enabled
+        secureKey = nil
+        // disconnect
+        // reconnect and specify whether we want encryption or not
+        // if we do, then the server will generate a key and create a QR code
+        // the user will scan the QR code
+        // until the user does that, nothing will happen
+        // upon successfully scanning the QR code, setSecureKey will be called
+        // and we may begin
+    }
+    
+    func setSecureKey(key: SymmetricKey) {
+        secureKey = key
+    }
+    
     // --- WebSocketDelegate --- //
     
     func websocketDidConnect(socket: WebSocketClient) {
+        /*socket.write(data:
+            secureMode
+            ? SocketManager.encryptionEnabledData
+            : SocketManager.encryptionDisabledData
+        )*/
+        socket.write(data: SocketManager.encryptionEnabledData)
         updateOnlineStatus(online: true)
         tickCount = 0
         startTicking()
