@@ -1,3 +1,27 @@
+//! The core of TFC is the [`Context`]. To start generating fake input events,
+//! you'll need to create a context. The context by itself is basically useless
+//! unless you import the [`traits`]. The trait methods return an [`Error`] if
+//! something goes wrong. Bringing these three things together, we end up with
+//! this.
+//!
+//! ```no_run
+//! use std::{thread, time::Duration};
+//! use tfc::{Context, Error, traits::*};
+//!
+//! fn main() -> Result<(), Error> {
+//!     let mut ctx = Context::new()?;
+//!     // For OS-specific reasons, it's necessary to wait a moment after
+//!     // creating the context before generating events.
+//!     thread::sleep(Duration::from_millis(10));
+//!     ctx.unicode_string("Hello world!")
+//! }
+//! ```
+//!
+//! In addition to the context and its traits, there is also [`Command`]. This
+//! represents an action to perform on the context. It's possible to serialize a
+//! command, send it over a network, deserialize it and then execute it. In
+//! fact, this is what [TFC-server](https://crates.io/crates/tfc-server) does.
+
 mod command;
 #[macro_use]
 mod r#enum;
