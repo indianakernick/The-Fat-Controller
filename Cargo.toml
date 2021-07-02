@@ -17,7 +17,7 @@ ascii-fallback = []
 
 [target.'cfg(target_os = "macos")'.dependencies]
 # Both of these are required for UnicodeKeyboardContext::unicode_string
-unicode-segmentation = "1.7"
+unicode-segmentation = "1.8"
 core-graphics = "0.22"
 
 [dependencies]
