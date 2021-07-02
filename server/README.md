@@ -3,10 +3,10 @@
 [![Crates.io](https://img.shields.io/crates/v/tfc-server)](https://crates.io/crates/tfc-server)
 ![License](https://img.shields.io/crates/l/tfc-server)
 
-A WebSocket server (soon to be a TCP server) that uses
-[TFC](https://crates.io/crates/tfc) for remote control. The repo contains an iOS
-app that connects to the server to allow for remotely controlling a host on the
-same WiFi network that's running the server. An Android app is on the roadmap.
+A WebSocket server that uses [TFC](https://crates.io/crates/tfc) for remote
+control. The repo contains an iOS app that connects to the server to allow for
+remotely controlling a host on the same WiFi network that's running the server.
+An Android app is on the roadmap.
 
 ## Installation
 
@@ -27,13 +27,4 @@ downloaded from the repo and compiled.
 
 See
 [docs/screenshots](https://github.com/Kerndog73/The-Fat-Controller/tree/master/docs/screenshots)
-for more.
-
-<p align="center">
-  <img alt="Number pad screenshot" width="300" src="https://github.com/Kerndog73/The-Fat-Controller/raw/master/docs/screenshots/2021-02-04_0.png"/>
-  <img alt="Video remote screenshot" width="300" src="https://github.com/Kerndog73/The-Fat-Controller/raw/master/docs/screenshots/2021-02-05_1.png"/>
-</p>
-
-<p align="center">
-  <img alt="Landscape orientation number pad screenshot" height="300" src="https://github.com/Kerndog73/The-Fat-Controller/raw/master/docs/screenshots/2021-02-04_5.png"/>
-</p>
+for screenshots of the iOS app.
