@@ -18,8 +18,6 @@ enum SocketStatus {
     case disconnected, connectedWithoutKey, connected
 }
 
-// update readme with new screenshots
-
 class SocketManager: WebSocketDelegate {
     public static let keyLength = 16
     
