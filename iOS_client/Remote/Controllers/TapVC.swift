@@ -19,12 +19,30 @@ fileprivate func dataFromPlist(_ plist: [Any]) -> Data? {
 }
 
 class TapVC: BasicVC {
-    @IBOutlet weak var tap: TapInput!
-    
     private var downData = ConfigureTapVC.defaultDown.data
     private var upData =  ConfigureTapVC.defaultUp.data
     
+    // --- Interface Builder --- //
+    
+    @IBOutlet weak var tap: TapInput!
+    
+    // --- TapVC --- //
+    
     static weak var instance: TapVC?
+    
+    func updateData() {
+        if
+            let downPlist = Storage.getTapDownCommandList(),
+            let upPlist = Storage.getTapUpCommandList(),
+            let downData = dataFromPlist(downPlist),
+            let upData = dataFromPlist(upPlist)
+        {
+            self.downData = downData
+            self.upData = upData
+        }
+    }
+    
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,17 +58,5 @@ class TapVC: BasicVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateData()
-    }
-    
-    func updateData() {
-        if
-            let downPlist = Storage.getTapDownCommandList(),
-            let upPlist = Storage.getTapUpCommandList(),
-            let downData = dataFromPlist(downPlist),
-            let upData = dataFromPlist(upPlist)
-        {
-            self.downData = downData
-            self.upData = upData
-        }
     }
 }

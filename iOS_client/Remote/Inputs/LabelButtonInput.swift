@@ -14,8 +14,12 @@ class LabelButtonInput: UILabel {
     
     private var firstTouch: UITouch?
     
+    // --- LabelButtonInput --- //
+    
     var pressed = {}
     var released = {}
+    
+    // --- UIView --- //
     
     override func layoutSubviews() {
         isMultipleTouchEnabled = false

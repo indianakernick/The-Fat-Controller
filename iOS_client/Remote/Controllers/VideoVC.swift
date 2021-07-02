@@ -17,6 +17,8 @@ class VideoVC: BasicVC {
     private let timeData = CommandData.mouseMoveRel()
     private let forwardData = CommandData.keyClick(Key.rightArrow)
     
+    // --- Interface Builder --- //
+    
     @IBAction func mutePressed() {
         send(muteData)
     }

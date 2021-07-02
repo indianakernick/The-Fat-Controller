@@ -12,19 +12,29 @@ import AVFoundation
 
 // https://www.hackingwithswift.com/example-code/media/how-to-scan-a-qr-code
 
-protocol ScannerDelegate: AnyObject {
-    func scanDidSucceed(key: SymmetricKey)
-    func scanDidFail()
-    func scanWasCancelled()
-}
-
 class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     
+    private func failed() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(
+                title: "Scanning not supported",
+                message: "This device does not support scanning QR codes.",
+                preferredStyle: .alert
+            )
+            let action = UIAlertAction(title: "OK", style: .default) { action in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
+        captureSession = nil
+    }
+    
     // --- ScannerVC --- //
     
-    weak var delegate: ScannerDelegate? = nil
+    var succeeded: (SymmetricKey) -> Void = { key in }
     
     // --- UIViewController --- //
     
@@ -48,7 +58,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         if captureSession.canAddInput(videoInput) {
             captureSession.addInput(videoInput)
         } else {
-            delegate?.scanDidFail()
+            failed()
             return
         }
         
@@ -61,7 +71,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [.qr]
         } else {
-            delegate?.scanDidFail()
+            failed()
             return
         }
         
@@ -75,12 +85,16 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captureSession.startRunning()
+        if captureSession?.isRunning == false {
+            captureSession.startRunning()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        captureSession.stopRunning()
+        if captureSession?.isRunning == true {
+            captureSession.stopRunning()
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -101,7 +115,7 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if decodedData.count != SocketManager.keyLength { continue }
             
             captureSession.stopRunning()
-            delegate?.scanDidSucceed(key: SymmetricKey(data: decodedData))
+            succeeded(SymmetricKey(data: decodedData))
             Haptic.strongTap()
             dismiss(animated: true)
             return

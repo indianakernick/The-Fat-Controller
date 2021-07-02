@@ -9,15 +9,31 @@
 import UIKit
 
 class ControllersVC: UITableViewController, NavigationChild {
-    @IBOutlet weak var settingsStatus: UILabel!
-    
     private var nav: NavigationController!
     private var socket: SocketManager!
+    
+    private func update(_ status: SocketStatus) {
+        if settingsStatus != nil {
+            settingsStatus.text = SettingsVC.statusText(status: status, host: socket.getHost())
+        }
+    }
+    
+    // --- Interface Builder --- //
+    
+    @IBOutlet weak var settingsStatus: UILabel!
+    
+    // --- ControllersVC --- //
+    
+    func setNav(_ nav: NavigationController) {
+        self.nav = nav
+    }
+    
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
         nav.addNavChild(self)
-        update()
+        update(socket.getStatus())
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -28,22 +44,14 @@ class ControllersVC: UITableViewController, NavigationChild {
         return .portrait
     }
     
-    func setNav(_ nav: NavigationController) {
-        self.nav = nav
+    // --- NavigationChild --- //
+    
+    func socketStatusChanged(_ status: SocketStatus) {
+        update(status)
     }
     
-    private func update() {
-        if settingsStatus != nil {
-            settingsStatus.text = socket.getOnlineHost() ?? "Not Connected"
-        }
-    }
-    
-    func onlineStatusChanged(online: Bool) {
-        update()
-    }
-    
-    func onlineStatusInitial(online: Bool) {
-        update()
+    func socketStatusInitial(_ status: SocketStatus) {
+        update(status)
     }
     
     func setSocket(_ socket: SocketManager) {

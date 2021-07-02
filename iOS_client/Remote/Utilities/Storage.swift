@@ -11,6 +11,7 @@ import Foundation
 enum Storage {
     private static let hostName = "HostName"
     private static let lowLatencyMode = "LowLatencyMode"
+    private static let secureMode = "SecureMode"
     private static let tapUpCommandList = "TapCommandListUp"
     private static let tapDownCommandList = "TapCommandListDown"
     
@@ -32,6 +33,14 @@ enum Storage {
         UserDefaults.standard.object(forKey: lowLatencyMode) as? Bool ?? true
     }
     
+    static func setSecureMode(_ value: Bool) {
+        UserDefaults.standard.setValue(value, forKey: secureMode)
+    }
+    
+    static func getSecureMode() -> Bool {
+        UserDefaults.standard.bool(forKey: secureMode)
+    }
+
     // I don't remember why I'm using set here and setValue elsewhere.
     // I'm not sure what the difference is.
     

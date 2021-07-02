@@ -11,8 +11,14 @@ import Starscream
 import CryptoKit
 
 protocol SocketManagerDelegate: AnyObject {
-    func onlineStatusChanged(online: Bool)
+    func socketStatusChanged(_ status: SocketStatus)
 }
+
+enum SocketStatus {
+    case disconnected, connectedWithoutKey, connected
+}
+
+// update readme with new screenshots
 
 class SocketManager: WebSocketDelegate {
     public static let keyLength = 16
@@ -28,7 +34,7 @@ class SocketManager: WebSocketDelegate {
     private var tickTimer: Timer?
     private var tickCount = 0
     private var retrying = false
-    private var onlineStatus = false
+    private var status = SocketStatus.disconnected
     private var host = ""
     private var dummyMode = false
     private var lowLatencyMode = true
@@ -61,10 +67,10 @@ class SocketManager: WebSocketDelegate {
         }
     }
     
-    private func updateOnlineStatus(online: Bool) {
-        if online != onlineStatus {
-            onlineStatus = online
-            delegate?.onlineStatusChanged(online: onlineStatus)
+    private func setStatus(_ status: SocketStatus) {
+        if status != self.status {
+            self.status = status
+            delegate?.socketStatusChanged(status)
         }
     }
     
@@ -77,11 +83,11 @@ class SocketManager: WebSocketDelegate {
     func connectTo(host: String) {
         self.host = host
         stopTicking()
-        updateOnlineStatus(online: false)
+        setStatus(.disconnected)
         
         if host == "dummy" {
             dummyMode = true
-            updateOnlineStatus(online: true)
+            setStatus(.connected)
         } else {
             dummyMode = false
             if let url = URL(string: "ws://" + host + ":80") {
@@ -133,12 +139,12 @@ class SocketManager: WebSocketDelegate {
     
     // Introspection
     
-    func getOnlineStatus() -> Bool {
-        onlineStatus
+    func getStatus() -> SocketStatus {
+        status
     }
     
-    func getOnlineHost() -> String? {
-        onlineStatus ? host : nil
+    func getHost() -> String {
+        host
     }
     
     // Configuration
@@ -155,11 +161,14 @@ class SocketManager: WebSocketDelegate {
     func setSecureMode(enabled: Bool) {
         secureMode = enabled
         secureKey = nil
-        reconnect()
+        if socket != nil {
+            reconnect()
+        }
     }
     
     func setSecureKey(key: SymmetricKey) {
         secureKey = key
+        setStatus(.connected)
     }
     
     // --- WebSocketDelegate --- //
@@ -170,14 +179,14 @@ class SocketManager: WebSocketDelegate {
             ? SocketManager.encryptionEnabledData
             : SocketManager.encryptionDisabledData
         )
-        updateOnlineStatus(online: true)
+        setStatus(secureMode ? .connectedWithoutKey : .connected)
         tickCount = 0
         startTicking()
     }
 
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         stopTicking()
-        updateOnlineStatus(online: false)
+        setStatus(.disconnected)
         if !retrying {
             retrying = true
             DispatchQueue.main.asyncAfter(deadline: .now() + SocketManager.retryDelay) {

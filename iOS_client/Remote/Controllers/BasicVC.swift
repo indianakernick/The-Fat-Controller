@@ -12,24 +12,11 @@ class BasicVC: UIViewController, NavigationChild {
     private var socket: SocketManager!
     private var online = false
     
+    // --- Interface Builder --- //
+    
     @IBOutlet weak var offlineCover: UIView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if online {
-            for view in view.subviews {
-                view.isHidden = false
-            }
-            offlineCover.isHidden = true
-            offlineCover.alpha = 0.0
-        } else {
-            for view in view.subviews {
-                view.isHidden = true
-            }
-            offlineCover.isHidden = false
-            offlineCover.alpha = 1.0
-        }
-    }
+    // --- BasicVC --- //
     
     func send(_ data: Data) {
         socket.send(data)
@@ -45,7 +32,34 @@ class BasicVC: UIViewController, NavigationChild {
         button.pressed = makeListener(with: data)
     }
     
-    func onlineStatusChanged(online: Bool) {
+    // --- UIViewController --- //
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if online {
+            for view in view.subviews {
+                view.isHidden = false
+            }
+            offlineCover.isHidden = true
+            offlineCover.alpha = 0.0
+        } else {
+            for view in view.subviews {
+                view.isHidden = true
+            }
+            offlineCover.isHidden = false
+            offlineCover.alpha = 1.0
+        }
+    }
+    
+    // --- NavigationChild --- //
+    
+    func socketStatusChanged(_ status: SocketStatus) {
+        online = status == .connected
+        
+        if self.offlineCover == nil {
+            return
+        }
+        
         if online {
             for view in view.subviews {
                 view.isHidden = false
@@ -70,8 +84,8 @@ class BasicVC: UIViewController, NavigationChild {
         }
     }
     
-    func onlineStatusInitial(online: Bool) {
-        self.online = online
+    func socketStatusInitial(_ status: SocketStatus) {
+        online = status == .connected
     }
     
     func setSocket(_ socket: SocketManager) {

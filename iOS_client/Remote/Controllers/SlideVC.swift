@@ -14,6 +14,8 @@ class SlideVC: BasicVC {
     private let previousData = CommandData.keyClick(Key.leftArrow)
     private let firstData = CommandData.keyClick(Key.home)
     
+    // --- Interface Builder --- //
+    
     @IBAction func lastPressed() {
         send(lastData)
     }

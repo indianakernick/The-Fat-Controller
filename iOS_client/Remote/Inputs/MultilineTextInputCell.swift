@@ -9,6 +9,8 @@
 import UIKit
 
 class MultilineTextInputCell: UITableViewCell, UITextViewDelegate {
+    // --- Interface Builder --- //
+    
     @IBOutlet weak var textInput: UITextView!
     
     // --- MultilineTextInputCell --- //

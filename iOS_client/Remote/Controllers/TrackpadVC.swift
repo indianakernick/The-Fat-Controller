@@ -9,8 +9,6 @@
 import Foundation
 
 class TrackpadVC: BasicVC, TrackpadInputDelegate {
-    @IBOutlet weak var trackpad: TrackpadInput!
-    
     private var clickData = CommandData.mouseClick(MouseButton.left)
     private var rightClickData = CommandData.mouseClick(MouseButton.right)
     private var moveData = CommandData.mouseMoveRel()
@@ -19,6 +17,12 @@ class TrackpadVC: BasicVC, TrackpadInputDelegate {
     private var upData = CommandData.mouseUp(MouseButton.left)
     private var spaceLeftData = CommandData.keyClick(Key.leftArrow, with: Key.control)
     private var spaceRightData = CommandData.keyClick(Key.rightArrow, with: Key.control)
+    
+    // --- Interface Builder --- //
+    
+    @IBOutlet weak var trackpad: TrackpadInput!
+    
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +34,8 @@ class TrackpadVC: BasicVC, TrackpadInputDelegate {
         trackpad.scrollScale = 1.8
         trackpad.delegate = self
     }
+    
+    // --- TrackpadInputDelegate --- //
     
     func mouseClick() {
         send(clickData)

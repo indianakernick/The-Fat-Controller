@@ -14,8 +14,12 @@ class TapInput: UIView {
     
     private var firstTouch: UITouch?
     
+    // --- TapInput --- //
+    
     var pressed = {}
     var released = {}
+    
+    // --- UIView --- //
     
     override func layoutSubviews() {
         layer.backgroundColor = TapInput.upColor

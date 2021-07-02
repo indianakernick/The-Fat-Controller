@@ -12,8 +12,17 @@ class ButtonInput: UIButton {
     static private let downColor = Colors.gray500
     static private let upColor = Colors.gray700
     
-    // layoutSubviews seems to be called many times
     private var initialized = false
+    
+    @objc private func touchDown() {
+        layer.backgroundColor = ButtonInput.downColor
+    }
+    
+    @objc private func touchUp() {
+        layer.backgroundColor = ButtonInput.upColor
+    }
+    
+    // --- UIView --- //
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -28,13 +37,5 @@ class ButtonInput: UIButton {
         addTarget(self, action: #selector(touchUp), for: .touchUpInside)
         addTarget(self, action: #selector(touchUp), for: .touchUpOutside)
         addTarget(self, action: #selector(touchUp), for: .touchCancel)
-    }
-    
-    @objc private func touchDown() {
-        layer.backgroundColor = ButtonInput.downColor
-    }
-    
-    @objc private func touchUp() {
-        layer.backgroundColor = ButtonInput.upColor
     }
 }

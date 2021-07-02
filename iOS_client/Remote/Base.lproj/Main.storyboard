@@ -1096,6 +1096,31 @@
                                             <outlet property="accessoryView" destination="pQj-H5-s4x" id="Znk-az-nfM"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="6lF-pY-Jgn">
+                                        <rect key="frame" x="0.0" y="286.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6lF-pY-Jgn" id="CTd-Ls-Tgk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rcL-4R-b5o">
+                                                    <rect key="frame" x="16" y="11" width="343" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title="Scan Encryption Key"/>
+                                                    <connections>
+                                                        <segue destination="Zca-Gw-FkQ" kind="presentation" id="LV2-Ze-hTU"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rcL-4R-b5o" firstAttribute="top" secondItem="CTd-Ls-Tgk" secondAttribute="topMargin" id="OEF-0l-9pP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="rcL-4R-b5o" secondAttribute="bottom" id="Uio-0P-F6V"/>
+                                                <constraint firstItem="rcL-4R-b5o" firstAttribute="leading" secondItem="CTd-Ls-Tgk" secondAttribute="leadingMargin" id="d3g-Tb-FU7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rcL-4R-b5o" secondAttribute="trailing" id="g1H-TB-aQS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="gray900"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1108,11 +1133,11 @@
                     <connections>
                         <outlet property="hostNameField" destination="NRW-yO-cSh" id="fxL-FY-5LR"/>
                         <outlet property="lowLatencySwitch" destination="iQZ-SM-uKe" id="oYv-Ua-rBD"/>
+                        <outlet property="scanButton" destination="rcL-4R-b5o" id="Qfe-IU-uIR"/>
                         <outlet property="secureSwitch" destination="pQj-H5-s4x" id="VKD-95-TX3"/>
                         <outlet property="statusCell" destination="xfd-Gj-5Jt" id="KIi-dH-8II"/>
                         <outlet property="statusIndicator" destination="Tkt-9v-Owe" id="tzW-oQ-oTz"/>
                         <outlet property="statusLabel" destination="MNj-gc-zhA" id="GdY-8e-pmK"/>
-                        <segue destination="Zca-Gw-FkQ" kind="presentation" identifier="Scan" id="Q54-wd-PN1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EKD-Ug-Fry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

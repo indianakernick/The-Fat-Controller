@@ -9,8 +9,6 @@
 import UIKit
 
 class TextInputCell: UITableViewCell, UITextFieldDelegate {
-    @IBOutlet weak var textInput: UITextField!
-    
     private var mode = Mode.string
     
     private func getReplacedText(range: NSRange, string: String) -> String {
@@ -19,6 +17,10 @@ class TextInputCell: UITableViewCell, UITextFieldDelegate {
         newString.replaceSubrange(stringRange, with: string)
         return newString
     }
+    
+    // --- Interface Builder --- //
+    
+    @IBOutlet weak var textInput: UITextField!
     
     // --- TextInputCell --- //
     

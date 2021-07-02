@@ -9,6 +9,42 @@
 import UIKit
 
 class NumberPadVC: BasicVC {
+    private var pressShift = {}
+    private var releaseShift = {}
+    private var landscapeButtons = [LabelButtonInput]()
+    
+    private func shiftPressed() {
+        eightBtn.text = "↑"
+        sixBtn.text = "→"
+        twoBtn.text = "↓"
+        fourBtn.text = "←"
+        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.upArrow, with: Key.shift))
+        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.rightArrow, with: Key.shift))
+        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.downArrow, with: Key.shift))
+        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.leftArrow, with: Key.shift))
+        pressShift()
+    }
+    
+    private func shiftReleased() {
+        eightBtn.text = "8"
+        sixBtn.text = "6"
+        twoBtn.text = "2"
+        fourBtn.text = "4"
+        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.n8))
+        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.n6))
+        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.n2))
+        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.n4))
+        releaseShift()
+    }
+    
+    private func setLandscapeButtons(hidden: Bool) {
+        for btn in landscapeButtons {
+            btn.isHidden = hidden
+        }
+    }
+    
+    // --- Interface Builder --- //
+    
     @IBOutlet weak var cutBtn: LabelButtonInput!
     @IBOutlet weak var copyBtn: LabelButtonInput!
     @IBOutlet weak var pasteBtn: LabelButtonInput!
@@ -44,33 +80,7 @@ class NumberPadVC: BasicVC {
     @IBOutlet weak var zeroBtn: LabelButtonInput!
     @IBOutlet weak var periodBtn: LabelButtonInput!
     
-    private var pressShift = {}
-    private var releaseShift = {}
-    private var landscapeButtons = [LabelButtonInput]()
-    
-    private func shiftPressed() {
-        eightBtn.text = "↑"
-        sixBtn.text = "→"
-        twoBtn.text = "↓"
-        fourBtn.text = "←"
-        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.upArrow, with: Key.shift))
-        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.rightArrow, with: Key.shift))
-        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.downArrow, with: Key.shift))
-        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.leftArrow, with: Key.shift))
-        pressShift()
-    }
-    
-    private func shiftReleased() {
-        eightBtn.text = "8"
-        sixBtn.text = "6"
-        twoBtn.text = "2"
-        fourBtn.text = "4"
-        setPressListener(for: eightBtn, with: CommandData.keyClick(Key.n8))
-        setPressListener(for: sixBtn, with: CommandData.keyClick(Key.n6))
-        setPressListener(for: twoBtn, with: CommandData.keyClick(Key.n2))
-        setPressListener(for: fourBtn, with: CommandData.keyClick(Key.n4))
-        releaseShift()
-    }
+    // --- UIViewController --- //
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +94,6 @@ class NumberPadVC: BasicVC {
             lessBtn, downBtn, greaterBtn,
             shiftBtn, caretBtn, percentBtn
         ]
-        
-        let size = view.frame.size
-        setLandscapeButtons(hidden: size.width < size.height)
         
         setPressListener(for: cutBtn, with: CommandData.keyClick(Key.x, with: Key.controlOrMeta))
         setPressListener(for: copyBtn, with: CommandData.keyClick(Key.c, with: Key.controlOrMeta))
@@ -130,6 +137,12 @@ class NumberPadVC: BasicVC {
         shiftBtn.released = shiftReleased
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let size = view.frame.size
+        setLandscapeButtons(hidden: size.width < size.height)
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -140,13 +153,15 @@ class NumberPadVC: BasicVC {
                 self.setLandscapeButtons(hidden: true)
             }
         } else {
-            self.setLandscapeButtons(hidden: false)
+            setLandscapeButtons(hidden: false)
         }
     }
     
-    private func setLandscapeButtons(hidden: Bool) {
-        for btn in landscapeButtons {
-            btn.isHidden = hidden
-        }
+    // --- BasicVC --- //
+    
+    override func socketStatusChanged(_ status: SocketStatus) {
+        super.socketStatusChanged(status)
+        let size = view.frame.size
+        setLandscapeButtons(hidden: size.width < size.height)
     }
 }

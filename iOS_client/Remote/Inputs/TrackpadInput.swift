@@ -37,69 +37,6 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
     private var lastPanTwoPoint = CGPoint()
     private var lastPanThreePoint = CGPoint()
     
-    weak var delegate: TrackpadInputDelegate?
-    var slowMoveScale = CGFloat(1)
-    var middleMoveScale = CGFloat(1)
-    var fastMoveScale = CGFloat(1)
-    var slowSpeed = CGFloat(1)
-    var fastSpeed = CGFloat(1)
-    var scrollScale = CGFloat(1)
-    
-    override func layoutSubviews() {
-        if initialized {
-            return
-        }
-        initialized = true
-        
-        tapOnceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapOnce))
-        tapOnceRecog.delegate = self
-        addGestureRecognizer(tapOnceRecog)
-        
-        tapTwiceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwice))
-        tapTwiceRecog.numberOfTapsRequired = 2
-        tapTwiceRecog.delegate = self
-        addGestureRecognizer(tapTwiceRecog)
-        
-        tapThriceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapThrice))
-        tapThriceRecog.numberOfTapsRequired = 3
-        tapThriceRecog.delegate = self
-        addGestureRecognizer(tapThriceRecog)
-        
-        tapTwoRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwo))
-        tapTwoRecog.numberOfTouchesRequired = 2
-        tapTwoRecog.delegate = self
-        addGestureRecognizer(tapTwoRecog)
-        
-        panOneRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanOne))
-        panOneRecog.maximumNumberOfTouches = 1
-        panOneRecog.delegate = self
-        addGestureRecognizer(panOneRecog)
-        
-        panTwoRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanTwo))
-        panTwoRecog.minimumNumberOfTouches = 2
-        panTwoRecog.maximumNumberOfTouches = 2
-        panTwoRecog.delegate = self
-        addGestureRecognizer(panTwoRecog)
-        
-        panThreeRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanThree))
-        panThreeRecog.minimumNumberOfTouches = 3
-        panThreeRecog.maximumNumberOfTouches = 3
-        panThreeRecog.delegate = self
-        addGestureRecognizer(panThreeRecog)
-        
-        swipeFourLeftRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourLeft))
-        swipeFourLeftRecog.numberOfTouchesRequired = 4
-        swipeFourLeftRecog.direction = .left
-        swipeFourLeftRecog.delegate = self
-        addGestureRecognizer(swipeFourLeftRecog)
-        
-        swipeFourRightRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourRight))
-        swipeFourRightRecog.numberOfTouchesRequired = 4
-        swipeFourRightRecog.direction = .right
-        swipeFourRightRecog.delegate = self
-        addGestureRecognizer(swipeFourRightRecog)
-    }
-    
     @objc private func handleTapOnce(sender: UITapGestureRecognizer) {
         if sender.state == .recognized {
             delegate?.mouseClick()
@@ -184,6 +121,75 @@ class TrackpadInput: UIView, UIGestureRecognizerDelegate {
             delegate?.spaceLeft()
         }
     }
+    
+    // --- TrackpadInput --- //
+    
+    weak var delegate: TrackpadInputDelegate?
+    var slowMoveScale = CGFloat(1)
+    var middleMoveScale = CGFloat(1)
+    var fastMoveScale = CGFloat(1)
+    var slowSpeed = CGFloat(1)
+    var fastSpeed = CGFloat(1)
+    var scrollScale = CGFloat(1)
+    
+    // --- UIView --- //
+    
+    override func layoutSubviews() {
+        if initialized {
+            return
+        }
+        initialized = true
+        
+        tapOnceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapOnce))
+        tapOnceRecog.delegate = self
+        addGestureRecognizer(tapOnceRecog)
+        
+        tapTwiceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwice))
+        tapTwiceRecog.numberOfTapsRequired = 2
+        tapTwiceRecog.delegate = self
+        addGestureRecognizer(tapTwiceRecog)
+        
+        tapThriceRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapThrice))
+        tapThriceRecog.numberOfTapsRequired = 3
+        tapThriceRecog.delegate = self
+        addGestureRecognizer(tapThriceRecog)
+        
+        tapTwoRecog = UITapGestureRecognizer(target: self, action: #selector(handleTapTwo))
+        tapTwoRecog.numberOfTouchesRequired = 2
+        tapTwoRecog.delegate = self
+        addGestureRecognizer(tapTwoRecog)
+        
+        panOneRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanOne))
+        panOneRecog.maximumNumberOfTouches = 1
+        panOneRecog.delegate = self
+        addGestureRecognizer(panOneRecog)
+        
+        panTwoRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanTwo))
+        panTwoRecog.minimumNumberOfTouches = 2
+        panTwoRecog.maximumNumberOfTouches = 2
+        panTwoRecog.delegate = self
+        addGestureRecognizer(panTwoRecog)
+        
+        panThreeRecog = UIPanGestureRecognizer(target: self, action: #selector(handlePanThree))
+        panThreeRecog.minimumNumberOfTouches = 3
+        panThreeRecog.maximumNumberOfTouches = 3
+        panThreeRecog.delegate = self
+        addGestureRecognizer(panThreeRecog)
+        
+        swipeFourLeftRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourLeft))
+        swipeFourLeftRecog.numberOfTouchesRequired = 4
+        swipeFourLeftRecog.direction = .left
+        swipeFourLeftRecog.delegate = self
+        addGestureRecognizer(swipeFourLeftRecog)
+        
+        swipeFourRightRecog = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeFourRight))
+        swipeFourRightRecog.numberOfTouchesRequired = 4
+        swipeFourRightRecog.direction = .right
+        swipeFourRightRecog.delegate = self
+        addGestureRecognizer(swipeFourRightRecog)
+    }
+    
+    // --- UIGestureRecognizerDelegate --- //
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == tapTwoRecog {
