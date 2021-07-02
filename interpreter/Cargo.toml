@@ -8,5 +8,5 @@ homepage = "https://github.com/Kerndog73/The-Fat-Controller"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-tfc = { version = "0.5", path = "../" }
+tfc = { version = "0.6", path = "../" }
 lazy_static = "1.4"

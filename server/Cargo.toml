@@ -2,7 +2,7 @@
 name = "tfc-server"
 description = "A server that facilitates remote control using the TFC library. Repo contains an iOS app."
 keywords = ["keyboard", "mouse", "remote", "control"]
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Kerndog73 <kerndog73@gmail.com>"]
 edition = "2018"
 repository = "https://github.com/Kerndog73/The-Fat-Controller"
@@ -15,7 +15,7 @@ license = "MIT OR Apache-2.0"
 tokio = { version = "1", features = ["rt", "sync", "macros"] }
 tokio-tungstenite = "0"
 futures = "0.3"
-tfc = { version = "0.5", features = ["ascii-fallback", "tokio"], path = "../" }
+tfc = { version = "0.6", features = ["ascii-fallback", "tokio"], path = "../" }
 openssl = "0.10"
 qrcode = { version = "0.12", default-features = false }
 base64 = { version = "0.13", default-features = false }
