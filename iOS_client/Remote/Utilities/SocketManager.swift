@@ -15,6 +15,8 @@ protocol SocketManagerDelegate: AnyObject {
 }
 
 class SocketManager: WebSocketDelegate {
+    public static let keyLength = 16
+    
     private static let retryDelay = 1.0
     private static let tickDelay = 0.05
     private static let maxTickCount = Int(30.0 / tickDelay)
@@ -30,8 +32,8 @@ class SocketManager: WebSocketDelegate {
     private var host = ""
     private var dummyMode = false
     private var lowLatencyMode = true
-    private var secureMode = true
-    private var secureKey: SymmetricKey? = SymmetricKey(data: Data([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]))
+    private var secureMode = false
+    private var secureKey: SymmetricKey? = nil
     
     private func startTicking() {
         if lowLatencyMode {
@@ -153,13 +155,7 @@ class SocketManager: WebSocketDelegate {
     func setSecureMode(enabled: Bool) {
         secureMode = enabled
         secureKey = nil
-        // disconnect
-        // reconnect and specify whether we want encryption or not
-        // if we do, then the server will generate a key and create a QR code
-        // the user will scan the QR code
-        // until the user does that, nothing will happen
-        // upon successfully scanning the QR code, setSecureKey will be called
-        // and we may begin
+        reconnect()
     }
     
     func setSecureKey(key: SymmetricKey) {
@@ -169,12 +165,11 @@ class SocketManager: WebSocketDelegate {
     // --- WebSocketDelegate --- //
     
     func websocketDidConnect(socket: WebSocketClient) {
-        /*socket.write(data:
+        socket.write(data:
             secureMode
             ? SocketManager.encryptionEnabledData
             : SocketManager.encryptionDisabledData
-        )*/
-        socket.write(data: SocketManager.encryptionEnabledData)
+        )
         updateOnlineStatus(online: true)
         tickCount = 0
         startTicking()

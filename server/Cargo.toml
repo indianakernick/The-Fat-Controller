@@ -18,6 +18,7 @@ futures = "0.3"
 tfc = { version = "0.5", features = ["ascii-fallback", "tokio"], path = "../" }
 openssl = "0.10"
 qrcode = { version = "0.12", default-features = false }
+base64 = { version = "0.13", default-features = false }
 
 [profile.release]
 lto = true

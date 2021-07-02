@@ -7,21 +7,34 @@
 //
 
 import UIKit
+import CryptoKit
 
-class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
+class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild, ScannerDelegate {
+    private var socket: SocketManager!
+    private var online = false
+    
+    // --- Interface Builder --- //
+    
     @IBOutlet weak var hostNameField: UITextField!
     @IBOutlet weak var statusCell: UITableViewCell!
     @IBOutlet var statusIndicator: UIActivityIndicatorView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet var lowLatencySwitch: UISwitch!
+    @IBOutlet var secureSwitch: UISwitch!
     
     @IBAction func lowLatencyToggled() {
         Storage.setLowLatencyMode(lowLatencySwitch.isOn)
         socket.setLowLatencyMode(enabled: lowLatencySwitch.isOn)
     }
     
-    private var socket: SocketManager!
-    private var online = false
+    @IBAction func secureToggled() {
+        if secureSwitch.isOn {
+            socket.setSecureMode(enabled: true)
+            performSegue(withIdentifier: "Scan", sender: self)
+        } else {
+            socket.setSecureMode(enabled: false)
+        }
+    }
     
     // --- UIViewController --- //
     
@@ -40,6 +53,14 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let dest = segue.destination as? ScannerVC {
+            dest.delegate = self
+        }
     }
     
     // --- UITextFieldDelegate --- //
@@ -77,5 +98,23 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, NavigationChild {
     
     func setSocket(_ socket: SocketManager) {
         self.socket = socket
+    }
+    
+    // --- ScannerDelegate --- //
+    
+    func scanDidSucceed(key: SymmetricKey) {
+        socket.setSecureKey(key: key)
+    }
+    
+    func scanDidFail() {
+        secureSwitch.setOn(false, animated: true)
+        socket.setSecureMode(enabled: false) // necessary?
+        print("fail")
+        // alert box?
+    }
+    
+    func scanWasCancelled() {
+        secureSwitch.setOn(false, animated: true)
+        socket.setSecureMode(enabled: false) // necessary?
     }
 }

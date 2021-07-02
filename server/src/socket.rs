@@ -10,7 +10,8 @@ use std::{
 
 const KEY_LEN: usize = 16;
 const IV_LEN: usize = 12;
-const TAG_LEN: usize = KEY_LEN;
+const TAG_LEN: usize = 16;
+const BASE64_LEN: usize = KEY_LEN * 4 / 3 + 3;
 
 type EncryptionKey = [u8; KEY_LEN];
 type Receiver = SplitStream<WebSocketStream<TcpStream>>;
@@ -100,16 +101,20 @@ impl SocketContext {
     }
 
     fn generate_encryption_key() -> EncryptionKey {
-        //let mut key = [0; KEY_LEN];
-        //openssl::rand::rand_bytes(&mut key).unwrap();
-        let key = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-
-        let code = QrCode::new(key).unwrap();
+        let mut key = [0; KEY_LEN];
+        let mut base64_key = [0; BASE64_LEN];
+        
+        openssl::rand::rand_bytes(&mut key).unwrap();
+        let len = base64::encode_config_slice(key, base64::STANDARD, &mut base64_key);
+        let code = QrCode::new(&base64_key[..len]).unwrap();
+        
         println!("{}", code.render::<Dense1x2>()
             .dark_color(Dense1x2::Light)
             .light_color(Dense1x2::Dark)
             .build()
         );
+        println!("This is the encryption key.");
+        println!("You might want to press enter a few times to hide this after you scan it.");
 
         key
     }

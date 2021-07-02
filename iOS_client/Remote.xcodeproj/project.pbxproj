@@ -42,6 +42,7 @@
 		C983AB17267876B900437B0C /* ControllersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983AB16267876B900437B0C /* ControllersVC.swift */; };
 		C983AB192678872300437B0C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983AB182678872300437B0C /* Config.swift */; };
 		C9B09FE12689762700944243 /* MultilineTextInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B09FE02689762700944243 /* MultilineTextInputCell.swift */; };
+		C9F6BB8A268E9C0700CE4CD7 /* ScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F6BB89268E9C0700CE4CD7 /* ScannerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +83,7 @@
 		C983AB16267876B900437B0C /* ControllersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllersVC.swift; sourceTree = "<group>"; };
 		C983AB182678872300437B0C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		C9B09FE02689762700944243 /* MultilineTextInputCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextInputCell.swift; sourceTree = "<group>"; };
+		C9F6BB89268E9C0700CE4CD7 /* ScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,11 +146,12 @@
 				4597534B25C794AD00BEED00 /* SlideVC.swift */,
 				4597535325C7C20300BEED00 /* TrackpadVC.swift */,
 				45E31FAD25C8D69D00A4E59D /* TapVC.swift */,
-				457F8B1125CCFD6600CC6148 /* VideoVC.swift */,
-				4578F15A25CBC79500800056 /* SettingsVC.swift */,
 				C94D64112685A87700382806 /* ConfigureTapVC.swift */,
 				C94D64152685B4D400382806 /* EditCommandVC.swift */,
 				C94D64132685B11000382806 /* PickerVC.swift */,
+				457F8B1125CCFD6600CC6148 /* VideoVC.swift */,
+				4578F15A25CBC79500800056 /* SettingsVC.swift */,
+				C9F6BB89268E9C0700CE4CD7 /* ScannerVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				45E31FAE25C8D69D00A4E59D /* TapVC.swift in Sources */,
 				458490DB25C4EF2A0063404D /* ButtonInput.swift in Sources */,
 				458490EA25C677FA0063404D /* NumberPadVC.swift in Sources */,
+				C9F6BB8A268E9C0700CE4CD7 /* ScannerVC.swift in Sources */,
 				452CE26925CA61A7003B1E1D /* Storage.swift in Sources */,
 				C983AB192678872300437B0C /* Config.swift in Sources */,
 				45A3607E25C22C1200DFE76A /* AppDelegate.swift in Sources */,

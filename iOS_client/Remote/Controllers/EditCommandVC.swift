@@ -54,6 +54,25 @@ fileprivate let parameterNames: [[String?]] = [
 ]
 
 class EditCommandVC: UITableViewController {
+    private var command = CommandStruct()
+    private var createMode = false
+    
+    private func getIndex() -> Int {
+        commandCodes.firstIndex(of: command.code)!
+    }
+    
+    private func setIndex(_ index: Int) {
+        command.code = commandCodes[index]
+    }
+    
+    private func getTextInputCell(mode: TextInputCell.Mode, indexPath: IndexPath) -> TextInputCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TextInput", for: indexPath) as! TextInputCell
+        cell.setMode(mode)
+        return cell
+    }
+    
+    // --- Interface Builder --- //
+    
     @IBAction func cancelPressed(_ sender: Any) {
         if createMode {
             dismiss(animated: true, completion: nil)
@@ -70,23 +89,6 @@ class EditCommandVC: UITableViewController {
         } else {
             navigationController?.popViewController(animated: true)
         }
-    }
-    
-    private var command = CommandStruct()
-    private var createMode = false
-    
-    private func getIndex() -> Int {
-        commandCodes.firstIndex(of: command.code)!
-    }
-    
-    private func setIndex(_ index: Int) {
-        command.code = commandCodes[index]
-    }
-    
-    private func getTextInputCell(mode: TextInputCell.Mode, indexPath: IndexPath) -> TextInputCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextInput", for: indexPath) as! TextInputCell
-        cell.setMode(mode)
-        return cell
     }
     
     // --- EditCommandVC --- //
