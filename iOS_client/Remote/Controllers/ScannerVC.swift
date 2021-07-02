@@ -13,6 +13,8 @@ import AVFoundation
 // https://www.hackingwithswift.com/example-code/media/how-to-scan-a-qr-code
 
 class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    private static let prefix = "tfc:"
+    
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     
@@ -110,8 +112,10 @@ class ScannerVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         for metadataObject in metadataObjects {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { continue }
-            guard let stringValue = readableObject.stringValue else { continue }
-            guard let decodedData = Data(base64Encoded: stringValue) else { continue }
+            guard var string = readableObject.stringValue else { continue }
+            if !string.hasPrefix(ScannerVC.prefix) { continue }
+            string.removeFirst(ScannerVC.prefix.count)
+            guard let decodedData = Data(base64Encoded: string) else { continue }
             if decodedData.count != SocketManager.keyLength { continue }
             
             captureSession.stopRunning()

@@ -585,6 +585,7 @@ dependencies = [
 name = "tfc-server"
 version = "0.5.0"
 dependencies = [
+ "base64",
  "futures",
  "openssl",
  "qrcode",

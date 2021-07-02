@@ -1,30 +1,13 @@
 ## Security
 
-Currently, the only form of security is only allowing one client to connect to
-the server. We could have the client and server maintain random number
-generators and send a random number with each message. The message would have to
-match the number from the server for the server to accept the message.
-
-This would involve establishing a shared secret. The server would need to
-generate the seed and let the user transfer this to their phone. Perhaps using
-a QR code.
-
-Something like this could also be used for encryption. The sequence of random
-numbers could be used as the key for an XOR stream cipher.
+Encryption has been implemented but the user has to scan a code every time they
+connect. This could get annoying. Perhaps we can store the encryption key and
+only make the user scan after some time has passed (e.g. a week).
 
 ## Tap controller expansion
 
-Allowing the tap controller to access all commands could be interesting. Moving
-the mouse around and clicking things at the tap of a button would be pretty
-cool. I'm not sure exactly what it could be used for though. Doing this would
-require reworking to configuration screen.
-
-If this was to be implemented, then it would make sense to be able to save and
-load multiple configurations. This would be a big overhaul of the configuration
-page.
-
-[This](https://stackoverflow.com/questions/2855857/how-to-display-multiple-columns-in-a-uitableview)
-might be helpful.
+The tap controller can access basically everything, but it's not possible to
+save multiple configurations and switch between them.
 
 ## Running the server
 

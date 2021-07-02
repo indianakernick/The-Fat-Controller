@@ -133,7 +133,7 @@ impl Command {
     ///     Command::UnicodeString("🤪".to_owned()),
     /// ];
     ///
-    /// let total_size = commands.iter().fold(0, |s, c| s + c.bytes_len());
+    /// let total_size = commands.iter().map(|c| c.bytes_len()).sum();
     /// let mut byte_vec = vec![0; total_size];
     /// let mut byte_slice = byte_vec.as_mut_slice();
     ///

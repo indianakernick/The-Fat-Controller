@@ -8,10 +8,12 @@ use std::{
     sync::{Arc, atomic::{AtomicBool, Ordering}}
 };
 
+const BASE64_PREFIX_LEN: usize = 4;
+const BASE64_PREFIX: [u8; BASE64_PREFIX_LEN] = *b"tfc:";
 const KEY_LEN: usize = 16;
 const IV_LEN: usize = 12;
 const TAG_LEN: usize = 16;
-const BASE64_LEN: usize = KEY_LEN * 4 / 3 + 3;
+const BASE64_LEN: usize = BASE64_PREFIX_LEN + KEY_LEN * 4 / 3 + 3;
 
 type EncryptionKey = [u8; KEY_LEN];
 type Receiver = SplitStream<WebSocketStream<TcpStream>>;
@@ -103,10 +105,13 @@ impl SocketContext {
     fn generate_encryption_key() -> EncryptionKey {
         let mut key = [0; KEY_LEN];
         let mut base64_key = [0; BASE64_LEN];
-        
+
+        base64_key[..BASE64_PREFIX_LEN].copy_from_slice(&BASE64_PREFIX);
         openssl::rand::rand_bytes(&mut key).unwrap();
-        let len = base64::encode_config_slice(key, base64::STANDARD, &mut base64_key);
-        let code = QrCode::new(&base64_key[..len]).unwrap();
+        let len = base64::encode_config_slice(
+            key, base64::STANDARD, &mut base64_key[BASE64_PREFIX_LEN..]
+        );
+        let code = QrCode::new(&base64_key[..BASE64_PREFIX_LEN + len]).unwrap();
         
         println!("{}", code.render::<Dense1x2>()
             .dark_color(Dense1x2::Light)
