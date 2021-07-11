@@ -120,6 +120,7 @@ struct CommandStruct {
                 return string
             default:
                 assert(false)
+                return ""
             }
         }
     }
@@ -169,6 +170,7 @@ struct CommandStruct {
                 return CommandData.unicodeString(string)
             default:
                 assert(false)
+                return Data()
             }
         }
     }

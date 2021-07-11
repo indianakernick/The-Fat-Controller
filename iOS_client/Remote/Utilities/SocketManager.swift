@@ -6,9 +6,9 @@
 //  Copyright © 2021 Indiana Kernick. All rights reserved.
 //
 
+import CryptoKit
 import Foundation
 import Starscream
-import CryptoKit
 
 protocol SocketManagerDelegate: AnyObject {
     func socketStatusChanged(_ status: SocketStatus)

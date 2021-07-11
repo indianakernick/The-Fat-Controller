@@ -224,6 +224,7 @@ class EditCommandVC: UITableViewController {
         
         default:
             assert(false)
+            return UITableViewCell()
         }
     }
     
