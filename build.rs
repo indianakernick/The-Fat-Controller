@@ -1,9 +1,34 @@
+use std::process::Command;
+
 fn main() {
-    // https://stackoverflow.com/a/45537237/4093378
-    if std::env::var("DISPLAY").is_ok() {
+    // Default to /dev/uinput on linux unless X11 is found
+    if linux_session_type()
+        .and_then(|x| Ok(x.contains("x11")))
+        .unwrap_or(false)
+    {
         println!("cargo:rustc-cfg=x11");
     }
+}
 
-    // There's an alternative that's more robust but also more complicated.
+fn linux_session_type() -> Result<String, Box<dyn std::error::Error>> {
+    // Really rough implementation of this:
     // https://unix.stackexchange.com/a/325972/356153
+    let output = Command::new("loginctl").output()?;
+    let user = std::env::var("USER")?;
+    let session = std::str::from_utf8(&output.stdout)?
+        .lines()
+        .filter(|x| x.contains(&user))
+        .next()
+        .unwrap_or("")
+        .trim()
+        .split(" ")
+        .next()
+        .unwrap_or("");
+    let output = Command::new("loginctl")
+        .arg("show-session")
+        .arg(session)
+        .arg("-p")
+        .arg("Type")
+        .output()?;
+    Ok(std::str::from_utf8(&output.stdout)?.to_string())
 }
