@@ -3,7 +3,7 @@ use std::process::Command;
 fn main() {
     // Default to /dev/uinput on linux unless X11 is found
     if linux_session_type()
-        .and_then(|x| Ok(x.contains("x11")))
+        .map(|x| x.contains("x11"))
         .unwrap_or(false)
     {
         println!("cargo:rustc-cfg=x11");
@@ -17,11 +17,10 @@ fn linux_session_type() -> Result<String, Box<dyn std::error::Error>> {
     let user = std::env::var("USER")?;
     let session = std::str::from_utf8(&output.stdout)?
         .lines()
-        .filter(|x| x.contains(&user))
-        .next()
+        .find(|x| x.contains(&user))
         .unwrap_or("")
         .trim()
-        .split(" ")
+        .split(' ')
         .next()
         .unwrap_or("");
     let output = Command::new("loginctl")

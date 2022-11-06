@@ -68,8 +68,8 @@ impl Command {
             UnicodeCharUp(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeChar(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeString(_) => panic!("UnicodeKeyboardContext is not implemented"),
-            _ => return Ok(false)
-        };
+            _ => Ok(false)
+        }
     }
 
     /// Execute a [`Command`] by calling the corresponding method on
