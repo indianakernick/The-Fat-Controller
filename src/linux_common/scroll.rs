@@ -1,14 +1,9 @@
 const THRESHOLD: i32 = 120;
 
+#[derive(Default)]
 pub struct ScrollAccum {
     x: i32,
     y: i32,
-}
-
-impl Default for ScrollAccum {
-    fn default() -> Self {
-        Self { x: 0, y: 0 }
-    }
 }
 
 impl ScrollAccum {

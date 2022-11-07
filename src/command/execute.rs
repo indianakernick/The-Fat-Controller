@@ -91,7 +91,10 @@ impl Command {
 
         use Command::*;
         match self {
-            Delay(millis) => Ok(thread::sleep(Duration::from_millis(*millis as u64))),
+            Delay(millis) => {
+                thread::sleep(Duration::from_millis(*millis as u64));
+                Ok(())
+            }
             _ => std::unreachable!()
         }
     }
@@ -118,7 +121,10 @@ impl Command {
 
         use Command::*;
         match self {
-            Delay(millis) => Ok(tokio::time::sleep(Duration::from_millis(*millis as u64)).await),
+            Delay(millis) => {
+                tokio::time::sleep(Duration::from_millis(*millis as u64)).await;
+                Ok(())
+            }
             _ => std::unreachable!()
         }
     }
@@ -142,7 +148,10 @@ impl Command {
 
         use Command::*;
         match self {
-            Delay(millis) => Ok(thread::sleep(Duration::from_millis(*millis as u64))),
+            Delay(millis) => {
+                thread::sleep(Duration::from_millis(*millis as u64));
+                Ok(())
+            }
             _ => std::unreachable!()
         }
     }
@@ -167,7 +176,10 @@ impl Command {
 
         use Command::*;
         match self {
-            Delay(millis) => Ok(tokio::time::sleep(Duration::from_millis(*millis as u64)).await),
+            Delay(millis) => {
+                tokio::time::sleep(Duration::from_millis(*millis as u64)).await;
+                Ok(())
+            }
             _ => std::unreachable!()
         }
     }

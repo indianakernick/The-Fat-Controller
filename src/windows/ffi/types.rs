@@ -1,3 +1,5 @@
+#![allow(clippy::upper_case_acronyms)]
+
 // https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types
 
 use std::ffi::c_void;

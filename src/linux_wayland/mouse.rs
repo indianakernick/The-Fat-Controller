@@ -7,7 +7,7 @@ fn button_event(ctx: &Context, button: MouseButton, down: bool) -> Result<(), Er
         MouseButton::Right => ffi::BTN_RIGHT,
         MouseButton::Middle => ffi::BTN_MIDDLE,
     };
-    ctx.write(ffi::EV_KEY, key, if down { 1 } else { 0 })?;
+    ctx.write(ffi::EV_KEY, key, i32::from(down))?;
     ctx.write_syn_report()
 }
 

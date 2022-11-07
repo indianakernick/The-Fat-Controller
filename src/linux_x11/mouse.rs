@@ -1,5 +1,5 @@
 use crate::MouseButton;
-use std::os::raw::{c_uint, c_int};
+use std::{cmp::Ordering, os::raw::{c_uint, c_int}};
 use super::{ffi, Context, Error, PlatformError};
 
 fn to_button(button: MouseButton) -> c_uint {
@@ -63,16 +63,16 @@ impl crate::MouseContext for Context {
 
     fn mouse_scroll(&mut self, dx: i32, dy: i32) -> Result<(), Error> {
         let delta = self.scroll.accumulate(dx, dy);
-        if dx < 0 {
-            repeat_button_event(self, -delta.0, 6)?;
-        } else if dx > 0 {
-            repeat_button_event(self, delta.0, 7)?;
-        }
-        if dy < 0 {
-            repeat_button_event(self, -delta.1, 4)?;
-        } else if dy > 0 {
-            repeat_button_event(self, delta.1, 5)?;
-        }
+        match dx.cmp(&0) {
+            Ordering::Less => repeat_button_event(self, -delta.0, 6)?,
+            Ordering::Greater => repeat_button_event(self, delta.0, 7)?,
+            _ => ()
+        };
+        match dy.cmp(&0) {
+            Ordering::Less => repeat_button_event(self, -delta.1, 4)?,
+            Ordering::Greater => repeat_button_event(self, delta.1, 5)?,
+            _ => ()
+        };
         Ok(())
     }
 

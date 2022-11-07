@@ -1,3 +1,5 @@
+#![allow(clippy::upper_case_acronyms)]
+
 // Winuser.h
 
 use super::types::*;

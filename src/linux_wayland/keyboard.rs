@@ -2,7 +2,7 @@ use crate::{Key, linux_common};
 use super::{ffi, Context, Error};
 
 fn key_event(ctx: &Context, key: Key, down: bool) -> Result<(), Error> {
-    ctx.write(ffi::EV_KEY, linux_common::to_key_code(key), if down { 1 } else { 0 })?;
+    ctx.write(ffi::EV_KEY, linux_common::to_key_code(key), i32::from(down))?;
     ctx.write_syn_report()
 }
 
@@ -17,7 +17,7 @@ impl crate::KeyboardContext for Context {
 }
 
 #[cfg(feature = "ascii-fallback")]
-use crate::{GenericError, FallibleContext, AsciiKeyboardContext};
+use crate::{GenericError, AsciiKeyboardContext};
 
 #[cfg(feature = "ascii-fallback")]
 impl crate::UnicodeKeyboardContext for Context {

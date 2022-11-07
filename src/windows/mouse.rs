@@ -1,3 +1,5 @@
+#![allow(clippy::field_reassign_with_default)]
+
 use super::{ffi, Context, Error};
 use crate::{MouseButton, ScreenContext};
 

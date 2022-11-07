@@ -4,6 +4,7 @@
 use std::ffi::c_void;
 use std::os::raw::{c_int, c_uint, c_ulong};
 
+#[allow(clippy::upper_case_acronyms)]
 type XID = c_ulong;
 
 #[derive(Eq, PartialEq, Clone, Copy)]
@@ -76,7 +77,7 @@ extern {
         win_y_return: *mut c_int,
         mask_return: *mut c_uint,
     ) -> Bool;
-    
+
     // https://www.x.org/releases/X11R7.5/doc/man/man3/XWarpPointer.3.html
     pub fn XWarpPointer(
         display: *mut Display,
@@ -89,10 +90,10 @@ extern {
         dest_x: c_int,
         dest_y: c_int,
     ) -> c_int;
-    
+
     // https://www.x.org/releases/X11R7.5/doc/man/man3/XSync.3.html
     pub fn XSync(display: *mut Display, discard: Bool) -> c_int;
-    
+
     // https://www.x.org/releases/current/doc/man/man3/XFlush.3.xhtml
     pub fn XFlush(display: *mut Display) -> c_int;
 

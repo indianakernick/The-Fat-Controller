@@ -1,3 +1,5 @@
+#![allow(clippy::field_reassign_with_default)]
+
 use crate::Key;
 use super::{ffi, Context, Error};
 

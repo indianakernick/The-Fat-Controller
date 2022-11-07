@@ -27,7 +27,7 @@ impl Display for PlatformError {
                 std::ptr::null(),
                 self.0.get(),
                 0,
-                std::mem::transmute(&message_buffer),
+                std::ptr::addr_of!(message_buffer) as *mut ffi::WCHAR,
                 0,
                 std::ptr::null_mut()
             );

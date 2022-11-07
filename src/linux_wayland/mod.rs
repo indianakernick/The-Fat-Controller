@@ -98,7 +98,9 @@ impl Context {
             value,
         };
         let size = std::mem::size_of::<ffi::input_event>();
-        let written = unsafe { ffi::write(self.file, std::mem::transmute(&event), size) };
+        let written = unsafe {
+            ffi::write(self.file, std::ptr::addr_of!(event) as *const _, size)
+        };
         if written == -1 {
             Err(Error::Platform(PlatformError::errno()))
         } else if written != size as isize {
