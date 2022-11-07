@@ -1,6 +1,6 @@
 // https://github.com/torvalds/linux/blob/master/include/uapi/asm-generic/ioctl.h
 
-use std::os::raw::c_int;
+use std::ffi::c_int;
 
 const _IOC_NRBITS: u32 = 8;
 const _IOC_TYPEBITS: u32 = 8;

@@ -20,7 +20,7 @@ type Error = crate::GenericError<PlatformError>;
 /// implementation of [`UnicodeKeyboardContext`](crate::UnicodeKeyboardContext)
 /// that uses [`AsciiKeyboardContext`](crate::AsciiKeyboardContext).
 pub struct Context {
-    file: std::os::raw::c_int,
+    file: std::ffi::c_int,
     scroll: crate::linux_common::ScrollAccum,
 }
 
@@ -41,7 +41,7 @@ impl Context {
 
         for k in 0..crate::Key::COUNT {
             let key = unsafe { std::mem::transmute(k) };
-            let key_code = crate::linux_common::to_key_code(key) as std::os::raw::c_int;
+            let key_code = crate::linux_common::to_key_code(key) as std::ffi::c_int;
             ctx.ioctl(ffi::UI_SET_KEYBIT, key_code)?;
         }
 

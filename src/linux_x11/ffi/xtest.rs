@@ -2,7 +2,7 @@
 // https://www.x.org/releases/X11R7.7/doc/libXtst/xtestlib.html
 
 use super::{Display, Bool};
-use std::os::raw::{c_int, c_uint, c_ulong};
+use std::ffi::{c_int, c_uint, c_ulong};
 
 #[allow(non_upper_case_globals)]
 pub const CurrentTime: c_ulong = 0;

@@ -1,5 +1,5 @@
 use std::ffi::c_void;
-use std::os::raw::{c_int, c_uint, c_ushort};
+use std::ffi::{c_int, c_uint, c_ushort};
 use super::{Bool, Atom, Display, KeyCode, KeySym};
 
 // X11/extensions/XKB.h

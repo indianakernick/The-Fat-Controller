@@ -1,8 +1,7 @@
 // X11/XLib.h
 // https://github.com/mirror/libX11/blob/master/include/X11/Xlib.h
 
-use std::ffi::c_void;
-use std::os::raw::{c_int, c_uint, c_ulong};
+use std::ffi::{c_int, c_uint, c_ulong, c_void};
 
 #[allow(clippy::upper_case_acronyms)]
 type XID = c_ulong;

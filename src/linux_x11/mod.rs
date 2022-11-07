@@ -24,7 +24,7 @@ struct KeyInfo {
 /// The most useful methods are on the [`traits`](crate::traits).
 pub struct Context {
     display: *mut ffi::Display,
-    screen_number: std::os::raw::c_int,
+    screen_number: std::ffi::c_int,
     scroll: crate::linux_common::ScrollAccum,
     key_map: std::collections::HashMap<char, KeyInfo>,
     unused_keycode: ffi::KeyCode,
@@ -62,7 +62,7 @@ unsafe fn find_unused_key_code(
     let keysyms = ffi::XGetKeyboardMapping(
         display,
         min_keycode,
-        keycode_count as std::os::raw::c_int,
+        keycode_count as std::ffi::c_int,
         &mut keysyms_per_keycode,
     );
     if keysyms.is_null() {
@@ -108,7 +108,7 @@ unsafe fn create_key_map(
     // key state identify a single keysym.
     // See https://tronche.com/gui/x/xlib/input/keyboard-encoding.html
 
-    use std::os::raw::c_uint;
+    use std::ffi::c_uint;
     use std::collections::hash_map::{HashMap, Entry};
 
     let desc = ffi::XkbGetMap(display, ffi::XkbAllClientInfoMask, ffi::XkbUseCoreKbd);
@@ -225,7 +225,7 @@ impl Drop for Context {
         unsafe {
             ffi::XChangeKeyboardMapping(
                 self.display,
-                self.unused_keycode as std::os::raw::c_int,
+                self.unused_keycode as std::ffi::c_int,
                 1,
                 &0,
                 1,

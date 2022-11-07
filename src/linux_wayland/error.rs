@@ -1,4 +1,4 @@
-use std::os::raw::c_int;
+use std::ffi::c_int;
 use super::{ffi, Context};
 use std::fmt::{self, Display, Formatter};
 use crate::{FallibleContext, utils::NonZero};

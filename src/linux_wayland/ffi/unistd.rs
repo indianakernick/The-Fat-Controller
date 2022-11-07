@@ -1,7 +1,6 @@
 // unistd.h
 
-use std::ffi::c_void;
-use std::os::raw::c_int;
+use std::ffi::{c_int, c_void};
 
 extern {
     // https://man7.org/linux/man-pages/man2/close.2.html

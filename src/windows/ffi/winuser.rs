@@ -3,7 +3,7 @@
 // Winuser.h
 
 use super::types::*;
-use std::os::raw::c_int;
+use std::ffi::c_int;
 
 // https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-mouseinput
 #[repr(C)]

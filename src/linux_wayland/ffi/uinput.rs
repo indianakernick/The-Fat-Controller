@@ -1,6 +1,6 @@
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/uinput.h
 
-use std::os::raw::c_int;
+use std::ffi::c_int;
 use super::{input_id, _IO, _IOW};
 
 const UINPUT_MAX_NAME_SIZE: usize = 80;
