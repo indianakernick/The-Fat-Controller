@@ -1,5 +1,6 @@
 /target
 /target-linux
+/target-windows
 /server/target
 /generator/target
 /interpreter/target
