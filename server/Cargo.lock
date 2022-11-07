@@ -574,7 +574,7 @@ dependencies = [
 
 [[package]]
 name = "tfc"
-version = "0.6.1"
+version = "0.6.2"
 dependencies = [
  "core-graphics",
  "tokio",
@@ -583,7 +583,7 @@ dependencies = [
 
 [[package]]
 name = "tfc-server"
-version = "0.6.0"
+version = "0.6.2"
 dependencies = [
  "base64",
  "futures",

@@ -2,7 +2,7 @@
 name = "tfc-server"
 description = "A server that facilitates remote control using the TFC library. Repo contains an iOS app."
 keywords = ["keyboard", "mouse", "remote", "control"]
-version = "0.6.0"
+version = "0.6.2"
 authors = ["Indiana Kernick <indiana.kernick@gmail.com>"]
 edition = "2021"
 repository = "https://github.com/indianakernick/The-Fat-Controller"
