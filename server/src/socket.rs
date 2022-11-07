@@ -72,7 +72,7 @@ impl SocketContext {
             match flag {
                 Ok(f) => {
                     let flag = Self::parse_flag(f);
-                    if !flag.is_some() {
+                    if flag.is_none() {
                         eprintln!("Invalid encryption flag");
                     }
                     flag
@@ -112,7 +112,7 @@ impl SocketContext {
             key, base64::STANDARD, &mut base64_key[BASE64_PREFIX_LEN..]
         );
         let code = QrCode::new(&base64_key[..BASE64_PREFIX_LEN + len]).unwrap();
-        
+
         println!("{}", code.render::<Dense1x2>()
             .dark_color(Dense1x2::Light)
             .light_color(Dense1x2::Dark)
