@@ -1,11 +1,12 @@
-mod ffi;
 mod error;
+mod ffi;
 mod keyboard;
 mod mouse;
 
 // The implementation of this module is adapted from here:
 // https://www.kernel.org/doc/html/latest/input/uinput.html
 
+use crate::r#enum::Enum;
 use error::PlatformError;
 type Error = crate::GenericError<PlatformError>;
 
@@ -25,14 +26,15 @@ pub struct Context {
 
 impl Context {
     pub fn new() -> Result<Self, Error> {
-        let file = unsafe {
-            ffi::open(b"/dev/uinput\0".as_ptr(), ffi::O_WRONLY | ffi::O_NONBLOCK)
-        };
+        let file = unsafe { ffi::open(b"/dev/uinput\0".as_ptr(), ffi::O_WRONLY | ffi::O_NONBLOCK) };
         if file == -1 {
-            return Err(Error::Platform(PlatformError::errno()))
+            return Err(Error::Platform(PlatformError::errno()));
         }
 
-        let ctx = Self { file, scroll: Default::default() };
+        let ctx = Self {
+            file,
+            scroll: Default::default(),
+        };
 
         ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_KEY)?;
         ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_REL)?;
@@ -96,9 +98,7 @@ impl Context {
             value,
         };
         let size = std::mem::size_of::<ffi::input_event>();
-        let written = unsafe {
-            ffi::write(self.file, std::mem::transmute(&event), size)
-        };
+        let written = unsafe { ffi::write(self.file, std::mem::transmute(&event), size) };
         if written == -1 {
             Err(Error::Platform(PlatformError::errno()))
         } else if written != size as isize {

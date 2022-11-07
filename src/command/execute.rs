@@ -55,7 +55,7 @@ impl Command {
         target_os = "linux",
         not(x11)
     ))]
-    pub fn execute_unicode<C>(&self, ctx: &mut C) -> Result<(), GenericError<C::PlatformError>>
+    pub fn execute_unicode<C>(&self, ctx: &mut C) -> Result<bool, GenericError<C::PlatformError>>
         where C: FallibleContext + KeyboardContext + MouseContext + AsciiKeyboardContext
     {
         if self.execute_core(ctx)? {
@@ -68,10 +68,8 @@ impl Command {
             UnicodeCharUp(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeChar(_) => panic!("UnicodeKeyboardContext is not implemented"),
             UnicodeString(_) => panic!("UnicodeKeyboardContext is not implemented"),
-            _ => return Ok(false)
-        }?;
-
-        Ok(true)
+            _ => Ok(false)
+        }
     }
 
     /// Execute a [`Command`] by calling the corresponding method on
