@@ -18,6 +18,7 @@ enumeration!(Key, "A keyboard key used by the [`KeyboardContext`](crate::Keyboar
     (Escape, "Escape"),
     (DeleteOrBackspace, "Delete or Backspace"),
     (ForwardDelete, "Forward Delete"),
+    (Insert, "Insert"),
     (Tab, "Tab"),
     (Space, "Space"),
     (Minus, "Minus"),

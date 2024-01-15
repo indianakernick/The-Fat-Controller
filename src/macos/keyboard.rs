@@ -41,6 +41,7 @@ fn to_key_code(key: Key) -> GroupedKey {
         Escape => Regular(kVK_Escape),
         DeleteOrBackspace => Regular(kVK_Delete),
         ForwardDelete => Regular(kVK_ForwardDelete),
+        Insert => Regular(0xFF),
         Tab => Regular(kVK_Tab),
         Space => Regular(kVK_Space),
         Minus => Regular(kVK_ANSI_Minus),

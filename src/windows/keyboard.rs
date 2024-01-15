@@ -6,6 +6,7 @@ use super::{ffi, Context, Error};
 fn to_key_code(key: Key) -> ffi::WORD {
     use Key::*;
     use ffi::*;
+
     match key {
         CapsLock => VK_CAPITAL,
         Shift => VK_LSHIFT,
@@ -23,6 +24,7 @@ fn to_key_code(key: Key) -> ffi::WORD {
         Escape => VK_ESCAPE,
         DeleteOrBackspace => VK_BACK,
         ForwardDelete => VK_DELETE,
+        Insert => VK_INSERT,
         Tab => VK_TAB,
         Space => VK_SPACE,
         Minus => VK_OEM_MINUS,

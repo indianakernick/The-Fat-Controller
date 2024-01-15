@@ -3,6 +3,7 @@ use crate::Key;
 pub fn to_key_code(key: Key) -> u16 {
     use Key::*;
     use super::ffi::*;
+
     match key {
         CapsLock => KEY_CAPSLOCK,
         Shift => KEY_LEFTSHIFT,
@@ -18,6 +19,7 @@ pub fn to_key_code(key: Key) -> u16 {
         Escape => KEY_ESC,
         DeleteOrBackspace => KEY_BACKSPACE,
         ForwardDelete => KEY_DELETE,
+        Insert => KEY_INSERT,
         Tab => KEY_TAB,
         Space => KEY_SPACE,
         Minus => KEY_MINUS,
