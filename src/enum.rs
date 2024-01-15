@@ -146,7 +146,7 @@ macro_rules! enumeration {
         }
 
         impl std::fmt::Display for $name {
-            fn fmt<'a>(&self, f: &mut std::fmt::Formatter<'a>) -> std::fmt::Result {
+            fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
                 f.write_str(self.display_name())
             }
         }
