@@ -42,6 +42,11 @@ only on the Linux kernel. The implementation that doesn't use X11 is missing
 some features. It is intended for Wayland but Wayland is a bit more locked down
 compared to X11, hence the missing features.
 
+By default (with the `check-x11` feature enabled), build-time detection of X11
+will be performed to determine which implementation to use. Disabling default
+features will disable this check and the Wayland implementation will be used
+unconditionally. The `x11` feature can be used to choose the X11 implementation unconditionally.
+
 ### With X11
 
 Before using the X11 implementation, the X11, XTest and xkbcommon development
@@ -59,7 +64,7 @@ device. To grant permissions temporarily (until the next reboot), use the
 following snippet.
 
 ```shell
-chmod +0666 /dev/uinput
+sudo chmod +0666 /dev/uinput
 ```
 
 To grant permissions permanently, use the following snippet.
