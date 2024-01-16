@@ -5,4 +5,4 @@ authors = ["Indiana Kernick <indiana.kernick@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-tfc = { version = "0.6", path = "../" }
+tfc = { version = "0.7", path = "../" }

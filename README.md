@@ -32,7 +32,7 @@ Add the following to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-tfc = "0.6"
+tfc = "0.7"
 ```
 
 ## Linux

@@ -17,6 +17,7 @@ enum Key: UInt8, CaseIterable {
     case escape
     case deleteOrBackspace
     case forwardDelete
+    case insert
     case tab
     case space
     case minus
@@ -131,6 +132,7 @@ extension Key: CustomStringConvertible {
             case .escape: return "Escape"
             case .deleteOrBackspace: return "Delete or Backspace"
             case .forwardDelete: return "Forward Delete"
+            case .insert: return "Insert"
             case .tab: return "Tab"
             case .space: return "Space"
             case .minus: return "Minus"

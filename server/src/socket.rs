@@ -1,3 +1,4 @@
+use base64::Engine;
 use openssl::symm::{self, Cipher};
 use tokio::{sync::mpsc, net::TcpStream};
 use futures::{stream::SplitStream, StreamExt};
@@ -108,9 +109,9 @@ impl SocketContext {
 
         base64_key[..BASE64_PREFIX_LEN].copy_from_slice(&BASE64_PREFIX);
         openssl::rand::rand_bytes(&mut key).unwrap();
-        let len = base64::encode_config_slice(
-            key, base64::STANDARD, &mut base64_key[BASE64_PREFIX_LEN..]
-        );
+        let len = base64::engine::general_purpose::STANDARD.encode_slice(
+            key, &mut base64_key[BASE64_PREFIX_LEN..]
+        ).unwrap();
         let code = QrCode::new(&base64_key[..BASE64_PREFIX_LEN + len]).unwrap();
 
         println!("{}", code.render::<Dense1x2>()
