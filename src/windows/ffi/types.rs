@@ -25,7 +25,7 @@ pub type BOOL = i32;
 
 // BaseTsd.h
 #[allow(non_camel_case_types)]
-pub type ULONG_PTR = u64;
+pub type ULONG_PTR = usize;
 
 // Not sure where this is defined
 

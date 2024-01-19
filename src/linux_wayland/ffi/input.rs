@@ -3,9 +3,8 @@
 #[repr(C)]
 #[allow(non_camel_case_types)]
 pub struct timeval {
-    // Not quite sure if these should be 32 or 64
-    pub tv_sec: i64,
-    pub tv_usec: i64,
+    pub tv_sec: isize,
+    pub tv_usec: isize,
 }
 
 #[repr(C)]
