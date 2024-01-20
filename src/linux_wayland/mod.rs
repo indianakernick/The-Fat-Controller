@@ -39,8 +39,7 @@ impl Context {
         ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_KEY)?;
         ctx.ioctl(ffi::UI_SET_EVBIT, ffi::EV_REL)?;
 
-        for k in 0..crate::Key::COUNT {
-            let key = unsafe { std::mem::transmute(k) };
+        for key in crate::Key::iter() {
             let key_code = crate::linux_common::to_key_code(key) as std::ffi::c_int;
             ctx.ioctl(ffi::UI_SET_KEYBIT, key_code)?;
         }

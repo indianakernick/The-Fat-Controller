@@ -223,6 +223,8 @@ fn apply<C>(ctx: &mut C, key_shift: KeyShift) -> Result<(), GenericError<C::Plat
     if key_shift.shift() {
         ctx.key_down(Key::Shift)?;
         ctx.key_click(key_shift.key())?;
+        // Necessary for linux_wayland.
+        std::thread::sleep(std::time::Duration::from_millis(10));
         ctx.key_up(Key::Shift)
     } else {
         ctx.key_click(key_shift.key())
@@ -248,6 +250,8 @@ impl<C: KeyboardContext + FallibleContext> AsciiKeyboardContext for C {
         }
         self.key_up(key_shift.key())?;
         if key_shift.shift() {
+            // Necessary for linux_wayland.
+            std::thread::sleep(std::time::Duration::from_millis(10));
             self.key_up(Key::Shift)
         } else {
             Ok(())
