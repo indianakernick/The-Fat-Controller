@@ -1,10 +1,12 @@
 // https://github.com/torvalds/linux/blob/master/include/uapi/linux/input.h
 
+use std::ffi::c_long;
+
 #[repr(C)]
 #[allow(non_camel_case_types)]
 pub struct timeval {
-    pub tv_sec: isize,
-    pub tv_usec: isize,
+    pub tv_sec: c_long,
+    pub tv_usec: c_long,
 }
 
 #[repr(C)]
